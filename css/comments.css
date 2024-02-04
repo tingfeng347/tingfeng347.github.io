@@ -1,0 +1,121 @@
+.vinput {
+  color: var(--post-text-color);
+  font-size: 1rem;
+}
+
+.vpower, .txt-right {
+  display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: fangsong;
+}
+
+.page-header {
+  font-family: fangsong;
+}
+
+.navbar-brand strong {
+  font-family: fangsong;
+}
+
+.vcontent, .vcontent p {
+  background: #95ec69;
+  color: #000 !important;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.vcontent {
+  filter: drop-shadow(-2px 3px 5px #999);
+}
+
+img.vimg {
+  position: relative;
+  top: 1.5rem;
+  border: none !important;
+}
+
+.vcontent::before {
+  content: '';
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  width: 0;
+  height: 0;
+  background: #0000;
+  left: -13px;
+  top: 1.5rem;
+  border-left: 0;
+  border-bottom: 10px solid #00000000;
+  border-top: 10px solid #00000000;
+  border-right: 10px solid #95ec69;
+}
+
+.vcontent a {
+  color: #4666ff !important;
+}
+
+.v[data-class="v"] .vcards .vcard .vcontent.expand::before {
+  display: none !important;
+}
+
+.vcontent.expand::after {
+  background-color: #ffffff80;
+  backdrop-filter: blur(1px);
+}
+
+.vh {
+  overflow: visible !important;
+  margin-bottom: 2rem;
+}
+
+.vcontent {
+  margin-left: 4rem;
+  margin-right: 1em;
+}
+
+span.vat {
+  position: relative;
+  display: block;
+  border: 1px solid;
+  margin: 2rem;
+  padding: 0 10px;
+  background: #ffffff;
+  z-index: 999;
+  border-radius: 2px;
+}
+
+.vh span {
+  color: #000 !important;
+}
+
+.vsys {
+  display: none !important;
+}
+
+.vnick {
+  color: #0075ff !important;
+  font-weight: 600 !important;
+}
+
+[data-user-color-scheme='dark'] .vnick {color: #ca59ff !important;}
+
+span.vtime {
+  position: absolute;
+  left: 50%;
+  z-index: 999;
+}
+
+.vcontent {
+  margin-bottom: 2rem !important;
+}
+
+.vquote {
+  margin-left: 2em;
+  border: none !important;
+}
+
+.vhead {
+  position: absolute;
+}

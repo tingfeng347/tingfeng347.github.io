@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python实训一、项目目的与意义 二、项目的内容与操作环境 三、项目实施过程 四、项目分工与完成情况 五、项目总结及收获 一、项目目的与意义 数据采集课程设计是计算机科学与技术专业的一门专业课程，涉及python编程、数据库技术等课程。课程设计的目的是使学生掌握数据采集以及预处理的技术，理解数据采集的原理以及实现，培养学生综合运用所学知识的能力。通过数据采集项目解决实际问题，培养学生严谨的学习态">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据采集集训">
+<meta property="og:url" content="http://example.com/2024/02/01/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E8%AE%AD/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="python实训一、项目目的与意义 二、项目的内容与操作环境 三、项目实施过程 四、项目分工与完成情况 五、项目总结及收获 一、项目目的与意义 数据采集课程设计是计算机科学与技术专业的一门专业课程，涉及python编程、数据库技术等课程。课程设计的目的是使学生掌握数据采集以及预处理的技术，理解数据采集的原理以及实现，培养学生综合运用所学知识的能力。通过数据采集项目解决实际问题，培养学生严谨的学习态">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E8%8A%AF%E7%89%87.jpg">
+<meta property="article:published_time" content="2024-02-01T07:30:22.000Z">
+<meta property="article:modified_time" content="2024-02-02T02:58:28.632Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E8%8A%AF%E7%89%87.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>数据采集集训 - 博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+</head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据采集集训"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-01 15:30" pubdate>
+          2024年2月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据采集集训</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="python实训"><a href="#python实训" class="headerlink" title="python实训"></a>python实训</h1><p><strong>一、项目目的与意义</strong></p>
+<p><strong>二、项目的内容与操作环境</strong></p>
+<p><strong>三、项目实施过程</strong></p>
+<p><strong>四、项目分工与完成情况</strong></p>
+<p><strong>五、项目总结及收获</strong></p>
+<p><strong>一、项目目的与意义</strong></p>
+<p>数据采集课程设计是计算机科学与技术专业的一门专业课程，涉及python编程、数据库技术等课程。课程设计的目的是使学生掌握数据采集以及预处理的技术，理解数据采集的原理以及实现，培养学生综合运用所学知识的能力。通过数据采集项目解决实际问题，培养学生严谨的学习态度和良好的学习习惯。</p>
+<p>数据采集课程是一门旨在教授如何使用 Python 编写程序来获取、处理和分析数据的课程。该课程将介绍如何使用 Python 编写网络爬虫、解析 HTML 页面、使用数据库存储数据并对数据进行预处理。旨在通过本次课程设计，锻炼学生发现问题、解决问题、综合编程、团队合作等方面的能力，通过案例开发掌握python爬虫基础技术和数据采集以及预处理思路，了侧重实践能力引导和培养。由浅入深的带领学生熟悉数据采集的技术和原理，并辅导学生一步一步的完成项目的开发，学习和提高数据采集和处理能力，提高项目开发能力，注重学生团队意识培养。</p>
+<p><strong>二、项目的内容与操作环境</strong></p>
+<p><strong>（一）项目内容</strong></p>
+<p>本项目的目的是通过使用Python爬虫技术从目标网站上爬取数据，并将数据存储到MySQL数据库中，然后使用Kettle软件对爬取的数据进行处理。通过这个项目，学生可以学习并掌握Python爬虫的基本原理和实现方法，了解MySQL数据库的基本操作和Kettle软件的使用，同时也可以提高学生对数据处理和数据清洗的认识和实践能力。</p>
+<p><strong>（二）项目环境</strong></p>
+<p>   一台PC机，Windows10&#x2F;11操作系统，Pycharm，JDK8，MySQL数据库,Navicat premium15,kettle</p>
+<p><strong>三、项目实施过程</strong></p>
+<p><strong>一.基础环境搭建安装</strong></p>
+<p><strong>1.python相关库安装</strong></p>
+<p>安装爬虫所需的urllib和bs4包</p>
+<p>pip install urllib3</p>
+<p>pip install beautifulsoup4</p>
+<p>安装数据入库所需的包</p>
+<p>pip install pymysql</p>
+<p>安装数据可视化所需要的包</p>
+<p>pip install pyecharts</p>
+<p><strong>2. mysql数据库安装</strong></p>
+<p>下载安装包</p>
+<p>解压压缩包，将my.ini文件放到解压后的目录</p>
+<p>命令行窗口下，切换到指定的文件夹下面</p>
+<p>安装并启动mysql服务</p>
+<p>启动mysql服务，配置远程可连接</p>
+<p>用Navicat连接mysql数据库</p>
+<p><strong>3. kettle软件安装并连接mysql数据库</strong></p>
+<p><a target="_blank" rel="noopener" href="http://解压缩文件pdi-ce-8.2.0.0-342.zip/">解压缩文件pdi-ce-8.2.0.0-342.zip</a>解压完成之后，配置环境变量，环境变量指向Java的安装目录</p>
+<p>kettle 连接数据库</p>
+<p>mysql-connector-java-8.0.30.jar放在kettle 的lib文件夹下面</p>
+<p>修改kettel中的sample-jndi文件夹下的配置文件</p>
+<p>修改完成后，采用jndi的方式连接mysql数据库</p>
+<p><strong>二.数据采集以及预处理</strong></p>
+<p><strong>1.编写代码</strong></p>
+<p>python爬虫数据采集，构造请求,使用urllib库</p>
+<p>urllib库的主要作用是发送HTTP请求和处理响应。它支持同步和异步两种方式，可以发送GET、POST、PUT、DELETE等HTTP请求，并支持HTTPS协议。urllib库还提供了许多有用的功能，例如URL编码、处理Cookie、处理重定向等。</p>
+<p>python爬虫数据采集，解析数据</p>
+<p>Beautiful Soup是一个Python库，用于解析HTML和XML文档，包括从网页或其他来源获取内容，并以树形结构组织这些内容，使其可以轻松地通过标签名、属性、ID或搜索等来访问。</p>
+<p>Beautiful Soup的主要作用是：</p>
+<p>1.解析HTML或XML文档：Beautiful Soup可以将复杂的HTML或XML文档转换成一个复杂的树形结构，每个节点都是Python对象，这样你就可以很方便地查询、修改文档。</p>
+<p>2.搜索文档：Beautiful Soup支持在树形文档中进行搜索，可以搜索标签名、属性、文本内容等</p>
+<p><strong>2.登录网站获取获取cookie信息</strong></p>
+<p>使用chrome浏览器打开惠农网的页面，注册登录之后，按F12</p>
+<p>一次选择Application -&gt; Storage -&gt; Cookies -&gt; .c &gt; show Requests With Cookie，获取cookie信息后，将代码中的cookie信息替换掉</p>
+<p><strong>三、项目实施过程</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65bc582b871b83018a13e532.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>二.数据采集以及预处理</strong></p>
+<p><strong>3.获取IP代理</strong></p>
+<p>有些网站有反爬虫机制,通过代理ip可以绕开限制</p>
+<p>1.首先解压proxy_<a target="_blank" rel="noopener" href="http://pool-master.zip/">pool-master.zip</a>，解压之后用pycharm打开</p>
+<p><a target="_blank" rel="noopener" href="http://2.修改setting.py/">2.修改setting.py</a> DB_CONN &#x3D; ‘redis:&#x2F;&#x2F;127.0.0.1:6379&#x2F;0’</p>
+<p>3.安装redis 运行 redis-cli.exe</p>
+<p>4.python <a target="_blank" rel="noopener" href="http://proxypool.py/">proxyPool.py</a> schedule </p>
+<p>运行时如果报某个库不存在，用pip install 语句安装对应的库就可以</p>
+<p>5.python <a target="_blank" rel="noopener" href="http://proxypool.py/">proxyPool.py</a> server</p>
+<p><img src="https://pic.imgdb.cn/item/65bc582b871b83018a13e644.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>4.使用kettle做数据预处理</strong></p>
+<p>Kettle是一款开源的ETL工具，纯java编写，可以在Window、Linux、Unix上运行，绿色无需安装。它允许你管理来自不同数据库的数据，通过提供一个图形化的用户环境来描述你想做什么，功能强大可以对多种数据源进行抽取（Extraction）、加载（Loading）、数据落湖（Data lake Injection）、对数据进行各种清洗（Cleaning）、转换（Transformation）、混合（Blending），并支持多维联机分析处理（OLAP）和数据挖掘（Data mining）</p>
+<p>1.安装并打开kettle</p>
+<p>2.kettle 连接数据库</p>
+<p>3.kettle数据etl处理</p>
+<p>  3.1数据抽取</p>
+<p>  3.2数据转换</p>
+<p>4.数据转换</p>
+<p>  4.1数据剔重</p>
+<p>  4.2缺失值替换</p>
+<p>5.数据load（将数据加载到数据库中的新表）</p>
+<p>6.查看新表product_info_new中的数据</p>
+<p><img src="/upload/image-sbca.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>三.数据可视化</strong></p>
+<p><strong>1.编写代码</strong></p>
+<p>导入相关库</p>
+<p>import pandas as pd # 导入 pandas 库用于数据处理<br>import pymysql # 导入 pymysql 用于连接 MySQL 数据库<br>from pyecharts import options as opts # 导入 pyecharts 中的选项模块<br>from pyecharts.charts import Bar # 导入柱状图模块<br>from pyecharts.globals import ThemeType # 导入主题类型</p>
+<p>连接到 MySQL 数据库<br>创建游标对象<br>编写 SQL 查询语句，获取数据<br>执行 SQL 查询，获取数据并存入 Pandas DataFrame<br>显示 DataFrame 的前 500 行数据<br>将 ‘price’ 列转换为浮点型，并筛选出小于 100 的值<br>按 ‘addr’ 列分组计算 ‘price’ 列的均值，排序并重置索引<br>提取前 20 个 ‘addr’ 和相应的 ‘price’ 值<br>定义一个函数，创建带有次级 y 轴的柱状图<br>渲染柱状图，并将其保存为一个 HTML 文件*<br>*<strong>2.运行</strong></p>
+<p><strong>3.生成结果</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65bc582c871b83018a13e7af.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>五、项目总结及收获</strong></p>
+<p><strong>（一）难点问题&#x2F;关键技术&#x2F;优势与特色</strong></p>
+<p><strong>1.难点问题</strong></p>
+<p>Mysql安装后无法连接数据库，通过更改端口成功连接数据库</p>
+<p>无法导入UserAgent库，通过手动在pycharm中导入</p>
+<p>代理服务器运行时没有定位到相关目录，更改目录后成功运行</p>
+<p>数据采集后通过kellte处行预处理时数据库结果一直不变，实际是每次预处理后都会在原来的记录下边生成，通过更改查看记录的范围，找到了原因</p>
+<p>数据可视化时无法产生结果，通过渲染柱状图，并将其保存为一个 HTML 文件，成功打开结果</p>
+<p><strong>2.关键技术</strong></p>
+<p>Python语言编程和应用</p>
+<p>Pycharm的安装与使用</p>
+<p>JDK8的安装与配置环境变量</p>
+<p>MySQL数据库的安装与连接</p>
+<p>Navicat premium15的安装，连接与使用</p>
+<p>Kettle的安装，配置和使用</p>
+<p>数据采集技术，数据预处理技术和数据可视化技术的应用</p>
+<p><strong>3.优势与特色</strong></p>
+<p><strong>3.1除了使用本地数据库以外，我们还实现了云服务器数据库的配置和连接</strong></p>
+<p><strong>配置云服务器</strong></p>
+<p><strong>安装centos 系统</strong></p>
+<p><strong>配置docker环境</strong></p>
+<p><strong>通过docker拉取1panel可视化面板的镜像</strong></p>
+<p><strong>通过1panel镜像创建容器</strong></p>
+<p><strong>在1panel可视化面板里安装和配置mysql并成功连接</strong></p>
+<p><strong>最后成功了实现采集数据到云数据库，预处理云数据库，可视化云服务器数据库数据</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65bc582b871b83018a13e3f8.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>五</strong></p>
+<p><strong>3.2通过青龙面板，实现了定期爬取数据和分析数据</strong></p>
+<p><strong>通过docker拉取青龙面板镜像</strong></p>
+<p><strong>通过青龙面板镜像创建容器并启动</strong></p>
+<p><strong>导入数据爬取与可视化代码</strong></p>
+<p><strong>添加相关依赖</strong></p>
+<p><strong>添加定时任务</strong></p>
+<p><strong>查看爬取和可视化结果总结及收获</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65bc582f871b83018a13edc9.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><strong>（二）团队体会与收获</strong></p>
+<p>​     <strong>通过团队合作进行基于Python爬虫的数据采集与预处理的设计与实现，我们获得了技术实践的机会，提高了团队协作能力和问题解决能力，加深了对数据质量的认识，并获得了宝贵的学习与成长的机会。这些经验和收获将对我们未来的职业发展产生积极的影响，并为我们在数据领域的探索和进一步学习奠定了坚实基础。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># coding: utf-8</span><br><br><span class="hljs-comment"># 导入所需库</span><br><span class="hljs-keyword">import</span> csv  <span class="hljs-comment"># 用于 CSV 文件的读写操作</span><br><span class="hljs-keyword">import</span> urllib  <span class="hljs-comment"># 用于 URL 解析</span><br><span class="hljs-keyword">import</span> urllib.request  <span class="hljs-comment"># 用于 HTTP 请求</span><br><span class="hljs-keyword">from</span> time <span class="hljs-keyword">import</span> sleep  <span class="hljs-comment"># 用于添加延迟</span><br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup <span class="hljs-keyword">as</span> bs  <span class="hljs-comment"># 用于解析 HTML</span><br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> urljoin  <span class="hljs-comment"># 用于处理 URL</span><br><span class="hljs-keyword">import</span> pymysql  <span class="hljs-comment"># 用于连接 MySQL 数据库</span><br><span class="hljs-keyword">import</span> random  <span class="hljs-comment"># 用于生成随机数</span><br><span class="hljs-keyword">import</span> time  <span class="hljs-comment"># 用于处理时间</span><br><span class="hljs-keyword">import</span> requests  <span class="hljs-comment"># 用于发送 HTTP 请求</span><br><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> urlopen, build_opener  <span class="hljs-comment"># 用于构建 HTTP 请求</span><br><span class="hljs-keyword">from</span> urllib.request <span class="hljs-keyword">import</span> Request, HTTPHandler  <span class="hljs-comment"># 用于处理 HTTP 请求</span><br><span class="hljs-keyword">from</span> fake_useragent <span class="hljs-keyword">import</span> UserAgent  <span class="hljs-comment"># 用于生成浏览器 User-Agent</span><br><span class="hljs-keyword">import</span> urllib3  <span class="hljs-comment"># 用于禁用警告</span><br><br><span class="hljs-comment"># 关闭警告</span><br>urllib3.disable_warnings()<br><br><span class="hljs-comment"># 获取代理 IP</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getProxy</span>():<br>    res = requests.get(<span class="hljs-string">&#x27;http://127.0.0.1:5010/get/&#x27;</span>).json()  <span class="hljs-comment"># 从代理池获取代理 IP</span><br>    proxies = &#123;&#125;<br>    <span class="hljs-keyword">if</span> res[<span class="hljs-string">&#x27;https&#x27;</span>]:<br>        proxies[<span class="hljs-string">&#x27;https&#x27;</span>] = res[<span class="hljs-string">&#x27;proxy&#x27;</span>]  <span class="hljs-comment"># 设置 https 代理</span><br>    <span class="hljs-keyword">else</span>:<br>        proxies[<span class="hljs-string">&#x27;http&#x27;</span>] = res[<span class="hljs-string">&#x27;proxy&#x27;</span>]  <span class="hljs-comment"># 设置 http 代理</span><br>    <span class="hljs-keyword">return</span> proxies  <span class="hljs-comment"># 返回代理 IP 字典</span><br><br><span class="hljs-comment"># 获取页面信息</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_info</span>(<span class="hljs-params">page</span>):<br>    sleep(<span class="hljs-number">1</span>)  <span class="hljs-comment"># 添加延迟，防止访问过快被封禁</span><br>    url = <span class="hljs-string">&#x27;https://www.cnhnb.com/p/mianfen-0-0-0-0-&#123;&#125;/&#x27;</span>.<span class="hljs-built_in">format</span>(page)  <span class="hljs-comment"># 目标网站 URL</span><br>    proxy_ip = getProxy()[<span class="hljs-string">&#x27;http&#x27;</span>]  <span class="hljs-comment"># 使用随机获取的代理 IP</span><br>    <span class="hljs-built_in">print</span>(proxy_ip)<br>    proxy_handler = urllib.request.ProxyHandler(&#123;<span class="hljs-string">&quot;http&quot;</span>: proxy_ip&#125;)  <span class="hljs-comment"># 构造代理处理器对象</span><br>    opener = urllib.request.build_opener(proxy_handler, urllib.request.HTTPHandler)  <span class="hljs-comment"># 构造一个自定义的 opener 对象</span><br>    urllib.request.install_opener(opener)<br>    headers = &#123;&#125;  <span class="hljs-comment"># 构造请求头信息</span><br>    headers[<span class="hljs-string">&#x27;User-Agent&#x27;</span>] = UserAgent().chrome  <span class="hljs-comment"># 设置浏览器 User-Agent</span><br>    headers[<span class="hljs-string">&#x27;Accept&#x27;</span>] = <span class="hljs-string">&#x27;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#x27;</span><br>    <span class="hljs-comment">############ 需修改为自己的 Cookie</span><br>    headers[<span class="hljs-string">&#x27;Cookie&#x27;</span>] = <span class="hljs-string">&#x27;hnUserTicket=a419fbb3-5682-4ce2-9e0d-979edd9273e3; hnUserId=112929418; deviceId=046a996-6383-4296-92f2-ffd4261ee; Hm_lvt_a6458082fb548e5ca7ff77d177d2d88d=1703735922; Hm_lvt_0e023fed85d2150e7d419b5b1f2e7c0f=1703730406,1703896759; Hm_lpvt_0e023fed85d2150e7d419b5b1f2e7c0f=1703896759; Hm_lvt_91cf34f62b9bedb16460ca36cf192f4c=1703730406,1703896759; Hm_lpvt_91cf34f62b9bedb16460ca36cf192f4c=1703896759&#x27;</span>  <span class="hljs-comment"># 添加自己的 Cookie</span><br>    req = Request(url, headers=headers)  <span class="hljs-comment"># 封装请求</span><br>    response = opener.<span class="hljs-built_in">open</span>(req)  <span class="hljs-comment"># 使用自定义的 opener 对象发起访问请求</span><br>    html = urllib.request.urlopen(req)<br>    soup = bs(html.read(), <span class="hljs-string">&#x27;html.parser&#x27;</span>)<br>    lu = soup.find_all(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;show-ctn&#x27;</span>)<br>    product_all = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> lu:<br>        product_name = i.find(<span class="hljs-string">&#x27;h2&#x27;</span>).get_text()  <span class="hljs-comment"># 获取产品名称</span><br>        supplier = i.find(<span class="hljs-string">&quot;a&quot;</span>).get_text()  <span class="hljs-comment"># 获取供应商</span><br>        supplier_web = i.find(<span class="hljs-string">&quot;a&quot;</span>).attrs[<span class="hljs-string">&#x27;href&#x27;</span>]  <span class="hljs-comment"># 获取供应商网址</span><br>        product_desc = i.find(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;shop-image&#x27;</span>).img.attrs[<span class="hljs-string">&#x27;alt&#x27;</span>]  <span class="hljs-comment"># 获取产品介绍</span><br>        product_img = i.find(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;shop-image&#x27;</span>).img.attrs[<span class="hljs-string">&#x27;src&#x27;</span>]  <span class="hljs-comment"># 获取产品图片</span><br>        product_price = <span class="hljs-built_in">str</span>(i.find(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;shops-price&#x27;</span>).get_text()).strip().replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)  <span class="hljs-comment"># 获取产品价格</span><br>        addr = <span class="hljs-built_in">str</span>(i.find(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;r-shop-btm&#x27;</span>).get_text())  <span class="hljs-comment"># 获取发货地</span><br>        mailing_ins = <span class="hljs-built_in">str</span>(i.find(<span class="hljs-string">&#x27;div&#x27;</span>, class_=<span class="hljs-string">&#x27;cw-tags&#x27;</span>).get_text()).strip().replace(<span class="hljs-string">&#x27;\n&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)  <span class="hljs-comment"># 获取邮寄说明</span><br>        product = [product_name, supplier, supplier_web, product_desc, product_img, product_price, addr, mailing_ins]<br>        product_all.append(product)  <span class="hljs-comment"># 将提取的信息添加到列表中</span><br>    <span class="hljs-keyword">return</span> product_all  <span class="hljs-comment"># 返回产品信息列表</span><br><br><span class="hljs-comment"># 保存到 MySQL</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">save_mysql</span>(<span class="hljs-params">all_data</span>):<br>    conn = pymysql.connect(host=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, port=<span class="hljs-number">3306</span>, password=<span class="hljs-string">&#x27;123456&#x27;</span>, db=<span class="hljs-string">&#x27;mydb&#x27;</span>, charset=<span class="hljs-string">&#x27;utf8&#x27;</span>)  <span class="hljs-comment"># 连接 MySQL 数据库</span><br>    cursor = conn.cursor()<br>    insertsql = <span class="hljs-string">&#x27;insert into product_info(product_name,supplier,supplier_web,product_desc,product_img,product_price,addr,mailing_ins) value (%s,%s,%s,%s,%s,%s,%s,%s)&#x27;</span>  <span class="hljs-comment"># 插入数据 SQL 语句</span><br>    <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> all_data:<br>        data = <span class="hljs-built_in">tuple</span>(data)<br>        cursor.execute(insertsql, data)  <span class="hljs-comment"># 执行插入数据操作</span><br>    conn.commit()  <span class="hljs-comment"># 提交事务</span><br><br><span class="hljs-comment"># 主程序入口</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    lst = [i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">88</span>)]  <span class="hljs-comment"># 生成页面列表</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(lst) &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> lst:<br>            <span class="hljs-keyword">try</span>:<br>                all_data = get_info(i)  <span class="hljs-comment"># 获取页面信息</span><br>                <span class="hljs-built_in">print</span>(i)<br>                lst.remove(i)  <span class="hljs-comment"># 移除已爬取的页面</span><br>                save_mysql(all_data)  <span class="hljs-comment"># 保存至 MySQL</span><br><br>            <span class="hljs-keyword">except</span>:<br>                <span class="hljs-keyword">pass</span>  <span class="hljs-comment"># 忽略异常</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 导入所需库</span><br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd  <span class="hljs-comment"># 导入 pandas 库用于数据处理</span><br><span class="hljs-keyword">import</span> pymysql  <span class="hljs-comment"># 导入 pymysql 用于连接 MySQL 数据库</span><br><span class="hljs-keyword">from</span> pyecharts <span class="hljs-keyword">import</span> options <span class="hljs-keyword">as</span> opts  <span class="hljs-comment"># 导入 pyecharts 中的选项模块</span><br><span class="hljs-keyword">from</span> pyecharts.charts <span class="hljs-keyword">import</span> Bar  <span class="hljs-comment"># 导入柱状图模块</span><br><span class="hljs-keyword">from</span> pyecharts.commons.utils <span class="hljs-keyword">import</span> JsCode<br><span class="hljs-keyword">from</span> pyecharts.<span class="hljs-built_in">globals</span> <span class="hljs-keyword">import</span> ThemeType  <span class="hljs-comment"># 导入主题类型</span><br><span class="hljs-keyword">import</span> random<br><span class="hljs-comment"># 连接到 MySQL 数据库</span><br>db = pymysql.connect(host=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, user=<span class="hljs-string">&#x27;root&#x27;</span>, port=<span class="hljs-number">3306</span>, password=<span class="hljs-string">&#x27;123456&#x27;</span>, db=<span class="hljs-string">&#x27;mydb&#x27;</span>, charset=<span class="hljs-string">&#x27;utf8&#x27;</span>)<br><br><span class="hljs-comment"># 创建游标对象</span><br>cursor = db.cursor()<br><br><span class="hljs-comment"># 编写 SQL 查询语句，获取数据</span><br>sql = <span class="hljs-string">&#x27;&#x27;&#x27;select addr,replace(product_price,&quot;元/斤&quot;,&quot;&quot;) price </span><br><span class="hljs-string">         from product_info_new1 </span><br><span class="hljs-string">         where product_price like &quot;%元/斤%&quot;&#x27;&#x27;&#x27;</span><br><br><span class="hljs-comment"># 执行 SQL 查询，获取数据并存入 Pandas DataFrame</span><br>cursor.execute(sql)<br>data = cursor.fetchall()  <span class="hljs-comment"># 获取所有查询结果</span><br>pd.set_option(<span class="hljs-string">&#x27;display.precision&#x27;</span>, <span class="hljs-number">2</span>)  <span class="hljs-comment"># 设置 pandas 显示精度</span><br>df = pd.DataFrame(<span class="hljs-built_in">list</span>(data), columns=[<span class="hljs-string">&#x27;addr&#x27;</span>, <span class="hljs-string">&#x27;price&#x27;</span>])  <span class="hljs-comment"># 创建 DataFrame 存储查询结果</span><br><br><span class="hljs-comment"># 显示 DataFrame 的前 500 行数据</span><br>df.head(<span class="hljs-number">500</span>)<br><br><span class="hljs-comment"># 将 &#x27;price&#x27; 列转换为浮点型，并筛选出小于 100 的值</span><br>df[<span class="hljs-string">&quot;price&quot;</span>] = pd.to_numeric(df[<span class="hljs-string">&quot;price&quot;</span>], downcast=<span class="hljs-string">&quot;float&quot;</span>)  <span class="hljs-comment"># 将价格列转换为浮点型</span><br>df = df[df.iloc[:, <span class="hljs-number">1</span>] &lt; <span class="hljs-number">100</span>]  <span class="hljs-comment"># 筛选出价格小于 100 的数据</span><br><br><span class="hljs-comment"># 按 &#x27;addr&#x27; 列分组计算 &#x27;price&#x27; 列的均值，排序并重置索引</span><br>price_mean = df.groupby(<span class="hljs-string">&quot;addr&quot;</span>)[<span class="hljs-string">&#x27;price&#x27;</span>].mean().sort_values(ascending=<span class="hljs-literal">False</span>).to_frame()  <span class="hljs-comment"># 按地址分组计算价格均值</span><br>price_mean.reset_index(inplace=<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 重置索引</span><br><br><span class="hljs-comment"># 提取前 10 个 &#x27;addr&#x27; 和相应的 &#x27;price&#x27; 值</span><br>x = <span class="hljs-built_in">list</span>(price_mean[<span class="hljs-string">&#x27;addr&#x27;</span>])[<span class="hljs-number">0</span>:<span class="hljs-number">10</span>]  <span class="hljs-comment"># 获取前 10 个地址数据</span><br>y_tmp = <span class="hljs-built_in">list</span>(price_mean[<span class="hljs-string">&#x27;price&#x27;</span>])[<span class="hljs-number">0</span>:<span class="hljs-number">10</span>]  <span class="hljs-comment"># 获取前 10 个价格数据</span><br>y = [<span class="hljs-built_in">round</span>(num, <span class="hljs-number">1</span>) <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> y_tmp]  <span class="hljs-comment"># 对价格数据保留一位小数并保存</span><br><br><span class="hljs-comment"># 定义一个函数，创建带有次级 y 轴的柱状图</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">overlap_bar_line</span>(<span class="hljs-params">x, y, title</span>) -&gt; Bar:<br>    <span class="hljs-comment"># 初始化柱状图，并设置主题为亮色</span><br>    bar = (<br>        Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))<br>        <span class="hljs-comment"># 设置 x 轴数据</span><br>        .add_xaxis(x)<br>        <span class="hljs-comment"># 添加 y 轴数据，并设置柱状图的宽度和样式</span><br>        .add_yaxis(<br>            <span class="hljs-string">&quot;惠农网面粉价格Top10发货地&quot;</span>,<br>            y,<br>            bar_width=<span class="hljs-number">46</span>,<br>            itemstyle_opts=opts.ItemStyleOpts(<br>                <span class="hljs-comment"># 设置渐变颜色</span><br>                color=JsCode(<br>                    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">                    new echarts.graphic.LinearGradient(0, 0, 0, 1, [</span><br><span class="hljs-string">                        &#123; offset: 0, color: &#x27;#6197EE&#x27; &#125;,</span><br><span class="hljs-string">                        &#123; offset: 1, color: &#x27;#B7BFE8&#x27; &#125;</span><br><span class="hljs-string">                    ])</span><br><span class="hljs-string">                    &quot;&quot;&quot;</span><br>                ),<br>                <span class="hljs-comment"># 设置柱状图边框圆角</span><br>                border_radius=[<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],<br>            ),<br>        )<br>        <span class="hljs-comment"># 添加次级 y 轴的设置</span><br>        .extend_axis(<br>            yaxis=opts.AxisOpts(<br>                axislabel_opts=opts.LabelOpts(formatter=<span class="hljs-string">&quot;&#123;value&#125;&quot;</span>), interval=<span class="hljs-number">15</span><br>            )<br>        )<br>        <span class="hljs-comment"># 设置柱状图上数据标签样式</span><br>        .set_series_opts(label_opts=opts.LabelOpts(is_show=<span class="hljs-literal">True</span>, font_size=<span class="hljs-number">18</span>, color=<span class="hljs-string">&#x27;black&#x27;</span>))<br>        <span class="hljs-comment"># 设置全局选项</span><br>        .set_global_opts(<br>            <span class="hljs-comment"># 设置标题</span><br>            title_opts=opts.TitleOpts(title=title),<br>            <span class="hljs-comment"># 设置左侧 y 轴选项</span><br>            yaxis_opts=opts.AxisOpts(<br>                axislabel_opts=opts.LabelOpts(formatter=<span class="hljs-string">&quot;&#123;value&#125;&quot;</span>, font_size=<span class="hljs-number">15</span>)<br>            ),<br>            <span class="hljs-comment"># 设置 x 轴选项</span><br>            xaxis_opts=opts.AxisOpts(<br>                axislabel_opts=opts.LabelOpts(<br>                    is_show=<span class="hljs-literal">True</span>, position=<span class="hljs-string">&quot;top&quot;</span>, color=<span class="hljs-string">&quot;black&quot;</span>, rotate=<span class="hljs-number">0</span>, interval=<span class="hljs-number">0</span>, font_size=<span class="hljs-number">15</span><br>                )<br>            ),<br>        )<br>    )<br>    <span class="hljs-keyword">return</span> bar<br><span class="hljs-comment"># 渲染柱状图，并将其保存为一个 HTML 文件</span><br>overlap_bar_line(x, y, <span class="hljs-string">&quot;&quot;</span>).render(<span class="hljs-string">&quot;C:/Users/LENOVO/Desktop/数据采集课程设计/bar_chart5.html&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E9%9B%86%E8%AE%AD/" class="category-chain-item">数据采集集训</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据采集集训</div>
+      <div>http://example.com/2024/02/01/数据采集实训/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/30/java%E6%80%BB%E7%BB%93/" title="java总结">
+                        <span class="hidden-mobile">java总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

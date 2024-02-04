@@ -1,0 +1,1269 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1.考试总结1.1 变量的命名必须以字母,下划线或$字符开头,不能以数字开头 英文字母大小写敏感,长度不限 不能含有java的关键字 不能含有空格 类名字母第一个大写 用做变量的标识符第二个单词的首个字母大写 常量的标识符全大写 1.2 面向对象面向对象是一种符合人类思维习惯的编程思想。现实生活中存在各种形态不同的事物，这些事物之间存在着各种各样的联系。在程序中使用对象来映射现实中的事物，使用对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java总结">
+<meta property="og:url" content="http://example.com/2024/01/30/java%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="1.考试总结1.1 变量的命名必须以字母,下划线或$字符开头,不能以数字开头 英文字母大小写敏感,长度不限 不能含有java的关键字 不能含有空格 类名字母第一个大写 用做变量的标识符第二个单词的首个字母大写 常量的标识符全大写 1.2 面向对象面向对象是一种符合人类思维习惯的编程思想。现实生活中存在各种形态不同的事物，这些事物之间存在着各种各样的联系。在程序中使用对象来映射现实中的事物，使用对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/%E5%90%88%E4%BD%9C%E4%B8%8E%E5%85%B1%E4%BA%AB.jpg">
+<meta property="article:published_time" content="2024-01-30T07:30:22.000Z">
+<meta property="article:modified_time" content="2024-02-01T13:52:21.677Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/%E5%90%88%E4%BD%9C%E4%B8%8E%E5%85%B1%E4%BA%AB.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>java总结 - 博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+</head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="java总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-30 15:30" pubdate>
+          2024年1月30日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          27k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          228 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">java总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-考试总结"><a href="#1-考试总结" class="headerlink" title="1.考试总结"></a>1.考试总结</h1><h2 id="1-1-变量的命名"><a href="#1-1-变量的命名" class="headerlink" title="1.1 变量的命名"></a>1.1 变量的命名</h2><p>必须以字母,下划线或$字符开头,不能以数字开头</p>
+<p>英文字母大小写敏感,长度不限</p>
+<p>不能含有java的关键字</p>
+<p>不能含有空格</p>
+<p>类名字母第一个大写</p>
+<p>用做变量的标识符第二个单词的首个字母大写</p>
+<p>常量的标识符全大写</p>
+<h2 id="1-2-面向对象"><a href="#1-2-面向对象" class="headerlink" title="1.2 面向对象"></a>1.2 面向对象</h2><p>面向对象是一种符合人类思维习惯的编程思想。现实生活中存在各种形态不同的事物，这些事物之间存在着各种各样的联系。<br>在程序中使用对象来映射现实中的事物，使用对象的关系来描述事物之间的联系，这种思想就是面向对象。<br>面向过程就是分析解决问题所需要的步骤，面向对象则是把解决的问题按照一定规则划分为多个独立的对象，然后通过调用对象的方法来解决问题。</p>
+<p>面向对象的特点主要可以概括为封装性、继承性和多态性。</p>
+<h2 id="1-3-类的定义"><a href="#1-3-类的定义" class="headerlink" title="1.3 类的定义"></a>1.3 类的定义</h2><p>类是对某一类事物的抽象描述，而对象用于表示现实中该类事物的个体</p>
+<h2 id="1-4-类与对象的关系"><a href="#1-4-类与对象的关系" class="headerlink" title="1.4 类与对象的关系"></a>1.4 类与对象的关系</h2><p>类是对象的类型,对象是类的事例</p>
+<h2 id="1-5-封装"><a href="#1-5-封装" class="headerlink" title="1.5 封装"></a>1.5 封装</h2><p><strong>所谓类的封装是指在定义一个类时，将类中的属性私有化，即使用private关键字来修饰，私有属性只能在它所在类中被访问</strong>，为了能让外界访问私有属性，需要提供一些使用public修饰的公有方法，其中包括用于获取属性值的getXxx方法和设置属性值的setXxx方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;<br>    <span class="hljs-keyword">private</span> String name;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-6-一般方法"><a href="#1-6-一般方法" class="headerlink" title="1.6 一般方法"></a>1.6 一般方法</h2><p>一般方法是用于执行各种任务的普通方法</p>
+<h2 id="1-7-构造方法"><a href="#1-7-构造方法" class="headerlink" title="1.7 构造方法"></a>1.7 构造方法</h2><p>在Java中，构造方法是一种特殊类型的方法，它用作进行对象实例化,一般用于给成员变量赋初值</p>
+<p>在一个类中定义的方法如果同时满足以下三个条件，该方法称为构造方法，具体如下：<br>方法名和类名相同<br>方法名的前面没有返回值类型的声明<br>方法中不能使用return语句返回一个值</p>
+<p>与普通方法一样，构造方法也可以重载，在一个类中可以定义多个构造方法，只要每个构造方法的参数类型或参数个数不同即可</p>
+<p>在Java中的每个类都至少有一个构造方法，如果在一个类中没有定义构造方法，系统会自动为这个类创建一个默认的构造方法，这个默认的构造方法没有参数，在其方法体中没有任何代码，即什么也不做。如果为该类定义了构造方法，系统就不再提供默认的构造方法了</p>
+<p>通过this关键字可以明确地去访问一个类的成员变量，解决与局部变量名称冲突问题</p>
+<p>构造方法是在实例化对象时被Java虚拟机自动调用的，在程序中不能像调用其它方法一样去调用构造方法，但可以在一个构造方法中使用“this([参数1,参数2…])”的形式来调用其它的构造方法通过this关键字调用成员方法<br>1、只能在构造方法中使用this调用其它的构造方法<br>2、在构造方法中，使用this调用构造方法的语句必须位于第一行，且只能出现一次，下面的写法是非法的。<br>3、不能在一个类的两个构造方法中使用this互相调用</p>
+<p>类的构造方法使用private修饰，声明为私有，这样就不能在类的外部使用new关键字来创建实例对象了。<br>在类的内部创建一个该类的实例对象，并使用静态变量INSTANCE引用该对象，由于变量应该禁止外界直接访问，因此使用private修饰，声明为私有成员<br>为了让类的外部能够获得类的实例对象，需要定义一个静态方法getInstance()，用于返回该类实例INSTANCE。由于方法是静态的，外界可以通过“类名.方法名”的方式来访问</p>
+<h2 id="1-8-重载与重写（覆盖）"><a href="#1-8-重载与重写（覆盖）" class="headerlink" title="1.8 重载与重写（覆盖）"></a>1.8 重载与重写（覆盖）</h2><p>重载是方法名完全一样,采用不同的形参个数,或者不同的形参类型实现同一个方法具备不同的功能</p>
+<p>重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变</p>
+<p><strong>重载规则:</strong> </p>
+<p>被重载的方法必须改变参数列表(参数个数或类型不一样)；</p>
+<p>被重载的方法可以改变返回类型；</p>
+<p>被重载的方法可以改变访问修饰符；</p>
+<p>被重载的方法可以声明新的或更广的检查异常；</p>
+<p>方法能够在同一个类中或者在一个子类中被重载。</p>
+<p>无法以返回值类型作为重载函数的区分标准。</p>
+<p><strong>方法的重写规则</strong>:</p>
+<p>参数列表与被重写方法的参数列表必须完全相同。</p>
+<p>返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类（java5 及更早版本返回类型要一样，java7 及更高版本可以不同）。</p>
+<p>访问权限不能比父类中被重写的方法的访问权限更低。例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected。</p>
+<p>父类的成员方法只能被它的子类重写。</p>
+<p>声明为 final 的方法不能被重写。</p>
+<p>声明为 static 的方法不能被重写，但是能够被再次声明。</p>
+<p>子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法。</p>
+<p>子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。</p>
+<p>重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。</p>
+<p>构造方法不能被重写。</p>
+<p>如果不能继承一个类，则不能重写该类的方法。</p>
+<h2 id="1-9-垃圾回收"><a href="#1-9-垃圾回收" class="headerlink" title="1.9 垃圾回收"></a>1.9 垃圾回收</h2><p>java的垃圾回收机制是一种自动管理内存的机制，它可以自动检测和回收不再使用的对象，以释放内存空间</p>
+<h2 id="1-10-静态变量"><a href="#1-10-静态变量" class="headerlink" title="1.10 静态变量"></a>1.10 静态变量</h2><p>在一个Java类中，可以使用static关键字来修饰成员变量，该变量被称作静态变量<br>静态变量被所有实例共享，可以使用“类名.变量名”的形式来访问<br>static关键字只能用于修饰成员变量，不能用于修饰局部变量，否则编译会报错，下面的代码是非法的。</p>
+<h2 id="1-11静态代码块"><a href="#1-11静态代码块" class="headerlink" title="1.11静态代码块"></a>1.11静态代码块</h2><p>在Java类中，使用一对大括号包围起来的若干行代码被称为一个代码块，用static关键字修饰的代码块称为静态代码块<br>当类被加载时，静态代码块会执行，由于类只加载一次，因此静态代码块只执行一次<br>在程序中，通常使用静态代码块来对类的成员变量进行初始化</p>
+<h2 id="1-12-设计模式"><a href="#1-12-设计模式" class="headerlink" title="1.12 设计模式"></a>1.12 设计模式</h2><p>设计模式就是针对这些问题和需求，在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式<br>单例模式是Java中的一种设计模式，它是指在设计一个类时，需要保证在整个程序运行期间针对该类只存在一个实例对象<br>看一个实现了单例模式的类</p>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>内部类（包括成员内部类、局部内部类和匿名内部类）具有对外部类实例的隐式引用，因此可以访问外部类的成员，就好像这些成员是内部类自己的成员一样。</p>
+<h2 id="1-13-成员内部类"><a href="#1-13-成员内部类" class="headerlink" title="1.13 成员内部类"></a>1.13 成员内部类</h2><p>在一个类中除了可以定义成员变量、成员方法，还可以定义类，这样的类被称作成员内部类。<br>内部类可以在外部类中被使用，并能访问外部类的成员<br>如果想通过外部类去访问内部类，则需要通过外部类对象去创建内部类对象，创建内部类对象的具体语法格式如下：<br>外部类名.内部类名 变量名 &#x3D;new 外部类名().new 内部类名();</p>
+<h2 id="1-14-静态内部类"><a href="#1-14-静态内部类" class="headerlink" title="1.14 静态内部类"></a>1.14 静态内部类</h2><p>可以使用static关键字来修饰一个成员内部类，该内部类被称作静态内部类，它可以在不创建外部类对象的情况下被实例化。创建静态内部类对象的具体语法格式如下：<br>外部类名.内部类名 变量名 &#x3D; new 外部类名.内部类名();</p>
+<h2 id="1-15-方法内部类"><a href="#1-15-方法内部类" class="headerlink" title="1.15 方法内部类"></a>1.15 方法内部类</h2><p>方法内部类是指在成员方法中定义的类，它只能在当前方法中被使用。方法内部类，因此程序只能在方法中创建该类的实例对象并调用show()方法,方法内部类也可以访问外部类的成员变量</p>
+<h2 id="1-16-匿名内部类"><a href="#1-16-匿名内部类" class="headerlink" title="1.16 匿名内部类"></a>1.16 匿名内部类</h2><p>匿名内部类是存在于某个类中且没有名称的类,可以匿名内部类于接口(或者抽象类)配合使用,在实例化时,直接采用匿名内部类</p>
+<h2 id="1-17-继承"><a href="#1-17-继承" class="headerlink" title="1.17 继承"></a>1.17 继承</h2><p>程序中，继承描述的是事物之间的所属关系，通过继承可以使多种事物之间形成一种关系体系。<br>在Java中，<strong>类的继承是指在一个现有类的基础上去构建一个新的类，构建出来的新类被称作子类，现有类被称作父类，子类会自动拥有父类所有可继承的属性和方法</strong>。在程序中，如果想声明一个类继承另一个类，需要使用extends关键字，接下来通过一个案例来学习子类是如何继承父类的。</p>
+<p>在类的继承中，需要注意一些问题，具体如下：<br>1、在Java中，类只支持单继承，不允许多重继承，也就是说一个类只能有一个直接父类，例如下面这种情况是不合法的。<br>2、多个类可以继承一个父类，例如下面这种情况是允许的。<br>3、在Java中，多层继承是可以的，即一个类的父类可以再去继承另外的父类，例如C类继承自B类，而B类又可以去继承A类，这时，C类也可称作A类的子类。下面这种情况是允许的。</p>
+<p>4、继承后的方法其访问权限范围不能缩小（可以扩大或者保持）</p>
+<p>在继承关系中，子类会自动继承父类中定义的方法，但有时在子类中需要对继承的方法进行一些修改，即对父类的方法进行重写。需要注意的是，在子类中重写的方法需要和父类被重写的方法具有相同的方法名、参数列表以及返回值类型。</p>
+<h3 id="1-17-1-super关键字"><a href="#1-17-1-super关键字" class="headerlink" title="1.17.1  super关键字"></a>1.17.1  super关键字</h3><p>当子类重写父类的方法后，子类对象将无法访问父类被重写的方法，为了解决这个问题，在Java中专门提供了一个super关键字用于访问父类的成员。例如访问父类的成员变量、成员方法和构造方法。接下来分两种情况来学习一下super关键字的具体用法。<br>1、使用super关键字调用父类的成员变量和成员方法。<br>2、使用super关键字调用父类的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> salary;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">getSalary</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> salary;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setSalary</span><span class="hljs-params">(<span class="hljs-type">double</span> salary)</span> &#123;<br>        <span class="hljs-built_in">this</span>.salary = salary;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-18-final关键字"><a href="#1-18-final关键字" class="headerlink" title="1.18 final关键字"></a>1.18 final关键字</h2><p>final关键字可用于修饰类、变量和方法，它有“这是无法改变的”或者“最终”的含义，因此被final修饰的类、变量和方法将具有以下特性：<br>1、final修饰的类不能被继承。<br>2、final修饰的方法不能被子类重写。<br>3、final修饰的变量（成员变量和局部变量）是常量，只能赋值一次。</p>
+<p>Java中的类被final关键字修饰后，该类将不可以被继承，也就是不能够派生子类,当一个类的方法被final关键字修饰后，这个类的子类将不能重写该方法</p>
+<h2 id="1-19-抽象方法"><a href="#1-19-抽象方法" class="headerlink" title="1.19 抽象方法"></a>1.19 抽象方法</h2><p>Java允许在定义方法时不写方法体，不包含方法体的方法为抽象方法，抽象方法必须使用abstract关键字来修饰</p>
+<h2 id="1-20-抽象类"><a href="#1-20-抽象类" class="headerlink" title="1.20 抽象类"></a>1.20 抽象类</h2><p>含有抽象方法的类,叫做抽象类，该类必须使用abstract关键字来修饰，在定义抽象类时需要注意，包含抽象方法的类必须声明为抽象类，但抽象类可以不包含任何抽象方法，只需使用abstract关键字来修饰即可。另外，抽象类是不可以被实例化的，因为抽象类中有可能包含抽象方法，抽象方法是没有方法体的，不可以被调用。如果想调用抽象类中定义的方法，则需要创建一个子类，在子类中将抽象类中的抽象方法进行实现。</p>
+<p>抽象类不能直接实例化对象,一般有子类实现父类中的所有抽象方法,然后才能实例化对象</p>
+<p>抽象类的子类如果没有完全实现抽象父类的所有抽象方法,则也要声明为abstract也不能实例化对象</p>
+<p>抽象类的非抽象子类必须重写父类中的abstract方法</p>
+<h2 id="1-21-包装类"><a href="#1-21-包装类" class="headerlink" title="1.21 包装类"></a>1.21 包装类</h2><p>包装类(Packaging class)：Java语言是一个面向对象的语言，但是Java中的基本数据类型却是不面向对象的。基本型的数据不具备”对象”的特性（没有成员变量和成员方法可以调用），因此，java为每种数据类型分别设计了对应的类，即包装类。</p>
+<h2 id="1-22-接口"><a href="#1-22-接口" class="headerlink" title="1.22 接口"></a>1.22 接口</h2><p>如果一个抽象类中的所有方法都是抽象的，则可以将这个类用另外一种方式来定义，即接口。在定义接口时，需要使用interface关键字来声明,接口中定义的方法和变量都包含一些默认修饰符。接口中定义的方法默认使用“public abstract”来修饰，即抽象方法。接口中的变量默认使用“public static final”来修饰，即全局常量。</p>
+<p>由于接口中的方法都是抽象方法，因此不能通过实例化对象的方式来调用接口中的方法。此时需要定义一个类，并使用implements关键字实现接口中所有的方法。在程序中，还可以定义一个接口使用extends关键字去继承另一个接口</p>
+<p>为了加深初学者对接口的认识，接下来对接口的特点进行归纳，具体如下：<br>1、接口中的方法都是抽象的，不能实例化对象。<br>2、当一个类实现接口时，如果这个类是抽象类，则实现接口中的部分方法即可，否则需要实现接口中的所有方法。<br>3、一个类通过implements关键字实现接口时，可以实现多个接口，被实现的多个接口之间要用逗号隔开。<br>4、一个接口可以通过extends关键字继承多个接口，接口之间用逗号隔开。<br>5、一个类在继承另一个类的同时还可以实现接口，此时，extends关键字必须位于implements关键字前</p>
+<h2 id="1-23-一般类-抽象类-接口区别"><a href="#1-23-一般类-抽象类-接口区别" class="headerlink" title="1.23 一般类,抽象类,接口区别"></a>1.23 一般类,抽象类,接口区别</h2><p>java中有三种不同类型的类：一般类、抽象类和接口。它们之间有以下区别：</p>
+<ol>
+<li>一般类是普通的类，它们可以有字段、方法和构造函数等。一般类的实例可以直接创建，并且可以被其他类继承。</li>
+<li>抽象类是不能被实例化的类，它们只能被继承。抽象类可以有字段、方法和构造函数等，但方法可以是抽象的，这意味着它们没有实现，需要由子类实现。抽象类通常用于作为其他类的基类，它们定义了一些通用的属性和方法，并强制要求子类实现它们。</li>
+<li>接口是一种特殊的抽象类，它们没有字段，并且所有的方法都是抽象的。接口只定义了方法的名称、返回类型和参数，而没有提供实现。接口通常用于定义类之间的协议，它们强制要求实现它们的类提供指定的方法。</li>
+</ol>
+<h2 id="1-24-多态"><a href="#1-24-多态" class="headerlink" title="1.24 多态"></a>1.24 多态</h2><p>在设计一个方法时，通常希望该方法具备一定的通用性。<strong>多态性是指调用同一方法实现不同的行为特征的技术</strong><br>在Java中为了实现多态，允许使用一个父类类型的变量来引用一个子类类型的对象，根据被引用子类对象特征的不同，得到不同的运行结果，将子类对象当做父类使用时不需要任何显式地声明，需要注意的是，此时不能通过父类变量去调用子类中某些方法,需要类型转换,需要注意的是，在进行类型转换时也可能出现错误。</p>
+<h3 id="1-24-1-instanceof"><a href="#1-24-1-instanceof" class="headerlink" title="1.24.1 instanceof"></a>1.24.1 instanceof</h3><p>针对这种情况，Java提供了一个关键字instanceof，它可以判断一个对象是否为某个类(或接口)的实例或者子类实例,具体代码如下:<br>对象(或者对象引用变量) instanceof  类(或接口)</p>
+<p>在java中多态性可以通过方法的重载和重写来实现 ,代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">makeSound</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Animal is making a sound&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">makeSound</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Woof!&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Animal</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">makeSound</span><span class="hljs-params">()</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;Meow!&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Animal</span> <span class="hljs-variable">animal1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>();<br>        <span class="hljs-type">Animal</span> <span class="hljs-variable">animal2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cat</span>();<br><br>        animal1.makeSound();<br>        animal2.makeSound();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-25-object类"><a href="#1-25-object类" class="headerlink" title="1.25 object类"></a>1.25 object类</h2><p>在JDK中提供了一个Object类，它是所有类的父类，即每个类都直接或间接继承自该类,Animal默认继承自Object类，在Object类中定义了toString()方法</p>
+<h2 id="1-26-匿名内部类"><a href="#1-26-匿名内部类" class="headerlink" title="1.26 匿名内部类"></a>1.26 匿名内部类</h2><p>前面多态的讲解中，如果方法的参数被定义为一个接口类型，那么就需要定义一个类来实现接口，并根据该类进行对象实例化。除此之外，还可以使用匿名内部类来实现接口。<br>匿名内部类格式:<br>new 父类(参数列表) 或父接口(){<br>    &#x2F;&#x2F;匿名内部类实现部分<br>}</p>
+<p>调用者和被调用者必须共同遵守某一限定，调用者按照这个限定进行方法调用，被调用者按照这个限定进行方法实现”的应用情况，在面向对象的编程语言中，这种限定就是通过接口类来表示的</p>
+<p>在写匿名内部类的大括号后,一定要跟着一个语句;</p>
+<h2 id="1-27-异常"><a href="#1-27-异常" class="headerlink" title="1.27 异常"></a>1.27 异常</h2><p>简要讲一下如何理解Java中的异常处理机制</p>
+<p>在Java中，异常处理机制是一种处理程序运行时出现异常情况的机制。当程序执行过程中发生异常时，异常处理机制可以捕捉和处理异常，以避免程序崩溃或出现未预期的结果</p>
+<p>在程序运行的过程中，也会发生这种非正常状况，比如程序运行时磁盘空间不足，网络连接中断，被装载的类不存在。针对这种情况，在Java语言中，引入了异常，以异常类的形式对这些非正常情况进行封装，通过异常处理机制对程序运行时发生的各种问题进行处理。</p>
+<p>Throwable有两个直接子类Error和Exception，其中Error代表程序中产生的错误，Exception代表程序中产生的异常。接下来就对这两个直接子类进行详细讲解。<br>Error类称为错误类，它表示Java运行时产生的系统内部错误或资源耗尽的错误，是比较严重的，仅靠修改程序本身是不能恢复执行的。举一个生活中的例子，在盖楼的过程中因偷工减料，导致大楼坍塌，这就相当于一个Error。使用java命令去运行一个不存在的类就会出现Error错误</p>
+<p>Exception类称为异常类，它表示程序本身可以处理的错误，在开发Java程序中进行的异常处理，都是针对Excption类及其子类。在Exception类的众多子类中有一个特殊的RuntimeException类，该类及其子类用于表示运行时异常，除了此类，Exception类下所有其它的子类都用于表示编译时异常<br>由于发生了异常，程序立即终止，无法继续向下执行。为了解决这样的问题，Java中提供了一种对异常进行处理的方式——异常捕获 try …catch finally<br>在程序中，有时候我们希望有些语句无论程序是否发生异常都要执行，这时就可以在try…catch语句后，加一个finally代码块。需要注意的是，finally中的代码块有一种情况下是不会执行的，那就是在try…catch中执行了System.exit(0)语句。System.exit(0)表示退出当前的Java虚拟机，Java虚拟机停止了，任何代码都不能再执行了。</p>
+<h2 id="1-28-throws关键字"><a href="#1-28-throws关键字" class="headerlink" title="1.28 throws关键字"></a>1.28 throws关键字</h2><p>在前面学习的例程4-23中，由于调用的是自己写的divide()方法，因此很清楚该方法可能会发生异常。试想一下，如果去调用一个别人写的方法时，是否能知道别人写的方法是否会有异常呢？这是很难做出判断的。针对这种情况，<strong>Java中允许在方法的后面使用throws关键字对外声明该方法有可能发生的异常，这样调用者在调用方法时，就明确地知道该方法有异常，并且必须在程序中对异常进行处理，否则编译无法通过。</strong><br>throws关键字声明抛出异常的语法格式如下：<br>修饰符 返回值类型 方法名 [参数1,参数2….]throws ExceptionType1[,ExceptionType2….]{</p>
+<h2 id="1-29-运行时异常与编译时异常"><a href="#1-29-运行时异常与编译时异常" class="headerlink" title="1.29 运行时异常与编译时异常"></a>1.29 运行时异常与编译时异常</h2><p>在实际开发中，经常会在程序编译时期产生一些异常，而这些异常必须要进行处理，这种异常被称为编译时期异常，也称为checked异常。另外还有一种异常是在程序运行时期产生的，这种异常即使不编写异常处理代码，依然可以通过编译，因此我们称之为运行时异常，也称为unchecked异常。</p>
+<p>运行时异常与编译时异常<br>1、编译时异常<br>在Java中，Exception类中除了RuntimeException类及其的子类都是编译时异常。编译时异常的特点是Java编译器会对其进行检查，如果出现异常就必须对异常进行处理，否则程序无法通过编译。<br>处理编译时期的异常有两种方式，具体如下：<br>使用try…catch语句对异常进行捕获<br>使用throws关键字声明抛出异常，调用者对其处理。</p>
+<p>2、运行时异常<br>RuntimeException类及其子类都是运行时异常。运行时异常的特点是Java编译器不会对其进行检查，也就是说，当程序中出现这类异常时，即使没有使用try..catch语句捕获或使用throws关键字声明抛出，程序也能编译通过。运行时异常一般是由于程序中的逻辑错误引起的，在程序运行时无法恢复。比如通过数组的角标访问数组的元素时，如果超过了数组的最大角标，就会发生运行时异常，</p>
+<h2 id="1-30-自定义异常"><a href="#1-30-自定义异常" class="headerlink" title="1.30 自定义异常"></a>1.30 自定义异常</h2><p>JDK中定义了大量的异常类，虽然这些异常类可以描述编程时出现的大部分异常情况，但是在程序开发中有时可能需要描述程序中特有的异常情况，例如在设计divide()方法时不允许被除数为负数。为了解决这个问题，在Java中允许用户自定义异常，但自定义的异常类必须继承自Exception或其子类<br>在实际开发中，如果没有特殊的要求，自定义的异常类只需继承Exception类，在构造方法中使用super()语句调用Exception的构造方法即可。<br>既然自定义了异常，那么该如何使用呢？这时就需要用到throw关键字，throw关键字用于在方法中声明抛出异常的实例对象，其语法格式如下：<br>throw Exception 异常对象<br>在一个方法内使用throw关键字抛出异常对象时，需要使用try…catch语句对抛出的异常进行处理，或者在divide()方法上使用throws关键字声明抛出异常，由该方法的调用者负责处理。</p>
+<h2 id="1-31-包"><a href="#1-31-包" class="headerlink" title="1.31 包"></a>1.31 包</h2><p>为了便于对硬盘上的文件进行管理，通常都会将文件分目录进行存放。同理，在程序开发中，也需要将编写的类分目录存放便于管理，为此，Java引入了包(package)机制，程序可以通过声明包的方式对Java类定义目录。Java中的包是专门用来存放类的，通常功能相同的类存放在相同的包中。在声明包时，使用package语句，需要注意的是，包的声明只能位于Java源文件的第一行。</p>
+<h2 id="1-32-断言"><a href="#1-32-断言" class="headerlink" title="1.32 断言"></a>1.32 断言</h2><p>断言语句主要用于程序调试阶段,通过设置断言语句,我们可以快速找到错误的语句,语句块,或者错误的方法体,在 Java 中，断言使用 assert 关键字来定义，其语法格式如下：assert expression1;assert expression2 : expression3;其中，expression1 是一个布尔表达式，如果它为 true，则程序继续执行；如果为 false，则程序抛出 AssertionError 异常。expression2 是一个布尔表达式，如果它为 false，则抛出 AssertionError 异常，并将 expression3 的值作为异常信息输出。</p>
+<h2 id="1-33-import语句"><a href="#1-33-import语句" class="headerlink" title="1.33 import语句"></a>1.33 import语句</h2><p><strong>在程序开发中，位于不同包中的类经常需要互相调用,Java中提供了import关键字，使用import可以在程序中一次导入某个指定包下的类</strong></p>
+<p>import语句<br>在JDK中，不同功能的类都放在不同的包中，其中Java的核心类主要放在java这个包以及其子包下，Java扩展的大部分类都放在javax包以及其子包下。为了便于后面的学习，接下来简单介绍Java语言中的常用包。<br>java.lang:包含Java语言的核心类，如String、Math、System和Thread类等，使用这个包中的类无须使用import语句导入，系统会自动导入这个包下的所有类。<br>java.util:包含Java中大量工具类、集合类等，例如Arrays、List、Set等。<br>java.net:包含Java网络编程相关的类和接口。<br>java.io:包含了Java输入、输出有关的类和接口。<br>java.awt:包含用于构建图形界面(GUI)的相关类和接口。</p>
+<p>给Java应用打包<br>给Java应用打包有很多好处，接下来简单介绍一下打包jar文件的好处，如下所示：<br>安全：可以对jar文件进行数字签名，让能够识别数字签名的用户使用。<br>节省空间：当把.class文件打成jar压缩文件，会节省空间，如果将jar文件在网络上传输，也会加快传输速率。<br>可移植性：只要有Java虚拟机，jar包就可以在任何平台上运行。</p>
+<h2 id="1-34-访问权限符"><a href="#1-34-访问权限符" class="headerlink" title="1.34 访问权限符"></a>1.34 访问权限符</h2><p>private(类访问级别) ：如果类的成员被private访问控制符来修饰，则这个成员只能被该类的其它成员访问，其它类无法直接访问。实现类的良好封装。<br>default(包访问级别) ：如果一个类或者类的成员不使用任何访问控制符修饰，则称它为默认访问控制级别，这个类或者类的成员只能被本包中的其它类访问。<br>protected(子类访问级别) ：如果一个类的成员被protected访问控制符修饰，那么这个成员既能被同一包下的其它类访问，也能被不同包下该类的子类访问。<br>public(公共访问级别) ：这是一个最宽松的访问控制级别，如果一个类或者类的成员被public访问控制符修饰，那么这个类或者类的成员能被所有的类访问，不管访问类与被访问类是否在同一个包中。</p>
+<h2 id="1-35-进程与线程"><a href="#1-35-进程与线程" class="headerlink" title="1.35 进程与线程"></a>1.35 进程与线程</h2><p>•<strong>进程</strong></p>
+<p>​    在一个操作系统中，每个独立执行的程序都可称之为一个进程，也就是“正在运行的程序”</p>
+<p>•<strong>线程</strong></p>
+<p>​     每个运行的程序都是一个进程，在一个进程中还可以有多个执行单元同时运行，这些执行单元可以看做程序执行的一条条线索，被称为线程。</p>
+<h2 id="1-36-如何实现多线程"><a href="#1-36-如何实现多线程" class="headerlink" title="1.36 如何实现多线程"></a>1.36 如何实现多线程</h2><p>继承Thread类创建多线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Thread</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 线程执行的任务</span><br>    &#125;<br>&#125;<br><br><span class="hljs-type">MyThread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyThread</span>();<br>thread.start(); <span class="hljs-comment">// 启动线程</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/65b8fb9a871b83018a66354c.png" srcset="/img/loading.gif" lazyload></p>
+<p>通过继承Thread类实现了多线程，但是这种方式有一定的局限性。因为Java中只支持单继承，一个类一旦继承了某个父类就无法再继承Thread类</p>
+<p>实现Runnable接口创建多线程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Runnable</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 线程执行的任务</span><br>    &#125;<br>&#125;<br><br><span class="hljs-type">Thread</span> <span class="hljs-variable">thread</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Thread</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">MyRunnable</span>());<br>thread.start(); <span class="hljs-comment">// 启动线程</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/65b8fb9a871b83018a663654.png" srcset="/img/loading.gif" lazyload></p>
+<p>实现Runnable接口相对于继承Thread类来说，有如下显著好处：<br>1、适合多个相同程序代码的线程去处理同一个资源的情况，把线程同程序代码、数据有效的分离，很好的体现了面向对象的设计思想。<br>2、可以避免由于Java的单继承带来的局限性。在开发中经常碰到这样一种情况，就是使用一个已经继承了某一个类的子类创建线程，由于一个类不能同时有两个父类，所以不能用继承Thread类的方式，那么就只能采用实现Runnable接口的方式。</p>
+<p>后台线程<br>对Java程序来说，只要还有一个前台线程在运行，这个进程就不会结束，如果一个进程中只有后台线程运行，这个进程就会结束。这里提到的前台线程和后台线程是一种相对的概念，新创建的线程默认都是前台线程，如果某个线程对象在启动之前调用了setDaemon(true)语句，这个线程就变成一个后台线程。</p>
+<h2 id="1-37-线程生命周期"><a href="#1-37-线程生命周期" class="headerlink" title="1.37 线程生命周期"></a>1.37 线程生命周期</h2><p>线程整个生命周期可以分为五个阶段，分别是新建状态(New)、就绪状态(Runnable)、运行状态(Running)、阻塞状态(Blocked)和死亡状态(Terminated)，线程的不同状态表明了线程当前正在进行的活动。</p>
+<p>1、新建状态(New) 创建一个线程对象后，该线程对象就处于新建状态，此时它不能运行，和其它Java对象一样，仅仅由Java虚拟机为其分配了内存，没有表现出任何线程的动态特征。<br>2、就绪状态(Runnable) 当线程对象调用了start()方法后，该线程就进入就绪状态（也称可运行状态）。处于就绪状态的线程位于可运行池中，此时它只是具备了运行的条件，能否获得CPU的使用权开始运行，还需要等待系统的调度。<br>3、运行状态(Running) 如果处于就绪状态的线程获得了CPU的使用权，开始执行run()方法中的线程执行体，则该线程处于运行状态。当一个线程启动后，它不可能一直处于运行状态(除非它的线程执行体足够短，瞬间就结束了)，当使用完系统分配的时间后，系统就会剥夺该线程占用的CPU资源，让其它线程获得执行的机会。需要注意的是，只有处于就绪状态的线程才可能转换到运行状态。<br>4、阻塞状态(Blocked) 一个正在执行的线程在某些特殊情况下，如执行耗时的输入&#x2F;输出操作时，会放弃CPU的使用权，进入阻塞状态。线程进入阻塞状态后，就不能进入排队队列。只有当引起阻塞的原因被消除后，线程才可以转入就绪状态。<br>当线程试图获取某个对象的同步锁时，如果该锁被其它线程所持有，则当前线程会进入阻塞状态，如果想从阻塞状态进入就绪状态必须得获取到其它线程所持有的锁。<br>当线程调用了一个阻塞式的IO方法时，该线程就会进入阻塞状态，如果想进入就绪状态就必须要等到这个阻塞的IO方法返回。<br>当线程调用了某个对象的wait()方法时，也会使线程进入阻塞状态，如果想进入就绪状态就需要使用notify()方法唤醒该线程。<br>当线程调用了Thread的sleep(long millis)方法时，也会使线程进入阻塞状态，在这种情况下，只需等到线程睡眠的时间到了以后，线程就会自动进入就绪状态。<br>当在一个线程中调用了另一个线程的join()方法时，会使当前线程进入阻塞状态，在这种情况下，需要等到新加入的线程运行结束后才会结束阻塞状态，进入就绪状态。<br>5、死亡状态(Terminated) 线程的run()方法正常执行完毕或者线程抛出一个未捕获的异常(Exception)、错误(Error)，线程就进入死亡状态。一旦进入死亡状态，线程将不再拥有运行的资格，也不能再转换到其它状态。</p>
+<h2 id="1-38-线程的优先级"><a href="#1-38-线程的优先级" class="headerlink" title="1.38 线程的优先级"></a>1.38 线程的优先级</h2><p>优先级越高的线程获得CPU执行的机会越大，而优先级越低的线程获得CPU执行的机会越小。<br>线程的优先级用1<del>10之间的整数来表示，数字越大优先级越高。<br>除了可以直接使用数字表示线程的优先级，还可以使用Thread类中提供的三个静态常量表示线程的优先级<br>程序在运行期间，处于就绪状态的每个线程都有自己的优先级，例如main线程具有普通优先级。然而线程优先级不是固定不变的，可以通过Thread类的setPriority(int newPriority)方法对其进行设置，该方法中的参数newPriority接收的是1</del>10之间的整数或者Thread类的三个静态常量。</p>
+<h2 id="1-39-线程休眠"><a href="#1-39-线程休眠" class="headerlink" title="1.39 线程休眠"></a>1.39 线程休眠</h2><p>如果希望人为地控制线程，使正在执行的线程暂停，将CPU让给别的线程，这时可以使用静态方法sleep(long millis)，该方法可以让当前正在执行的线程暂停一段时间，进入休眠等待状态。<br>当前线程调用sleep(long millis)方法后，在指定时间(参数millis)内该线程是不会执行的，这样其它的线程就可以得到执行的机会。</p>
+<h2 id="1-40-线程让步"><a href="#1-40-线程让步" class="headerlink" title="1.40 线程让步"></a>1.40 线程让步</h2><p>在校园中，我们经常会看到同学互相抢篮球，当某个同学抢到篮球后就可以拍一会，之后他会把篮球让出来，大家重新开始抢篮球，这个过程就相当于Java程序中的线程让步。<br>线程让步可以通过yield()方法来实现，该方法和sleep()方法有点相似，都可以让当前正在运行的线程暂停，区别在于yield()方法不会阻塞该线程，它只是将线程转换成就绪状态，让系统的调度器重新调度一次。当某个线程调用yield()方法之后，只有与当前线程优先级相同或者更高的线程才能获得执行的机会。</p>
+<h2 id="1-41-线程插队"><a href="#1-41-线程插队" class="headerlink" title="1.41 线程插队"></a>1.41 线程插队</h2><p>现实生活中经常能碰到“插队”的情况，同样，在Thread类中也提供了一个join()方法来实现这个“功能”。<br>当在某个线程中调用其它线程的join()方法时，调用的线程将被阻塞，直到被join()方法加入的线程执行完成后它才会继续运行。</p>
+<h2 id="1-42-同步代码块"><a href="#1-42-同步代码块" class="headerlink" title="1.42 同步代码块"></a>1.42 同步代码块</h2><p>要解决线程安全问题，必须得保证下面用于处理共享资源的代码在任何时刻只能有一个线程访问。<br>为了实现这种限制，Java中提供了同步机制。当多个线程使用同一个共享资源时，可以将处理共享资源的代码放置在一个代码块中，使用synchronized关键字来修饰，被称作同步代码块，其语法格式如下<br>synchronized(lock){<br>    操作共享资源代码快<br>}<br>lock是一个锁对象，它是同步代码块的关键。当线程执行同步代码块时，首先会检查锁对象的标志位，默认情况下标志位为1，此时线程会执行同步代码块，同时将锁对象的标志位置为0。当一个新的线程执行到这段同步代码块时，由于锁对象的标志位为0，新线程会发生阻塞，等待当前线程执行完同步代码块后，锁对象的标志位被置为1，新线程才能进入同步代码块执行其中的代码。循环往复，直到共享资源被处理完为止。</p>
+<h2 id="1-43-同步方法"><a href="#1-43-同步方法" class="headerlink" title="1.43 同步方法"></a>1.43 同步方法</h2><p>同步代码块可以有效解决线程的安全问题，当把共享资源的操作放在synchronized定义的区域内时，便为这些操作加了同步锁。<br>在方法前面同样可以使用synchronized关键字来修饰，被修饰的方法为同步方法，它能实现和同步代码块同样的功能，具体语法格式如下：<br>synchronized 返回值类型 方法名[参数1,….]{}<br>被synchronized修饰的方法在某一时刻只允许一个线程访问，访问该方法的其它线程都会发生阻塞，直到当前线程访问完毕后，其它线程才有机会执行方法。</p>
+<h2 id="1-44-死锁"><a href="#1-44-死锁" class="headerlink" title="1.44 死锁"></a>1.44 死锁</h2><p>两个线程在运行时都在等待对方的锁，这样便造成了程序的停滞，这种现象称为死锁</p>
+<p>问题引出<br>假设有两个线程同时去操作同一个存储空间，其中一个线程负责向存储空间中存入数据，另一个线程负责则取出数据。<br>问题如何解决<br>如果想解决上述问题，需要控制多个线程按照一定的顺序轮流执行，此时需要让线程间进行通信。在Object类中提供了wait()、notify()、notifyAll()方法用于解决线程间的通信问题，由于Java中所有类都是Object类的子类或间接子类，因此任何类的实例对象都可以直接使用这些方法。</p>
+<h2 id="1-45-设计模式"><a href="#1-45-设计模式" class="headerlink" title="1.45 设计模式"></a>1.45 设计模式</h2><p>设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计<br>经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。</p>
+<p>总体来说设计模式分为三大类：<br>创建型模式 共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。<br>结构型模式 共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。<br>行为型模式 共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</p>
+<h2 id="1-46-设计模式需要遵循的原则"><a href="#1-46-设计模式需要遵循的原则" class="headerlink" title="1.46 设计模式需要遵循的原则"></a>1.46 设计模式需要遵循的原则</h2><p>1.开闭原则 说对扩展开放，对修改关闭。在程序需要拓展时，不能去修改原有的代码，实现热插拔的效果<br>2.里式替换原则  任何基类可以出现的地方，子类一定可以出现。 LSP是继承复用的基石<br>3.依赖倒转原则  真对接口编程，依赖于抽象而不依赖于具体<br>4.接口隔离原则  使用多个隔离的接口，比使用单个接口要好。还是一个降低类之间的耦合度的意思<br>5.迪米特法则  一个实体应尽量少的与其他实体发生相互作用，使系统功能相对独立<br>6.合成复用原则 尽量使用合成&#x2F;聚合的方式，而不是使用继承</p>
+<h2 id="1-47-几种典型设计模式"><a href="#1-47-几种典型设计模式" class="headerlink" title="1.47 几种典型设计模式"></a>1.47 几种典型设计模式</h2><p>单例模式:单例对象能保证在一个JVM中，该对象只有一个实例存在。<br>饿汉式:类加载该实例就被创建</p>
+<p>懒汉式:对象在使用时实例才被创建</p>
+<p>双检锁式: 多线程监督</p>
+<p>策略模式:策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。</p>
+<p>策略模式可以选择不同的策略进行业务处理 ,抽象策略类通常有接口或者抽象类定义方法，具体策略类则对方法进行实现。</p>
+<p>工厂模式:建立一个工厂类，对实现了同一接口的一些类进行实例的创建。</p>
+<p>简单工厂 静态工厂 抽象工厂</p>
+<p>适配器模式:适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题</p>
+<p>适配器模式是转换不同业务类型的通用“插口”，可以将一个或多个类的接口转换为标准接口，使得原本不兼容的接口可以同时使用。</p>
+<p>设计模式于人于系统都是多赢的，它使代码编写工程化，是软件工程的基石。项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式描述了一个在我们周围不断重复发生的问题并能够解决，这是它被广泛应用的原因</p>
+<h2 id="1-48-集合"><a href="#1-48-集合" class="headerlink" title="1.48 集合"></a>1.48 集合</h2><p>集合是指具有某种特定性质的具体的或抽象的对象汇总而成的集体，有时集合也称之为容器</p>
+<p>程序中可以通过数组来保存多个对象，但在某些情况下无法确定到底需要保存多少个对象，此时数组将不再适用，因为数组的长度不可变。</p>
+<p>JDK中提供了一系列特殊的类，这些类可以存储任意类型的对象，并且长度可变，统称为集合。</p>
+<p>集合按照其存储结构可以分为两大类，即单列集合Collection和双列集合Map</p>
+<p>Collection：单列集合类的根接口，存储一系列符合某种规则的元素，它有两个重要的子接口，分别是List和Set。其中，List的特点是元素有序、元素可重复。Set的特点是元素无序并且不可重复。List接口的主要实现类有ArrayList和LinkedList，Set接口的主要实现类有HashSet和TreeSet。</p>
+<p>Map：双列集合类的根接口，用于存储具有键(Key)、值(Value)映射关系的元素，每个元素都包含一对键值，在使用Map集合时可以通过指定的Key找到对应的Value，例如根据一个学生的学号就可以找到对应的学生。Map接口的主要实现类有HashMap和TreeMap。</p>
+<p>Collection是所有单列集合的父接口，因此在Collection中定义了单列集合(List和Set)通用的一些方法，这些方法可用于操作所有的单列集合。</p>
+<p><img src="https://files.superbed.cn/images/65b8fb94871b83018a6617dd.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-49-List接口简介"><a href="#1-49-List接口简介" class="headerlink" title="1.49 List接口简介"></a>1.49 List接口简介</h2><p> List接口继承自Collection接口，是单列集合的一个重要分支，习惯性地会将实现了List接口的对象称为List集合。</p>
+<p> 在List集合中允许出现重复的元素，所有的元素是以一种线性方式进行存储的，在程序中可以通过索引来访问集合中的指定元素。</p>
+<p> 另外，List集合还有一个特点就是元素有序，即元素的存入顺序和取出顺序一致。</p>
+<p> List不但继承了Collection接口中的全部方法，而且还增加了一些根据元素索引来操作集合的特有方法。</p>
+<h2 id="1-50-ArrayList集合"><a href="#1-50-ArrayList集合" class="headerlink" title="1.50 ArrayList集合"></a>1.50 ArrayList集合</h2><p> ArrayList是List接口的一个实现类，它是程序中最常见的一种集合</p>
+<p> 在ArrayList内部封装了一个长度可变的数组对象，当存入的元素超过数组长度时，ArrayList会在内存中分配一个更大的数组来存储这些元素，因此可以将ArrayList集合看作一个长度可变的数组</p>
+<p> ArrayList集合中大部分方法都是从父类Collection和List继承过来的，其中add()方法和get()方法用于实现元素的存取。</p>
+<h2 id="1-51-LinkedList集合"><a href="#1-51-LinkedList集合" class="headerlink" title="1.51 LinkedList集合"></a>1.51 LinkedList集合</h2><p> List接口的另一个实现类LinkedList，克服了ArrayList集合在查询元素时速度很快，但在增删元素时效率较低的局限性。</p>
+<p> 该集合内部维护了一个双向循环链表，链表中的每一个元素都使用引用的方式来记住它的前一个元素和后一个元素，从而可以将所有的元素彼此连接起来。</p>
+<p> 当插入一个新元素时，只需要修改元素之间的这种引用关系即可，删除一个节点也是如此。</p>
+<p> LinkedList集合除了具备增删元素效率高的特点，还专门针对元素的增删操作定义了一些特有的方法。</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb94871b83018a661910.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-52-Iterator集合"><a href="#1-52-Iterator集合" class="headerlink" title="1.52 Iterator集合"></a>1.52 Iterator集合</h2><p> Iterator接口也是Java集合框架中的一员，但它与Collection、Map接口有所不同，Collection接口与Map接口主要用于存储元素，而Iterator主要用于迭代访问（即遍历）Collection中的元素，因此Iterator对象也被称为迭代器。Iterator迭代器对象在遍历集合时，内部采用指针的方式来跟踪集合中的元素</p>
+<p>在使用Iterator迭代器对集合中的元素进行迭代时，如果调用了集合对象的remove()方法去删除元素，会出现异常。</p>
+<p>这个异常是迭代器对象抛出的，出现异常的原因是集合中删除了元素会导致迭代器预期的迭代次数发生改变，导致迭代器的结果不准确</p>
+<p>为了解决上述问题，可以采用两种方式：</p>
+<p>1.在使用break语句跳出循环以后，由于没有继续使用迭代器对集合中的元素进行迭代，因此，集合中删除元素对程序没有任何影响，不会出现异常</p>
+<p>2.如果需要在集合的迭代期间对集合中的元素进行删除，可以使用迭代器本身的删除方法</p>
+<h2 id="1-52-1-Java-Iterator（迭代器）"><a href="#1-52-1-Java-Iterator（迭代器）" class="headerlink" title="1.52.1 Java Iterator（迭代器）"></a>1.52.1 Java Iterator（迭代器）</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-collections.html"><img src="https://www.runoob.com/images/up.gif" srcset="/img/loading.gif" lazyload alt="Java 集合框架"> Java 集合框架</a></p>
+<p>Java迭代器（Iterator）是 Java 集合框架中的一种机制，是一种用于遍历集合（如列表、集合和映射等）的接口。</p>
+<p>它提供了一种统一的方式来访问集合中的元素，而不需要了解底层集合的具体实现细节。</p>
+<p>Java Iterator（迭代器）不是一个集合，它是一种用于访问集合的方法，可用于迭代 <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-arraylist.html">ArrayList</a> 和 <a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-hashset.html">HashSet</a> 等集合。</p>
+<p>Iterator 是 Java 迭代器最简单的实现，ListIterator 是 Collection API 中的接口， 它扩展了 Iterator 接口。</p>
+<p><img src="https://www.runoob.com/wp-content/uploads/2020/07/ListIterator-Class-Diagram.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>迭代器接口定义了几个方法，最常用的是以下三个：</p>
+<ul>
+<li><strong>next()</strong> - 返回迭代器的下一个元素，并将迭代器的指针移到下一个位置。</li>
+<li><strong>hasNext()</strong> - 用于判断集合中是否还有下一个元素可以访问。</li>
+<li><strong>remove()</strong> - 从集合中删除迭代器最后访问的元素（可选操作）。</li>
+</ul>
+<p>Iterator 类位于 java.util 包中，使用前需要引入它，语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Iterator; <span class="hljs-comment">// 引入 Iterator 类</span><br></code></pre></td></tr></table></figure>
+
+<p>通过使用迭代器，我们可以逐个访问集合中的元素，而不需要使用传统的 for 循环或索引。这种方式更加简洁和灵活，并且适用于各种类型的集合。</p>
+<h3 id="获取一个迭代器"><a href="#获取一个迭代器" class="headerlink" title="获取一个迭代器"></a>获取一个迭代器</h3><p>集合想获取一个迭代器可以使用 iterator() 方法:</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><em>&#x2F;&#x2F; 引入 ArrayList 和 Iterator 类</em><br><strong>import</strong> java.util.ArrayList;<br><strong>import</strong> java.util.Iterator;</p>
+<p><strong>public</strong> <strong>class</strong> RunoobTest {<br>  <strong>public</strong> <strong>static</strong> <strong>void</strong> main(String[] args) {</p>
+<p>​    <em>&#x2F;&#x2F; 创建集合</em><br>​    ArrayList<String> sites &#x3D; <strong>new</strong> ArrayList<String>();<br>​    sites.add(“Google”);<br>​    sites.add(“Runoob”);<br>​    sites.add(“Taobao”);<br>​    sites.add(“Zhihu”);</p>
+<p>​    <em>&#x2F;&#x2F; 获取迭代器</em><br>​    Iterator<String> it &#x3D; sites.iterator();</p>
+<p>​    <em>&#x2F;&#x2F; 输出集合中的第一个元素</em><br>​    System.out.println(it.next());<br>  }<br>}</p>
+<p>执行以上代码，输出结果如下：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Google</span><br></code></pre></td></tr></table></figure>
+
+<p>使用迭代器遍历集合时，如果在遍历过程中对集合进行了修改（例如添加或删除元素），可能会导致 ConcurrentModificationException 异常，为了避免这个问题，可以使用迭代器自身的 <strong>remove()</strong> 方法进行删除操作。</p>
+<h3 id="循环集合元素"><a href="#循环集合元素" class="headerlink" title="循环集合元素"></a>循环集合元素</h3><p>让迭代器 it 逐个返回集合中所有元素最简单的方法是使用 while 循环：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-keyword">while</span>(<span class="hljs-keyword">it</span>.hasNext()) &#123;<br>    System.out.println(<span class="hljs-keyword">it</span>.next());<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>以下输出集合 sites 中的所有元素：</p>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p><em>&#x2F;&#x2F; 引入 ArrayList 和 Iterator 类</em><br><strong>import</strong> java.util.ArrayList;<br><strong>import</strong> java.util.Iterator;</p>
+<p><strong>public</strong> <strong>class</strong> RunoobTest {<br>  <strong>public</strong> <strong>static</strong> <strong>void</strong> main(String[] args) {</p>
+<p>​    <em>&#x2F;&#x2F; 创建集合</em><br>​    ArrayList<String> sites &#x3D; <strong>new</strong> ArrayList<String>();<br>​    sites.add(“Google”);<br>​    sites.add(“Runoob”);<br>​    sites.add(“Taobao”);<br>​    sites.add(“Zhihu”);</p>
+<p>​    <em>&#x2F;&#x2F; 获取迭代器</em><br>​    Iterator<String> it &#x3D; sites.iterator();</p>
+<p>​    <em>&#x2F;&#x2F; 输出集合中的所有元素</em><br>​    <strong>while</strong>(it.hasNext()) {<br>​      System.out.println(it.next());<br>​    }<br>  }<br>}</p>
+<p>执行以上代码，输出结果如下：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Google</span><br><span class="hljs-attribute">Runoob</span><br><span class="hljs-attribute">Taobao</span><br><span class="hljs-attribute">Zhihu</span><br></code></pre></td></tr></table></figure>
+
+<p>删除元素</p>
+<p>要删除集合中的元素可以使用 remove() 方法。</p>
+<p>以下实例我们删除集合中小于 10 的元素：</p>
+<h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><p><em>&#x2F;&#x2F; 引入 ArrayList 和 Iterator 类</em><br><strong>import</strong> java.util.ArrayList;<br><strong>import</strong> java.util.Iterator;</p>
+<p><strong>public</strong> <strong>class</strong> RunoobTest {<br>  <strong>public</strong> <strong>static</strong> <strong>void</strong> main(String[] args) {<br>    ArrayList<Integer> numbers &#x3D; <strong>new</strong> ArrayList<Integer>();<br>    numbers.add(12);<br>    numbers.add(8);<br>    numbers.add(2);<br>    numbers.add(23);<br>    Iterator<Integer> it &#x3D; numbers.iterator();<br>    <strong>while</strong>(it.hasNext()) {<br>      Integer i &#x3D; it.next();<br>      <strong>if</strong>(i &lt; 10) {<br>        it.remove(); <em>&#x2F;&#x2F; 删除小于 10 的元素</em><br>      }<br>    }<br>    System.out.println(numbers);<br>  }<br>}</p>
+<p>执行以上代码，输出结果如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-string">[12, 23]</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong>Java 迭代器是一种单向遍历机制，即只能从前往后遍历集合中的元素，不能往回遍历。同时，在使用迭代器遍历集合时，不能直接修改集合中的元素，而是需要使用迭代器的 remove() 方法来删除当前元素。</p>
+<h2 id="1-53-foreach循环"><a href="#1-53-foreach循环" class="headerlink" title="1.53 foreach循环"></a>1.53 foreach循环</h2><p> 虽然Iterator可以用来遍历集合中的元素，但写法上比较繁琐，为了简化书写，从JDK5.0开始，提供了foreach循环。foreach循环是一种更加简洁的for循环，也称增强for循环。foreach循环用于遍历数组或集合中的元素，其具体语法格式如下：</p>
+<p>for(容器中元素类型 临时变量 : 容器变量){</p>
+<p>​	执行语句</p>
+<p>}</p>
+<p>与for循环相比，foreach循环不需要获得容器的长度，也不需要根据索引访问容器中的元素，但它会自动遍历容器中的每个元素</p>
+<p>foreach循环虽然书写起来很简洁，但在使用时也存在一定的局限性。当使用foreach循环遍历集合和数组时，只能访问集合中的元素，不能对其中的元素进行修改</p>
+<h2 id="1-54-ListIterator接口"><a href="#1-54-ListIterator接口" class="headerlink" title="1.54 ListIterator接口"></a>1.54 ListIterator接口</h2><p> Iterator迭代器提供了hasNext()方法和next()方法，通过这两个方法可以实现集合中元素的迭代，迭代的方向是从集合中的第一个元素向最后一个元素迭代，也就是所谓的正向迭代。</p>
+<p> 为了使迭代方式更加多元化，JDK中还定义了一个ListIterator迭代器，它是Iterator的子类，该类在父类的基础上增加了一些特有方法。</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb95871b83018a6619b4.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-55-Enumeration接口"><a href="#1-55-Enumeration接口" class="headerlink" title="1.55 Enumeration接口"></a>1.55 Enumeration接口</h2><p> 在JDK1.2以前还没有Iterator接口的时候，遍历集合需要使用Enumeration接口，它的用法和Iterator类似。</p>
+<p> JDK中提供了一个Vevtor集合，该集合是List接口的一个实现类，用法与ArrayList完全相同，区别在于Vector集合是线程安全的，而ArrayList集合是线程不安全的。在Vector类中提供了一个elements()方法用于返回Enumeration对象，通过Enumeration对象就可以遍历该集合中的元素。</p>
+<h2 id="1-56-Set接口简介"><a href="#1-56-Set接口简介" class="headerlink" title="1.56 Set接口简介"></a>1.56 Set接口简介</h2><p> Set接口和List接口一样，同样继承自Collection接口，它与Collection接口中的方法基本一致，并没有对Collection接口进行功能上的扩充，只是比Collection接口更加严格了。与List接口不同的是，Set接口中元素无序，并且都会以某种规则保证存入的元素不出现重复。</p>
+<p> Set接口主要有两个实现类，分别是HashSet和TreeSet。其中，HashSet是根据对象的哈希值来确定元素在集合中的存储的位置，因此具有良好的存取和查找性能。TreeSet则是以二叉树的方式来存储元素，它可以实现对集合中的元素进行排序。</p>
+<h2 id="1-57-HashSet集合"><a href="#1-57-HashSet集合" class="headerlink" title="1.57 HashSet集合"></a>1.57 HashSet集合</h2><p> HashSet是Set接口的一个实现类，它所存储的元素是不可重复的，并且元素都是无序的。当向HashSet集合中添加一个对象时，首先会调用该对象的hashCode()方法来确定元素的存储位置，然后再调用对象的equals()方法来确保该位置没有重复元素。</p>
+<h2 id="1-58-TreeSet集合"><a href="#1-58-TreeSet集合" class="headerlink" title="1.58 TreeSet集合"></a>1.58 TreeSet集合</h2><p> TreeSet是Set接口的另一个实现类，它内部采用平衡二叉树来存储元素，这样的结构可以保证TreeSet集合中没有重复的元素，并且可以对元素进行排序。</p>
+<p> 所谓二叉树就是说每个节点最多有两个子节点的有序树，每个节点及其子节点组成的树称为子树，通常左侧的子节点称为“左子树”，右侧的节点称为“右子树”，其中左子树上的元素应小于它的根结点，而右子树上的元素应大于它的根结点。</p>
+<p> 二叉树中元素的存储过程：</p>
+<p> 当二叉树中存入新元素时，新元素首先会与第1个元素(最顶层元素)进行比较，如果小于第1个元素就执行左边的分支，继续和该分支的子元素进行比较。如果大于第1个元素就执行右边的分支，继续和该分支的子元素进行比较。如此往复，直到与最后一个元素进行比较时，如果新元素小于最后一个元素就将其放在最后一个元素的左子树上，如果大于最后一个元素就将其放在最后一个元素的右子树上。</p>
+<p> 在TreeSet集合中存放Student类型对象时，如果Student类没有实现Comparable接口，则Student类型的对象将不能进行比较，这时，TreeSet集合就不知道按照什么排序规则对Student对象进行排序，最终导致程序报错。因此，为了在TreeSet集合中存放Student对象，必须使Student类实现Comparable接口。</p>
+<p> 定义的类没有实现Comparable接口或者对于实现了Comparable接口的类而不想按照定义的compareTo()方法进行排序，，例如，希望字符串可以按照长度来进行排序，这时，可以通过自定义比较器的方式对TreeSet集合中的元素排序，即实现Comparator接口，在创建TreeSet集合时指定比较器。</p>
+<h2 id="1-59-Map接口简介"><a href="#1-59-Map接口简介" class="headerlink" title="1.59 Map接口简介"></a>1.59 Map接口简介</h2><p> 在现实生活中，每个人都有唯一的身份证号，通过身份证号可以查询到这个人的信息，这两者是一对一的关系。</p>
+<p> 在应用程序中，如果想存储这种具有对应关系的数据，则需要使用JDK中提供的Map接口。</p>
+<p> Map接口是一种双列集合，它的每个元素都包含一个键对象Key和值对象Value，键和值对象之间存在一种对应关系，称为映射。</p>
+<p> 从Map集合中访问元素时，只要指定了Key，就能找到对应的Value。</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb95871b83018a661a96.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-60-HashMap集合"><a href="#1-60-HashMap集合" class="headerlink" title="1.60 HashMap集合"></a>1.60 HashMap集合</h2><p> HashMap集合是Map接口的一个实现类，它用于存储键值映射关系，但必须保证不出现重复的键。</p>
+<p> 在程序开发中，经常需要取出Map中所有的键和值，那么如何遍历Map中所有的键值对呢？</p>
+<p> 有两种方式可以实现，<strong>第一种方式</strong>就是先遍历Map集合中所有的键，再根据键获取相应的值。</p>
+<p><strong>另外一种遍历方式</strong>是先获取集合中的所有的映射关系，然后从映射关系中取出键和值</p>
+<p>在Map中，还提供了一个values()方法，通过这个方法可以直接获取Map中存储所有值的Collection集合。</p>
+<p> HashMap集合迭代出来元素的顺序和存入的顺序是不一致的。</p>
+<p> 如果想让这两个顺序一致，可以使用Java中提供的LinkedHashMap类，它是HashMap的子类，和LinkedList一样也使用双向链表来维护内部元素的关系，使Map元素迭代的顺序与存入的顺序一致。</p>
+<h2 id="1-61-TreeMap集合"><a href="#1-61-TreeMap集合" class="headerlink" title="1.61 TreeMap集合"></a>1.61 TreeMap集合</h2><p> TreeMap集合是用来存储键值映射关系的，其中不允许出现重复的键。在TreeMap中是通过二叉树的原理来保证键的唯一性，这个TreeSet集合存储的原理一样，因此TreeMap中所有的键是按照某种顺序排列的。</p>
+<p> 在使用TreeMap集合时，也可以通过自定义比较器的方式对所有的键进行排序。</p>
+<h2 id="1-62-Properties集合"><a href="#1-62-Properties集合" class="headerlink" title="1.62 Properties集合"></a>1.62 Properties集合</h2><p> Map接口中还有一个实现类Hashtable，它在存取元素时速度很慢，目前基本上被HashMap类所取代。</p>
+<p> 但Hashtable类有一个子类Properties在实际应用中非常重要，Properties主要用来存储字符串类型的键和值，在实际开发中，经常使用Properties集合来存取应用的配置项。</p>
+<p> 假设有一个文本编辑工具，要求默认背景色是红色，字体大小为14px，语言为中文，其配置项应该是下面的样子：</p>
+<p>Backgroup-color&#x3D;red</p>
+<p>Font-size&#x3D;14px</p>
+<p>language&#x3D;chinese</p>
+<h2 id="1-63-泛型"><a href="#1-63-泛型" class="headerlink" title="1.63 泛型"></a>1.63 泛型</h2><p>为什么使用泛型</p>
+<p> 当把一个对象存入集合后，集合会“忘记”这个对象的类型，将该对象从集合中取出时，这个对象的编译类型就变成了Object类型。</p>
+<p> 换句话说，我们在程序中无法确定一个集合中的元素到底是什么类型的。那么在取出元素时，如果进行强制类型转换就很容易出错。</p>
+<p> 为了解决这个问题，在Java中引入了“参数化类型(parameterized type)”这个概念，即泛型。</p>
+<p> 它可以限定方法操作的数据类型，在定义集合类时，可以使用“&lt;参数化类型&gt;”的方式指定该类中方法操作的数据类型。</p>
+<p>限定了ArrayList集合只能存储String类型元素，将改写后的程序再次编译，程序在编译时期就会出现错误提示</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb95871b83018a661bf4.png" srcset="/img/loading.gif" lazyload></p>
+<p> 程序编译报错的原因是修改后的代码限定了集合元素的数据类型，ArrayList<String>这样的集合只能存储String类型的元素，程序在编译时，编译器检查出Integer类型的元素与List集合的规定的类型不匹配，编译不通过，这样就可以在编译时期解决错误，避免程序在运行时期发生错误。</p>
+<h2 id="1-64-自定义泛型"><a href="#1-64-自定义泛型" class="headerlink" title="1.64 自定义泛型"></a>1.64 自定义泛型</h2><p>那么泛型的作用是什么，在程序中是否能自定义泛型呢</p>
+<p> 从运行结果可以看出，程序在编译时期就报错，这是因为在代码第13行处存入了一个Integer类型的数据，在代码第14行处取出这个数据时，将该数据转换成了String类型，出现了类型不匹配的错误。</p>
+<p> 为了避免这个问题，就可以使用泛型，如果在定义一个类CachePool时使用<T>声明参数类型，(T其实就是Type的缩写，这里也可以使用其它字符，为了方便理解都定义为T)，将save()方法的参数类型和get()方法的返回值类型都声明为T，那么在存入元素时元素的类型就被限定了，容器中就只能存入这种T类型的元素，在取出元素时就无需进行类型转换</p>
+<h2 id="1-65-collections"><a href="#1-65-collections" class="headerlink" title="1.65 collections"></a>1.65 collections</h2><p>•JDK提供了一个工具类专门用来操作集合，这个类就是Collections，它位于java.util包中。Collections类中提供了大量的方法用于对集合中元素进行排序、查找和修改等操作，接下来对这些常用的方法进行介绍。</p>
+<p>1 排序操作</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb9a871b83018a66338f.png" srcset="/img/loading.gif" lazyload></p>
+<p>2、查找、替换操作</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb9a871b83018a663437.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-66-Arrays"><a href="#1-66-Arrays" class="headerlink" title="1.66 Arrays"></a>1.66 Arrays</h2><p>java.util包中还提供了一个专门用于操作数组的工具类——Arrays。Arrays工具类提供了大量的静态方法</p>
+<p>使用Arrays的sort()方法排序</p>
+<p>使用Arrays的binarySearch(Object[] a, Object key)方法查找元素</p>
+<p>使用Arrays的copyOfRange(int[] original, int from, int to)方法拷贝元素</p>
+<p>在程序开发中，经常需要在不破坏原数组的情况下使用数组中的部分元素，这时可以使用Arrays工具类的copyOfRange(int[] original,int from,int to)方法将数组中指定范围的元素复制到一个新的数组中，该方法中参数original表示被复制的数组，from表示被复制元素的初始索引（包括），to表示被复制元素的最后索引（不包括）</p>
+<p>使用Arrays的fill(Object[] a, Object val)方法填充元素</p>
+<p>程序开发中，经常需要用一个值替换数组中的所有元素，这时可以使用Array的fill(Object[] a, Object val)方法，该方法可以将指定的值赋给数组中的每一个元素</p>
+<p>使用Arrays的toString(int[] arr)方法把数组转换为字符串</p>
+<p>在程序开发中，经常需要把数组以字符串的形式输出，这时就可以使用Arrays工具类的另一个方法toString(int[] arr)。需要注意的是，该方法并不是对Object类toString()方法的重写，只是用于返回指定数组的字符串形式</p>
+<h2 id="1-67处理模型"><a href="#1-67处理模型" class="headerlink" title="1.67处理模型"></a>1.67处理模型</h2><p>Java中常用的处理模型有两种：Servlet和JSP。</p>
+<p>Servlet是一种Java类，它可以接收来自客户端的HTTP请求，并生成HTTP响应。它们通常用于处理Web应用程序的后端逻辑。Servlet可以通过扩展<code>javax.servlet.http.HttpServlet</code>类来创建，并实现<code>doGet()</code>、<code>doPost()</code>等方法来处理请求。Servlet通常用于处理业务逻辑、数据存储和数据处理等任务。</p>
+<p>JSP（JavaServer Pages）是一种动态网页技术，它使用Java代码和HTML标记创建动态网页。JSP文件通常包含HTML标记和Java代码块，可以通过JSP引擎来动态生成HTML页面。JSP通常用于呈现页面内容和与客户端进行交互。</p>
+<p>这两个类型在Java Web开发中都扮演着重要的角色。Servlet提供了一种处理请求的方式，而JSP提供了一种动态生成HTML页面的方式。通常情况下，在Web应用程序中，Servlet和JSP是相互配合使用的，Servlet负责业务逻辑和数据处理，而JSP负责呈现页面内容。</p>
+<h2 id="1-68-JDBC"><a href="#1-68-JDBC" class="headerlink" title="1.68 JDBC"></a>1.68 JDBC</h2><p>JDBC（Java Database Connectivity）是一种用于与关系型数据库进行交互的Java API。要连接到数据库并执行SQL语句，需要执行以下基本连接语法和步骤：</p>
+<p>1.加载数据库驱动程序：在连接到数据库之前，需要加载数据库驱动程序。可以使用Class.forName()方法动态加载驱动程序，也可以使用Java 6及以上版本的自动驱动程序加载功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JAVA">Class.forName(<span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p> 2.创建数据库连接：要连接到数据库，需要指定数据库的URL、用户名和密码。可以使用DriverManager.getConnection()方法创建数据库连接。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs JAVA"><span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;jdbc:mysql://localhost:3306/mydatabase&quot;</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;username&quot;</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">password</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;password&quot;</span>;<br><span class="hljs-type">Connection</span> <span class="hljs-variable">connection</span> <span class="hljs-operator">=</span> DriverManager.getConnection(url, user, password);<br></code></pre></td></tr></table></figure>
+
+<p>3.创建Statement对象：要执行SQL语句，需要创建一个Statement对象。可以使用Connection.createStatement()方法创建Statement对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JAVA"><span class="hljs-type">Statement</span> <span class="hljs-variable">statement</span> <span class="hljs-operator">=</span> connection.createStatement();<br></code></pre></td></tr></table></figure>
+
+<p>4.执行SQL语句：可以使用Statement对象的execute()、executeUpdate()或executeQuery()方法执行SQL语句。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs JAVA"><span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;SELECT * FROM mytable&quot;</span>;<br><span class="hljs-type">ResultSet</span> <span class="hljs-variable">resultSet</span> <span class="hljs-operator">=</span> statement.executeQuery(sql);<br></code></pre></td></tr></table></figure>
+
+<p>5.处理结果集：如果SQL语句返回结果集，可以使用ResultSet对象处理结果集。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs JAVA"><span class="hljs-keyword">while</span> (resultSet.next()) &#123;<br>    <span class="hljs-comment">// 处理结果集</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>6.关闭资源：在使用完数据库连接、Statement对象和ResultSet对象后，需要及时关闭它们以释放资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs JAVA">resultSet.close();<br>statement.close();<br>connection.close();<br></code></pre></td></tr></table></figure>
+
+<p>关于 JDBC， 哪一项叙述是不正确的（D）。<br>A.JDBC 屏蔽了底层数据库系统的差异性， 为程序员访问不同数据库提供统一的<br>面向对象的编程接口。<br>B.JDBC 编程接口 中的很多方法声明可能抛出 SQLException 异常， 必须用<br>try-catch 进行捕捉处理或继续声明抛出。<br>C.Connection 类型的实例代表具体的数据库连接， 为向目 标数据库发送和执行<br>SQL 语句提供支持。<br>D.Statement 类型的实例用于执行不带参数的 SQL 语句， PreparedStatement 可用<br>于执行带参数的 SQL 语句， 相比之下， Statement 的执行效率较高。<br>个人解析： PreparedStatement 有预编译机制， 与 Statement 相比较， 执行效率较<br>高。</p>
+<h2 id="1-69-java-API"><a href="#1-69-java-API" class="headerlink" title="1.69 java API"></a>1.69 java API</h2><p><strong>StringBuffer</strong></p>
+<p> 为了便于对字符串的修改，在JDK中提供了一个StringBuffer类（也称字符串缓冲区）。StringBuffer类和String类最大的区别在于它的内容和长度都是可以改变的。StringBuffer类似一个字符容器，当在其中添加或删除字符时，并不会产生新的StringBuffer对象。</p>
+<p> StringBuffer类和String类有很多相似之处，初学者使用时容易混淆。</p>
+<p>•1、String类表示的字符串是常量，一旦创建后，内容和长度都是无法改变的。StringBuffer表示字符容器，其内容和长度都可以随时修改。在操作字符串时，如果该字符串仅用于表示数据类型，则使用String类即可，但是如果需要对字符串中的字符进行增删操作，则使用StringBuffer类。</p>
+<p>•2、String类覆盖了Object类的equals()方法，而StringBuffer类没有覆盖Object类的equals()方法</p>
+<p>•3、String类对象可以用操作符“+”进行连接，而StringBuffer类对象之间不能</p>
+<h2 id="1-70-按值传递与按引用传递"><a href="#1-70-按值传递与按引用传递" class="headerlink" title="1.70 按值传递与按引用传递"></a>1.70 按值传递与按引用传递</h2><p>按值传递是指在函数调用时，将参数的值复制一份，传递给函数内部使用。函数内部对该参数的任何修改都不会影响原始参数的值。</p>
+<p>按引用传递是指在函数调用时，将参数的地址传递给函数。这意味着，在函数内部对参数进行的任何修改都将影响原始参数的值</p>
+<h1 id="2-知识点总结"><a href="#2-知识点总结" class="headerlink" title="2.知识点总结"></a>2.知识点总结</h1><h3 id="2-1-关系"><a href="#2-1-关系" class="headerlink" title="2.1 关系"></a>2.1 关系</h3><p>实现关系是实现类和接口之间的关系； 泛化关系是类（或接口） 和子<br>类（或子接口） 之间的关系， 因此 A 和 B 很容易被排除掉； 类和该类数据成员<br>类之间的关系是组合关系的一种形式； 类与该类方法成员的形参类所对应的关系<br>就是依赖关系的一种形式。</p>
+<h3 id="2-2-equals-compareTo区别"><a href="#2-2-equals-compareTo区别" class="headerlink" title="2.2 equals  &#x3D;&#x3D;  compareTo区别"></a>2.2 equals  &#x3D;&#x3D;  compareTo区别</h3><p>主要考查 equals、 &#x3D;&#x3D;和 compareTo 知识点。 equals 比较两个字符串对<br>象的值是否相同， &#x3D;&#x3D;比较两个字符串对象的地址是否相同， compareTo 按照字典<br>顺序比较两个字符串的值是否相等（如果参数字符串等于此字符串， 则返回值 0，<br>否则返回值就是两个字符串首次出现不同字符的 ASCII 的差值， 为正数或者负<br>数）。</p>
+<h3 id="2-3-java关键字"><a href="#2-3-java关键字" class="headerlink" title="2.3 java关键字"></a>2.3 java关键字</h3><p>48个关键字：abstract、assert、boolean、break、byte、case、catch、char、class、continue、default、do、double、else、enum、extends、final、finally、float、for、if、implements、import、int、interface、instanceof、long、native、new、package、private、protected、public、return、short、static、strictfp、super、switch、synchronized、this、throw、throws、transient、try、void、volatile、while。</p>
+<p> 2个保留字（现在没用以后可能用到作为关键字）：goto、const。</p>
+<p> 3个特殊直接量：true、false、null。 </p>
+<h3 id="2-4-计算数组的最值"><a href="#2-4-计算数组的最值" class="headerlink" title="2.4 计算数组的最值"></a>2.4 计算数组的最值</h3><p>Arrays.steam(arr).max().getAsInt();</p>
+<p>Arrays.steam(arr).min().getAsInt();</p>
+<h3 id="2-5-Java-Arrays方法-方法详解"><a href="#2-5-Java-Arrays方法-方法详解" class="headerlink" title="2.5 Java Arrays方法 方法详解"></a>2.5 Java Arrays方法 方法详解</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/util/Arrays.html#toString">https://www.runoob.com/manual/jdk11api/java.base/java/util/Arrays.html#toString</a>(boolean</p>
+<p>Arrays.sort(arr);&#x2F;&#x2F;正序排列</p>
+<p>Arrays.sort(arr, Collections.reverseOrder())&#x2F;&#x2F;倒序排列 arr必须是Integer数组 ，因为基本数据类型是不支持泛型化的，需要包装类</p>
+<p>该方法是Arrays类的<strong>静态方法</strong>，用于对数组进行排序，时间复杂度O(n*logn)，方法返回值为void。排序后，数组中存放的是排序后的结果。由于该方法是在原来数组的空间基础上进行升序排序，因此不需要定义一个数组接收它，即不需要返回值。</p>
+<h3 id="2-6-字符串长度与数组长度"><a href="#2-6-字符串长度与数组长度" class="headerlink" title="2.6 字符串长度与数组长度"></a>2.6 字符串长度与数组长度</h3><p>字符串 :length()</p>
+<p>数组:length</p>
+<h3 id="2-7-字符串方法"><a href="#2-7-字符串方法" class="headerlink" title="2.7 字符串方法"></a>2.7 字符串方法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/lang/String.html">https://www.runoob.com/manual/jdk11api/java.base/java/lang/String.html</a></p>
+<p>contains(“s”)方法</p>
+<p>当且仅当此字符串包含指定的char值序列时，才返回true。如果此字符串包含s  ，则返回true，否则 返回 false</p>
+<p>split()方法对转译字符要加\\    split(“\\+“);</p>
+<p>字符串与其他数据类型的转换</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>字符串转换为其他数据类型的方法</th>
+<th>其它数据类型转换为字符串的方法1</th>
+<th>其他数据类型转换为字符串的方法2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>Boolean.getBoolean(str)</td>
+<td>String.valueOf([boolean] b)</td>
+<td>Boolean.toString([boolean] b)</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer.parseInt(str)</td>
+<td>String.valueOf([int] i)</td>
+<td>Int.toString([int] i)</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long.parseLong(str)</td>
+<td>String.valueOf([long] l)</td>
+<td>Long.toString([long] l)</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float.parseFloat(str)</td>
+<td>String.valueOf([float] f)</td>
+<td>Float.toString([float] f)</td>
+</tr>
+<tr>
+<td>double</td>
+<td>double.parseFloat(str)</td>
+<td>String.valueOf([double] d)</td>
+<td>Double.toString([double] d)</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte.parseByte(str)</td>
+<td>String.valueOf([byte] bt)</td>
+<td>Byte.toString([byte] bt)</td>
+</tr>
+<tr>
+<td>char</td>
+<td>str.charAt(i)</td>
+<td>String.valueOf([char] c)</td>
+<td>Character.toString([char] c)</td>
+</tr>
+</tbody></table>
+<h3 id="2-8-Integer方法"><a href="#2-8-Integer方法" class="headerlink" title="2.8 Integer方法"></a>2.8 Integer方法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/lang/Integer.html#parseInt(java.lang.CharSequence,int,int,int)">https://www.runoob.com/manual/jdk11api/java.base/java/lang/Integer.html#parseInt(java.lang.CharSequence,int,int,int)</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer.compare() 是 Java 中 Integer 类的一个静态方法，用于比较两个整数的大小。该方法返回一个整数值，表示两个整数的比较结果。如果第一个整数小于第二个整数，则返回负值；如果第一个整数大于第二个整数，则返回正值；如果两个整数相等，则返回 <span class="hljs-number">0</span>。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java">Integer.parseInt(String.join(<span class="hljs-string">&quot;&quot;</span>, strings))是一个Java表达式，用于将一个字符串列表（strings）中的所有字符串连接起来，并将结果解析为整数。<br><br>具体地，它执行以下步骤：<br><br>使用String.join(<span class="hljs-string">&quot;&quot;</span>, strings)将字符串列表中的所有字符串连接成一个单独的字符串。String.join(delimiter, strings)方法使用指定的分隔符（这里为空字符串 <span class="hljs-string">&quot;&quot;</span>）将字符串列表中的所有字符串连接起来。<br>使用Integer.parseInt()将连接后的字符串解析为整数。Integer.parseInt(String)方法将字符串参数解析为对应的整数值。<br>例如，如果strings列表包含[<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;3&quot;</span>]，则String.join(<span class="hljs-string">&quot;&quot;</span>, strings)将返回一个字符串<span class="hljs-string">&quot;123&quot;</span>。然后，Integer.parseInt(<span class="hljs-string">&quot;123&quot;</span>)将返回整数值<span class="hljs-number">123</span>。<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-9-Math方法"><a href="#2-9-Math方法" class="headerlink" title="2.9 Math方法"></a>2.9 Math方法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/lang/Math.html">https://www.runoob.com/manual/jdk11api/java.base/java/lang/Math.html</a></p>
+<h3 id="2-10-for与while循环"><a href="#2-10-for与while循环" class="headerlink" title="2.10 for与while循环"></a>2.10 for与while循环</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">一直循环<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i;;i++)&#123;&#125;<br><span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;&#125;<br>循环三次<br><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">3</span>;i++)&#123;&#125;<br><br><span class="hljs-type">int</span> i=<span class="hljs-number">3</span>;<br><span class="hljs-keyword">while</span>(i--&gt;<span class="hljs-number">0</span>)&#123;&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-11判断是否为整数"><a href="#2-11判断是否为整数" class="headerlink" title="2.11判断是否为整数"></a>2.11判断是否为整数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">(<span class="hljs-type">double</span>)res-<span class="hljs-type">int</span>(res)==<span class="hljs-number">0.0</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-12因子-因数-约数-素数-质数-合数-自然数的概念"><a href="#2-12因子-因数-约数-素数-质数-合数-自然数的概念" class="headerlink" title="2.12因子,因数(约数),素数(质数),合数,自然数的概念"></a>2.12因子,因数(约数),素数(质数),合数,自然数的概念</h3><p>因子就是可以整除这个数的数,不不包括这个数本身</p>
+<p>因数(约数)包括这个数本身</p>
+<p>完数是指此数的因子之和等于此数</p>
+<p>素数(质数)是在大与1的自然数中,除1和它本身外,不能被其他自然数整除(除0以外)的数称之素数</p>
+<p>合数是比1大但不是素数的数</p>
+<p>自然数是0,1,2,3,4….</p>
+<h3 id="2-13-初始化最小值与最大值"><a href="#2-13-初始化最小值与最大值" class="headerlink" title="2.13 初始化最小值与最大值"></a>2.13 初始化最小值与最大值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> Integer.Min_Vaule<br><span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> Integer.Max_vaule<br></code></pre></td></tr></table></figure>
+
+<p>初始化,确保任何出现的次数都会比这些初始化值更大或更小,这样就可以找到最大和最小值,而不会受到初始化值干扰</p>
+<h3 id="2-14-处理换行符"><a href="#2-14-处理换行符" class="headerlink" title="2.14 处理换行符"></a>2.14 处理换行符</h3><p>经过从网上查询资料，了解到Scanner是一个扫描器，它扫描数据都是去内存中一块缓冲区中进行扫描并读入数据的，而我们在控制台中输入的数据也都是被先存入缓冲区中等待扫描器的扫描读取。这个扫描器在扫描过程中判断停止的依据就是“空白符”，空格、回车等都算作是空白符。</p>
+<p>next（）与nextLine（）的区别<br>next()方法在读取内容时，会过滤掉有效字符前面的无效字符，对输入有效字符之前遇到的空格键、Tab键或Enter键等结束符，next()方法会自动将其过滤掉；只有在读取到有效字符之后，next()方法才将其后的空格键、Tab键或Enter键等视为结束符；所以next()方法不能得到带空格的字符串。<br>nextLine()方法字面上有扫描一整行的意思，它的结束符只能是Enter键，即nextLine()方法返回的是Enter键之前没有被读取的所有字符，它是可以得到带空格的字符串的。<br>next()方法在扫描到空白符的时候会将前面的数据读取走，但会丢下空白符“\r”在缓冲区中<br>nextLine()方法在扫描的时候会将扫描到的空白符一同清理掉</p>
+<p>问题解决</p>
+<p>1.可以在后面加一个 nextLine();专门读取无效字符<br>2.或者就别用nextLine()输入， 直接用next();</p>
+<p>例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> sc.nextInt();<br>sc.nextline();<span class="hljs-comment">//处理换行符,将换行符读掉</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs txt">在 Java 中，`next()` 和 `nextLine()` 是 `Scanner` 类用于读取输入的两种不同方法。<br><br>- **`next()` 方法：** 它读取输入中的下一个单词（由空格分隔），并将其作为字符串返回。它在读取到下一个空格、换行符或其他分隔符时停止，并返回此之前的内容。如果在执行 `next()` 之前有空白字符存在（例如换行符、空格），则 `next()` 会跳过这些空白字符。<br><br>Scanner scanner = new Scanner(System.in);<br>System.out.print(&quot;Enter your name: &quot;);<br>String name = scanner.next();<br><br><br>如果输入是 `&quot;John Doe&quot;`，`name` 将会被赋值为 `&quot;John&quot;`。<br><br>- **`nextLine()` 方法：** 它读取输入中的整行内容，包括换行符 `\n` 在内，并将整行内容作为字符串返回。`nextLine()` 会读取直到遇到换行符为止，即使是空行也会被读取并返回空字符串。<br><br><br>Scanner scanner = new Scanner(System.in);<br>System.out.print(&quot;Enter a sentence: &quot;);<br>String sentence = scanner.nextLine();<br><br><br>如果输入是 `&quot;Hello World&quot;`，`sentence` 将会被赋值为 `&quot;Hello World&quot;`。<br><br>**区别总结：**<br>- `next()` 读取下一个单词，以空格分隔。<br>- `nextLine()` 读取整行文本，包括换行符。<br><br>如果在读取混合使用 `next()` 和 `nextLine()` 时，可能需要额外处理换行符 `\n` 的情况，以免造成不符合预期的输入。<br></code></pre></td></tr></table></figure>
+
+<p>[<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_51399192/article/details/120195940">java] next()和nextLine()的区别和使用，干活满满哦_next和nextline-CSDN博客</a></p>
+<h3 id="2-15-除法问题"><a href="#2-15-除法问题" class="headerlink" title="2.15 除法问题"></a>2.15 除法问题</h3><p>不可以两个<code>int</code>变量直接做除法，会丢失精度。<br>推荐：将其中一个<code>int</code>变量强制转换类型为小数即可。</p>
+<p><strong>两个 int 变量的除法运算 结果的精度问题</strong></p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><br>        <span class="hljs-comment">// / 的两个操作数都为int变量，则运算结果也为int</span><br>        System.out.println(<span class="hljs-number">5</span> / <span class="hljs-number">2</span>);      <span class="hljs-comment">// 2</span><br><br>        <span class="hljs-comment">// 将其中任意一个操作数转换为浮点数，则运算为：int和double的运算，结果也为double。</span><br>        System.out.println(<span class="hljs-number">5</span> / <span class="hljs-number">2.0</span>);    <span class="hljs-comment">// 2.5</span><br>        System.out.println(<span class="hljs-number">5.0</span> / <span class="hljs-number">2</span>);    <span class="hljs-comment">// 2.5</span><br><br>        <span class="hljs-comment">// 模拟 int / int</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> a / b;<br>        System.out.println(result);     <span class="hljs-comment">// 2</span><br>        <br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>两个<code>int</code>类型加减、乘法都没有问题。但是除法：<br>两个<code>int</code>进行除法运算，结果依旧是<code>int</code>类型。<br>所以像<code>5 / 2</code>这样，结果明明为<code>2.5</code>，但是小数部分会直接省略(int只用于存整数，没有存储浮点数的机制)。</p>
+<h3 id="2-16-正则表达式"><a href="#2-16-正则表达式" class="headerlink" title="2.16 正则表达式"></a>2.16 正则表达式</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-regular-expressions.html">https://www.runoob.com/java/java-regular-expressions.html</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs java">一、校验数字的表达式<br><span class="hljs-number">1</span> 数字：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*$<br><span class="hljs-number">2</span> n位的数字：^\d&#123;n&#125;$<br><span class="hljs-number">3</span> 至少n位的数字：^\d&#123;n,&#125;$<br><span class="hljs-number">4</span> m-n位的数字：^\d&#123;m,n&#125;$<br><span class="hljs-number">5</span> 零和非零开头的数字：^(<span class="hljs-number">0</span>|[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*)$<br><span class="hljs-number">6</span> 非零开头的最多带两位小数的数字：^([<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*)+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;)?$<br><span class="hljs-number">7</span> 带<span class="hljs-number">1</span>-<span class="hljs-number">2</span>位小数的正数或负数：^(\-)?\d+(\.\d&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;)?$<br><span class="hljs-number">8</span> 正数、负数、和小数：^(\-|\+)?\d+(\.\d+)?$<br><span class="hljs-number">9</span> 有两位小数的正实数：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">2</span>&#125;)?$<br><span class="hljs-number">10</span> 有<span class="hljs-number">1</span>~<span class="hljs-number">3</span>位小数的正实数：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>&#125;)?$<br><span class="hljs-number">11</span> 非零的正整数：^[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d*$ 或 ^([<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*)&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>&#125;$ 或 ^\+?[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*$<br><span class="hljs-number">12</span> 非零的负整数：^\-[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][]<span class="hljs-number">0</span>-<span class="hljs-number">9</span><span class="hljs-string">&quot;*$ 或 ^-[1-9]\d*$</span><br><span class="hljs-string">13 非负整数：^\d+$ 或 ^[1-9]\d*|0$</span><br><span class="hljs-string">14 非正整数：^-[1-9]\d*|0$ 或 ^((-\d+)|(0+))$</span><br><span class="hljs-string">15 非负浮点数：^\d+(\.\d+)?$ 或 ^[1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0$</span><br><span class="hljs-string">16 非正浮点数：^((-\d+(\.\d+)?)|(0+(\.0+)?))$ 或 ^(-([1-9]\d*\.\d*|0\.\d*[1-9]\d*))|0?\.0+|0$</span><br><span class="hljs-string">17 正浮点数：^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$ 或 ^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$</span><br><span class="hljs-string">18 负浮点数：^-([1-9]\d*\.\d*|0\.\d*[1-9]\d*)$ 或 ^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$</span><br><span class="hljs-string">19 浮点数：^(-?\d+)(\.\d+)?$ 或 ^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$</span><br><span class="hljs-string"></span><br><span class="hljs-string">二、校验字符的表达式</span><br><span class="hljs-string">1 汉字：^[\u4e00-\u9fa5]&#123;0,&#125;$</span><br><span class="hljs-string">2 英文和数字：^[A-Za-z0-9]+$ 或 ^[A-Za-z0-9]&#123;4,40&#125;$</span><br><span class="hljs-string">3 长度为3-20的所有字符：^.&#123;3,20&#125;$</span><br><span class="hljs-string">4 由26个英文字母组成的字符串：^[A-Za-z]+$</span><br><span class="hljs-string">5 由26个大写英文字母组成的字符串：^[A-Z]+$</span><br><span class="hljs-string">6 由26个小写英文字母组成的字符串：^[a-z]+$</span><br><span class="hljs-string">7 由数字和26个英文字母组成的字符串：^[A-Za-z0-9]+$</span><br><span class="hljs-string">8 由数字、26个英文字母或者下划线组成的字符串：^\w+$ 或 ^\w&#123;3,20&#125;$</span><br><span class="hljs-string">9 中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]+$</span><br><span class="hljs-string">10 中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]+$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]&#123;2,20&#125;$</span><br><span class="hljs-string">11 可以输入含有^%&amp;&#x27;,;=?$\&quot;等字符：[^%&amp;&#x27;,;=?$\x22]+</span><br><span class="hljs-string">12 禁止输入含有~的字符：[^~\x22]+</span><br><span class="hljs-string"></span><br><span class="hljs-string">三、特殊需求表达式</span><br><span class="hljs-string">1 Email地址：^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$</span><br><span class="hljs-string">2 域名：[a-zA-Z0-9][-a-zA-Z0-9]&#123;0,62&#125;(/.[a-zA-Z0-9][-a-zA-Z0-9]&#123;0,62&#125;)+/.?</span><br><span class="hljs-string">3 InternetURL：[a-zA-z]+://[^\s]* 或 ^https://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$</span><br><span class="hljs-string">4 手机号码：^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d&#123;8&#125;$</span><br><span class="hljs-string">5 电话号码(&quot;</span>XXX-XXXXXXX<span class="hljs-string">&quot;、&quot;</span>XXXX-XXXXXXXX<span class="hljs-string">&quot;、&quot;</span>XXX-XXXXXXX<span class="hljs-string">&quot;、&quot;</span>XXX-XXXXXXXX<span class="hljs-string">&quot;、&quot;</span>XXXXXXX<span class="hljs-string">&quot;和&quot;</span>XXXXXXXX)：^(\(\d&#123;<span class="hljs-number">3</span>,<span class="hljs-number">4</span>&#125;-)|\d&#123;<span class="hljs-number">3.4</span>&#125;-)?\d&#123;<span class="hljs-number">7</span>,<span class="hljs-number">8</span>&#125;$ <br><span class="hljs-number">6</span> 国内电话号码(<span class="hljs-number">0511</span>-<span class="hljs-number">4405222</span>、<span class="hljs-number">021</span>-<span class="hljs-number">87888822</span>)：\d&#123;<span class="hljs-number">3</span>&#125;-\d&#123;<span class="hljs-number">8</span>&#125;|\d&#123;<span class="hljs-number">4</span>&#125;-\d&#123;<span class="hljs-number">7</span>&#125;<br><span class="hljs-number">7</span> 身份证号：<br>		<span class="hljs-number">15</span>或<span class="hljs-number">18</span>位身份证：^\d&#123;<span class="hljs-number">15</span>&#125;|\d&#123;<span class="hljs-number">18</span>&#125;$<br>		<span class="hljs-number">15</span>位身份证：^[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">7</span>&#125;((<span class="hljs-number">0</span>\d)|(<span class="hljs-number">1</span>[<span class="hljs-number">0</span>-<span class="hljs-number">2</span>]))(([<span class="hljs-number">0</span>|<span class="hljs-number">1</span>|<span class="hljs-number">2</span>]\d)|<span class="hljs-number">3</span>[<span class="hljs-number">0</span>-<span class="hljs-number">1</span>])\d&#123;<span class="hljs-number">3</span>&#125;$<br>		<span class="hljs-number">18</span>位身份证：^[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">5</span>&#125;[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">3</span>&#125;((<span class="hljs-number">0</span>\d)|(<span class="hljs-number">1</span>[<span class="hljs-number">0</span>-<span class="hljs-number">2</span>]))(([<span class="hljs-number">0</span>|<span class="hljs-number">1</span>|<span class="hljs-number">2</span>]\d)|<span class="hljs-number">3</span>[<span class="hljs-number">0</span>-<span class="hljs-number">1</span>])\d&#123;<span class="hljs-number">4</span>&#125;$<br><span class="hljs-number">8</span> 短身份证号码(数字、字母x结尾)：^([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>])&#123;<span class="hljs-number">7</span>,<span class="hljs-number">18</span>&#125;(x|X)?$ 或 ^\d&#123;<span class="hljs-number">8</span>,<span class="hljs-number">18</span>&#125;|[<span class="hljs-number">0</span>-9x]&#123;<span class="hljs-number">8</span>,<span class="hljs-number">18</span>&#125;|[<span class="hljs-number">0</span>-9X]&#123;<span class="hljs-number">8</span>,<span class="hljs-number">18</span>&#125;?$<br><span class="hljs-number">9</span> 帐号是否合法(字母开头，允许<span class="hljs-number">5</span>-<span class="hljs-number">16</span>字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]&#123;<span class="hljs-number">4</span>,<span class="hljs-number">15</span>&#125;$<br><span class="hljs-number">10</span> 密码(以字母开头，长度在<span class="hljs-number">6</span>~<span class="hljs-number">18</span>之间，只能包含字母、数字和下划线)：^[a-zA-Z]\w&#123;<span class="hljs-number">5</span>,<span class="hljs-number">17</span>&#125;$<br><span class="hljs-number">11</span> 强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在<span class="hljs-number">8</span>-<span class="hljs-number">10</span>之间)：^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).&#123;<span class="hljs-number">8</span>,<span class="hljs-number">10</span>&#125;$ <br><span class="hljs-number">12</span> 日期格式：^\d&#123;<span class="hljs-number">4</span>&#125;-\d&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;-\d&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;<br><span class="hljs-number">13</span> 一年的<span class="hljs-number">12</span>个月(<span class="hljs-number">01</span>～09和<span class="hljs-number">1</span>～<span class="hljs-number">12</span>)：^(<span class="hljs-number">0</span>?[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]|<span class="hljs-number">1</span>[<span class="hljs-number">0</span>-<span class="hljs-number">2</span>])$<br><span class="hljs-number">14</span> 一个月的<span class="hljs-number">31</span>天(<span class="hljs-number">01</span>～09和<span class="hljs-number">1</span>～<span class="hljs-number">31</span>)：^((<span class="hljs-number">0</span>?[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>])|((<span class="hljs-number">1</span>|<span class="hljs-number">2</span>)[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>])|<span class="hljs-number">30</span>|<span class="hljs-number">31</span>)$ <br><span class="hljs-number">15</span> 钱的输入格式：<br><span class="hljs-number">16</span> <span class="hljs-number">1.</span>有四种钱的表示形式我们可以接受:<span class="hljs-string">&quot;10000.00&quot;</span> 和 <span class="hljs-string">&quot;10,000.00&quot;</span>, 和没有 <span class="hljs-string">&quot;分&quot;</span> 的 <span class="hljs-string">&quot;10000&quot;</span> 和 <span class="hljs-string">&quot;10,000&quot;</span>：^[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*$ <br><span class="hljs-number">17</span> <span class="hljs-number">2.</span>这表示任意一个不以<span class="hljs-number">0</span>开头的数字,但是,这也意味着一个字符<span class="hljs-string">&quot;0&quot;</span>不通过,所以我们采用下面的形式：^(<span class="hljs-number">0</span>|[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*)$ <br><span class="hljs-number">18</span> <span class="hljs-number">3.</span>一个<span class="hljs-number">0</span>或者一个不以<span class="hljs-number">0</span>开头的数字.我们还可以允许开头有一个负号：^(<span class="hljs-number">0</span>|-?[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]*)$ <br><span class="hljs-number">19</span> <span class="hljs-number">4.</span>这表示一个<span class="hljs-number">0</span>或者一个可能为负的开头不为<span class="hljs-number">0</span>的数字.让用户以<span class="hljs-number">0</span>开头好了.把负号的也去掉,因为钱总不能是负的吧.下面我们要加的是说明可能的小数部分：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+)?$ <br><span class="hljs-number">20</span> <span class="hljs-number">5.</span>必须说明的是,小数点后面至少应该有<span class="hljs-number">1</span>位数,所以<span class="hljs-string">&quot;10.&quot;</span>是不通过的,但是 <span class="hljs-string">&quot;10&quot;</span> 和 <span class="hljs-string">&quot;10.2&quot;</span> 是通过的：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">2</span>&#125;)?$ <br><span class="hljs-number">21</span> <span class="hljs-number">6.</span>这样我们规定小数点后面必须有两位,如果你认为太苛刻了,可以这样：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;)?$ <br><span class="hljs-number">22</span> <span class="hljs-number">7.</span>这样就允许用户只写一位小数.下面我们该考虑数字中的逗号了,我们可以这样：^[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>&#125;(,[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">3</span>&#125;)*(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;)?$ <br><span class="hljs-number">23</span> <span class="hljs-number">8.1</span>到<span class="hljs-number">3</span>个数字,后面跟着任意个 逗号+<span class="hljs-number">3</span>个数字,逗号成为可选,而不是必须：^([<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+|[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">3</span>&#125;(,[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">3</span>&#125;)*)(.[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;)?$ <br><span class="hljs-number">24</span> 备注：这就是最终结果了,别忘了<span class="hljs-string">&quot;+&quot;</span>可以用<span class="hljs-string">&quot;*&quot;</span>替代如果你觉得空字符串也可以接受的话(奇怪,为什么?)最后,别忘了在用函数时去掉去掉那个反斜杠,一般的错误都在这里<br><span class="hljs-number">25</span> xml文件：^([a-zA-Z]+-?)+[a-zA-Z0-<span class="hljs-number">9</span>]+\\.[x|X][m|M][l|L]$<br><span class="hljs-number">26</span> 中文字符的正则表达式：[\u4e00-\u9fa5]<br><span class="hljs-number">27</span> 双字节字符：[^\x00-\xff] (包括汉字在内，可以用来计算字符串的长度(一个双字节字符长度计<span class="hljs-number">2</span>，ASCII字符计<span class="hljs-number">1</span>))<br><span class="hljs-number">28</span> 空白行的正则表达式：\n\s*\r (可以用来删除空白行)<br><span class="hljs-number">29</span> HTML标记的正则表达式：&lt;(\S*?)[^&gt;]*&gt;.*?|&lt;.*? /&gt; (网上流传的版本太糟糕，上面这个也仅仅能部分，对于复杂的嵌套标记依旧无能为力)<br><span class="hljs-number">30</span> 首尾空白字符的正则表达式：^\s*|\s*$或(^\s*)|(\s*$) (可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)<br><span class="hljs-number">31</span> 腾讯QQ号：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>][<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]&#123;<span class="hljs-number">4</span>,&#125; (腾讯QQ号从<span class="hljs-number">10000</span>开始)<br><span class="hljs-number">32</span> 中国邮政编码：[<span class="hljs-number">1</span>-<span class="hljs-number">9</span>]\d&#123;<span class="hljs-number">5</span>&#125;(?!\d) (中国邮政编码为<span class="hljs-number">6</span>位数字)<br><span class="hljs-number">33</span> IP地址：\d+\.\d+\.\d+\.\d+ (提取IP地址时有用)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-17-BigDecimal"><a href="#2-17-BigDecimal" class="headerlink" title="2.17 BigDecimal"></a>2.17 BigDecimal</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/math/BigDecimal.html">https://www.runoob.com/manual/jdk11api/java.base/java/math/BigDecimal.html</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">BigDecimal类和BigInteger类都能实现大数字的运算，不同的是BigDecimal类加入了小数的概念。一般的float型和double型数据只可以用来做科学计算或工程计算，但由于在商业计算中要求数字精度比较高，因此要使用BigDecimal类。BigDecimal类支持任何精度的定点数<br></code></pre></td></tr></table></figure>
+
+<p>常用构造方法</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb8f871b83018a65fd6c.jpg" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p>常用方法</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb8f871b83018a65fe32.jpg" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p>divide()方法的多种模式</p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb8f871b83018a65ff35.jpg" srcset="/img/loading.gif" lazyload alt="5"></p>
+<p><img src="https://pic.imgdb.cn/item/65b8fb8f871b83018a65fc61.jpg" srcset="/img/loading.gif" lazyload alt="1"></p>
+<h3 id="2-18-BigInteger"><a href="#2-18-BigInteger" class="headerlink" title="2.18 BigInteger"></a>2.18 BigInteger</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk1.6/java.base/java/math/BigInteger.html">https://www.runoob.com/manual/jdk1.6/java.base/java/math/BigInteger.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44259720/article/details/87002816">https://blog.csdn.net/weixin_44259720/article/details/87002816</a></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs txt">BigInteger类的数字范围较Integer类的数字范围要大得多。前文介绍过Integer类是int的包装类，int的最大值为231-1，如果要计算更大的数字，使用Integer类就无法实现了，因此Java提供了BigInteger类来处理更大的数字。BigInteger类支持任意精度的整数，也就是说，在运算中BigInteger类可以准确地表示任何大小的整数值而不会丢失信息。在BigInteger类中封装了多种操作，除了基本的加、减、乘、除操作，还提供了绝对值、相反数、最大公约数以及判断是否为质数等操作。使用BigInteger类，可以实例化一个BigInteger对象，并自动调用相应的构造函数。BigInteger类具有很多构造函数，但最直接的一种方式是参数以字符串形式代表要处理的数字。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//常用的几种运算方法。</span><br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">add</span><span class="hljs-params">(BigInteger val)</span>：做加法运算。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">subtract</span><span class="hljs-params">(BigInteger val)</span>：做减法运算。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">multiply</span><span class="hljs-params">(BigInteger val)</span>：做乘法运算。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">divide</span><span class="hljs-params">(BigInteger val)</span>：做除法运算。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">remainder</span><span class="hljs-params">(BigInteger val)</span>：做取余操作。<br><span class="hljs-keyword">public</span> BigInteger[] divideAndRemainder(BigInteger val)：用数组返回余数和商，结果数组中第一个值为商，第二个值为余数。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">pow</span><span class="hljs-params">(<span class="hljs-type">int</span> exponent)</span>：进行取参数的exponent次方操作。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">negate</span><span class="hljs-params">()</span>：取相反数。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">shiftLeft</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span>：将数字左移n位，如果n为负数，做右移操作。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">shiftRight</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span>：将数字右移n位，如果n为负数，做左移操作。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">and</span><span class="hljs-params">(BigInteger val)</span>：做与操作。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">or</span><span class="hljs-params">(BigInteger val)</span>：做或操作<br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(BigInteger val)</span>：做数字比较操作。<br><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span><span class="hljs-params">(Object x)</span>：当参数x是BigInteger类型的数字并且数值与对象实例的数值相等时，返回<span class="hljs-literal">true</span>。<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">min</span><span class="hljs-params">(BigInteger val)</span>：返回较小的数值<br><span class="hljs-keyword">public</span> BigInteger <span class="hljs-title function_">max</span><span class="hljs-params">(BigInteger val)</span>：返回较大的数值。<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://pic.imgdb.cn/item/65b8fb8f871b83018a65fcff.jpg" srcset="/img/loading.gif" lazyload alt="2"></p>
+<h3 id="2-19-String数组的初始化"><a href="#2-19-String数组的初始化" class="headerlink" title="2.19 String数组的初始化"></a>2.19 String数组的初始化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java">一维数组<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArrayInit</span> &#123;  <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;  <br><br>        <span class="hljs-comment">//静态初始化数组：方法一  </span><br>        String cats[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[] &#123;  <br>                <span class="hljs-string">&quot;Tom&quot;</span>,<span class="hljs-string">&quot;Sam&quot;</span>,<span class="hljs-string">&quot;Mimi&quot;</span>  <br>        &#125;;  <br><br>        <span class="hljs-comment">//静态初始化数组：方法二  </span><br>        String dogs[] = &#123;<span class="hljs-string">&quot;Jimmy&quot;</span>,<span class="hljs-string">&quot;Gougou&quot;</span>,<span class="hljs-string">&quot;Doggy&quot;</span>&#125;;  <br><br>        <span class="hljs-comment">//动态初始化数据  </span><br>        String books[] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">2</span>];  <br>        books[<span class="hljs-number">0</span>] = <span class="hljs-string">&quot;Thinking in Java&quot;</span>;  <br>        books[<span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Effective Java&quot;</span>;  <br><br>        System.out.println(cats.length);  <br>        System.out.println(dogs.length);  <br>        System.out.println(books.length);  <br>    &#125;  <br>&#125;  <br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java">二维数组<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Demo</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span> <span class="hljs-params">(String[] args)</span>&#123;<br>        <span class="hljs-comment">//方法1；定义并初始化arr </span><br>        <span class="hljs-type">int</span>[][] arr=<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>];<br>        arr[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>        arr[<span class="hljs-number">0</span>][<span class="hljs-number">2</span>]=<span class="hljs-number">2</span>;<br>        arr[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>]=<span class="hljs-number">3</span>;<br>        arr[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">4</span>;<br>        arr[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]=<span class="hljs-number">8</span>;<br>       <span class="hljs-comment">//遍历arr</span><br>         <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;arr.length;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;arr[i].length;j++)&#123;<br>             System.out.println(<span class="hljs-string">&quot;arr[&quot;</span> + i + <span class="hljs-string">&quot;][&quot;</span> + j + <span class="hljs-string">&quot;]=&quot;</span> + arr[i][j]);<br>             &#125;<br>            &#125;<br>            System.out.println(<span class="hljs-string">&quot;====================================&quot;</span>);<br>        <span class="hljs-comment">//方法二: 定义并初始化str ；</span><br>        String[][] str1= <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[][]&#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>,&#125;,&#123;<span class="hljs-string">&quot;d&quot;</span>,<span class="hljs-string">&quot;e&quot;</span>,<span class="hljs-string">&quot;f&quot;</span>,&#125;,&#123;<span class="hljs-string">&quot;g&quot;</span>,<span class="hljs-string">&quot;h&quot;</span>,<span class="hljs-string">&quot;i&quot;</span>&#125;&#125;;<br>        <span class="hljs-comment">//方法三: 定义并初始化str ；</span><br>        String[][] str=&#123;&#123;<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>,&#125;,&#123;<span class="hljs-string">&quot;d&quot;</span>,<span class="hljs-string">&quot;e&quot;</span>,<span class="hljs-string">&quot;f&quot;</span>,&#125;,&#123;<span class="hljs-string">&quot;g&quot;</span>,<span class="hljs-string">&quot;h&quot;</span>,<span class="hljs-string">&quot;i&quot;</span>&#125;&#125;;<br><br>            <span class="hljs-comment">//遍历str方法1:利用两层for循环。</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;str.length;i++)&#123;<span class="hljs-comment">//i控制一维数组。</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;str[i].length;j++)&#123;<span class="hljs-comment">//j遍历每个一维数组的元素</span><br>            System.out.println(<span class="hljs-string">&quot; str[&quot;</span> + i + <span class="hljs-string">&quot;][&quot;</span> + j + <span class="hljs-string">&quot;]=&quot;</span> + str[i][j]);<br>                &#125;<br>            &#125;<br><br>            <span class="hljs-comment">//遍历str方法2:利用foreach循环。</span><br>            <span class="hljs-comment">//for each不能自动处理二维数组的每一个元素，它是按照行处理。就是按照一维数组处理的。所以要访问二维数组</span><br>            <span class="hljs-comment">//必须使用两个嵌套的循环。</span><br>            <span class="hljs-keyword">for</span>(String []  row : str )&#123;<br>                <span class="hljs-keyword">for</span>(String s : row)&#123;<br>                    System.out.println(s);<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">//遍历str方法3:想要快速地打印一个二维数组的数据元素列表，可以直接调用</span><br>            System.out.println(Arrays.deepToString(str));<br>     &#125;<br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-20-toCharArray-方法"><a href="#2-20-toCharArray-方法" class="headerlink" title="2.20  toCharArray() 方法"></a>2.20  toCharArray() 方法</h3><p>public char[] toCharArray()</p>
+<p>toCharArray() 方法将字符串转换为字符数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">Str</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(<span class="hljs-string">&quot;www.runoob.com&quot;</span>);<br><br>        System.out.print(<span class="hljs-string">&quot;返回值 :&quot;</span> );<br>        System.out.println( Str.toCharArray() );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-21-将数字转为字符串"><a href="#2-21-将数字转为字符串" class="headerlink" title="2.21 将数字转为字符串"></a>2.21 将数字转为字符串</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;123&quot;</span>;<br><br><span class="hljs-type">int</span> n= <span class="hljs-number">12</span>;<br><br>方法一:通过包装类来实现<span class="hljs-type">String</span> <span class="hljs-variable">ss</span> <span class="hljs-operator">=</span> String.valueOf(n);<br><br>方法二:直接通过空字符串+数字的形式转换为字符串String ss= <span class="hljs-string">&quot;&quot;</span>+n;<br><br>方法三:强制类型转换String ss= （String）n;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-22-集合的扩容机制"><a href="#2-22-集合的扩容机制" class="headerlink" title="2.22 集合的扩容机制"></a>2.22 集合的扩容机制</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><code class="hljs txt">以下就是List下的三个实现类集合ArrayList 和Vector，LinkedList扩容总结：<br><br>ArrayList 和Vector扩容机制总结：<br>ArrayList 和Vector,底层都是Object数组，默认加载因子都是1（元素满了才扩展容量）.默认容量都是10；但是ArrayList 在jdk1.8时默认为空，当添加元素时，才初始化为10个容量。ArrayList：新容量为原容量的1.5倍，Vector:新容量为原容量的2倍.<br><br>ArrayList 默认初始容量为10，（jdk8的时候底层Object[] elementData数组初始化为&#123;&#125;，并没有创建长度为10的数组。在add元素时才创建了10个容量。）<br>线程不安全，查询速度快<br>　　　　底层数据结构是数组结构<br>　　　　扩容增量：原容量的 0.5倍，新容量为原容量的1.5倍。<br>　　　　如 ArrayList的容量为10，一次扩容后是容量为15<br><br>同样可以通过分析源码知道：<br>Vector：<br>默认初始容量为10，（jdk7和jdk8一样都初始容量为10）。<br>线程安全，但速度慢<br>　　　　底层数据结构是数组结构<br>　　　　加载因子为1：即当 元素个数 超过 容量长度 时，进行扩容<br>　　　　扩容增量：原容量的 1倍，新容量为原容量的2倍。<br>　　　　如 Vector的容量为10，一次扩容后是容量为20<br><br>LinkedList没有扩容机制：<br>LinkedList：没有扩容机制，因为其底层是双向链表结构。不存在数组的扩容一说，没有初始化大小，也没有扩容的机制，就是一直在前面或者后面新增就好。。<br><br>总结二：Set下的三个实现类集合HashSet和LinkedHashSet，TreeSet，扩容总结:LinkedHashSet，TreeSet没有数组的扩容机制。<br><br>HashSet和HashMap扩容机制总结：<br>HashSet和HashMap都是默认初始容量是16（jdk1.7的），但是jdk1.8做了优化，初始容量为0，第一次存元素的时候才扩容为16，加载因子是0.75，扩容为原来的2倍。而带LinkedHashSet和LinkedHashMap是链表不存在扩容的，HashSet:底层是数组+链表的结构。<br><br>Set(集) 元素无序的、不可重复。<br>HashSet：线程不安全，存取速度快<br>　　　　　底层实现是一个HashMap（保存数据）,HashSet:底层是数组+链表的结构，实现Set接口<br>　　　　　默认初始容量为16（jdk1.8及以后）（为何是16，见下方对HashMap的描述）<br>　　　　　加载因子为0.75：即当 元素个数 超过 容量长度的0.75倍 时，进行扩容<br>　　　　　扩容增量：原容量的 1 倍，新容量为原容量的2倍。<br>　　　　　　如 HashSet的容量为16，一次扩容后是容量为32。<br>　　　　　　因为构造一个HashSet，其实相当于新建一个HashMap，然后取HashMap的Key。<br>扩容机制和HashMap一样。<br><br>Map是一个双列集合:<br>HashMap：jdk1.8默认初始容量0,当第一次put元素的时候才扩容为16，jdk1.7是初始化容量为16<br>　　　　　（为何是16：16是2^4，可以提高查询效率，另外，32=16&lt;&lt;1 –&gt;至于详细的原因可另行分析，或分析源代码）<br>　　　　　加载因子为0.75：即当 元素个数 超过 容量长度的0.75倍 时，进行扩容<br>　　　　　扩容增量：原容量的 1 倍，新容量为原容量的2倍。<br>　　　　　　如 HashSet的容量为16，一次扩容后是容量为32<br><br>Hashtable扩容机制：<br>public Hashtable() &#123;<br>        this(11, 0.75f);<br>    &#125;<br>1<br>2<br>3<br>Hashtable默认初始容量11。<br>二、扩容加载因子(0.75)，当超出默认长度（int）（11*0.75）=8时，扩容为oldx2+1。新容量为原容量的2倍+1.<br>int newCapacity = (oldCapacity &lt;&lt; 1) + 1;<br>　　　　　　<br>总结：<br>1.HashMap如果用默认构造方法的话，HashMap开始容量为0，第一次put元素的时候才扩容为16；<br>2.HashMap使用有参构造方法的话，HashMap容量并不是我们参数给定的大小，而是大于等于给定容量参数的 最接近 2的次幂。如我们给定容量为7，则是2的3次幂，即8容量，因为2的次幂可以通过右移快速得到。<br>3.扩容为原来的2n<br><br>1HashTable如果使用默认的构造方法的话，初始容量为11；<br>2.HashTable如果使用有参构造方法的话，初始容量即为给定的参数容量值，如3,7等就直接用了；<br>3.扩容为原来的2n+1<br><br>小结：HashTable和HashMap区别<br>第一，继承不同。<br>public class Hashtable extends Dictionary implements Map<br>public class HashMap extends AbstractMap implements Map<br>第二：<br>Hashtable 中的方法是同步的，而HashMap中的方法在缺省情况下是非同步的。在多线程并发的环境下，可以直接使用<br>Hashtable，但是要使用HashMap的话就要自己增加同步处理了。<br>第三，Hashtable中，key和value都不允许出现null值。<br>在HashMap中，null可以作为键，这样的键只有一个；可以有一个或多个键所对应的值为null。当get()方法返回null值时，<br>即可以表示 HashMap中没有该键，也可以表示该键所对应的值为null。因此，在HashMap中不能由get()方法来判断HashMap中<br>是否存在某个键， 而应该用containsKey()方法来判断。<br>第四，两个遍历方式的内部实现上不同。<br>Hashtable、HashMap都使用了 Iterator。而由于历史原因，Hashtable还使用了Enumeration的方式 。<br>第五，哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。<br>第六，Hashtable和HashMap它们两个内部实现方式的数组的初始大小和扩容的方式。HashTable中hash数组默认大小是11，增加的方式是 old2+1。HashMap中hash数组的默认大小是16， 增加的方式是 old2。<br><br>小结:StringBuffer和StringBuilder：<br>StringBuilder和StringBuffer的初始容量都是16,程序猿尽量手动设置初始值。以避免多次扩容所带来的性能问题，默认数组容量扩充为原数组容量的2倍+2。<br><br>1.StringBuilder是jdk1.5引进的，而StringBuffer在1.0就有了；<br>2.StringBuilder和StringBuffer都是可变的字符串。能够通过append或者insert等方法改动串的内容；<br>3.StringBuffer是线程安全的而StringBuilder不是，因而在多线程的环境下优先使用StringBuffer，而其它情况下推荐使用<br>StringBuilder，由于它更快。<br>4.StringBuilder和StringBuffer都继承自AbstractStringBuilder类，AbStractStringBuilder主要实现了扩容、append、<br>insert方法。StrngBuilder和StringBuffer的相关方法都直接调用的父类。<br>5.StringBuilder和StringBuffer的初始容量都是16,程序猿尽量手动设置初始值。以避免多次扩容所带来的性能问题；<br>6.StringBuilder和StringBuffer的扩容机制是这种：首先试着将当前数组容量扩充为原数组容量的2倍加上2，假设这个新容<br>量仍然小于预定的最小值（minimumCapacity），那么就将新容量定为（minimumCapacity），最后推断是否溢出，若溢出，<br>则将容量定为整型的最大值0x7fffffff。<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-23-Collections方法"><a href="#2-23-Collections方法" class="headerlink" title="2.23 Collections方法"></a>2.23 Collections方法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/util/Collections.html#reverseOrder()">https://www.runoob.com/manual/jdk11api/java.base/java/util/Collections.html#reverseOrder()</a></p>
+<p><a target="_blank" rel="noopener" href="https://vimsky.com/examples/usage/java-collections-reverseorder-method-01.html">Java Collections reverseOrder()用法及代码示例</a></p>
+<h3 id="2-24-String方法"><a href="#2-24-String方法" class="headerlink" title="2.24 String方法"></a>2.24 String方法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/lang/String.html">https://www.runoob.com/manual/jdk11api/java.base/java/lang/String.html</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//contains方法</span><br><span class="hljs-comment">//contains() 方法用于判断字符串中是否包含指定的字符或字符串。</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">myStr</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Runoob&quot;</span>;<br>        System.out.println(myStr.contains(<span class="hljs-string">&quot;Run&quot;</span>));<br>        System.out.println(myStr.contains(<span class="hljs-string">&quot;o&quot;</span>));<br>        System.out.println(myStr.contains(<span class="hljs-string">&quot;s&quot;</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-25-Java-printf-用法"><a href="#2-25-Java-printf-用法" class="headerlink" title="2.25 Java printf 用法"></a>2.25 Java printf 用法</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/java-printf-formate-demo.html">https://www.runoob.com/w3cnote/java-printf-formate-demo.html</a></p>
+<h3 id="2-26-java四舍五入"><a href="#2-26-java四舍五入" class="headerlink" title="2.26  java四舍五入"></a>2.26  java四舍五入</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 四舍五入到指定位数</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">roundToDecimals</span><span class="hljs-params">(<span class="hljs-type">double</span> value, <span class="hljs-type">int</span> decimals)</span> &#123;<br>        <span class="hljs-type">double</span> <span class="hljs-variable">powerOfTen</span> <span class="hljs-operator">=</span> Math.pow(<span class="hljs-number">10</span>, decimals);<br>        <span class="hljs-keyword">return</span> Math.round(value * powerOfTen) / powerOfTen;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.math.BigDecimal;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RoundDecimal</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 假设输入是以字符串形式传递的</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">num1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1.2&quot;</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">num2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1.23&quot;</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 保留小数点后k位</span><br><br>        <span class="hljs-comment">// 将字符串转换为 BigDecimal 类型以进行精确计算</span><br>        <span class="hljs-type">BigDecimal</span> <span class="hljs-variable">decimalNum1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BigDecimal</span>(num1);<br>        <span class="hljs-type">BigDecimal</span> <span class="hljs-variable">decimalNum2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BigDecimal</span>(num2);<br><br>        <span class="hljs-comment">// 计算两个小数的和</span><br>        <span class="hljs-type">BigDecimal</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> decimalNum1.add(decimalNum2);<br><br>        <span class="hljs-comment">// 对结果进行四舍五入，保留小数点后k位</span><br>        <span class="hljs-type">BigDecimal</span> <span class="hljs-variable">roundedResult</span> <span class="hljs-operator">=</span> sum.setScale(k, BigDecimal.ROUND_HALF_UP);<br><br>        <span class="hljs-comment">// 将结果以浮点数形式输出</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> roundedResult.doubleValue();<br>        System.out.println(result);<br>    &#125;<br>&#125;<br><span class="hljs-comment">//BigDecimal 中的 ROUND_HALF_UP 是一种四舍五入的模式，它会将小数四舍五入到最接近的值，并且在五后有数字时将舍入值加1</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RoundDecimalWithoutBigDecimal</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-comment">// 假设输入是以字符串形式传递的</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">num1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1.2&quot;</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">num2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;1.23&quot;</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; <span class="hljs-comment">// 保留小数点后k位</span><br><br>        <span class="hljs-comment">// 将字符串转换为浮点数</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">doubleNum1</span> <span class="hljs-operator">=</span> Double.parseDouble(num1);<br>        <span class="hljs-type">double</span> <span class="hljs-variable">doubleNum2</span> <span class="hljs-operator">=</span> Double.parseDouble(num2);<br><br>        <span class="hljs-comment">// 计算两个小数的和</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> doubleNum1 + doubleNum2;<br><br>        <span class="hljs-comment">// 进行四舍五入，保留小数点后k位</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">roundedResult</span> <span class="hljs-operator">=</span> roundToDecimals(sum, k);<br><br>        <span class="hljs-comment">// 将结果以浮点数形式输出</span><br>        System.out.println(roundedResult);<br>    &#125;<br><br>    <span class="hljs-comment">// 四舍五入到指定位数</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">roundToDecimals</span><span class="hljs-params">(<span class="hljs-type">double</span> value, <span class="hljs-type">int</span> decimals)</span> &#123;<br>        <span class="hljs-type">double</span> <span class="hljs-variable">powerOfTen</span> <span class="hljs-operator">=</span> Math.pow(<span class="hljs-number">10</span>, decimals);<br>        <span class="hljs-keyword">return</span> Math.round(value * powerOfTen) / powerOfTen;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-27-Java-Comparator"><a href="#2-27-Java-Comparator" class="headerlink" title="2.27 Java Comparator"></a>2.27 Java Comparator</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Madoka_Homura/article/details/107382799">Java Comparator使用指南 —- 看这一篇就够了_comparator接口-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31635851/article/details/120269813">【Java 8 新特性】Java Comparator | 比较器-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/311621697">java8-Lambda中比较器Comparator的使用 - 知乎 (zhihu.com)</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br><br>        <span class="hljs-comment">// 读取整数个数</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> scanner.nextInt();<br><br>        <span class="hljs-comment">// 读取整数数组</span><br>        Integer[] arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Integer</span>[n];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            arr[i] = scanner.nextInt();<br>        &#125;<br><br>        <span class="hljs-comment">// 自定义排序规则</span><br>        Arrays.sort(arr, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Comparator</span>&lt;Integer&gt;() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(Integer a, Integer b)</span> &#123;<br>                <span class="hljs-comment">// 提取后三位数字进行比较</span><br>                <span class="hljs-type">int</span> <span class="hljs-variable">lastThreeA</span> <span class="hljs-operator">=</span> a % <span class="hljs-number">1000</span>;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">lastThreeB</span> <span class="hljs-operator">=</span> b % <span class="hljs-number">1000</span>;<br>                <span class="hljs-keyword">return</span> Integer.compare(lastThreeB, lastThreeA); <span class="hljs-comment">// 从大到小排序</span><br>            &#125;<br>        &#125;);<br><br>        <span class="hljs-comment">// 输出排序后的数组</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            System.out.print(arr[i] + <span class="hljs-string">&quot; &quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> &#123;<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br><br>        <span class="hljs-comment">// 读取整数个数</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> in.nextInt();<br><br>        <span class="hljs-comment">// 创建 Integer 数组来存储输入的整数</span><br>        Integer[] a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Integer</span>[n];<br><br>        <span class="hljs-comment">// 循环读取并存储输入的整数到数组中</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            a[i] = in.nextInt();<br>        &#125;<br><br>        <span class="hljs-comment">// 使用 Arrays.sort 对整数数组进行排序，根据后三位数字从大到小</span><br>        Arrays.sort(a, (x, y) -&gt; &#123; <span class="hljs-keyword">return</span> (y % <span class="hljs-number">1000</span>) - (x % <span class="hljs-number">1000</span>); &#125;);<br><br>        <span class="hljs-comment">// 输出排序后的数组</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            System.out.print(a[i] + <span class="hljs-string">&quot; &quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">//(y % 1000) - (x % 1000)：这个表达式会按照 y 的后三位数字减去 x 的后三位数字进行比较。如果结果为正数，表示 y 的后三位数字大于 x 的后三位数字，排序时 y 会排在 x 的前面，即按照从大到小排序。</span><br><span class="hljs-comment">//(x % 1000) - (y % 1000)：这个表达式会按照 x 的后三位数字减去 y 的后三位数字进行比较。如果结果为正数，表示 x 的后三位数字大于 y 的后三位数字，排序时 x 会排在 y 的前面，即按照从小到大排序。</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-28-hasNext、hasNextLine、next、nextLine保姆级详解"><a href="#2-28-hasNext、hasNextLine、next、nextLine保姆级详解" class="headerlink" title="2.28 hasNext、hasNextLine、next、nextLine保姆级详解"></a>2.28 hasNext、hasNextLine、next、nextLine保姆级详解</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_56079407/article/details/120576881">https://blog.csdn.net/m0_56079407/article/details/120576881</a></p>
+<h3 id="2-29IntelliJ-IDEA快捷键大全-动图演示"><a href="#2-29IntelliJ-IDEA快捷键大全-动图演示" class="headerlink" title="2.29IntelliJ IDEA快捷键大全 + 动图演示"></a>2.29IntelliJ IDEA快捷键大全 + 动图演示</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/615560482">https://zhuanlan.zhihu.com/p/615560482</a></p>
+<h3 id="2-30-Eclipse-快捷键"><a href="#2-30-Eclipse-快捷键" class="headerlink" title="2.30 Eclipse 快捷键"></a>2.30 Eclipse 快捷键</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/117582747">https://zhuanlan.zhihu.com/p/117582747</a></p>
+<h3 id="2-31-List-与-new-ArrayList＜＞-与-List"><a href="#2-31-List-与-new-ArrayList＜＞-与-List" class="headerlink" title="2.31 List 与 new ArrayList＜＞() 与 List&lt;List&lt;String"></a>2.31 List 与 new ArrayList＜＞() 与 List&lt;List&lt;String</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46225503/article/details/135025590">我们为什么经常使用List list &#x3D; new ArrayList＜＞() 而不是ArrayListlist &#x3D; new ArrayList＜＞()-CSDN博客</a></p>
+<p>List&lt;List<String>&gt; lists &#x3D; new ArrayList&lt;List<String>&gt;();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java">lists 是一个变量，它是一个列表（List）的列表（List）的数据结构。 这意味着它可以存储多个列表，每个列表中又可以存储多个字符串元素。<br><br>在你的代码中，lists 是一个 List&lt;List&lt;String&gt;&gt; 类型的变量。 这意味着它是一个列表，其中每个元素都是一个列表，而每个内部列表中的元素都是字符串类型。<br><br>你可以通过使用 lists 来存储和操作多个列表，每个列表可以具有不同的长度和字符串元素。<br><br>例如，你可以向 lists 添加新的列表：<br><br>List&lt;String&gt; innerList1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>innerList1.add(<span class="hljs-string">&quot;Apple&quot;</span>);<br>innerList1.add(<span class="hljs-string">&quot;Banana&quot;</span>);<br>innerList1.add(<span class="hljs-string">&quot;Orange&quot;</span>);<br><br>List&lt;String&gt; innerList2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>innerList2.add(<span class="hljs-string">&quot;Cat&quot;</span>);<br>innerList2.add(<span class="hljs-string">&quot;Dog&quot;</span>);<br>innerList2.add(<span class="hljs-string">&quot;Bird&quot;</span>);<br><br>lists.add(innerList1);<br>lists.add(innerList2);<br>现在，lists 中包含了两个列表。 你可以使用索引访问它们：<br><br>List&lt;String&gt; firstList = lists.get(<span class="hljs-number">0</span>);<br>System.out.println(firstList); <span class="hljs-comment">// 输出: [Apple, Banana, Orange]</span><br><br>List&lt;String&gt; secondList = lists.get(<span class="hljs-number">1</span>);<br>System.out.println(secondList); <span class="hljs-comment">// 输出: [Cat, Dog, Bird]</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-32-Deque-deque-new-LinkedList"><a href="#2-32-Deque-deque-new-LinkedList" class="headerlink" title="2.32 Deque deque &#x3D; new LinkedList&lt;&gt;();"></a>2.32 Deque deque &#x3D; new LinkedList&lt;&gt;();</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java">Deque&lt;String&gt; deque = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br><br>通过使用LinkedList&lt;&gt;()时，您正在创建一个LinkedList使用 type 参数String.这意味着deque变量将能够存储和操作字符串的集合。<br><br>一个Deque是一个双端队列，这意味着您可以从两端添加或删除元素。这LinkedList实现是一个不错的选择Deque因为它在两端都提供了高效的插入和删除操作。<br><br>deque.addFirst(<span class="hljs-string">&quot;First&quot;</span>);<br>deque.addLast(<span class="hljs-string">&quot;Last&quot;</span>);<br><br>System.out.println(deque); <span class="hljs-comment">// Output: [First, Last]</span><br><br><span class="hljs-type">String</span> <span class="hljs-variable">firstElement</span> <span class="hljs-operator">=</span> deque.removeFirst();<br><span class="hljs-type">String</span> <span class="hljs-variable">lastElement</span> <span class="hljs-operator">=</span> deque.removeLast();<br><br>System.out.println(firstElement); <span class="hljs-comment">// Output: First</span><br>System.out.println(lastElement); <span class="hljs-comment">// Output: Last</span><br><br>通过使用 `<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(deque)`，你会创建一个新的 `ArrayList` 对象，并将其中的元素初始化为 `deque` 中的元素。 这样，你就可以通过这个新的`ArrayList` 对象来访问和操作 `deque` 中的元素。<br><br>请注意，这个转换过程不会改变 `deque` 本身的类型或其内部的元素。 它只是创建了一个新的`ArrayList` 对象，并将 `deque` 的元素复制到新的对象中。<br><br>例如，假设你有一个 `Deque` 对象 `deque` 包含以下元素：<br><br>复制<br><br>```<br>deque: [Apple, Banana, Orange]<br>```<br><br>当你执行 `<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(deque)` 时，将会创建一个新的 `ArrayList` 对象，并将其中的元素初始化为 `deque` 中的元素。 这样，你就可以使用这个新的`ArrayList` 对象来操作 `deque` 中的元素，比如访问、添加或删除元素。<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-33-Java8-Stream-API-之-IntStream-用法全解"><a href="#2-33-Java8-Stream-API-之-IntStream-用法全解" class="headerlink" title="2.33 Java8 Stream API 之 IntStream 用法全解"></a>2.33 Java8 Stream API 之 IntStream 用法全解</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31865983/article/details/106443244">https://blog.csdn.net/qq_31865983/article/details/106443244</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/461429a5edc9">https://www.jianshu.com/p/461429a5edc9</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/manual/jdk11api/java.base/java/util/stream/IntStream.html">https://www.runoob.com/manual/jdk11api/java.base/java/util/stream/IntStream.html</a></p>
+<h3 id="2-34-Java-8-Stream"><a href="#2-34-Java-8-Stream" class="headerlink" title="2.34 Java 8 Stream"></a>2.34 Java 8 Stream</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java8-streams.html">Java 8 Stream | 菜鸟教程 (runoob.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6990525607188627486">Java8 Stream 用法大全 - 掘金 (juejin.cn)</a></p>
+<h3 id="2-35-LinkedList转换为数组-数组转换为LinkedList"><a href="#2-35-LinkedList转换为数组-数组转换为LinkedList" class="headerlink" title="2.35 LinkedList转换为数组,数组转换为LinkedList"></a>2.35 LinkedList转换为数组,数组转换为LinkedList</h3><p><a target="_blank" rel="noopener" href="https://www.niaoge.com/java/java-examples-linkedlist-array-conversion.html">Java程序将LinkedList转换为数组,数组转换为LinkedList - Java教程 - 鸟哥教程 (niaoge.com)</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.LinkedList;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>    LinkedList&lt;String&gt; languages= <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br><br>    <span class="hljs-comment">//在链表中添加元素</span><br>    languages.add(<span class="hljs-string">&quot;Java&quot;</span>);<br>    languages.add(<span class="hljs-string">&quot;Python&quot;</span>);<br>    languages.add(<span class="hljs-string">&quot;JavaScript&quot;</span>);<br>    System.out.println(<span class="hljs-string">&quot;LinkedList: &quot;</span> + languages);<br><br>    <span class="hljs-comment">//创建一个新的String类型数组</span><br>    String[] arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[languages.size()];<br><br>    <span class="hljs-comment">//将LinkedList转换为字符串数组</span><br>    languages.toArray(arr);<br>    System.out.print(<span class="hljs-string">&quot;Array: &quot;</span>);<br>    <span class="hljs-keyword">for</span>(String item:arr) &#123;<br>      System.out.print(item+<span class="hljs-string">&quot;, &quot;</span>);<br>    &#125;<br>  &#125;<br>&#125;<br><br>LinkedList: [Java, Python, JavaScript]<br>Array: Java, Python, JavaScript,<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.LinkedList;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;<br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br><br>    <span class="hljs-comment">//创建一个数组</span><br>    String[] array = &#123;<span class="hljs-string">&quot;Java&quot;</span>, <span class="hljs-string">&quot;Python&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>&#125;;<br>    System.out.println(<span class="hljs-string">&quot;Array: &quot;</span> + Arrays.toString(array));<br><br>    <span class="hljs-comment">//将数组转换为链表</span><br>    LinkedList&lt;String&gt; languages= <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;(Arrays.asList(array));<br><br>    System.out.println(<span class="hljs-string">&quot;LinkedList: &quot;</span> + languages);<br><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-36-java的lambda表达式"><a href="#2-36-java的lambda表达式" class="headerlink" title="2.36 java的lambda表达式"></a>2.36 java的lambda表达式</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java8-lambda-expressions.html">Java Lambda 表达式 | 菜鸟教程 (runoob.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40979518/article/details/118546367">java8中的lambda表达式，看这篇就够了_java8 lambda-CSDN博客</a></p>
+<h1 id="3-选择题"><a href="#3-选择题" class="headerlink" title="3.选择题"></a>3.选择题</h1><h2 id="3-1-命名"><a href="#3-1-命名" class="headerlink" title="3.1 命名"></a>3.1 命名</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">如果一个Java文件内定义了多个类，关于该文件的命名，以下表述必须是正确的（D）<br><br>A以调用或继承系统最高的类命名<br><br>B如果有多个公共修饰的类，则这些类名可以做文件名<br><br>C可使用第一个或者最后一个类的类名命名<br><br>D如果没有公共类，可以随意命名 <br><br>因为如果没有公共类，那么这个文件实际上是一个独立的模块或者组件，可以以任意名称进行命名。<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-线程"><a href="#3-2-线程" class="headerlink" title="3.2 线程"></a>3.2 线程</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">小明使用Java编写一段代码，实现每隔一小时查询某变量的值，并且不影响程序运行，最准确且合理的方法是（C）<br><br>A启动一个新线程，在其中设置如下循环：查询该变量；使用sleep()方法延迟1小时<br><br>B启动一个新线程，在其中设置如下循环：查询该变量；使用yield()方法延迟1小时<br><br>C使用timer.schedule（），每小时启动一个线程，在新线程中查询该变量，之后立刻关闭。<br><br>D启动一个新线程，在其中以不停顿地循环查询系统时间与上一次查询时间求差，得到差值等于1小时则查询该变量<br><br>根据题意，我们需要实现每隔一小时查询一次某个变量的值，同时不影响程序的运行。最准确且合理的方法是使用定时器（timer.schedule()）来每小时启动一个线程，在新线程中查询该变量，之后立即关闭。<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-3-classpath"><a href="#3-3-classpath" class="headerlink" title="3.3 classpath"></a>3.3 classpath</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">下面关于 classpath 的说法中，错误的是(D)。<br><br>A、classpath 和 path 环境变量的查看与配置的方式完全相同。<br><br>B、为了让 Java 虚拟机能找到所需的 class 文件，就需要对 classpath 环境变量进行设置。<br><br>C、从 JDK5.0 开始，如果 classpath 环境变量没有进行设置， Java 虚拟机会自动将其设置为“.”，也就是当前目录。<br><br>D、在命令行窗口中配置了 classpath 后，重新打开新命令行窗口依然生效。<br><br>当你在一个命令行窗口中配置了 classpath 环境变量后，这个设置只会在当前窗口的环境中生效。如果你关闭了当前窗口并重新打开一个新的命令行窗口，之前设置的 classpath 不会自动应用到新窗口中。 若要在新窗口中使用相同的 classpath 设置，你需要手动重新配置或者在系统中永久地设置该环境变量。<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-4-扩容"><a href="#3-4-扩容" class="headerlink" title="3.4  扩容"></a>3.4  扩容</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs txt">对于 Set set = new HashSet&lt;&gt;(32); 扩容的次数为（A）<br><br>A、0<br>B、1<br>C、2<br>D、3<br><br>这段代码中创建了一个初始容量为32的HashSet实例。HashSet在内部使用哈希表实现，当元素数量超过负载因子（load factor） * 容量时，会进行扩容。负载因子是0.75，也就是说，在元素数量达到容量的75%时会触发扩容操作。<br>考虑到初始容量为32，HashSet的默认负载因子为0.75，扩容的触发点是在元素数量达到 32 * 0.75 = 24 时。因此，当向这个HashSet中添加至少25个元素时，就会触发扩容操作。而现在元素容量为0，则不会扩容<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-5-变量与对象"><a href="#3-5-变量与对象" class="headerlink" title="3.5  变量与对象"></a>3.5  变量与对象</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs txt">设有下面两个赋值语句：a = Integer.parseInt(“12”);b = Integer.valueOf(“12”).intValue();<br>下述说法正确的是（  D   ）。<br>A、a 是整数类型变量，b 是整数类对象<br>B、a 是整数类对象，b 是整数类型变量<br>C、a 和 b 都是整数类对象并且值相等<br>D、a 和 b 都是整数类型变量并且值相等<br><br>a = Integer.parseInt(&quot;12&quot;);<br>这行代码将字符串 &quot;12&quot; 解析为整数，并将结果赋给变量 a。Integer.parseInt 方法将字符串转换为整数类型（int）。<br>b = Integer.valueOf(&quot;12&quot;).intValue();<br>这行代码首先使用 Integer.valueOf(&quot;12&quot;) 将字符串 &quot;12&quot; 转换为对应的整数对象 Integer，然后通过 intValue() 方法获取其整数值，并将结果赋给变量 b。Integer.valueOf(&quot;12&quot;) 返回的是一个 Integer 对象，通过 intValue() 获取其整数值。<br>所以，a 被赋值为整数类型的值 12，而 b 是通过 intValue() 方法获取整数值的方式获得值为 12 的整数类型。<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="3-6-异常"><a href="#3-6-异常" class="headerlink" title="3.6 异常"></a>3.6 异常</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs txt">以下关于 Error、Exception 和 RuntimeException 的说法错误的是：(D)<br><br>A、Error 和 Exception 都是 Throwable 的子类<br><br>B、RuntimeException 是 Exception 的子类<br><br>C、Error 用于指示合理的应用程序不应该视图捕获的错误<br><br>D、RuntimeException 是未检查异常，需要 try catch 或在方法上声明<br><br>因为虽然RuntimeException是未检查异常，但它并不需要强制使用try-catch块或在方法上声明。<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-7-覆盖-重写）和重载"><a href="#3-7-覆盖-重写）和重载" class="headerlink" title="3.7 覆盖(重写）和重载"></a>3.7 覆盖(重写）和重载</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs txt">覆盖与重载的关系是（A）<br><br>A、覆盖只有发生在父类与子类之间，而重载可以发生在同一个类中<br><br>B、覆盖方法可以不同名，而重载方法必须同名<br><br>C、final 修饰的方法可以被覆盖，但不能被重载<br><br>D、覆盖与重载是同一回事<br><br>覆盖是指子类重新定义了父类的方法，使用相同的方法名和参数列表，以实现多态性。<br>重载是指在同一个类中使用相同的方法名，但是参数列表不同，用于提供不同的方法实现。<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/java%E6%80%BB%E7%BB%93/" class="category-chain-item">java总结</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>java总结</div>
+      <div>http://example.com/2024/01/30/java总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/01/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E8%AE%AD/" title="数据采集集训">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据采集集训</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/30/python%E6%80%BB%E7%BB%93/" title="python总结">
+                        <span class="hidden-mobile">python总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
