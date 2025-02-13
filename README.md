@@ -2,7 +2,7 @@
 
 **网址如下**
 
-https://tingfeng347-github-io.vercel.app/
+https://tingfeng347.github.io
 
 **演示如下**
 
