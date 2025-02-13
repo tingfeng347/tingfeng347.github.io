@@ -1,0 +1,883 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/fluid.png">
+  <link rel="icon" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MinIO对象存储服务MinIO是什么？  官方解释：MinIO 是一个基于Apache License v2.0开源协议的对象存储服务。对于对象存储服务我们了解过阿里云OSS，这个与之同理。它适合存储大容量非结构化的数据，例如图片、视频、日志文件、备份数据和容器&#x2F;虚拟机镜像等，而一个对象文件可以是任意大小，从几kb到最大5T不等。  MinIO是一个非常轻量的服务,可以很简单的和其他应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MinIO对象存储服务(Windows)">
+<meta property="og:url" content="http://example.com/2024/09/02/MinIO%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1(Windows)/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="MinIO对象存储服务MinIO是什么？  官方解释：MinIO 是一个基于Apache License v2.0开源协议的对象存储服务。对于对象存储服务我们了解过阿里云OSS，这个与之同理。它适合存储大容量非结构化的数据，例如图片、视频、日志文件、备份数据和容器&#x2F;虚拟机镜像等，而一个对象文件可以是任意大小，从几kb到最大5T不等。  MinIO是一个非常轻量的服务,可以很简单的和其他应">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E5%AD%A6%E4%B9%A01.jpg">
+<meta property="article:published_time" content="2024-09-01T23:12:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T03:41:16.175Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="minio">
+<meta property="article:tag" content="远程连接">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E5%AD%A6%E4%B9%A01.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>MinIO对象存储服务(Windows) - 博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+</head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MinIO对象存储服务(Windows)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-02 07:12" pubdate>
+          2024年9月2日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MinIO对象存储服务(Windows)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="MinIO对象存储服务"><a href="#MinIO对象存储服务" class="headerlink" title="MinIO对象存储服务"></a>MinIO对象存储服务</h1><p>MinIO是什么？<br>  官方解释：MinIO 是一个基于Apache License v2.0开源协议的对象存储服务。对于对象存储服务我们了解过阿里云OSS，这个与之同理。它适合存储大容量非结构化的数据，例如图片、视频、日志文件、备份数据和容器&#x2F;虚拟机镜像等，而一个对象文件可以是任意大小，从几kb到最大5T不等。<br>  MinIO是一个非常轻量的服务,可以很简单的和其他应用的结合，类似 NodeJS, Redis 或者 MySQL。<br>参考：<a target="_blank" rel="noopener" href="https://min.io/docs/minio/kubernetes/upstream/index.html?ref=docs-redirect">官方文档</a><br> MinIO的优点：<br> 1.前端直传Minio,可减少与后端交互所造成的性能浪费<br> 2.可对接多种后端存储<br> 3.读写速率快</p>
+<h2 id="一、MinIO下载与启动"><a href="#一、MinIO下载与启动" class="headerlink" title="一、MinIO下载与启动"></a>一、MinIO下载与启动</h2><p>从官网中</p>
+<p>win下载地址：<a target="_blank" rel="noopener" href="https://min.io/download?license=agpl&platform=kubernetes#/windows">MinIO | Code and downloads to create high performance object storage  
+</a></p>
+<blockquote>
+<p>服务端文件:minio.exe 用于接收文件信息<br>客户端文件:mac.exe 用于上传文件 ，如果用程序代码操作文件存储，只启动服务端就ok<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/23b6a7588a6a4454a21afc7eb6397e6e.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+</blockquote>
+<h3 id="创建minio目录"><a href="#创建minio目录" class="headerlink" title="创建minio目录"></a>创建minio目录</h3><p>下载之前先创建minio目录去存放minIO相关的文件：</p>
+<blockquote>
+<p>根据自己想要存放的位置，创建minIO的文件夹，存放minIO相关的文件，如下：（目录名称不建议含有中文）</p>
+</blockquote>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/335ed65964f54dadb1fe001f78ca4a0d.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<ul>
+<li>bin目录存放刚刚下载的mc.exe 以及minio.exe 文件</li>
+</ul>
+</blockquote>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/bc6ffe9c07fc46b0a71f94a546a62faa.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<ul>
+<li>data，存放相关数据文件</li>
+<li>log，存储相关日志</li>
+</ul>
+</blockquote>
+<h3 id="启动minio服务器"><a href="#启动minio服务器" class="headerlink" title="启动minio服务器"></a>启动minio服务器</h3><blockquote>
+<p>！！注意注意！！<br>通常启动都是直接双击.exe文件，对于minio不能这也操作，必须用命令进行启动</p>
+</blockquote>
+<p>以 管理员权限 打开cmd窗口，进入到minio.exe所在bin目录<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/efd143c75ee04d10a76a8c2ce3b908c8.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<blockquote>
+<p>（ dir 命令 类似于 ls 命令）</p>
+</blockquote>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/c624060c0f814d7f8eddc8225d466256.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h4 id="1、设置用户密码并启动"><a href="#1、设置用户密码并启动" class="headerlink" title="1、设置用户密码并启动"></a>1、设置用户密码并启动</h4><ul>
+<li><p>设置用户名</p>
+<pre><code class="hljs">setx MINIO_ROOT_USER name 
+</code></pre>
+</li>
+<li><p>设置登录密码</p>
+<pre><code class="hljs">setx MINIO_ROOT_PASSWORD password
+</code></pre>
+</li>
+<li><p>启动Minio服务</p>
+<pre><code class="hljs">.\minio.exe server E:\minio\data --console-address &quot;127.0.0.1:9000&quot; --address &quot;127.0.0.1:9005&quot;
+</code></pre>
+<ul>
+<li>E:\minio\data： 指定数据存放路径 填自己的目录路径</li>
+<li>9005是控制台端口，9000是服务的端口<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/d7554d86d3444241b3366f5ee282cd3f.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+</ul>
+</li>
+</ul>
+<h4 id="2、-bat启动方式"><a href="#2、-bat启动方式" class="headerlink" title="2、.bat启动方式"></a>2、.bat启动方式</h4><p>从以上的方式会出现一个比较麻烦的操作，就是每次都要以管理员身份运行cmd窗口，进行到指定bin路径启动minio，因此将整个启动过程的命令封装成一个.bat文件，想要启动时就双击该文件即可自动启动，文件内容如下：<br>（设置用户密码步骤如上）</p>
+<blockquote>
+<p>.bat文件主要有两条命令：</p>
+<ol>
+<li>cd E:\minio\bin # minio.exe所在的文件地址</li>
+<li>minio.exe server E:\minio\data –console-address “:9005”<br>pause #启动服务器（E:\minio\data 为存储数据的地址） （“:9005” 为客户端的端口，可以自己设置 ）</li>
+</ol>
+</blockquote>
+<pre><code class="hljs">@echo off
+echo.
+echo [信息] 运行MinIO文服务器。
+echo.
+ 
+title minio
+ 
+cd %~dp0
+cd E:\minio\bin    #minio.exe所在的文件地址
+ 
+#启动服务器（E:\minio\data  为存储数据的地址） （&quot;:9005&quot; 为客户端的端口 ）
+minio.exe server E:\minio\data --console-address &quot;:9005&quot;  
+pause
+</code></pre>
+<p>双击后：<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/6c86c9db63d3432c92a132376ddf24a8.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="二、访问minio"><a href="#二、访问minio" class="headerlink" title="二、访问minio"></a>二、访问minio</h2><ul>
+<li>访问minio服务器（<strong>注意每次访问之间要确认minio有没有启动</strong>上一步操作）<br>地址：<a target="_blank" rel="noopener" href="http://127.0.0.1:9000/">http://127.0.0.1:9000/</a><br>输入刚刚上一步中WebUI的用户密码即可<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/9906f9d3baa040919e6aa6e2e0f09258.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+<li>进入后显示如下，则正常启动<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/7aeafba9e9764705b687cf8c3f9e966b.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+<li>了解到minIO与阿里云对象存储OSS一样都是由桶（bucket）组成的，相当于是文件夹，因此应该先要创建桶bucket<br>点击Create a Bucke<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/121bf14892c4404294df36b509bdf994.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+</ul>
+<h3 id="1、创建并使用桶"><a href="#1、创建并使用桶" class="headerlink" title="1、创建并使用桶"></a>1、创建并使用桶</h3><ul>
+<li>创建完成后点击对象浏览器——Object Browser<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/53fce18a999f41858c4560fd6fe6382a.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+<li>创建桶后试着可以直接上传文件</li>
+</ul>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/dade3567cb4945c49b8f04025f83b08a.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<ul>
+<li>点击文件还能进行共享&#x2F;分享<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/eb5c86aced844b2bb6388a33984b6447.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/d505594c278c4ea6a3ba06387a35f49f.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+<li>直接复制链接进行浏览器访问<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/a016d2364212485e8d523a2391ffb395.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+</ul>
+<blockquote>
+<p>！！可以进行直接访问 Minio的ip+端口&#x2F;桶名称&#x2F;文件名 就可以忽视访问时效问题，但是这个方式需要桶开放权限</p>
+</blockquote>
+<h3 id="2、Buckets访问权限"><a href="#2、Buckets访问权限" class="headerlink" title="2、Buckets访问权限"></a>2、Buckets访问权限</h3><ul>
+<li>访问路径：<br>localhost:9005：API的地址<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/5a93de0d9bc24a6d98f3eab8c55fade6.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://localhost:9005/%E6%A1%B6%E5%90%8D%E5%AD%97/java.png">http://localhost:9005/桶名字/java.png</a><br><a target="_blank" rel="noopener" href="http://localhost:9005/studyphoto-oss/1.png">http://localhost:9005/studyphoto-oss/1.png</a></p>
+</blockquote>
+<ul>
+<li>如果没有权限的话会访问不到，此时要新增桶的权限<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/6ebe2d97ab424587a8643c6c05eaa43e.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt=" "><br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/1ec06ab25071471f83cd028893266dbf.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+<li>再次浏览器访问，如下，成功访问<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/minio/assets/d7c178ceac814ed3b165210a72d4c0a7.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="在这里插入图片描述"></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" class="category-chain-item">远程连接</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/minio/" class="print-no-link">#minio</a>
+      
+        <a href="/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" class="print-no-link">#远程连接</a>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/" class="print-no-link">#前端</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MinIO对象存储服务(Windows)</div>
+      <div>http://example.com/2024/09/02/MinIO对象存储服务(Windows)/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/02/Hadoop%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%BA%94%E7%94%A8/" title="Hadoop大数据技术与应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hadoop大数据技术与应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/26/%E6%99%BA%E6%85%A7%E6%A0%A1%E5%9B%AD%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="智慧校园管理系统">
+                        <span class="hidden-mobile">智慧校园管理系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

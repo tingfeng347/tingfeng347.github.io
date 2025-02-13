@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/fluid.png">
+  <link rel="icon" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版2025年1月21日，DeepSeek-R1正式发布，并同步开源模型权重。  DeepSeek-R1 遵循 MIT License，允许用户通过蒸馏技术借助 R1 训练其他模型。  DeepSeek-R1 上线 API，对用户开放思维链输出，通过设置 model&#x3D;&#39;deepseek-reasoner&#39; 即可调用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版">
+<meta property="og:url" content="http://example.com/2025/01/28/DeepSeek-R1/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版2025年1月21日，DeepSeek-R1正式发布，并同步开源模型权重。  DeepSeek-R1 遵循 MIT License，允许用户通过蒸馏技术借助 R1 训练其他模型。  DeepSeek-R1 上线 API，对用户开放思维链输出，通过设置 model&#x3D;&#39;deepseek-reasoner&#39; 即可调用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/AI.jpg">
+<meta property="article:published_time" content="2025-01-28T08:08:22.000Z">
+<meta property="article:modified_time" content="2025-02-13T02:20:46.558Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/AI.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DeepSeek-R1 发布，性能对标 OpenAI o1 正式版 - 博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+</head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-28 16:08" pubdate>
+          2025年1月28日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          645 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          6 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="DeepSeek-R1-发布，性能对标-OpenAI-o1-正式版"><a href="#DeepSeek-R1-发布，性能对标-OpenAI-o1-正式版" class="headerlink" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"></a>DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</h1><p>2025年1月21日，DeepSeek-R1正式发布，并同步开源模型权重。</p>
+<ul>
+<li><p>DeepSeek-R1 遵循 MIT License，允许用户通过蒸馏技术借助 R1 训练其他模型。</p>
+</li>
+<li><p>DeepSeek-R1 上线 API，对用户开放思维链输出，通过设置 <code>model=&#39;deepseek-reasoner&#39;</code> 即可调用。</p>
+</li>
+<li><p>DeepSeek 官网与 App 即日起同步更新上线。</p>
+</li>
+</ul>
+<h2 id="性能对齐-OpenAI-o1-正式版​"><a href="#性能对齐-OpenAI-o1-正式版​" class="headerlink" title="性能对齐 OpenAI-o1 正式版​"></a>性能对齐 OpenAI-o1 正式版<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/news/news250120#%E6%80%A7%E8%83%BD%E5%AF%B9%E9%BD%90-openai-o1-%E6%AD%A3%E5%BC%8F%E7%89%88">​</a></h2><p>DeepSeek-R1 在后训练阶段大规模使用了强化学习技术，在仅有极少标注数据的情况下，极大提升了模型推理能力。在数学、代码、自然语言推理等任务上，性能比肩 OpenAI o1 正式版。</p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_benchmark.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<p>在此，我们将 DeepSeek-R1 训练技术全部公开，以期促进技术社区的充分交流与创新协作。</p>
+<p>论文链接： <a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/DeepSeek-R1/blob/main/DeepSeek_R1.pdf">https://github.com/deepseek-ai/DeepSeek-R1/blob/main/DeepSeek_R1.pdf</a></p>
+<h2 id="蒸馏小模型超越-OpenAI-o1-mini​"><a href="#蒸馏小模型超越-OpenAI-o1-mini​" class="headerlink" title="蒸馏小模型超越 OpenAI o1-mini​"></a>蒸馏小模型超越 OpenAI o1-mini<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/news/news250120#%E8%92%B8%E9%A6%8F%E5%B0%8F%E6%A8%A1%E5%9E%8B%E8%B6%85%E8%B6%8A-openai-o1-mini">​</a></h2><p>我们在开源 DeepSeek-R1-Zero 和 DeepSeek-R1 两个 660B 模型的同时，通过 DeepSeek-R1 的输出，蒸馏了 6 个小模型开源给社区，其中 32B 和 70B 模型在多项能力上实现了对标 OpenAI o1-mini 的效果。</p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_benchmark_table.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<p>HuggingFace 链接： <a target="_blank" rel="noopener" href="https://huggingface.co/deepseek-ai">https://huggingface.co/deepseek-ai</a></p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_hf.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<h3 id="开放的许可证和用户协议​"><a href="#开放的许可证和用户协议​" class="headerlink" title="开放的许可证和用户协议​"></a>开放的许可证和用户协议<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/news/news250120#%E5%BC%80%E6%94%BE%E7%9A%84%E8%AE%B8%E5%8F%AF%E8%AF%81%E5%92%8C%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE">​</a></h3><p>为了推动和鼓励开源社区以及行业生态的发展，在发布并开源 R1 的同时，我们同步在协议授权层面也进行了如下调整：</p>
+<ul>
+<li><p>模型开源 License 统一使用 MIT。我们曾针对大模型开源的特点，参考当前行业的通行实践，特别引入 DeepSeek License 为开源社区提供授权，但实践表明非标准的开源 License 可能反而增加了开发者的理解成本。为此，此次我们的开源仓库（包括模型权重）统一采用标准化、宽松的 MIT License，完全开源，不限制商用，无需申请。</p>
+</li>
+<li><p>产品协议明确可“模型蒸馏”。为了进一步促进技术的开源和共享，我们决定支持用户进行“模型蒸馏”。我们已更新线上产品的用户协议，明确允许用户利用模型输出、通过模型蒸馏等方式训练其他模型。</p>
+</li>
+</ul>
+<h2 id="App与网页端​"><a href="#App与网页端​" class="headerlink" title="App与网页端​"></a>App与网页端<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/news/news250120#app%E4%B8%8E%E7%BD%91%E9%A1%B5%E7%AB%AF">​</a></h2><p>登录DeepSeek官网或官方App，打开“深度思考”模式，即可调用最新版 DeepSeek-R1 完成各类推理任务。</p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_example.gif" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<h2 id="API-及定价​"><a href="#API-及定价​" class="headerlink" title="API 及定价​"></a>API 及定价<a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/news/news250120#api-%E5%8F%8A%E5%AE%9A%E4%BB%B7">​</a></h2><p>DeepSeek-R1 API 服务定价为每百万输入 tokens 1 元（缓存命中）&#x2F; 4 元（缓存未命中），每百万输出 tokens 16 元。</p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_price.jpeg" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<p><img src="https://dp-cdn-deepseek.obs.cn-east-3.myhuaweicloud.com/api-docs/deepseek_r1_price_compare.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+<p>详细的 API 调用指南请参考官方文档：  <a target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/guides/reasoning_model">https://api-docs.deepseek.com/zh-cn/guides/reasoning_model</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#AI大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</div>
+      <div>http://example.com/2025/01/28/DeepSeek-R1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Janus 系列：统一的多模态理解和生成模型</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/21/conda%20%E5%88%9B%E5%BB%BA_%E5%88%A0%E9%99%A4_%E5%A4%8D%E5%88%B6%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E3%80%81%E5%AE%89%E8%A3%85_%E5%88%A0%E9%99%A4%E5%8C%85/" title="conda创建/删除/复制虚拟环境、安装/删除包">
+                        <span class="hidden-mobile">conda创建/删除/复制虚拟环境、安装/删除包</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

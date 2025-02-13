@@ -1,0 +1,884 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/fluid.png">
+  <link rel="icon" href="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、课程设计背景与目标课程设计背景随着大数据技术的飞速发展，农业领域也开始逐渐应用大数据分析，以提升生产效率、优化资源配置和加强环境保护。农业生产过程中涉及大量的数据，包括气候、土壤、作物生长、病虫害等信息。通过大数据技术，可以更好地理解农业系统中的各种变量及其相互关系，从而实现精准农业、提高农产品质量、减少资源浪费，并推动可持续发展。例如，通过分析土壤质量、天气变化、作物生长等数据，能够有效地提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据开发技术课程设计">
+<meta property="og:url" content="http://example.com/2024/12/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="博客">
+<meta property="og:description" content="一、课程设计背景与目标课程设计背景随着大数据技术的飞速发展，农业领域也开始逐渐应用大数据分析，以提升生产效率、优化资源配置和加强环境保护。农业生产过程中涉及大量的数据，包括气候、土壤、作物生长、病虫害等信息。通过大数据技术，可以更好地理解农业系统中的各种变量及其相互关系，从而实现精准农业、提高农产品质量、减少资源浪费，并推动可持续发展。例如，通过分析土壤质量、天气变化、作物生长等数据，能够有效地提">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E7%BA%A2%E5%A2%99.jpg">
+<meta property="article:published_time" content="2024-12-20T07:30:22.000Z">
+<meta property="article:modified_time" content="2025-02-13T02:57:03.539Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="hadoop">
+<meta property="article:tag" content="spark">
+<meta property="article:tag" content="hive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E7%BA%A2%E5%A2%99.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>大数据开发技术课程设计 - 博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="博客" type="application/atom+xml">
+</head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="大数据开发技术课程设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-20 15:30" pubdate>
+          2024年12月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">大数据开发技术课程设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、课程设计背景与目标"><a href="#一、课程设计背景与目标" class="headerlink" title="一、课程设计背景与目标"></a>一、课程设计背景与目标</h2><h3 id="课程设计背景"><a href="#课程设计背景" class="headerlink" title="课程设计背景"></a>课程设计背景</h3><p>随着大数据技术的飞速发展，农业领域也开始逐渐应用大数据分析，以提升生产效率、优化资源配置和加强环境保护。农业生产过程中涉及大量的数据，包括气候、土壤、作物生长、病虫害等信息。通过大数据技术，可以更好地理解农业系统中的各种变量及其相互关系，从而实现精准农业、提高农产品质量、减少资源浪费，并推动可持续发展。例如，通过分析土壤质量、天气变化、作物生长等数据，能够有效地提升农业产量和资源利用效率。本项目旨在通过大数据分析技术，从多个维度分析和解决农业中的实际问题</p>
+<h3 id="课程设计目标"><a href="#课程设计目标" class="headerlink" title="课程设计目标"></a>课程设计目标</h3><p>选择并分析一个农业问题，利用大数据分析方法解决该问题，并通过三个不同类型的图表展示分析结果。具体目标包括：</p>
+<p>1.问题分析：分析并明确一个农业生产中的问题，例如作物生长受土壤质量和气候变化的影响。</p>
+<p>2.数据分析：使用大数据分析技术（如MapReduce、Hive、机器学习等）对数据进行清洗、处理和分析。</p>
+<p>3.结果展示：通过至少三个不同的图表（如时间序列图、散点图、热力图等）展示数据分析结果，支撑问题的解决方案</p>
+<h3 id="课程设计目标——例子"><a href="#课程设计目标——例子" class="headerlink" title="课程设计目标——例子"></a>课程设计目标——例子</h3><p>“某地区气候变化对作物生长的影响”</p>
+<p>• 气候变化如何影响作物的生长周期？</p>
+<p>• 不同气候条件下，作物的产量如何变化？</p>
+<p>• 哪些气候因素（如温度、降水量、湿度等）对作物生长最为关键？</p>
+<h2 id="二、课程设计技术架构"><a href="#二、课程设计技术架构" class="headerlink" title="二、课程设计技术架构"></a>二、课程设计技术架构</h2><h3 id="一-课程设计技术架构"><a href="#一-课程设计技术架构" class="headerlink" title="(一) 课程设计技术架构"></a>(一) 课程设计技术架构</h3><p>系统架构概述</p>
+<p>1.数据存储模块：</p>
+<p>2.数据处理与分析模块：</p>
+<p>3.查询与展示模块：</p>
+<p>4. ………….</p>
+<p>技术栈详解</p>
+<p>分布式文件系统（HDFS）</p>
+<p>资源调度（YARN）</p>
+<p>数据处理（Hive)</p>
+<h2 id="三、项目实施过程"><a href="#三、项目实施过程" class="headerlink" title="三、项目实施过程"></a>三、项目实施过程</h2><p>（一）环境部署</p>
+<p>（二）数据清洗与预处理</p>
+<p>（三）数据分析与查询</p>
+<p>（四）结果展示与可视化</p>
+<h3 id="（一）环境部署"><a href="#（一）环境部署" class="headerlink" title="（一）环境部署"></a>（一）环境部署</h3><p>请详细描述项目中各个组件的安装过程，包括软件、硬件及网络环境的配置。</p>
+<p>建议使用流程图的形式清晰地展示整个部署过程</p>
+<h3 id="（二）数据清洗与预处理"><a href="#（二）数据清洗与预处理" class="headerlink" title="（二）数据清洗与预处理"></a>（二）数据清洗与预处理</h3><p>•方法描述：请说明使用了哪些方法对农业数据进行清洗与预处理，包括数据去重、缺失值处理、异常值检测等。</p>
+<p>•数据展示：请粘贴原始数据格式与预处理后的数据截图，以便对比展示数据清洗的效果。</p>
+<p>•代码展示：如果使用了MapReduce或Hive等工具进行数据处理，请粘贴相关代码片段，并简要说明其作用</p>
+<h3 id="（三）数据分析与查询"><a href="#（三）数据分析与查询" class="headerlink" title="（三）数据分析与查询"></a>（三）数据分析与查询</h3><p>•方法描述：请说明使用了哪些方法对处理后的数据进行分析与查询，包括统计分析、数据挖掘、机器学习算法等。</p>
+<p>•问题解决：请对处理后的数据进行解释分析，说明这些数据如何帮助你解决了在背景部分提到的农业问题。</p>
+<p>•代码展示：如果使用了MapReduce或Hive等工具进行数据分析，请粘贴相关代码片段，并简要说明其实现的功能。</p>
+<h3 id="（四）结果展示与可视化"><a href="#（四）结果展示与可视化" class="headerlink" title="（四）结果展示与可视化"></a>（四）结果展示与可视化</h3><p>•方法描述：请说明使用了哪些方式对结果进行可视化展示，包括图表类型（如柱状图、折线图、散点图等）和可视</p>
+<p>化工具（如Excel、Tableau、Echarts、Python等）。</p>
+<p>•结论分析：请从图表中提炼出关键结论，这些结论应直接关联到项目目标的实现情况。例如，通过数据分析发现某</p>
+<p>种病虫害的预防措施显著提高了作物产量；或者通过资源优化管理，降低了化肥和农药的使用量等。</p>
+<h1 id="大数据开发技术课程设计步骤"><a href="#大数据开发技术课程设计步骤" class="headerlink" title="大数据开发技术课程设计步骤"></a><strong>大数据开发技术课程设计步骤</strong></h1><h2 id="1-步骤概述"><a href="#1-步骤概述" class="headerlink" title="1. 步骤概述"></a><strong>1. 步骤概述</strong></h2><p>NaN.  <strong>MapReduce 读取数据并进行预处理</strong>：</p>
+<pre><code class="hljs">-   去重。
+    
+-   将清洗后的数据写入 Hive 表。
+</code></pre>
+<p>NaN.  <strong>Hive 中进行缺失值和异常值处理</strong>：</p>
+<pre><code class="hljs">-   检测缺失值 无缺失值
+    
+-   在 Hive 中计算每列的均值和标准差。
+    
+-   计算每行的 Z-score 并根据阈值（如 Z &gt; 3 或 Z &lt; -3）进行异常值筛选。
+</code></pre>
+<p>NaN.  <strong>分析 Hive 中的数据</strong>：</p>
+<pre><code class="hljs">-   选取合适的指标
+    
+-   在 Hive 中进行数据分析。
+</code></pre>
+<p>NaN.  <strong>可视化</strong></p>
+<pre><code class="hljs">-   用镝数图表可视化数据
+</code></pre>
+<p>NaN.  <strong>扩展</strong></p>
+<pre><code class="hljs">-   将hive清洗后的数据用来模型训练,构建作物预测系统
+</code></pre>
+<h2 id="2-详细步骤"><a href="#2-详细步骤" class="headerlink" title="2. 详细步骤"></a><strong>2. 详细步骤</strong></h2><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241230154731012.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241230154731012"></p>
+<p><strong>原始数据</strong></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229104739997.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229104739997"></p>
+<h3 id="2-1-MapReduce-处理数据并导入-Hive"><a href="#2-1-MapReduce-处理数据并导入-Hive" class="headerlink" title="2.1 MapReduce 处理数据并导入 Hive"></a><strong>2.1 MapReduce 处理数据并导入 Hive</strong></h3><p>我们使用 Hadoop MapReduce 来读取 HDFS 上的数据进行预处理（去重），然后将数据导入到 Hive 中进行后续处理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.cqyti.kcsj.mapreduce;<br>​<br><span class="hljs-keyword">import</span> org.apache.hadoop.io.Text;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Mapper;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Reducer;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.HashSet;<br><span class="hljs-keyword">import</span> org.apache.hadoop.conf.Configuration;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.Path;<br><span class="hljs-keyword">import</span> org.apache.hadoop.fs.FileSystem;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.Job;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;<br><span class="hljs-keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;<br><span class="hljs-keyword">import</span> org.apache.log4j.Logger;<br>​<br><span class="hljs-comment">// 数据预处理类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DataPreprocessing</span> &#123;<br>    <span class="hljs-comment">// 日志记录器，用于记录程序运行信息</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> Logger.getLogger(DataPreprocessing.class);<br>​<br>    <span class="hljs-comment">// 主方法，程序入口</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// 创建 Hadoop 配置对象</span><br>        <span class="hljs-type">Configuration</span> <span class="hljs-variable">conf</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>();<br>        <span class="hljs-comment">// 获取文件系统对象</span><br>        <span class="hljs-type">FileSystem</span> <span class="hljs-variable">fs</span> <span class="hljs-operator">=</span> FileSystem.get(conf);<br>        <span class="hljs-comment">// 初始化 MapReduce 任务</span><br>        <span class="hljs-type">Job</span> <span class="hljs-variable">job</span> <span class="hljs-operator">=</span> Job.getInstance(conf, <span class="hljs-string">&quot;Data Preprocessing&quot;</span>);<br>        <span class="hljs-comment">// 设置运行主类</span><br>        job.setJarByClass(DataPreprocessing.class);<br>        <span class="hljs-comment">// 设置 Mapper 类</span><br>        job.setMapperClass(DataPreprocessingMapper.class);<br>        <span class="hljs-comment">// 设置 Reducer 类</span><br>        job.setReducerClass(DataPreprocessingReducer.class);<br>        <span class="hljs-comment">// 设置输出的 key 的类型</span><br>        job.setOutputKeyClass(Text.class);<br>        <span class="hljs-comment">// 设置输出的 value 的类型</span><br>        job.setOutputValueClass(Text.class);<br>        <span class="hljs-comment">// 设置输入路径</span><br>        <span class="hljs-type">Path</span> <span class="hljs-variable">inputPath</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;/Tipdm/Hadoop/MapReduce/crops_data.csv&quot;</span>);<br>        <span class="hljs-comment">// 设置输出路径</span><br>        <span class="hljs-type">Path</span> <span class="hljs-variable">outputPath</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">&quot;/Tipdm/Hadoop/MapReduce/Result&quot;</span>);<br>​<br>        <span class="hljs-comment">// 如果输出路径已存在，则删除</span><br>        <span class="hljs-keyword">if</span> (fs.exists(outputPath)) &#123;<br>            fs.delete(outputPath, <span class="hljs-literal">true</span>);<br>        &#125;<br>​<br>        <span class="hljs-comment">// 设置任务的输入路径</span><br>        FileInputFormat.addInputPath(job, inputPath);<br>        <span class="hljs-comment">// 设置任务的输出路径</span><br>        FileOutputFormat.setOutputPath(job, outputPath);<br>​<br>        <span class="hljs-comment">// 提交任务并等待执行完成</span><br>        System.exit(job.waitForCompletion(<span class="hljs-literal">true</span>) ? <span class="hljs-number">0</span> : <span class="hljs-number">1</span>);<br>    &#125;<br>​<br>    <span class="hljs-comment">// Mapper 类，用于处理每行数据，将其作为 key 输出</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DataPreprocessingMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Mapper</span>&lt;Object, Text, Text, Text&gt; &#123;<br>        <span class="hljs-comment">// 用于标识是否是表头行</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-variable">isHeader</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>​<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">map</span><span class="hljs-params">(Object key, Text value, Context context)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>            <span class="hljs-comment">// 如果是表头行，直接跳过</span><br>            <span class="hljs-keyword">if</span> (isHeader) &#123;<br>                isHeader = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 只跳过第一行</span><br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>            <span class="hljs-comment">// 将当前行转换为字符串</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">line</span> <span class="hljs-operator">=</span> value.toString();<br>            <span class="hljs-comment">// 将行内容作为 key 输出，value 设置为空字符串</span><br>            context.write(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>(line), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Text</span>(<span class="hljs-string">&quot;&quot;</span>));<br>        &#125;<br>    &#125;<br>​<br>    <span class="hljs-comment">// Reducer 类，用于对 Mapper 输出的数据进行去重</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DataPreprocessingReducer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Reducer</span>&lt;Text, Text, Text, Text&gt; &#123;<br>​<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reduce</span><span class="hljs-params">(Text key, Iterable&lt;Text&gt; values, Context context)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>            <span class="hljs-comment">// 每个 key 是唯一的，直接输出即可，实现去重</span><br>            context.write(key, <span class="hljs-literal">null</span>);<br>        &#125;<br>    &#125;<br>&#125;<br>​<br></code></pre></td></tr></table></figure>
+
+<p><strong>MapReduce去重后数据</strong></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105212421.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105212421"></p>
+<h3 id="2-2-导入数据到-Hive"><a href="#2-2-导入数据到-Hive" class="headerlink" title="2.2. 导入数据到 Hive"></a><strong>2.2. 导入数据到 Hive</strong></h3><p>将 MapReduce 作业生成的清洗后的数据导入 Hive 表：</p>
+<p>NaN.  <strong>创建 Hive 表</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> crops_data (<br>    rainfall <span class="hljs-type">FLOAT</span>,<br>    temperature <span class="hljs-type">FLOAT</span>,<br>    ph <span class="hljs-type">FLOAT</span>,<br>    crop STRING,<br>    production <span class="hljs-type">FLOAT</span><br>)<br><span class="hljs-type">ROW</span> FORMAT DELIMITED<br>FIELDS TERMINATED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;,&#x27;</span><br>STORED <span class="hljs-keyword">AS</span> TEXTFILE;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p><strong>将清洗后的数据加载到 Hive 表</strong>：</p>
+<p>LOAD DATA INPATH ‘&#x2F;Tipdm&#x2F;Hadoop&#x2F;MapReduce&#x2F;Result’ INTO TABLE crops_data;</p>
+</li>
+</ol>
+<h3 id="2-3-缺失值和异常值处理"><a href="#2-3-缺失值和异常值处理" class="headerlink" title="2.3 缺失值和异常值处理"></a><strong>2.3 缺失值和异常值处理</strong></h3><p>在 Hive 中进行 Z-score 计算，并筛选出异常值。使用以下 SQL 语句来实现这个过程。</p>
+<h4 id="1-创建新表"><a href="#1-创建新表" class="headerlink" title="1. 创建新表"></a><strong>1. 创建新表</strong></h4><p>首先，创建一个新的 Hive 表 <code>cleaned_crops_data</code>，该表结构与原表 <code>crops_data</code> 相同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> cleaned_crops_data (<br>    rainfall <span class="hljs-type">FLOAT</span>,<br>    temperature <span class="hljs-type">FLOAT</span>,<br>    ph <span class="hljs-type">FLOAT</span>,<br>    crop STRING,<br>    production <span class="hljs-type">FLOAT</span><br>)<br><span class="hljs-type">ROW</span> FORMAT DELIMITED<br>FIELDS TERMINATED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;,&#x27;</span><br>STORED <span class="hljs-keyword">AS</span> TEXTFILE;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-检查缺失值"><a href="#2-检查缺失值" class="headerlink" title="2.检查缺失值"></a><strong>2.检查缺失值</strong></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <br><span class="hljs-keyword">FROM</span> crops_data <br><span class="hljs-keyword">WHERE</span> rainfall <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span> <br>   <span class="hljs-keyword">OR</span> temperature <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span> <br>   <span class="hljs-keyword">OR</span> ph <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span> <br>   <span class="hljs-keyword">OR</span> production <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-去除异常值"><a href="#3-去除异常值" class="headerlink" title="3. 去除异常值"></a><strong>3. 去除异常值</strong></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">WITH</span> stats <span class="hljs-keyword">AS</span> (<br>    <span class="hljs-comment">-- 计算数据集中各个变量（降雨量、气温、pH 值、产量）的均值和标准差</span><br>    <span class="hljs-keyword">SELECT</span><br>        <span class="hljs-built_in">AVG</span>(Rainfall) <span class="hljs-keyword">AS</span> mean_rainfall,         <span class="hljs-comment">-- 计算降雨量的均值</span><br>        STDDEV(Rainfall) <span class="hljs-keyword">AS</span> std_rainfall,      <span class="hljs-comment">-- 计算降雨量的标准差</span><br>        <span class="hljs-built_in">AVG</span>(Temperature) <span class="hljs-keyword">AS</span> mean_temperature, <span class="hljs-comment">-- 计算气温的均值</span><br>        STDDEV(Temperature) <span class="hljs-keyword">AS</span> std_temperature, <span class="hljs-comment">-- 计算气温的标准差</span><br>        <span class="hljs-built_in">AVG</span>(Ph) <span class="hljs-keyword">AS</span> mean_ph,                   <span class="hljs-comment">-- 计算 pH 值的均值</span><br>        STDDEV(Ph) <span class="hljs-keyword">AS</span> std_ph,                 <span class="hljs-comment">-- 计算 pH 值的标准差</span><br>        <span class="hljs-built_in">AVG</span>(Production) <span class="hljs-keyword">AS</span> mean_production,   <span class="hljs-comment">-- 计算产量的均值</span><br>        STDDEV(Production) <span class="hljs-keyword">AS</span> std_production <span class="hljs-comment">-- 计算产量的标准差</span><br>    <span class="hljs-keyword">FROM</span> crops_data<br>),<br>z_scores <span class="hljs-keyword">AS</span> (<br>    <span class="hljs-comment">-- 计算每个作物数据的 Z 分数（标准化分数）</span><br>    <span class="hljs-keyword">SELECT</span><br>        Crop,                                  <span class="hljs-comment">-- 作物名称</span><br>        (Rainfall <span class="hljs-operator">-</span> stats.mean_rainfall) <span class="hljs-operator">/</span> stats.std_rainfall <span class="hljs-keyword">AS</span> z_rainfall,       <span class="hljs-comment">-- 降雨量的 Z 分数</span><br>        (Temperature <span class="hljs-operator">-</span> stats.mean_temperature) <span class="hljs-operator">/</span> stats.std_temperature <span class="hljs-keyword">AS</span> z_temperature, <span class="hljs-comment">-- 气温的 Z 分数</span><br>        (Ph <span class="hljs-operator">-</span> stats.mean_ph) <span class="hljs-operator">/</span> stats.std_ph <span class="hljs-keyword">AS</span> z_ph,                               <span class="hljs-comment">-- pH 值的 Z 分数</span><br>        (Production <span class="hljs-operator">-</span> stats.mean_production) <span class="hljs-operator">/</span> stats.std_production <span class="hljs-keyword">AS</span> z_production <span class="hljs-comment">-- 产量的 Z 分数</span><br>    <span class="hljs-keyword">FROM</span> crops_data, stats                      <span class="hljs-comment">-- 与统计信息进行笛卡尔连接，计算标准化值</span><br>)<br><span class="hljs-comment">-- 将处理后的数据覆盖写入目标表 cleaned_crops_data</span><br><span class="hljs-keyword">INSERT</span> OVERWRITE <span class="hljs-keyword">TABLE</span> cleaned_crops_data<br><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span><br><span class="hljs-keyword">FROM</span> crops_data<br><span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> (<br>    <span class="hljs-comment">-- 排除异常值（Z 分数绝对值大于 3 的记录）</span><br>    <span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">FROM</span> z_scores<br>    <span class="hljs-keyword">WHERE</span> (<span class="hljs-built_in">ABS</span>(z_rainfall) <span class="hljs-operator">&gt;</span> <span class="hljs-number">3</span> <span class="hljs-keyword">OR</span> <span class="hljs-built_in">ABS</span>(z_temperature) <span class="hljs-operator">&gt;</span> <span class="hljs-number">3</span> <span class="hljs-keyword">OR</span> <span class="hljs-built_in">ABS</span>(z_ph) <span class="hljs-operator">&gt;</span> <span class="hljs-number">3</span> <span class="hljs-keyword">OR</span> <span class="hljs-built_in">ABS</span>(z_production) <span class="hljs-operator">&gt;</span> <span class="hljs-number">3</span>) <span class="hljs-comment">-- 判断是否为异常值</span><br>    <span class="hljs-keyword">AND</span> crops_data.Crop <span class="hljs-operator">=</span> z_scores.Crop <span class="hljs-comment">-- 确保作物名称匹配</span><br>);<br>​<br></code></pre></td></tr></table></figure>
+
+<p><strong>hive处理缺失值和异常值后数据</strong></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105341748.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105341748"></p>
+<h3 id="2-4-hive分析数据"><a href="#2-4-hive分析数据" class="headerlink" title="2.4. hive分析数据"></a><strong>2.4. hive分析数据</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql">#获取作物分组后四个指标的平均值<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">table</span> avg_crops_data1 <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> crop,<br>       <span class="hljs-built_in">AVG</span>(rainfall) <span class="hljs-keyword">AS</span> avg_rainfall,<br>       <span class="hljs-built_in">AVG</span>(temperature) <span class="hljs-keyword">AS</span> avg_temperature,<br>       <span class="hljs-built_in">AVG</span>(ph) <span class="hljs-keyword">AS</span> avg_ph,<br>       <span class="hljs-built_in">AVG</span>(production) <span class="hljs-keyword">AS</span> avg_production<br><span class="hljs-keyword">FROM</span> cleaned_crops_data<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> crop;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105650738.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105650738"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql">获取作物分组后三个指标与产量的相关性<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> corr_crops_data <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> crop,<br>       <span class="hljs-built_in">CORR</span>(rainfall, production) <span class="hljs-keyword">AS</span> corr_rainfall_production,<br>       <span class="hljs-built_in">CORR</span>(temperature, production) <span class="hljs-keyword">AS</span> corr_temperature_production,<br>       <span class="hljs-built_in">CORR</span>(ph, production) <span class="hljs-keyword">AS</span> corr_ph_production<br><span class="hljs-keyword">FROM</span> cleaned_crops_data<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> crop;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105750265.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105750265"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs sql">获取作物分组后四个指标的最大值和最小值<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> extremal_crops_data <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> crop,<br>       <span class="hljs-built_in">MIN</span>(rainfall) <span class="hljs-keyword">AS</span> min_rainfall,<br>       <span class="hljs-built_in">MAX</span>(rainfall) <span class="hljs-keyword">AS</span> max_rainfall,<br>       <span class="hljs-built_in">MIN</span>(temperature) <span class="hljs-keyword">AS</span> min_temperature,<br>       <span class="hljs-built_in">MAX</span>(temperature) <span class="hljs-keyword">AS</span> max_temperature,<br>       <span class="hljs-built_in">MIN</span>(ph) <span class="hljs-keyword">AS</span> min_ph,<br>       <span class="hljs-built_in">MAX</span>(ph) <span class="hljs-keyword">AS</span> max_ph,<br>       <span class="hljs-built_in">MIN</span>(production) <span class="hljs-keyword">AS</span> min_production,<br>       <span class="hljs-built_in">MAX</span>(production) <span class="hljs-keyword">AS</span> max_production<br><span class="hljs-keyword">FROM</span> cleaned_crops_data<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> crop;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105830983.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105830983"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs sql">获取每个作物产量最大的一条记录然后根据作物产量全局排序：<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> best_crops_data <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> crop,<br>       rainfall <span class="hljs-keyword">AS</span> best_rainfall,<br>       temperature <span class="hljs-keyword">AS</span> best_temperature,<br>       ph <span class="hljs-keyword">AS</span> best_ph,<br>       production <span class="hljs-keyword">AS</span> best_production<br><span class="hljs-keyword">FROM</span> (<br>    <span class="hljs-keyword">SELECT</span> crop,<br>           rainfall,<br>           temperature,<br>           ph,<br>           production,<br>           <span class="hljs-built_in">ROW_NUMBER</span>() <span class="hljs-keyword">OVER</span> (<span class="hljs-keyword">PARTITION</span> <span class="hljs-keyword">BY</span> crop <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> production <span class="hljs-keyword">DESC</span>) <span class="hljs-keyword">AS</span> rn<br>    <span class="hljs-keyword">FROM</span> cleaned_crops_data<br>) subquery<br><span class="hljs-keyword">WHERE</span> rn <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> best_production <span class="hljs-keyword">DESC</span>;<br>​<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229105913408.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229105913408"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql">获取grapes作物环境影响情况<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> grapes_data <span class="hljs-keyword">AS</span><br><span class="hljs-keyword">SELECT</span> crop,<br>       rainfall, <br>       temperature,<br>       ph,<br>       production<br><span class="hljs-keyword">FROM</span> cleaned_crops_data<br><span class="hljs-keyword">WHERE</span> crop<span class="hljs-operator">=</span><span class="hljs-string">&#x27;Grapes&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241229110012740.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241229110012740"></p>
+<h3 id="2-5-可视化数据"><a href="#2-5-可视化数据" class="headerlink" title="2.5 可视化数据"></a><strong>2.5 可视化数据</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241230154759932.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241230154759932"></p>
+<p><a target="_blank" rel="noopener" href="https://dycharts.com/xshow/index.html?id=1b979759f6ae1a741c924841a17ab026">https://dycharts.com/xshow/index.html?id=1b979759f6ae1a741c924841a17ab026</a></p>
+<h3 id="2-6-扩展"><a href="#2-6-扩展" class="headerlink" title="2.6 扩展"></a><strong>2.6 扩展</strong></h3><p>将hive清洗后的数据用来模型训练,构建作物预测系统</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241230155232758.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload alt="image-20241230155232758"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/image-20241230155431377.png" srcset="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/halo/assets/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="category-chain-item">大数据</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/java/" class="category-chain-item">java</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hadoop/" class="print-no-link">#hadoop</a>
+      
+        <a href="/tags/spark/" class="print-no-link">#spark</a>
+      
+        <a href="/tags/hive/" class="print-no-link">#hive</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>大数据开发技术课程设计</div>
+      <div>http://example.com/2024/12/20/大数据开发技术课程设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/31/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" title="大数据安全课程设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">大数据安全课程设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/12/%E4%BD%9C%E7%89%A9%E9%A2%84%E6%B5%8B%E7%B3%BB%E7%BB%9F/" title="作物预测系统">
+                        <span class="hidden-mobile">作物预测系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
