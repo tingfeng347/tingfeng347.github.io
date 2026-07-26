@@ -1,0 +1,425 @@
+::selection {
+    background: #ffffff00;
+    color: #f00;
+  }
+
+  span#subtitle {
+    display: inline-block;
+  }
+
+  #subtitle[data-typed-text^='🔵']::first-letter {
+    text-shadow: 0 0 15px #32a2e8;
+  }
+
+  #subtitle[data-typed-text^='🟡']::first-letter {
+    text-shadow: 0 0 15px #ff0;
+  }
+
+  #subtitle[data-typed-text^='🔴']::first-letter {
+    text-shadow: 0 0 15px #f00;
+  }
+
+  .icon {
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+
+  pre::selection,
+  pre ::selection {
+    color: #0f0cb3;
+  }
+
+  [data-user-color-scheme='dark'] pre::selection,
+  [data-user-color-scheme='dark'] pre ::selection {
+    background: #424858;
+    color: unset;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .line,
+  footer,
+  #toc,
+  time,
+  #subtitle.h2,
+  .nav-link,
+  .post-meta.mr-2,
+  #busuanzi_container_page_pv,
+  .note,
+  .hover-with-bg {
+    moz-user-select: -moz-none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .hljs-quote {
+    color: #ff6262;
+  }
+
+  figure.highlight {
+    background: #838383;
+    border-radius: 5px;
+    padding-top: 30px;
+    box-shadow: 0 5px 10px #a1a1a17d;
+  }
+
+  [data-user-color-scheme='dark'] figure.highlight {
+    background: #000;
+  }
+
+  figure.highlight::before {
+    content: attr(data-type);
+    font-family: 华文新魏, SSTXinwei;
+    z-index: 999;
+    color: #ff8d33;
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 2px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  figure.highlight::after {
+    background: #fc625d;
+    border-radius: 100%;
+    box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+    content: '';
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    top: 9px;
+    left: 12px;
+  }
+
+  figure.highlight td.code > pre {
+    border-radius: 0;
+  }
+
+  .hljs {
+    background-color: #00000000;
+    font-family: FiraCode, SFMono-Regular, Consolas, Liberation Mono, Menlo,
+      monospace !important;
+  }
+  :root {
+    --highlight-bg-color: #fffcf3;
+  }
+
+  [data-user-color-scheme='dark'] {
+    --highlight-bg-color: #21252b;
+  }
+
+  /* 代码块颜色 */
+
+  figure.highlight > table {
+    border-radius: 0 0 5px 5px;
+  }
+
+  .hljs-string {
+    color: #001cff;
+  }
+
+  [data-user-color-scheme='dark'] .hljs-string {
+    color: #98c379;
+  }
+
+  [data-user-color-scheme='dark'] .hljs {
+    color: #c7c7c7;
+  }
+
+  /* 兼容旧文章的缩进式代码块，避免 pre 与 code 背景叠成白边。 */
+  .markdown-body > pre {
+    overflow: hidden;
+    margin: 1rem 0;
+    padding: 0 !important;
+    border-radius: 0.45rem;
+    background-color: #fffcf3 !important;
+    box-shadow: 0 0.35rem 1rem rgba(45, 55, 72, 0.08);
+  }
+
+  .markdown-body > pre > code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1.25rem 1.35rem !important;
+    border-radius: inherit;
+    background-color: #fffcf3 !important;
+  }
+
+  [data-user-color-scheme='dark'] .markdown-body > pre,
+  [data-user-color-scheme='dark'] .markdown-body > pre > code.hljs {
+    background-color: #21252b !important;
+  }
+
+  [data-user-color-scheme='dark'] .markdown-body > pre {
+    box-shadow: none;
+  }
+
+  .hljs {
+    color: #406032;
+  }
+
+  [data-user-color-scheme='dark'] .markdown-body :not(pre) > code {
+    background-color: rgb(100 169 58 / 18%);
+  }
+
+  /* 路径标签 */
+  p.file-path + figure.highlight {
+    border-top-left-radius: 0;
+  }
+
+  p.file-path {
+    font-family: 华文新魏, SSTXinwei;
+    color: #9ce159;
+    background: #838383;
+    border-radius: 5px 0 0 0;
+    height: 1.6rem;
+    margin-bottom: -0.5rem;
+    padding: 0 0.2rem 0 0.2rem;
+    display: inline-block;
+    font-weight: 600;
+    position: relative;
+    top: 1.5rem;
+    filter: drop-shadow(0 0 4px #a1a1a17d);
+  }
+
+  p.file-path > span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    text-align: left;
+    max-width: 500px;
+  }
+
+  @media (max-width: 768px) {
+    p.file-path > span {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    p.file-path > span {
+      max-width: 160px;
+    }
+  }
+
+  [data-user-color-scheme='dark'] p.file-path {
+    background: #000;
+  }
+
+  p.file-path::before {
+    content: '🔖 Path:/';
+    color: #ff7e7e;
+    font-weight: 700;
+    position: relative;
+    top: -0.4rem;
+  }
+
+  p.file-path::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-width: 5rem;
+    border-top: 0.8rem solid #00000000;
+    border-bottom: 0.8rem solid #00000000;
+    right: -1.2rem;
+    border-left: 20px solid #838383;
+  }
+
+  [data-user-color-scheme='dark'] p.file-path::after {
+    border-left: 20px solid #000;
+  }
+
+  .roadmap-page {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  #navbar > .container {
+    max-width: none;
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .roadmap-lead {
+    margin: 0 0 2rem;
+    color: var(--post-text-color);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .roadmap-card {
+    padding: 1.5rem;
+    border: 1px solid var(--line-color);
+    border-radius: 0.65rem;
+    background: var(--board-bg-color);
+    box-shadow: 0 0.45rem 1.4rem rgba(45, 55, 72, 0.08);
+  }
+
+  .roadmap-card h2 {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.22rem;
+  }
+
+  .roadmap-card p {
+    margin: 0.45rem 0 1rem;
+    color: var(--post-text-color);
+    font-size: 0.92rem;
+  }
+
+  .roadmap-card ul {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .roadmap-card li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .roadmap-card li::before {
+    display: none;
+  }
+
+  .roadmap-card a {
+    overflow: hidden;
+    color: var(--link-hover-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .roadmap-card span {
+    flex: 0 0 auto;
+    padding: 0.12rem 0.45rem;
+    border-radius: 999px;
+    color: #fff;
+    background: #29a6d8;
+    font-size: 0.72rem;
+  }
+
+  [data-user-color-scheme='dark'] .roadmap-card {
+    box-shadow: none;
+  }
+
+  .site-footer {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 0.5rem 1rem;
+    text-align: center;
+  }
+
+  .site-footer-details {
+    min-width: 0;
+  }
+
+  .site-footer-meta,
+  .site-footer-runtime {
+    line-height: 1.75;
+    white-space: nowrap;
+  }
+
+  .site-footer-separator {
+    margin: 0 0.55rem;
+    opacity: 0.65;
+  }
+
+  .site-footer a,
+  .site-footer-runtime span {
+    color: #1f84c6;
+  }
+
+  .site-footer .statistics {
+    display: inline-flex;
+    width: auto;
+    margin: 0 0 0 0.7rem;
+    vertical-align: middle;
+    justify-content: center;
+  }
+
+  .site-footer .statistics > span {
+    flex: 0 0 auto;
+    margin: 0 0.18rem;
+    text-align: inherit !important;
+  }
+
+  @media (max-width: 575px) {
+    .site-footer {
+      align-items: flex-start;
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+    .site-footer-meta,
+    .site-footer-runtime {
+      white-space: normal;
+    }
+
+    .site-footer .statistics {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #navbar > .container {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    .roadmap-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .markdown-body code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27, 31, 35, 0.05);
+    border-radius: 3px;
+  }
+
+  /* hexo-math */
+  .MathJax svg {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .markdown-body > table {
+    display: table !important;
+  }
+
+  .markdown-body > table td,
+  .markdown-body > table th {
+    border: 2px solid #457f6d !important;
+    border-radius: 10px !important;
+  }
+
+  .markdown-body > table tr {
+    border-top: none !important;
+  }

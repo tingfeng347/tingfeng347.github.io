@@ -1,0 +1,1465 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="数据库原理题库1. 单选题1.数据库的基本特点是（）。 A、（1)数据结构化(2)数据独立性(3)数据共享性高，几余大，易移植(4)统一管理和控制 B、（1)数据结构化(2)数据独立性(3)数据共享性高，几余小，易扩充(4)统一管理和控制  C、（1)数据结构化(2)数据互换性(3)数据共享性高，几余小，易扩充(4)统一管理和控制  D、（1)数据非结构化(2)数据独立性(3)数据共享性高，几余小">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库期末题库和总结">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/06/03/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%9F%E6%9C%AB%E9%A2%98%E5%BA%93%E5%92%8C%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="数据库原理题库1. 单选题1.数据库的基本特点是（）。 A、（1)数据结构化(2)数据独立性(3)数据共享性高，几余大，易移植(4)统一管理和控制 B、（1)数据结构化(2)数据独立性(3)数据共享性高，几余小，易扩充(4)统一管理和控制  C、（1)数据结构化(2)数据互换性(3)数据共享性高，几余小，易扩充(4)统一管理和控制  D、（1)数据非结构化(2)数据独立性(3)数据共享性高，几余小">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518175925701.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518182208442.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519172022801.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521174903628.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175219586.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518181004371.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518183104639.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519172832258.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093202692.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095318709.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520100631135.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175400100.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240522172516298.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518181300330.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601214811120.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601162159200.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519173202841.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519173236706.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093549171.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093609437.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095539779.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095612160.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175520861.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175531735.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601202445439.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601202456006.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601203435590.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601203451971.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240602193248.jpg">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240602193300.jpg">
+<meta property="article:published_time" content="2024-06-03T10:38:50.000Z">
+<meta property="article:modified_time" content="2026-07-23T13:55:07.170Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="sqlserver">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518175925701.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>数据库期末题库和总结 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据库期末题库和总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-03 18:38" pubdate>
+          2024年6月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          26k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          219 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据库期末题库和总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数据库原理题库"><a href="#数据库原理题库" class="headerlink" title="数据库原理题库"></a>数据库原理题库</h1><h2 id="1-单选题"><a href="#1-单选题" class="headerlink" title="1. 单选题"></a>1. 单选题</h2><p>1.数据库的基本特点是（）。</p>
+<p>A、（1)数据结构化(2)数据独立性(3)数据共享性高，几余大，易移植(4)统一管理和控制</p>
+<p>B、（1)数据结构化(2)数据独立性(3)数据共享性高，几余小，易扩充(4)统一管理和控制 </p>
+<p>C、（1)数据结构化(2)数据互换性(3)数据共享性高，几余小，易扩充(4)统一管理和控制 </p>
+<p>D、（1)数据非结构化(2)数据独立性(3)数据共享性高，几余小，易扩充（4)统一管理和控制 </p>
+<p>【参考答案】 B</p>
+<p>2.层次模型不能直接表示( )<br>A、1:1关系　<br>B、1:m关系　<br>C、m:n关系<br>D、1:1和1:m关系　</p>
+<p>【参考答案】 C</p>
+<p>3.以下四个叙述中，哪一个不是对关系模式进行规范化的主要目的（）。<br>A、减少数据几余<br>B、解决更新异常问题<br>C、加快查询速度<br>D、提高存储空间效率<br>【参考答案】 C</p>
+<p>4.SQLServer采用的身份验证模式有（）。<br>A、仅Windows身份验证模式<br>B、仅SQL Server身份验证模式<br>C、仅混合模式<br>D、Windows身份验证模式和混合模式<br>【参考答案】 D</p>
+<p>5.数据库恢复的主要依据是（）。<br>A、DBA<br>B、DD<br>C、批处理文件<br>D、事务日志　<br>【参考答案】 D</p>
+<p>6.已知有scores表，scoreid为主键，现在表中共有10条记录，其中一条scoreid&#x3D;21。创建视图：<br>create view view_scores as<br>select * from scores 执行如下命令：<br>delete from view_scores where (scoreid &#x3D; 2l) 再执行如下命令：<br>select * from scores<br>select * from view scores<br>假定上述命令全部执行成功，将各自返回（），（）行记录。<br>A、10，10 B、10，9 C、9，10 D、9，９<br>【参考答案】 D</p>
+<p>7.E-R图用于描述数据库的（）。<br>A、概念模型<br>B、数据模型<br>C、存储模型<br>D、逻辑模型<br>【参考答案】 A</p>
+<p>8.在函数依赖范畴内，达到最高规范化程度的是（）。<br>A、3NF B、BCNF C、4NF　 D、5NF<br>【参考答案】 B</p>
+<p>9.关系规范化中的删除操作异常是指（）。<br>A、不该删除的数据被删除 B、不该插入的数据被插入<br>C、应该删除的数据未被删除 D、应该插入的数据未被插入<br>【参考答案】 A</p>
+<p>10.设有两个事务T1、T2，其并发操作如下表1所示，下列评价正确的是（）。<br>A、该操作不存在问题 B、该操作丢失修改 C、该操作不能重复读 D、该操作读“脏”数据</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518175925701.png" srcset="/img/loading.gif" lazyload alt="image-20240518175925701"></p>
+<p>【参考答案】 D</p>
+<p>11.下列SQL语句中，能够实现“收回用户U4对学生表（STUD）中学号（XH）的修改权”这一功能的是（）。<br>A、REVOKE UPDATE(XH) ON TABLE FROM U4<br>B、REVOKE UPDATE（XH）ON TABLE FROM PUBLIC<br>C、REVOKE UPDATE(XH) ON TABLE STUD FROM U4<br>D、REVOKE UPDATE(XH) ON TABLE STUD FROM PUBLIC<br>【参考答案】 C</p>
+<p>12.如果X→Y，且Y→Z，则X→Z一定为（）。<br>A、部分函数依赖 B、传递函数依赖 C、完全函数依赖 D、都不正确<br>【参考答案】 D</p>
+<p>13.要求关系的元组在组成主键的属性上不能为空值，这是（）。<br>A、参照完整性规则<br>B、实体完整性规则<br>C、用户定义完整性规则<br>D、域完整性规则<br>【参考答案】 B</p>
+<p>14.多个用户同时对同一数据进行操作，描述的是（）。<br>A、数据库的完整性 B、数据库的并发控制 C、数据库的恢复 D、数据的完整性<br>【参考答案】 B</p>
+<p>15.能正确检索出“全部学生都选修的课程的课程号”的关系代数表达式是（）。<br>A、学号，课程号（选课÷π学号（学生） B、π课程编号（选课）<br>C、π学号，课程号(选课÷π课程编号（课程) D、选课÷学号（学生)<br>【参考答案】 A</p>
+<p>16.要求表中的列在组成主键的属性上不能为空值，这是（）。<br>A、参照完整性规则 B、实体完整性规则<br>C、用户定义完整性规则 D、域完整性规则<br>【参考答案】 B</p>
+<p>17.在SQLServer数据库中，给定创建视图的代码如下，则下划线处应填写的正确关键字为（）。<br>CREATE VIEW ABCD________SELECT ＊ FROM SALES WHERE QTY&gt;90<br>A、IN<br>B、AS<br>C、FOR<br>D、ON<br>【参考答案】 B</p>
+<p>18.以下创建触发器代码，实现的功能是( )<br>create trigger customer_name on customer<br>for insert, update as<br>update customer set name &#x3D; upper(name)<br>where customer.cust_id&#x3D;inserted. cust_id<br>A、对所有DELETE和INSERT操作，转换Customer表中的name列为大写<br>B、对所有DELETE和UPDATE操作，转换Customer表中的name列为大写　<br>C、对所有INSERT和UPDATE操作，转换Customer表中的name列为大写<br>D、对所有INSERT和UPDATE操作，转换Customer表中的name列为小写<br>【参考答案】 C</p>
+<p>19.现有如下关系模式：<br>患者（患者编号，患者姓名，性别，出生日期，单位）<br>医疗（患者编号，医生编号，医生姓名，诊断日期，诊断结果）其中，医疗关系模式中的外关键字是（）。<br>A、患者编号<br>B、患者姓名<br>C、患者编号和患者姓名<br>D、医生编号和患者编号<br>【参考答案】 A</p>
+<p>20.一个数据库只有（）个模式<br>A、1 B、2 C、多 D、3<br>【参考答案】 A</p>
+<p>21.在函数依赖范畴内，达到最高规范化程度的是（）<br>A、3NF B、BCNF C、4NF D、5NF<br>【参考答案】 B</p>
+<p>22.允许取空值但不允许出现重复值的约束是（）。<br>A、NULL<br>B、PRIMARY KEY<br>C、UNIQUE<br>D、FOREIGN KEY<br>【参考答案】 C</p>
+<p>23.设有两个事务T1、T2，其并发操作如图1所示，下面描述正确的是（）。<br>A、该操作不存在问题<br>B、该操作不能重复读<br>C、该操作丢失修改<br>D、该操作读“脏”数据</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518182208442.png" srcset="/img/loading.gif" lazyload alt="image-20240518182208442"></p>
+<p>【参考答案】 D</p>
+<p>24.安全性控制的防范对象是(），防止他们对数据库数据的存取。<br>A、非法非授权用户<br>B、不符合语义的数据<br>C、不正确的数据<br>D、不符合约束的数据<br>【参考答案】 A</p>
+<p>25.数据库系统主要是利用存储在外存上的几余数据恢复受破坏的数据库，它采用的主要技术是（）。<br>A、并发控制和封锁<br>B、后援副本和日志文件<br>C、授权和存取控制<br>D、完整性控制和约束<br>【参考答案】 B</p>
+<p>26.数据库恢复的基本原理是（）。<br>A、冗余　 B、审计　 C、授权 D、视图<br>【参考答案】 A</p>
+<p>27.已知关系R具有属性A，B，C，D，E，F。假设该关系有如下函数依赖：A→C，BC→DE，D→A，F→B，则{A,B}的闭包是（）。<br>A、{A,B,C,D,E,F}<br>B、{A,B,C}<br>C、{A,B,C,D}<br>D、{A,B,C, D, E}<br>【参考答案】 D</p>
+<p>28.关于主键描述正确的是（）。<br>A、包含一列 B、包含两列<br>C、包含一列或者多列 D、多列<br>【参考答案】 C</p>
+<p>29.数据库的三级模式结构中，描述数据库中全体数据的全局逻辑结构和特征的是（）。<br>A、外模式 B、内模式 C、存储模式 D、模式<br>【参考答案】 D</p>
+<p>30.下面选项中不是关系的基本特征的是（）。<br>A、不同的列应有不同的数据类型<br>B、不同的列应有不同的列名<br>C、没有行序和列序<br>D、没有重复元组<br>【参考答案】 A</p>
+<p>31.关系模型的数据结构是（）。<br>A、数<br>B、图<br>C、二维表<br>D、二叉树<br>【参考答案】 C</p>
+<p>32.SQLServer采用的身份验证模式有（）。<br>A、仅Windows身份验证模式 B、仅SQL Server身份验证模式 C、仅混合模式<br>D、Windows身份验证模式和混合模式<br>【参考答案】 D</p>
+<p>33.用于数据库恢复的重要文件是（）。<br>A、数据库文件 B、索引文件 C、日志文件 D、备注文件<br>【参考答案】 C</p>
+<p>34.以下删除记录正确的（)<br>A、 Delete from emp where name&#x3D;’ dony ‘ B、 Delete * from emp where name&#x3D;’ dony’<br>C、 Drop from emp where name&#x3D;’ dony ‘D、Drop * from emp where name&#x3D; ‘dony’<br>【参考答案】 A</p>
+<p>35.下面哪些索引总要对数据进行排序（）。<br>A、聚集索引 B、唯一索引<br>C、组合索引  D、非聚集索引<br>【参考答案】 A</p>
+<hr>
+<p>36.若student表中包含主键sudentid,并且其中有studentid为100和101的记录，则执行语句：UPDATE student SET studentid&#x3D;101 WHERE studentid&#x3D;100 结果可能是（）。<br>A、错误提示:主键列不能更新 B、更新了一条数据<br>C、错误提示：违反主键约束<br>D、既不提示错误，也不更新数据<br>【参考答案】 C</p>
+<p>37.概念结构设计阶段得到的结果是（）。<br>A、数据字典描述的数据需求<br>B、E-R图表示的概念模型<br>C、某个DBMS所支持的数据模型<br>D、包括存储结构和存取方法的物理结构<br>【参考答案】 B</p>
+<p>38.解决并发操作带来的数据不一致性问题普遍采用（）。<br>A、封锁 B、恢复 C、存储 D、协商<br>【参考答案】 A</p>
+<p>39.下列SQL语句中，能够实现“收回用户U4对学生表（STUD）中学号（XH）的修改权这一功能的是（）。<br>A、 REVOKE UPDATE(XH) ON TABLE FROM U4<br>B、REVOKE UPDATE(XH) ON TABLE FROM PUBLIC<br>C、REVOKE UPDATE(XH) ON TABLE STUD FROM U4<br>D、REVOKE UPDATE(XH) ON TABLE STUD FROM PUBLIC<br>【参考答案】 C</p>
+<p>40.若关系模式R中只包含两个属性,则（）。<br>A、R属于2NF，但R不一定属于3NF<br>B、R属于3NF，但R不一定属于BCNF<br>C、R属于BCNF<br>D、R属于1NF,但R不一定属于3NF<br>【参考答案】 C </p>
+<p>41.关系数据库规范化是为解决关系数据库中（）问题而引入的。<br>A、插入异常，删除异常和数据冗余 B、提高查询速度<br>C、减少数据操作的复杂性<br>D、保证数据的安全性和完整性<br>【参考答案】 A</p>
+<p>42.数据库系统的数据独立性是指（)<br>A、不会因为数据的变化而影响应用程序<br>B、不会因为系统数据存储结构与数据逻辑结构的变化而影响应用程序<br>C、不会因为存储策略的变化而影响存储结构<br>D、不会因为某些存储结构的变化而影响其他的存储结构<br>【参考答案】 B</p>
+<p>43.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519172022801.png" srcset="/img/loading.gif" lazyload alt="image-20240519172022801"></p>
+<p>【参考答案】 C</p>
+<p>44.在数据库系统中，下列哪个映像关系用于提供数据与应用程序间的逻辑独立性（）。<br>A、外模式&#x2F;模式 B、模式&#x2F;内模式 C、外模式&#x2F;内模式 D、逻辑模式&#x2F;内模式<br>【参考答案】 A</p>
+<p>45.要在SQLServer中创建一个员工信息表，其中员工的薪水、医疗保险和养老保险分别采用3个字段来存储，但该公司规定：任何一个员工的医疗保险和养老保险之和不能大于其薪水的1&#x2F;3，这一项规则可以采用（）来实现。<br>A、主键约束 B、外键约束 C、检查约束 D、默认约束<br>【参考答案】 C</p>
+<p>46.SELECT查询中，要把结果中的行按照某一列的值进行排序，所用到的子句是（）。<br>A、ORDER BY B、WHERE<br>C、GROUP BY D、HAVING<br>【参考答案】 A</p>
+<p>47.以下对关系模型性质的描述，不正确的是（）。<br>A、在一个关系中，每个数据项不可再分，是最基本的数据单位 B、在一个关系中，同一列数据具有相同的数据类型<br>C、在一个关系中，各列的顺序不可以任意排列 D、在一个关系中，不允许有相同的字段名<br>【参考答案】 C</p>
+<p>48.事务日志用于保存（）<br>A、程序运行过程 B、程序执行结果<br>C、对数据的更新操作 D、数据操作<br>【参考答案】 C</p>
+<p>49.在数据库设计中，当合并局部E-R图时，学生在某一局部应用中被当作实体，而在另一局部应用中被当作属性，那么被称之为（）冲突。<br>A、属性冲突 B、命名冲突 C、联系冲突 D、结构冲突<br>（参考答案） D</p>
+<p>50.关系规范化中的删除操作异常是指（）。<br>A、不该删除的数据被删除 B、不该插入的数据被插入<br>C、应该删除的数据未被删除　 D、应该插入的数据未被插入<br>【参考答案】 A</p>
+<p>51.一个关系模式R（x1，x2，x3，x4），假定该关系存在着如下函数依赖：x1→x2，x1→x3，x3→x4，则该关系属于（）。<br>A、2NF　 B、3NF C、4NF D、BCNF<br>【参考答案】 A</p>
+<p>52.将3NF（）规范为BCNF。<br>A、消除非主属性对码的部分函数依赖 B、消除主属性对码的传递函数依斯<br>C、消除主属性对码的部分和传递函数依赖 D、消除非平凡且非函数依赖的多值依赖<br>【参考答案】 C</p>
+<p>53.以下（）不是触发触发器的操作。<br>A、SELECT B、UPDATE<br>C、DELETE D、INSERT<br>【参考答案】 A</p>
+<p>54.下面不属于数据定义功能的SQL语句是（）。<br>A、CREATE TABIE B、CREATE CURSOR<br>C、UPDATE　D、ALTER TABLE<br>【参考答案】 C</p>
+<p>55.在数据库设计中，用E-R图来描述信息结构但不涉及信息在计算机中的表示，它属于数据库设计的（）阶段。<br>A、需求分析 B、概念设计 C、逻辑设计 D、物理设计<br>【参考答案】 B</p>
+<p>56.SQL Server为每个触发器创建了两个临时表，它们是（）。<br>A、Updated和Deleted B、Inserted和Deleted<br>C、Updated和Inserted D、Updated和Selected<br>【参考答案】 B</p>
+<p>57.若在员工数据表中，希望把工资字段的取值范围限定在2000到4000，则可在工资字段上建立（）。<br>A、CHECK约束 B、唯一约束<br>C、默认约束 D、主键约束<br>【参考答案】 A</p>
+<p>58.关系模式的任何属性（）。<br>A、可以再分 B、不可再分<br>C、命名在关系模式上可以不唯一 D、以上都不是　<br>【参考答案】B</p>
+<p>59.事务有多个性质，其中不包括（）。<br>A、一致性　 B、唯一性 c、原子性　 D、隔离性<br>【参考答案】 B</p>
+<p>60.设有关系模式R（A,B,C,D)，F是R上成立的FD集，F&#x3D;{A→B,B→C)，则属性集BD的闭包(BD)+为（）。<br>A、BD B、BCD C、BC D、CD<br>【参考答案】 B</p>
+<p>61.在数据管理技术发展过程中，需要应用程序管理数据的是（）。<br>A、人工管理阶段<br>B、人工管理阶段和文件系统阶段<br>C、文件系统阶段和数据库系统阶段<br>D、数据库系统阶段<br>【参考答案】A</p>
+<p>62.对数据库物理存储方式的描述称为（）。<br>A、外模式 B、内模式<br>C、逻辑模式 D、概念模式<br>【参考答案】 B</p>
+<p>63.若事务T对数据R已加S锁，则其他事务对数据R（）。<br>A、可以加S锁不能加X锁 B、可以加X锁不能加S锁 C、可以加S锁也可以加X锁 D、不能加任何锁<br>【参考答案】 A</p>
+<p>64.从两个关系的笛卡尔积中选取属性间满足一定条件的元组的关系运算称为（）。<br>A、选择运算 B、投影运算 C、连接运算 D、除运算<br>【参考答案】 C</p>
+<p>65.有一个关系：学生（学号，姓名，系别），规定学号的值域是8个数字组成的字符串，这一规则属于（）。<br>A、实体完整性约束 B、参照完整性约束<br>C、用户自定义完整性约束 D、关键字完整性约束<br>【参考答案】 C</p>
+<p>66.E-R图是表示概念模型的有效工具之一，E-R图中使用菱形框表示（）。<br>A、联系 B、实体<br>C、实体的属性 D、联系的属性<br>【参考答案】 A</p>
+<p>67.关系模式的任何属性（）。<br>A、可以再分 B、不可再分<br>C、命名在关系模式上可以不唯一 D、以上都不是　<br>【参考答案】 B</p>
+<p>68.一个二维表中的各条记录（）。<br>A、前后顺序不能任意颠倒，一定要按照输入的顺序排列<br>B、前后顺序可以任意颠倒，但排列顺序不同，统计处理的结果就可能不同<br>C、前后顺序可以任意颠倒，不影响库中的数据关系 </p>
+<p>D、前后顺序不能任意颠倒，一定要按照关键字段值的顺序排列<br>【参考答案】 C</p>
+<p>69.使用二维表格结构表达实体及实体间联系的数据模型是（）。<br>A、层次模型 B、网状模型 C、关系模型 D、联系模型<br>【参考答案】 C</p>
+<p>70.数据库中建立索引的目的是为了（）。<br>A、加快建表速度 B、加快存取速度 C、提高安全性 D、节省存取空间<br>【参考答案】 B</p>
+<p>71.关系R与关系S只有1个公共属性，T1是R与S作θ连接的结果，T2是R与S作自然连接的结果，则（）。<br>A、T1的属性个数等于T2的属性个数<br>B、T1的属性个数小于T2的属性个数<br>C、T1的属性个数大于或等于T2的属性个数<br>D、T1的属性个数大于T2的属性个数<br>【参考客答案】 D</p>
+<p>72.SQL的视图是从（）中导出的。<br>A、基本表<br>B、视图<br>C、数据库<br>D、基本表或视图<br>【参考答案】 D</p>
+<p>73.DB、DBMS和DBS三者之间的关系是（）。<br>A、DB包括DBMS和IDBS B、DBS包括DB和DBMS<br>C、DBMS包括DB和DBS D、不能相互包括<br>【参考答案】 B</p>
+<p>74.在关系数据库中，索引（index）是三级模式结构中的（）。<br>A、概念模式 B、内模式<br>C、模式　 D、外模式<br>【参考答案】 B </p>
+<p>75.层次模型、网络模型和关系模型数据库的划分原则是（）。<br>A、联系的复杂程序 B、数据之间的联系<br>C、记录长度　 D、文件的大小<br>【参考答案】 B</p>
+<p>76.SqlServer安装程序创建4个系统数据库，下列哪个不是系统数据库（）<br>A、Master B、Model C、Sales D、Msdb<br>【参考答案】 C</p>
+<p>77.以下关系运算中，不要求关系R和S有相同属性个数的运算是（）。<br><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521174903628.png" srcset="/img/loading.gif" lazyload alt="image-20240521174903628"></p>
+<p>【参考答案】 D</p>
+<p>78.在SQLServer中，下面关于视图说法错误的是（）。<br>A、对查询执行的大多数操作也可以在视图上进行 B、使用视图可以增加数据库的安全性<br>C、不能利用视图增加，删除，修改数据库中的数据 D、视图使用户更灵活的访问所需要的数据<br>【参考答案】 C</p>
+<p>79.在SQL的排序子句：ORDERBY总分DESC，英语DESC表示（）。<br>A、总分和英语分数都是最高的在前面<br>B、总分和英语分数之和最高的在前面<br>C、总分高的在前而，总分相同时英语分数高的在前面<br>D、总分和英语分数之和最高的在前而，相同时英语分数高的在前面<br>【参考答案】 C</p>
+<p>80.如果在一个关系中，存在某个属性（或属性组），虽然不是该关系的主键或只是主键的一部分，但却是另一个关系的主键时，称该属性（或属性组）为这个关系的（）。<br>A、候选键 B、主键　 C、外键 D、连接键<br>【参考答案】 c</p>
+<p>81.不允许数据库表在指定列上具有相同的值，且不允许有空值，这属于哪种约束（）。<br>A、DEFAULT约束 B、CHECK约束<br>C、PRIMARY KEY约束 D、FOREIGN KEY约束<br>【参考答案】 C</p>
+<p>82.描述现实世界的概念模型用E-R图，E-R图使用图形方式，4种元素（）。<br>A、长方形、椭圆、菱形、有向的线<br>B、长方形、椭圆、菱形、无向的线<br>C、长方形、椭圆、三角形、无向的线<br>D、正方形、椭圆、菱形、有向的线<br>【参考答案】 B</p>
+<p>83.数据的逻辑独立性是指（）。<br>A、内模式改变，模式不变　<br>B、模式改变，内模式不变　<br>C、模式改变，外模式和应用程序不变<br>D、内模式改变，外模式和应用程序不变<br>【参考答案】 C</p>
+<p>84.设关系模式R（A，B，C)，函数依赖集F&#x3D;{A→B，C→B}，则R的候选键为（）。<br>A、AC B、ABC  C、AB  D、BC<br>（参考答案） A</p>
+<p>85.对关系模式：学生（学号,姓名,课程号,课程名，成绩），说法正确的是（）。<br>A、不满足第2范式<br>B、满足第2范式但不满足第3范式<br>C、满足第3范式<br>D、其他都不对<br>【参考答案】 A</p>
+<p>86.在SELECT语句中，与关系代数中运算符对应的是（）子句。<br>A、WHERE<br>B、SELECT　<br>C、FROM<br>D、GROUP BY<br>【参考答案】 A</p>
+<p>87.对于以记录为单位的日志文件，日志文件中需要登记的内容不包括（）。<br>A、各个事务的标识<br>B、各个事务的开始标记<br>C、各个事务的结束标记<br>D、事务的更新操作<br>（参考答案） A</p>
+<p>88.同一个关系模型的任意两个元组值（）。<br>A、不能全同<br>B、可全同<br>C、必须全同<br>D、以上都不是<br>【参考答案】 A</p>
+<p>89.update student set s_name &#x3D;’王红’where s_id &#x3D;1该代码执行的是（）操作。<br>A、添加姓名叫王红的记录<br>B、删除姓名叫王红的记录<br>C、返回姓名叫王红的记录<br>D、更新学号为sid为i的学生的姓名（良sname）记录<br>【参考答案】 D</p>
+<p>90.要查询book表中所有书名中包含“计算机”的书籍情况，可用（）语句。<br>A、 selete * from book where book_name like ‘<em>计算机</em><br>B、selete * from book where book name like ‘%计算机%<br>C、selete * from book where book_name &#x3D; ‘<em>计算机</em>“<br>D、selete * from book where book_name &#x3D; ‘%计算机%<br>【参考答案】 B</p>
+<p>91.下列属于数据库物理设计工作的是（）。<br>A、将E-R图转换为关系模式<br>B、选择存取路径<br>C、建立数据流图<br>D、收集和分析用户活动<br>【参考答案】 B</p>
+<p>92.设关系R、S、W各有10个元组，那么这三个关系的笛卡尔积的元组个数是（）。<br>A、1000<br>B、10<br>c、30<br>D、不确定<br>【参考答案】 A</p>
+<p>93.目前,商品化的数据库管理系统以()为主<br>A、网状模型<br>B、层次模型<br>C、关系模型	<br>D、其他模型<br>【参考答案】 C</p>
+<p>94.已知员工和员工亲属两个关系，当员工调出时，应该人员工关系中册除该员工的元组，同时在员工亲属关系中删除对应的亲属元组，在SQL语言中利用触发器定义这个完整性约束的短语是（）<br>A INSTEAD OF DELETE<br>B、INSTEAD OF DROP<br>C、AFTER DELETE<br>D、AFTERUPDATE<br>【参考答案】C</p>
+<p>95.下列不属于需求分析阶段工作的是()<br>A、分析用户活动 B、建立E-R图<br>C、建立数据字典 D、建立数据流图<br>【参考答案】B</p>
+<ol start="96">
+<li></li>
+</ol>
+<h2 id="2-填空题"><a href="#2-填空题" class="headerlink" title="2. 填空题"></a>2. 填空题</h2><p>1.将局部ER模型合并为全局ER模型，需要消除属性冲突、命名冲突和________。<br>【参考答案】结构冲突结构</p>
+<p>2.数据库系统并发控制的主要方法是采用________机制。<br>【参考答案】封锁</p>
+<p>3.________是一种特殊的存储过程，事件进行增,删,改时被自动调用执行。<br>【参考答案】触发器</p>
+<p>4.在关系模式R(U，F)中，如果X→Y，存在X的真子集X1，使X1→Y，称函数依赖X→Y为________函数依赖。<br>【参考答案】部分局部</p>
+<p>5.________的作用是用来和其他表建立联系用的。<br>【参考答案】外码或外键</p>
+<p>6.在数据库系统中，实现各种数据管理功能的核心软件称为________。<br>（使用中文答题）<br>【参考答案】数据库管理系统</p>
+<p>7.事务日志用于记录对数据________的操作。<br>【参考答案】更新</p>
+<p>8.事务并发引起读“脏”数据、丢失修改和________。<br>【参考答案】<br>不可重复读或不重复读</p>
+<p>9.从关系规范化理论的角度讲，一个只满足1NF的关系可能存在四方面问题是：数据几余度大、插入异常、________异常和删除异常。<br>【参考答案】更新</p>
+<p>10.SQLServer数据库的体系结构也是三级模式结构，但术语与传统的关系模式不同，在SQLServer中，________对应于视图、模式对应于基本表、内模式对应于存储文件。<br>【参考答案】外模式</p>
+<p>11.文件主要分为3种类型：主要数据文件、次要数据文件和________文件。<br>【参考答案】<br>事务日志或日志或1og</p>
+<p>12.当对表进行________操作时触发器不会自动执行。<br>【参考答案】 SELECT或查询</p>
+<p>13.已知一个图书借阅管理系统中：每个班级有若干名学生，每个学生只属于一个班；一本图书可以被多名学生借阅，一个学生可以同时借阅多本图书。那么在这样的系统中所涉及到的实体有3个，转换为关系模型后有个________关系模式。<br>【参考答案】 4或四</p>
+<p>14.关系数据库中有三种基本操作，从表中取出满足条件的属性成分的操作称为________，从表中选出满足条件的元组操作称为选择，将两个关系中具有共同属性值的元组连结到一起，构成新表的操作称为连接。<br>【参考答案】投影</p>
+<p>15.有表S_C_Info（St_Id，C_No，Score），各属性的含义为学号、课程号、成绩，查询S_C_Info表的“Score”列的最高值 。<br>SELECT (Score）As最高值<br>FROM S_C_Info;<br>【参考答案】 MAX</p>
+<p>16.数据模型由数据结构、数据操作和________三部分组成。<br>【参考答案】<br>完整性约束条件或完整性约束</p>
+<p>17.数据库系统并发控制的主要方法是采用________机制。<br>【参考答案】封锁</p>
+<p>18.设一个关系A具有a1个属性和a2个元组,关系B具有b1个属性<br>和b2个元组,则关系AXB具有a1+b1个属性和________个元组。<br>【参考答案】<br>a2*b2</p>
+<p>19.用SELECT进行模糊查询时，可以使用________匹配符。<br>【参考答案】 LIKE或NOT LIKE</p>
+<p>20.数据完整性指数据库中数据的________、有效性和一致性。<br>【参考答案】正确性</p>
+<p>21.关系S（A,B,C)和T(C,D,E)，S和T在属性C上等值连接的SQL语句是select ＊ from S，T where________<br>（中间间隔一个空格）。<br>【参考答案】<br>where S. C&#x3D;T. C</p>
+<p>22.若事务T对数据对象A加了S锁，则其他事务只能对数据A再加________，直到事务T释放A上的锁。<br>【参考答案】 S锁</p>
+<p>23.“为哪些表，在哪些字段上，建立什么样的索引”，这一设计内容应该属于数据库设计中的<br>________阶段。<br>【参考答案】<br>物理结构设计或物理结构</p>
+<p>24.用于还原和恢复数据的数据副本称为________。<br>【参考答案】备份</p>
+<p>25.________是特殊类型的存储过程，它能在任何试图改变表中由触发器保护的数据时执行。<br>【参考答案】触发器</p>
+<p>26.关系数据库中有三种基本操作，从表中取出满足条件的属性成分的操作称为投影，从表中选出满足条件的元组操作称为选择，将两个关系中具有共同属性值的元组连结到一起，构成新表的操作称为________。<br>【参考答案】连接</p>
+<p>27.数据库系统的主要特点是实现数据________,减少数据冗余。<br>【参考答案】共享</p>
+<p>28.在关系模式R(U，F)中，如果X→Y，存在X的真子集X1，使X1→Y，称函数依赖X→Y为________函数依赖。<br>【参考答案】部分局部</p>
+<p>29.在关系数据库中，把数据表示成二维表，每一个二维表称为一个________。<br>【参考答案】关系</p>
+<p>30.数据库系统具有数据的外模式、________和内模式三级模式结构。<br>【参考答案】模式</p>
+<p>31.当数据库被破坏后，如果事先保存了数据库副本和________，就有可能恢复数据库。<br>【参考答案】<br>日志文件或日志或Log</p>
+<p>32.关系中主码的取值必须唯一且非空，这条规则是________完整性规则。<br>【参考答案】实体</p>
+<p>33.对于主键只一个属性组成的关系，如果它是第一范式关系，则它________（是&#x2F;否）一定也是第二范式关系<br>【参考答案】是</p>
+<p>34.定义默认约束的关键字是________。<br>【参考答案】 DEFAULT</p>
+<p>35.对视图的操作与对表的操作一样，可以对其进行查询、修改、________操作。<br>【参考答案】删除</p>
+<p>36.引用完整性又称________完整性，是用来维护相关数据表中数据一致的手段。<br>【参考答案】参照</p>
+<p>37.设有学生表（学号，姓名，性别，所在系），这些列均不允许有空值。现要建立一个视图VCount，统计“计算机系”的男生人数和女生人数。请补全下列语句。（注：使用大写字母和汉字客题，单词之间只保留一个格</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175219586.png" srcset="/img/loading.gif" lazyload alt="image-20240521175219586"></p>
+<p>【参考答案】<br>GROUP BY 性别或GROUPBY性别</p>
+<p>38.从物理角度看，SqlServer 2008数据库以文件的形式存储在计算机硬盘上，一般一个数据库被组织成数据文件和________两种类型的文件。<br>【参考答案】<br>日志文件或日志或log</p>
+<p>39.在一个数据表中的主键个数为**__**__个。<br>【参考答案】 1</p>
+<p>40.联合查询指使用**__**__运算将多个查询结果合并到一起。<br>【参考答案】 UNION</p>
+<p>41.SQL Server数据库分为两种类型，系统数据库和**__**__。<br>【参考答案】用户数据库</p>
+<p>42.在数据库设计中，把数据需求写成文档，它是各类数据描述的集合，包括数据项、数据结构、数据流、数据存储和数据加工过程等的描述，这通常称为**__**__<br>【参考答案】数据字典</p>
+<p>43.若关系模式R属于1NF，且对于每一个非平凡的函数依赖X→Y，都有X包含码，则R最高一定可以达到**__**__<br>【参考答案】 BCNF</p>
+<p>44.属性的取值范围叫做属性的**__**__。<br>【参考答案】域</p>
+<p>45.在SQLServer的建立索引的原则之一，在经常**__**__的字段上最好建议索引。<br>【参考答案】查询～查~SELECT</p>
+<p>46.关系模式R的码都是单属性,则R一定是第**__**__范式<br>【参考答案】2</p>
+<p>47.定义主键约束的关键字是**__**__<br>【参考答案】PRIMARY KEY</p>
+<p>48.数据管理经历了人工管理阶段,<strong>__</strong>__和数据库系统阶段<br>【参考答案】文件管理阶段</p>
+<h2 id="3-设计题"><a href="#3-设计题" class="headerlink" title="3. 设计题"></a>3. 设计题</h2><p>1.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518181004371.png" srcset="/img/loading.gif" lazyload alt="image-20240518181004371"></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs scss">科室(科名, 科地址, 科电话)<br>主码：科名<br><br>病房(病房号, 床位号, 所属科室名)<br>主码：病房号<br>外码：所属科室名<br><br>医生(工作证号, 姓名, 职称, 所属科室名, 年龄)<br>主码：工作证号<br>外码：所属科室名<br><br>病人(病历号, 病房号, 姓名, 性别, 诊断, 主管医生)<br>主码：病历号<br>外码：病房号, 主管医生<br></code></pre></td></tr></table></figure>
+
+<p>2.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518183104639.png" srcset="/img/loading.gif" lazyload alt="image-20240518183104639"></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scss">考生(准考证号, 姓名, 年龄, 性别)<br>主码：准考证号<br><br>课程(课程编号, 名称, 性质)<br>主码：课程编号<br><br>报考(准考证号, 课程编号, 报考日期, 成绩)<br>主码：准考证号, 课程编号<br>外码：准考证号, 课程编号<br></code></pre></td></tr></table></figure>
+
+<p>3.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519172832258.png" srcset="/img/loading.gif" lazyload alt="image-20240519172832258"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">商品:</span><br>1<br><span class="hljs-section">商品号（ProductID）: 主码</span><br>商品名（ProductName）<br>规格（Specification）<br>单价（UnitPrice）<br><span class="hljs-section">商店:</span><br><br><span class="hljs-section">商店号（StoreID）: 主码</span><br>商店名（StoreName）<br>地址（Address）<br><span class="hljs-section">供应商:</span><br><br><span class="hljs-section">供应商编号（SupplierID）: 主码</span><br>供应商名（SupplierName）<br>地址（Address）<br><span class="hljs-section">供应:</span><br><br><span class="hljs-section">商品号（ProductID）: 外码，引用自商品实体</span><br><span class="hljs-section">供应商编号（SupplierID）: 外码，引用自供应商实体</span><br>月供应量（MonthlySupply）<br>组合主码（ProductID, SupplierID）<br><span class="hljs-section">销售:</span><br><br><span class="hljs-section">商品号（ProductID）: 外码，引用自商品实体</span><br><span class="hljs-section">商店号（StoreID）: 外码，引用自商店实体</span><br>月计划数（MonthlyPlan）<br>组合主码（ProductID, StoreID）<br></code></pre></td></tr></table></figure>
+
+<p>4.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093202692.png" srcset="/img/loading.gif" lazyload alt="image-20240520093202692"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">工厂（Factory）:</span><br><br><span class="hljs-section">工厂编号（FactoryID）: PK</span><br>厂名（FactoryName）<br>地址（Address）<br><span class="hljs-section">产品（Product）:</span><br><br><span class="hljs-section">产品编号（ProductID）: PK</span><br>产品名（ProductName）<br>规格（Specification）<br><span class="hljs-section">职工（Employee）:</span><br><br><span class="hljs-section">职工号（EmployeeID）: PK</span><br>姓名（Name）<br><span class="hljs-section">生产（Production）:</span><br><br><span class="hljs-section">工厂编号（FactoryID）: FK</span><br><span class="hljs-section">产品编号（ProductID）: FK</span><br>计划数量（PlannedQuantity）<br>组合主码（FactoryID, ProductID）<br><span class="hljs-section">聘用（Employment）:</span><br><br><span class="hljs-section">工厂编号（FactoryID）: FK</span><br><span class="hljs-section">职工号（EmployeeID）: FK</span><br>聘期（EmploymentPeriod）<br>工资（Salary）<br>组合主码（FactoryID, EmployeeID）<br></code></pre></td></tr></table></figure>
+
+<p>5.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095318709.png" srcset="/img/loading.gif" lazyload alt="image-20240520095318709"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">研究所（ResearchInstitute）:</span><br><br><span class="hljs-section">编号（InstituteID）: PK</span><br>名称（InstituteName）<br>地址（Address）<br><span class="hljs-section">科研人员（Researcher）:</span><br><br><span class="hljs-section">职工号（ResearcherID）: PK</span><br>姓名（Name）<br>年龄（Age）<br>性别（Gender）<br>职称（Title）<br><span class="hljs-section">科研项目（ResearchProject）:</span><br><br><span class="hljs-section">项目号（ProjectID）: PK</span><br>项目名（ProjectName）<br>费用（Budget）<br><span class="hljs-section">任职（Employment）:</span><br><br><span class="hljs-section">职工号（ResearcherID）: FK</span><br><span class="hljs-section">编号（InstituteID）: FK</span><br>组合主码（ResearcherID, InstituteID）<br><span class="hljs-section">参加（Participation）:</span><br><br><span class="hljs-section">职工号（ResearcherID）: FK</span><br><span class="hljs-section">项目号（ProjectID）: FK</span><br>统计工时（HoursWorked）<br>组合主码（ResearcherID, ProjectID）<br></code></pre></td></tr></table></figure>
+
+<p>6.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520100631135.png" srcset="/img/loading.gif" lazyload alt="image-20240520100631135"></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">实体集和属性:<br><br>图书（<span class="hljs-keyword">Book）</span><br><span class="hljs-keyword"></span><br>图书编号（<span class="hljs-keyword">BookID）：主码</span><br><span class="hljs-keyword"></span>书名（Title）<br>作者（Author）<br>价格（Price）<br>出版社（Publisher）<br>读者（Reader）<br><br>借书证号（<span class="hljs-keyword">BorrowerID）：主码</span><br><span class="hljs-keyword"></span>姓名（Name）<br>电话（Phone）<br>管理员（Administrator）<br><br>员工号（StaffID）：主码<br>姓名（Name）<br>密码（Password）<br>关系集和属性:<br><br>借阅（<span class="hljs-keyword">Borrow）</span><br><span class="hljs-keyword"></span><br>图书编号（<span class="hljs-keyword">BookID）：外码，参照图书（Book）</span><br><span class="hljs-keyword"></span>借书证号（<span class="hljs-keyword">BorrowerID）：外码，参照读者（Reader）</span><br><span class="hljs-keyword"></span>借书日期（<span class="hljs-keyword">BorrowDate）</span><br><span class="hljs-keyword"></span>还书日期（ReturnDate）<br>管理员读者（ManageReader）<br><br>员工号（StaffID）：外码，参照管理员（Administrator）<br>借书证号（<span class="hljs-keyword">BorrowerID）：外码，参照读者（Reader）</span><br><span class="hljs-keyword"></span>办证日期（IssueDate）<br>注销日期（CancelDate）<br>使用期限（UsagePeriod）<br>管理图书（ManageBook）<br><br>员工号（StaffID）：外码，参照管理员（Administrator）<br>图书编号（<span class="hljs-keyword">BookID）：外码，参照图书（Book）</span><br><span class="hljs-keyword"></span>变更日期（ChangeDate）<br>变更情况（ChangeDescription）<br>ER图主码和外码:<br><br>图书（<span class="hljs-keyword">Book）：图书编号（BookID）</span><br><span class="hljs-keyword"></span>读者（Reader）：借书证号（<span class="hljs-keyword">BorrowerID）</span><br><span class="hljs-keyword"></span>管理员（Administrator）：员工号（StaffID）<br>关系集主外码:<br><br>借阅（<span class="hljs-keyword">Borrow）</span><br><span class="hljs-keyword"></span><br>主码：图书编号（<span class="hljs-keyword">BookID）, </span>借书证号（<span class="hljs-keyword">BorrowerID）, </span>借书日期（<span class="hljs-keyword">BorrowDate）</span><br><span class="hljs-keyword"></span>外码：图书编号（<span class="hljs-keyword">BookID）-&gt; </span>图书（<span class="hljs-keyword">BookID），借书证号（BorrowerID）-&gt; </span>读者（<span class="hljs-keyword">BorrowerID）</span><br><span class="hljs-keyword"></span>管理员读者（ManageReader）<br><br>主码：员工号（StaffID）, 借书证号（<span class="hljs-keyword">BorrowerID）</span><br><span class="hljs-keyword"></span>外码：员工号（StaffID）-&gt; 管理员（StaffID），借书证号（<span class="hljs-keyword">BorrowerID）-&gt; </span>读者（<span class="hljs-keyword">BorrowerID）</span><br><span class="hljs-keyword"></span>管理图书（ManageBook）<br><br>主码：员工号（StaffID）, 图书编号（<span class="hljs-keyword">BookID）</span><br><span class="hljs-keyword"></span>外码：员工号（StaffID）-&gt; 管理员（StaffID），图书编号（<span class="hljs-keyword">BookID）-&gt; </span>图书（<span class="hljs-keyword">BookID）</span><br></code></pre></td></tr></table></figure>
+
+<p>7.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175400100.png" srcset="/img/loading.gif" lazyload alt="image-20240521175400100"></p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs xl">实体集和属性:<br><br>代表团（Delegation）<br><br>国家（Country）<br>团长（Head）<br>人数（NumberOfPeople）<br>团队名（TeamName）：主码<br>运动员（Athlete）<br><br>编号（AthleteID）：主码<br>姓名（Name）<br>年龄（Age）<br>项目（Event）<br><br>项目号（EventID）：主码<br>项目名（EventName）<br>比赛时间（EventTime）<br>比赛场地（EventLocation）<br>关系集和属性:<br><br>组织（Organize）<br><br>团队名（TeamName）：外码，参照代表团（Delegation）<br>编号（AthleteID）：外码，参照运动员（Athlete）<br>参赛（Participate）<br><br>编号（AthleteID）：外码，参照运动员（Athlete）<br>项目号（EventID）：外码，参照项目（Event）<br>成绩（Result）<br>ER图主码和外码:<br><br>代表团（Delegation）：团队名（TeamName）<br>运动员（Athlete）：编号（AthleteID）<br>项目（Event）：项目号（EventID）<br>关系集主外码:<br><br>组织（Organize）<br><br>主码：团队名（TeamName）, 编号（AthleteID）<br>外码：团队名（T<span class="hljs-function"><span class="hljs-title">eamName</span>）-&gt;</span> 代表团（T<span class="hljs-function"><span class="hljs-title">eamName</span>），编号（AthleteID）-&gt;</span> 运动员（AthleteID）<br>参赛（Participate）<br><br>主码：编号（AthleteID）, 项目号（EventID）<br>外码：编号（A<span class="hljs-function"><span class="hljs-title">thleteID</span>）-&gt;</span> 运动员（A<span class="hljs-function"><span class="hljs-title">thleteID</span>），项目号（EventID）-&gt;</span> 项目（EventID）<br></code></pre></td></tr></table></figure>
+
+<p>8.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240522172516298.png" srcset="/img/loading.gif" lazyload alt="image-20240522172516298"></p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs xl">实体集和属性:<br><br>公司（Company）<br><br>公司编号（CompanyID）：主码<br>公司名（CompanyName）<br>地址（Address）<br>仓库（Warehouse）<br><br>仓库编号（WarehouseID）：主码<br>仓库名（WarehouseName）<br>地址（Address）<br>职工（Employee）<br><br>职工编号（EmployeeID）：主码<br>姓名（Name）<br>性别（Gender）<br>关系集和属性:<br><br>隶属（BelongsTo）<br><br>公司编号（CompanyID）：外码，参照公司（Company）<br>仓库编号（WarehouseID）：外码，参照仓库（Warehouse）<br>聘用（Employ）<br><br>仓库编号（WarehouseID）：外码，参照仓库（Warehouse）<br>职工编号（EmployeeID）：外码，参照职工（Employee）<br>聘期（EmploymentPeriod）<br>工资（Salary）<br>ER图主码和外码:<br><br>公司（Company）：公司编号（CompanyID）<br>仓库（Warehouse）：仓库编号（WarehouseID）<br>职工（Employee）：职工编号（EmployeeID）<br>关系集主外码:<br><br>隶属（BelongsTo）<br><br>主码：公司编号（CompanyID）, 仓库编号（WarehouseID）<br>外码：公司编号（C<span class="hljs-function"><span class="hljs-title">ompanyID</span>）-&gt;</span> 公司（C<span class="hljs-function"><span class="hljs-title">ompanyID</span>），仓库编号（WarehouseID）-&gt;</span> 仓库（WarehouseID）<br>聘用（Employ）<br><br>主码：仓库编号（WarehouseID）, 职工编号（EmployeeID）<br>外码：仓库编号（W<span class="hljs-function"><span class="hljs-title">arehouseID</span>）-&gt;</span> 仓库（W<span class="hljs-function"><span class="hljs-title">arehouseID</span>），职工编号（EmployeeID）-&gt;</span> 职工（EmployeeID）<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-问答题"><a href="#4-问答题" class="headerlink" title="4. 问答题"></a>4. 问答题</h2><p>1.数据库管理系统提供了些数据控制功能？</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">数据库管理系统（DBMS）提供的数据控制功能主要包括以下几个方面：<br><br>并发控制：确保多个用户同时访问数据库时，不会互相干扰或导致数据不一致。常用技术包括锁机制、时间戳和多版本并发控制（MVCC）。<br><br>事务管理：保证数据库的事务具有ACID特性（原子性、一致性、隔离性、持久性）。事务管理功能包括事务的开始、提交、回滚等操作。<br><br>安全性控制：保护数据免受未授权的访问和篡改。安全性控制功能包括用户身份验证、访问控制（如权限管理和角色管理）、数据加密等。<br><br>完整性约束：保证数据的正确性和一致性。完整性控制功能包括主键约束、外键约束、唯一性约束、检查约束等。<br><br><span class="hljs-section">备份与恢复：防止数据丢失，并在数据丢失或损坏时进行恢复。备份与恢复功能包括数据备份、日志记录、恢复策略等。</span><br><span class="hljs-section">--------------------------------------------------------------------------</span><br>数据的安全性<br>数据的完整性<br>并发控制<br>数据库恢复<br></code></pre></td></tr></table></figure>
+
+<p>2.什么是数据库的完整性约束条件？可分为哪几类？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs"><br>数据库的完整性约束条件是用于确保数据库中数据的正确性,一致性和有效性一直规则或限制。主要分为以下几类：<br><br>实体完整性：保证每个实体有唯一的标识，即每个表中的主键字段不能为空且唯一。例如，一个学生表中每个学生的学号必须唯一且不能为空。<br><br>参照完整性：保证数据库中的关系（外键关系）的一致性，即外键值必须存在于参照表的主键中。例如，订单表中的客户ID必须在客户表中存在。<br><br>域完整性：保证字段的数据类型和取值范围的正确性。比如，一个年龄字段必须为整数，且值必须在0到150之间。<br><br>用户自定义完整性：根据具体应用需求定义的约束条件，比如工资字段必须大于0，库存数量不能为负等。<br></code></pre></td></tr></table></figure>
+
+<p>3.试述数据管理技术面临的挑战？</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs makefile">数据管理技术面临的挑战主要包括以下几个方面：<br><br>大数据处理：随着数据量的爆炸性增长，如何高效存储、管理和分析海量数据成为一个重大挑战。<br><br>数据多样：随着数据源和数据类型的多样化，如何将来自不同来源的数据和不同类型的数据进行有效整合和一致性处理是一个复杂的问题。<br><br>数据安全：数据泄露、篡改、未授权访问等安全问题日益严重，如何保护数据安全是一个重要的课题。<br><br>数据隐私：随着隐私法规的加强，如何在数据管理过程中保护个人隐私成为一个关键问题。<br><br><span class="hljs-section">现有算法需改进:算法缺乏可扩展性,对复杂数据的高效分析,大规模知识库的支持和应用,非技术领域专家的理解性,对数据的组织,检索,和分析都是基础的挑战</span><br><br></code></pre></td></tr></table></figure>
+
+<p>4.叙述数据库中死锁产生的原因和解决死锁的方法</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">死锁产生的原因：封锁可以引起死锁。比如事务T1封锁了数据<span class="hljs-selector-tag">A</span>，事务T2封锁了数据<span class="hljs-selector-tag">B</span>。T1又申请封锁数据<span class="hljs-selector-tag">B</span>，但因<span class="hljs-selector-tag">B</span>被T2封锁，所以T1只能等待。T2又申请封锁数据<span class="hljs-selector-tag">A</span>，但<span class="hljs-selector-tag">A</span>已被T1封锁，所以也处于等待状态。这样，T1和T2处于相互等待状态而均不能结束，这就形成了死锁。<br><br>解决死锁的常用方法有如下三种：<br>（<span class="hljs-number">1</span>）要求每个事务一次就要将它所需要的数据全部加锁。<br>（<span class="hljs-number">2</span>）预先规定一个封锁顺序，所有的事务都要按这个顺序实行封锁。<br>（<span class="hljs-number">3</span>）允许死锁发生，当死锁发生时，系统就选择一个处理死锁代价小的事务，将其撤消，释放此事务持有的所有的锁，使其他事务能继续运行下去。<br></code></pre></td></tr></table></figure>
+
+<p>5.下表给出的关系R为第几范式？是否存在删除操作异常？若存在，则说明是在什么情况下发生的？将其分解为高一级范式。（在考生文件夹下新建“结果.docx”，并将答案写在“结果.docx”中）</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240518181300330.png" srcset="/img/loading.gif" lazyload alt="image-20240518181300330"></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs armasm">分析关系 R 的范式<br>第一范式（<span class="hljs-number">1</span>NF）：满足。<br>课程名-&gt;教师名  教师名!-&gt;课程名  教师名-&gt;教师地址 <br>不存在非主属性对码的部分函数依赖<br>为<span class="hljs-number">2</span>NF<br>存在非主属性对码的传递函数依赖 <br>不是<span class="hljs-number">3</span>NF<br>所以为<span class="hljs-number">2</span>NF<br><br>删除操作异常<br>存在删除操作异常。例如，如果删除课程 <span class="hljs-built_in">C2</span>，会失去关于 于得水 和 <span class="hljs-built_in">D1</span> 之间关系的信息。<br><br>分解为更高一级范式<br>将关系 𝑅<br>分解为以下两个关系，分别满足第三范式：<br><br>课程 表：<br><br>课程名	教师名<br><span class="hljs-symbol">C1</span>	马千里<br><span class="hljs-symbol">C2</span>	千得水<br><span class="hljs-symbol">C3</span>	余坤<br><span class="hljs-symbol">C4</span>	千得水<br><br>教师 表：<br><br>教师名	教师地址<br>马千里	<span class="hljs-built_in">D1</span><br>千得水	<span class="hljs-built_in">D1</span><br>余坤	<span class="hljs-built_in">D2</span><br><br></code></pre></td></tr></table></figure>
+
+<p>6.可能破坏参照完整性的情况及违约处理？</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss">在对参照表进行插入元组或修改外码值时，可能破坏关系的参照完整性，应采取拒绝执行的策略；<br><br>在对被参照表进行删除或修改主码值时，可能破坏关系的参照完整性，可以采取拒绝执行、级联删除(或修改)、设置为空值等策略。<br></code></pre></td></tr></table></figure>
+
+<p>7.设F是关系模式R（A，B，C，D，E，G)的函数依赖集，F&#x3D;{A→BC，B→E，CD→EG}，求（AD)+。（在考生文件夹下新建“结果,docx”，并将答案写在“结果,docx”中）</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">给定关系模式 <span class="hljs-variable">R</span><span class="hljs-punctuation">(</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span><span class="hljs-operator">,</span><span class="hljs-built_in">C</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-built_in">E</span><span class="hljs-operator">,</span><span class="hljs-variable">G</span><span class="hljs-punctuation">)</span>和函数依赖集 <span class="hljs-variable">F</span> <span class="hljs-operator">=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span>→ <span class="hljs-variable">BC</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span>→ <span class="hljs-built_in">E</span><span class="hljs-operator">,</span><span class="hljs-variable">CD</span> →<span class="hljs-variable">EC</span><span class="hljs-punctuation">&#125;</span> 包（<span class="hljs-variable">AD</span>）<span class="hljs-operator">+</span>的步骤如下：<br><span class="hljs-number">1.</span> 初始集：<span class="hljs-punctuation">(</span><span class="hljs-variable">AD</span><span class="hljs-punctuation">)</span><span class="hljs-operator">+</span> <span class="hljs-operator">=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-number">2.</span> 应用函数依赖 <span class="hljs-variable">A</span>→<span class="hljs-variable">BC</span>，得到（<span class="hljs-variable">AD</span><span class="hljs-punctuation">)</span><span class="hljs-operator">+=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span><span class="hljs-operator">,</span><span class="hljs-built_in">C</span><span class="hljs-punctuation">&#125;</span> <br><span class="hljs-number">3.</span> 应用函数依赖<span class="hljs-variable">B</span>→<span class="hljs-built_in">E</span>，得到（<span class="hljs-variable">AD</span><span class="hljs-punctuation">)</span><span class="hljs-operator">+</span> <span class="hljs-operator">=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span><span class="hljs-operator">,</span><span class="hljs-built_in">C</span><span class="hljs-operator">,</span><span class="hljs-built_in">E</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-number">4.</span> 应用函数依赖<span class="hljs-variable">CD</span> →<span class="hljs-variable">EG</span>，得到（<span class="hljs-variable">AD</span><span class="hljs-punctuation">)</span><span class="hljs-operator">+=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span><span class="hljs-operator">,</span><span class="hljs-built_in">C</span><span class="hljs-operator">,</span><span class="hljs-built_in">E</span><span class="hljs-operator">,</span><span class="hljs-variable">G</span><span class="hljs-punctuation">&#125;</span> <br>最终结果为：<span class="hljs-punctuation">(</span><span class="hljs-variable">AD</span><span class="hljs-punctuation">)</span><span class="hljs-operator">+</span> <span class="hljs-operator">=</span><span class="hljs-punctuation">&#123;</span><span class="hljs-variable">A</span><span class="hljs-operator">,</span><span class="hljs-variable">B</span><span class="hljs-operator">,</span><span class="hljs-built_in">C</span><span class="hljs-operator">,</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-built_in">E</span><span class="hljs-operator">,</span><span class="hljs-variable">G</span><span class="hljs-punctuation">&#125;</span>　<br></code></pre></td></tr></table></figure>
+
+<p>8.什么是数据库的恢复？恢复的基本原则是什么？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">数据库恢复是指在发生故障（如系统崩溃、硬件故障或人为错误）后，将数据库从错误状态恢复到某一已知的正确状态的功能。其目的是尽量减少数据丢失，保证数据的一致性和完整性。<br><br>恢复的基本原则：<br>恢复的基本原则就是冗余,即数据库重复存储<br>数据库中任何一部分被破坏或不正确的数据可以根据存储在别处的冗余<br></code></pre></td></tr></table></figure>
+
+<p>9.什么是概念模型?试达概念模型的作用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">概念模型实际上是现实世界到机器世界的一个中间层次。<br>概念模型用于信息世界的建模，是现实世界到信息世界的第一层抽象，是数据库设计人员进行数据库设计的有力工具，也是数据库设计人员和用户之间进行交流的语言。<br></code></pre></td></tr></table></figure>
+
+<p>10.事务的COMMIT语和ROLLBACK语句的功能是什么?</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs excel">COMMIT语句表示事务执行成功地接结束（提交），此时告诉系统，<span class="hljs-built_in">DB</span>要进入一个新的正确状态，该事务对<span class="hljs-built_in">DB</span>的所有更新都已交付实施（写入磁盘）。<br>ROLLBACK语句表示事务执行不成功地结束（应该＇回退’）此时告诉系统，已发生错误，<span class="hljs-built_in">DB</span>可能处在不正确的状态，该事务对<span class="hljs-built_in">DB</span>的所有更新必须被撤消，<span class="hljs-built_in">DB</span>应恢复该事务到初始状态［<span class="hljs-number">1</span>］。<br></code></pre></td></tr></table></figure>
+
+<p>11.什么是数据库中的自主存取控制方法和强制存取控制方法?</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ada">自主存取控制方法（Discretionary <span class="hljs-keyword">Access</span> Control，DAC）和强制存取控制方法（Mandatory <span class="hljs-keyword">Access</span> Control，MAC）是数据库安全管理中的两种主要访问控制方法。<br><br>自主存取控制方法（DAC）：在自主存取控制方法中,用户对于不同数据库对象有不同的存取权限,不同的用户对同一对象也有不同的权限,而且用户还可以将其拥有的存储权限转授给其他用户<br><br>强制存取控制方法（MAC）：在强制存取控制方法,每一个数据库对象被标以一定的密级,每一个用户也<br>被授予某一个级别的许可证,对于任意一个对象,只有具有合法许可证的用户才可以存取,比较严格<br><br></code></pre></td></tr></table></figure>
+
+<p>12.设F是关系模式R(A,B,C)的函数依赖集，F&#x3D;{A→BC,B→C,A→B,AB→C},求其最小函数依赖集 Fmin。（在考生文件夹下新建“结果.docx”，并将答案写在“结果.docx”中）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">解：（<span class="hljs-number">1</span>）将F中每个函数依赖的右部均变成单属性，则F＝｛<span class="hljs-selector-tag">A</span>→<span class="hljs-selector-tag">B</span>，<span class="hljs-selector-tag">A</span>→C，<span class="hljs-selector-tag">B</span>→C，AB→C｝。<br>（<span class="hljs-number">2</span>）去掉F中各函数依赖左部多余的属性。在AB→C中，由于<span class="hljs-selector-tag">A</span>+＝（ABC），所以<span class="hljs-selector-tag">A</span>包含属性C，因此，<span class="hljs-selector-tag">B</span>是左部多余的属性可去掉，这样AB→C简化为<span class="hljs-selector-tag">A</span>→C，则F＝｛<span class="hljs-selector-tag">A</span>→<span class="hljs-selector-tag">B</span>，<span class="hljs-selector-tag">A</span>→C，<span class="hljs-selector-tag">B</span>→C｝。<br>（<span class="hljs-number">3</span>）去掉F中冗余的函数依赖。由于<span class="hljs-selector-tag">A</span>→C可由<span class="hljs-selector-tag">A</span>→<span class="hljs-selector-tag">B</span>和<span class="hljs-selector-tag">B</span>→C推出，因此，可去掉<span class="hljs-selector-tag">A</span>→C。因此，Fmin＝（<span class="hljs-selector-tag">A</span>→<span class="hljs-selector-tag">B</span>，<span class="hljs-selector-tag">B</span>→C）<br></code></pre></td></tr></table></figure>
+
+<p>13.数据库的完整性概念与数据库的安全性概念有么区别和联系？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">数据库的完整性和数据库的安全性是两个既有联系又不尽相同的概念<br>数据库的完整性是防止数据库中存不符合语义的数据,也就是防止数据库中存在不正确的数据。<br>数据库的安全性是保护数据库防止恶意的破坏和非法的存取。<br>因此,完整性检查和控制的防范对象是不合语义的,不正确的数据,防止他们进入数据库。<br>安全性控制的防范对象是非法用户和非法操作,防止他们对数据库数据的非法存取。<br></code></pre></td></tr></table></figure>
+
+<p>14.DBS中看哪些类型的故障？哪些故障破坏了数据？哪些故障未破环数据库，使其中某些数据库变得不正确?</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">数据库系统中的故障主要有：事务故障、系统故障、介质故障。（2）破坏了数据库的故障是介质故障；未破坏数据库，但使其中某些数据变得不正确的故障是事务故障和系统故障。<br></code></pre></td></tr></table></figure>
+
+<p>15.指出下列关系模式是第几范式？并说明理由。（在考生文件夹下新建“结果.docx”，并将答案写在“结果.docx”中） R(A,B,C,D) ,F&#x3D;{BCD→A,A→C}</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css">题目中给出的关系模式<span class="hljs-attribute">R</span>（<span class="hljs-selector-tag">A</span>，<span class="hljs-selector-tag">B</span>，C，D）满足以下条件：BCD→<span class="hljs-selector-tag">A</span>，表示<span class="hljs-selector-tag">A</span>完全依赖于BCD，而不依赖于<span class="hljs-selector-tag">B</span>、C、D中的任何一个或任何组合。<br><span class="hljs-selector-tag">A</span>→C，表示C完全依赖于<span class="hljs-selector-tag">A</span>，而不依赖于<span class="hljs-selector-tag">B</span>或D根据这些条件，可以判断出：<br><span class="hljs-attribute">R</span>的主键是BCD，因为它可以唯一确定其他字段的值<span class="hljs-number">2</span>.<br><span class="hljs-attribute">R</span>满足第一范式，因为没有给出任何字段的值是可分解的。<br><span class="hljs-attribute">R</span>满足第二范式，因为没有任何非主键字段部分依赖于主键。<br><span class="hljs-attribute">R</span>不满足第三范式，因为C间接依赖于主键BCD，通过<span class="hljs-selector-tag">A</span>的传递。所以<span class="hljs-attribute">R</span>属于第二范式，但不属于第三范式<br><span class="hljs-selector-tag">A</span> <span class="hljs-number">3</span> NF 错误的，因为<span class="hljs-attribute">R</span>不满足第三范式的要求。<span class="hljs-selector-tag">B</span> <span class="hljs-number">1</span> NF 错误的，因为<span class="hljs-attribute">R</span>不仅满足第一范式，还满足第二范式。<br>C BCNF 错误的，因为<span class="hljs-attribute">R</span>不满足第三范式，更不用说巴斯-科德范式了<br>D <span class="hljs-number">2</span> NF 正确的，因为<span class="hljs-attribute">R</span>满足第二范式的要求。故本题答案为：<br></code></pre></td></tr></table></figure>
+
+<p>16.试述基本关系具有的6条性质。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scss">(<span class="hljs-number">1</span>)列是同质的，即每一列中的值是同一类型的数据，来自同一个域。<br>(<span class="hljs-number">2</span>)不同的列可以出自同一个域，称其中的每一列为一个属性，不同的属性要使用不同的属性名。<br>(<span class="hljs-number">3</span>)列的顺序无所谓，即列的次序可以任意交换。<br>(<span class="hljs-number">4</span>)任意两个元组不能完全相同。这只是现实中的一般性要求，有些数据允许在同一张表中存在两个完全相同的元组。<br>(<span class="hljs-number">5</span>)行的顺序无所谓，即行的次序可以任意交换。<br>(<span class="hljs-number">6</span>)关系模式必须满足规范化的理论，不允许表中有表。<br></code></pre></td></tr></table></figure>
+
+<p>17.数据库的不安全因素有哪些？</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-number">1</span>.非授权用户对数据库的恶意存取和破坏。一些黑客(Hacker)和犯罪分子在用户存取数据库时猎取用户名和用户口令，然后假冒合法用户偷取、修改甚至破坏用户数据。数据库管理系统提供的安全措施主要包括用户身份鉴别、存取控制和视图等技术。<br><span class="hljs-number">2</span>.数据库中重要或敏感的数据被泄露。黑客和敌对分子千方百计盗窃数据库中的重要数据，一些机密信息被暴露。<br></code></pre></td></tr></table></figure>
+
+<p>18.如何进行系统故障的恢复？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">正向扫描日志文件,找出在故障发生前已经提交的事务,将其事务标识计入重做队列,同时找出故障发生时尚未发生的事务,将其事务标记<br>记入撤销队列<br>对撤销队列中个各个事务进行撤销的处理<br>对重做队列中的各个事务进行重做处理<br></code></pre></td></tr></table></figure>
+
+<p>19.简要叙述关系数据库的优点？</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">优点:1.关系模型建立在严格的数学概念基础上 </span><br>2.关系模型的概念单一 数据结构简单,清晰,用户易懂易用<br>3.关系模型的存取路径对用户隐蔽,具有更强的数据独立性,更好的安全保密性<br></code></pre></td></tr></table></figure>
+
+<p>20.在数据库中为什么要有并发控制？</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile">数据一致性：并发控制确保多个用户同时访问数据库时，数据保持一致和准确，防止并发修改导致的数据冲突和不一致。<br><span class="hljs-section">防止死锁:通过使用死锁检测和预防算法,可以有效预防死锁的产生</span><br>提高系统性能：通过合理的并发控制，可以提高数据库的并发处理能力，最大化资源利用率，提升系统整体性能。<br></code></pre></td></tr></table></figure>
+
+<p>21.什么是数据库的审计功能，为什么要提供审计功能？</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">数据库审计功能是用户对数据库的所有操作自动记录下来放入审计日志<br><br>可以利用审计日志监控数据库中的各种行为<span class="hljs-punctuation">,</span>重现导致数据库现有状况的一系列事件<span class="hljs-punctuation">,</span>找出非法存取数据的人<span class="hljs-punctuation">,</span>时间和内容等<span class="hljs-comment">;还可以通过对审计日志分析,对潜在的威胁提前采取措施加以防范</span><br></code></pre></td></tr></table></figure>
+
+<p>22.简述主属性、非主属性和全码的概念。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs makefile">主属性<br>主属性是包含在任何一个候选码中的属性。换句话说，主属性是可以用来唯一标识关系中的每个元组（记录）的属性的一部分。<br><br>非主属性<br>非主属性是那些不包含在任何候选码中的属性。<br><br><span class="hljs-section">全码:所以属性都是候选码,则称为全码</span><br></code></pre></td></tr></table></figure>
+
+<p>23.如何进行事务故障的恢复？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">系统的恢复步骤如下：<br>①反向扫描日志文件（即从最后向前扫描日志文件），查找该事务的更新操作。<br>②对该事务的更新操作执行逆操作，将日志记录中“更新前的值”写入数据库。这样，如果记录中是插入操作，则相当于做删除操作（因此时“更新前的值”为空）；若记录中是删除操作，则做插入操作；若是修改操作，则相当于用修改前值代替修改后值。<br>③继续反向扫描日志文件，查找该事务的其他更新操作并做同样处理。<br>④如此处理下去，直至读到此事务的开始标记，事务故障恢复即完成。<br></code></pre></td></tr></table></figure>
+
+<p>24.SQL语言中提供了哪些自主存取控制语句？请试举儿例说明它们的使用方法。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">SQL</span>中的自主存取控制是通过<span class="hljs-keyword">GRANT</span>语句和<span class="hljs-keyword">REVOKE</span>语句来实现的。如: <span class="hljs-keyword">GRANT</span>  <span class="hljs-keyword">select</span>， inserton  student <span class="hljs-keyword">to</span> 王平 <span class="hljs-keyword">with</span>  <span class="hljs-keyword">grant</span>  <span class="hljs-keyword">option</span>就将 student表的<span class="hljs-keyword">select</span>和<span class="hljs-keyword">insert</span>权限授予了用户王平，<span class="hljs-keyword">with</span> <span class="hljs-keyword">grant</span> <span class="hljs-keyword">option</span>子句表示用户王平同时也获得了“授权”的权限。<span class="hljs-keyword">Revoke</span> <span class="hljs-keyword">insert</span> <span class="hljs-keyword">on</span> student <span class="hljs-keyword">from</span> 王平 <span class="hljs-keyword">cascade</span>就将student的<span class="hljs-keyword">insert</span>权限从王平处收回，选项<span class="hljs-keyword">cascade</span>表示，如果用户王平将student的<span class="hljs-keyword">insert</span>权限又转授给了其他用户，那么这些权限也将从其他用户处收回。<br></code></pre></td></tr></table></figure>
+
+<p>25.简述日志文件在数据库恢复中的作用，以及登记日志文件时必须遵循的两条原则。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs">日志文件可以用来进行事务故障恢复和系统故障恢复（1分），并协助后备副本进行介质故障恢复（1分）。或（1）事务故障恢复和系统故障恢复必须用日志文件；（2）在动态转储［1］方式中必须建立日志文件，后备副本和日志文件结合起来才能有效地恢复数据库；（3）在静态转储方式中，也可以建立日志文件。<br><br>登记日志文件时必须遵循的两条原则是：<br>（1）登记的次序严格按并发事务执行的时间次序；<br>（2）必须先写日志文件，后写数据库。（1分）<br></code></pre></td></tr></table></figure>
+
+<p>26.设有关系模式R(A，B，C，D)及其函数依赖集F&#x3D;{B→C，B→D，CD→A}，请判断R能达到第几范式？（在考生文件夹下新建“结果.docx”，并将答案写在“结果.docx”中)</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">L:</span>B<br><span class="hljs-symbol">R:</span>A<br><span class="hljs-symbol">N:</span><br><span class="hljs-symbol">LR:</span>C,D<br>(B)+ = BCDA ,则B为R的唯一候选码<br>是最小的数据项<br>消除了非主属性对码的部分函数依赖<br>没有消除非主属性对码的传递函数依赖<br>所以为第二范式<br></code></pre></td></tr></table></figure>
+
+<p>27.什么样的并发调度是正确的调度？</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">如果一个事务运行过程中没有其他事务同时运行，即没有受到其他事务的干扰，那么就可以认为该事务的运行结果是正常的，可串行性是并发事务正确性的准则，为了保证并发操作的正确性，DBMS的并发控制机制必须提供一定的手段来保证调度是可串行化的<br></code></pre></td></tr></table></figure>
+
+<p>28.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601214811120.png" srcset="/img/loading.gif" lazyload alt="image-20240601214811120"></p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">L:</span> B,E<br><span class="hljs-symbol">R:</span> A,C D<br><span class="hljs-symbol">LR:</span><br><span class="hljs-symbol">N:</span><br>候选码中至少包含BE, (BE)+=ABCDE<br>所以BE为R的唯一候选码 <br></code></pre></td></tr></table></figure>
+
+<p>29.数据和数据库的概念</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">1.数据:描述事物的符号记录称为数据</span><br><br><span class="hljs-section">2.数据库:就是长期存储在计算机内有组织,可共享的大量数据的集合</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="5-操作题"><a href="#5-操作题" class="headerlink" title="5. 操作题"></a>5. 操作题</h2><p>1.在数据库market中，设销售数据模型如下：<br>厂家：S（SNO,SNAME,CITY）<br>产品：P（PNO,PNAME,COLOR,WEIGHT）<br>销售：SPJ（SNO,PNO,QTY）<br>其中SNO为厂家编号，SNAME为厂家名称，CITY为厂家所在的城市，PNO为产品编号，PNAME为产品名，COLOR为产品颜色，WEIGHT为产品重量，QTY为销售数量。</p>
+<p>基于以上关系模式用sQL语言实现：（注意要切换数据库，本题数据库market）<br>（1）查询与厂家“腾飞”在同一城市的厂家名。<br>（2）查询在厂家“时代”中的销售数量大于100的销售信息。<br>（3）查询产品名为“A1”的总销量。（4）查询厂家“腾飞”销售几种产品。<br>（5）使用聚合函数将产品按产品颜色进行分组，查询每组产品中最大的产品重量。<br>要求：<br>1.将（1）中的查询命令保存resultl.txt中#begin与#end两行之间。<br>2.将（2）中的查询命令保存result2.txt中#begin与#end两行之间。<br>3.将（3）中的查询命令保存result3.txt中#begin与#end两行之间。<br>4.将（4）中的查询命令保存result4.txt中#begin与#end两行之间。<br>5.将（5）中的查询命令保存result5.txt中#begin与#end两行之间。<br>注意（考生文件夹：D:\WZHEDU\2210121228\CbtesExam\mssq1001\）</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601162159200.png" srcset="/img/loading.gif" lazyload alt="image-20240601162159200"></p>
+<p>2.有一个学生课程dbstudentcourse数据库，数据库中包括三个表，学生表：Student由学号（Sno）、姓名（Sname）、性别(Ssex）、年龄（Sage）、所在系（Sdept）五个属性组成，记为：Student（Sno，Sname，Ssex，Sage，Sdept），Sno为主键。课程表：Course由课程号（Cno）、课程名（Cname）、先修课号（Cpno）、学分（Ccredit）四个属性组成，记为：Course（Cno Cname，Cpno,Ccredit）Cno为主键。成绩表：SsG由学号（Sno）、课程号（Cno）、成绩（Grade）三个属性组成，记为：SG(Sno,Cno,Grade）（SNo,CNo）为主键。<br>请根据下面要求对数据库中的表进行操作。（注意要切换数据库，本题数据库db_studentcourse）<br>（1）将学号为981102学生的年龄改为24岁。<br>（2）查询考试成绩有不及格的学生的学号。<br>（3）计算1号课程的学生平均成绩。<br>（4）查询计算机系姓张的男同学的姓名（Sname）、性别（Ssex）、年龄（Sage）。<br>要求：<br>1.将（2）中的查询命令保存deptl.txt中#begin与#end两行之间。<br>2.将（3）中的查询命令保存dept2.txt中#begin与#end两行之间。<br>3.将（4）中的查询命令保存dept3.txt中#begin与#end两行之间。<br>注意（考生文件夹：D：\WZHEDU\2210121228\CbtesExam\mssq1001\）</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">评析仅供参考：<br>（1）将学号为981102学生的年龄改为24岁。<br><span class="hljs-keyword">update</span> student <span class="hljs-keyword">set</span> sage=<span class="hljs-number">24</span> <span class="hljs-keyword">where</span> sno=<span class="hljs-string">&#x27;981102&#x27;</span><br>（<span class="hljs-number">2</span>）查询者试成绩有不及格的学生的学号。<br><span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> sno <span class="hljs-keyword">from</span> sg <span class="hljs-keyword">where</span> grade &lt; <span class="hljs-number">60</span>;<br>（3）计算1号课程的学平均成绩。<br><span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(grade) <span class="hljs-keyword">from</span> sg <span class="hljs-keyword">where</span> cno=<span class="hljs-string">&#x27;1&#x27;</span>;<br>（4）查询计算机系姓张的男同学的姓名（Sname）、性别（Ssex）、年龄（Sage）。<br><span class="hljs-keyword">select</span> sname, ssex, sage <span class="hljs-keyword">from</span> student <span class="hljs-keyword">where</span> Sdept=<span class="hljs-string">&#x27;计算机&#x27;</span> <span class="hljs-keyword">and</span> sname <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;张%&#x27;</span> <span class="hljs-keyword">and</span> ssex =<span class="hljs-string">&#x27;男&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>3.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519173202841.png" srcset="/img/loading.gif" lazyload alt="image-20240519173202841"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240519173236706.png" srcset="/img/loading.gif" lazyload alt="image-20240519173236706"></p>
+<p>4.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093549171.png" srcset="/img/loading.gif" lazyload alt="image-20240520093549171"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520093609437.png" srcset="/img/loading.gif" lazyload alt="image-20240520093609437"></p>
+<p>5.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095539779.png" srcset="/img/loading.gif" lazyload alt="image-20240520095539779"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240520095612160.png" srcset="/img/loading.gif" lazyload alt="image-20240520095612160"></p>
+<p>6.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175520861.png" srcset="/img/loading.gif" lazyload alt="image-20240521175520861"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240521175531735.png" srcset="/img/loading.gif" lazyload alt="image-20240521175531735"></p>
+<p>7.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601202445439.png" srcset="/img/loading.gif" lazyload alt="image-20240601202445439"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601202456006.png" srcset="/img/loading.gif" lazyload alt="image-20240601202456006"></p>
+<p>8.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601203435590.png" srcset="/img/loading.gif" lazyload alt="image-20240601203435590"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/image-20240601203451971.png" srcset="/img/loading.gif" lazyload alt="image-20240601203451971"></p>
+<p>9.<img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240602193248.jpg" srcset="/img/loading.gif" lazyload alt="微信图片_20240602193248"></p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/mysql/assets/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240602193300.jpg" srcset="/img/loading.gif" lazyload alt="微信图片_20240602193300"></p>
+<h2 id="第一章-绪论-总结"><a href="#第一章-绪论-总结" class="headerlink" title="第一章 绪论 总结"></a>第一章 绪论 总结</h2><h2 id="1-1-数据库系统概述"><a href="#1-1-数据库系统概述" class="headerlink" title="1.1 数据库系统概述"></a>1.1 数据库系统概述</h2><h3 id="1-1-1数据库的四个基本概念"><a href="#1-1-1数据库的四个基本概念" class="headerlink" title="1.1.1数据库的四个基本概念"></a>1.1.1数据库的四个基本概念</h3><p>1.<strong>数据</strong>:描述事物的符号记录称为数据</p>
+<p>2.<strong>数据库</strong>:就是长期存储在计算机内有组织,可共享的大量数据的集合</p>
+<p>3.<strong>数据库管理系统</strong>:是位于用户与操作系统之间的数据管理软件</p>
+<p>主要功能:1.数据定义功能 2.数据组织,存储和管理功能 3. 数据操纵功能 4.数据库的事务管理和运行管理功能 5.数据库的建立与维护功能 6.其他功能</p>
+<p>4.<strong>数据库系统</strong>:一般指由数据库,数据库管理系统,应用系统和数据库管理员组成的存储,管理,处理,和维护数据的系统</p>
+<p>数据库系统简称为数据库</p>
+<h3 id="1-1-2-数据管理技术的产生和发展"><a href="#1-1-2-数据管理技术的产生和发展" class="headerlink" title="1.1.2 数据管理技术的产生和发展"></a>1.1.2 数据管理技术的产生和发展</h3><p><strong>数据库管理技术</strong>经历了人工管理,文件系统,数据库系统三个阶段</p>
+<p>**人工管理阶段 **特点:1.数据不保存 2.应用程序管理数据 3.数据不共享 4.数据不具有独立性 </p>
+<p><strong>数据独立性</strong>是指数据与应用程序相互独立,即数据的结构发生变化后,应用程序不必做相应的修改</p>
+<p><strong>文件系统阶段</strong> 特点:1.数据可以长期保存 2.数据由专门的软件进行管理 缺点 1.数据共享性强,冗余度高  2.数据独立性弱</p>
+<p><strong>数据库系统阶段</strong>: </p>
+<p>1.整体数据的结构化  数据之间具有联系</p>
+<p>2.数据的共享性强, 冗余度低且易于扩充   </p>
+<p>3.数据的独立性强 </p>
+<p><strong>数据的独立性</strong>包括数据的物理独立性和数据的逻辑独立性 </p>
+<p><strong>数据的物理独立性</strong>,是指用户的应用程序与数据库中数据的物理存储是相互独立的</p>
+<p><strong>数据的逻辑独立性</strong>,是指用户的应用程序与数据库的逻辑结构是相互独立的</p>
+<p>4.数据由数据库管理系统统一管理和控制</p>
+<p>数据库管理系统必须提供以下几方面的<strong>数据管理功能</strong></p>
+<p>1.数据的安全性保护 2.数据的完整性检查 3.数据的并发控制 4.数据库的恢复 </p>
+<p>数据库技术的发展经历了20世纪60年代的<strong>网状数据库,层次数据库</strong>,20世纪70年代的<strong>关系数据库</strong>,以及20世纪80年代的<strong>以面向对象模型</strong>为特征的数据库系统</p>
+<h2 id="1-2-数据模型"><a href="#1-2-数据模型" class="headerlink" title="1.2 数据模型"></a>1.2 数据模型</h2><p><strong>数据模型</strong>也是一种模型,它是对现实世界数据特征的抽象,数据模型是数据库系统的核心和基础</p>
+<h3 id="1-2-1-数据建模"><a href="#1-2-1-数据建模" class="headerlink" title="1.2.1 数据建模"></a>1.2.1 数据建模</h3><p>把现实世界中的具体事物抽象,组织为某一数据库管理系统支持的数据模型,这个过程称为<strong>数据建模</strong></p>
+<p>分为两步</p>
+<p>1.建立概念模型</p>
+<p>  首先将现实世界抽象为信息世界</p>
+<p>  <strong>概念模型</strong>是按照用户的观点来对数据建模,主要用于数据库设计 </p>
+<p>2.将概念模型转换为数据模型</p>
+<p>  接下来将信息世界转换为机器世界 </p>
+<p>  <strong>数据模型</strong>是按计算机系统的观点对数据建模,质数据库管理系统支持的</p>
+<h3 id="1-2-2-概念模型"><a href="#1-2-2-概念模型" class="headerlink" title="1.2.2 概念模型"></a>1.2.2 概念模型</h3><p><strong>概念模型</strong>用于信息世界的建模</p>
+<p><strong>信息世界</strong>包括:1.实体 2.属性 3.码 4.实体类型 5.实体集 6.联系</p>
+<p><strong>实体</strong>:客观存在并可相互区别的事务称为实体</p>
+<p><strong>属性</strong>:实体所具有的某一特性称为属性</p>
+<p><strong>码</strong>:唯一标识实体的属性称为码</p>
+<p><strong>实体类型</strong>:具有相同属性的实体具有相同的特征和性质,用实体名及其属性名集合来抽象和刻画同类实体,称为实体类型或实体型</p>
+<p><strong>实体集</strong>:同一类型实体的集合称为实体集</p>
+<p><strong>联系</strong>:实体(型)内部的联系和实体(型)之间的联系 </p>
+<p>实体内部的联系通常是指组成实体的各属性之间的联系,实体之间的联系通常是指不同实体集之间的联系</p>
+<p>概念模型的另一种表示方法:<strong>实体-联系模型</strong></p>
+<p>P.P.S Chen于1976年提出的实体-联系模型,简称为<strong>E-R模型</strong></p>
+<p>实体用矩形,属性用椭圆,联系用菱形</p>
+<h3 id="1-2-3-数据模型的三要素"><a href="#1-2-3-数据模型的三要素" class="headerlink" title="1.2.3 数据模型的三要素"></a>1.2.3 数据模型的三要素</h3><p><strong>数据模型的三要素</strong>:数据结构,数据操纵和完整性约束</p>
+<p>数据结构描述数据库的组成对象以及对象之间的联系</p>
+<p>数据操纵是指数据库中各种对象(型)的实例(值)允许执行的操作的集合,包括操作及有关的操作规则</p>
+<p>完整性约束是一组完整性规则</p>
+<p>这里讲的数据模型都是逻辑(用户)上的</p>
+<h3 id="1-2-4-层次模型"><a href="#1-2-4-层次模型" class="headerlink" title="1.2.4 层次模型"></a>1.2.4 层次模型</h3><p>实体用记录表示,实体的属性对应记录的字段(或数据项)</p>
+<p>在层次模型中,数据结构的基本单位是基本层次联系,基本层次联系是指两个记录及其之间的一对多联系</p>
+<p>根节点:有且只有一个结点没有双亲结点</p>
+<p>根节点以外的其他节点有且有一个双亲结点</p>
+<p>在层次模型中,每个结点表示一个记录类型,记录类型之间的联系用节点之间的连线(有向边)表示</p>
+<p>每个记录类型可包含若干个字段,这里记录类型描述的是实体型,字段描述实体的属性</p>
+<p>同一双亲结点的子女结点称为兄弟结点,没有子女结点的结点称为叶结点</p>
+<p>优点:1.数据结构比较简单清晰 2.查询效率高 3.提供了良好的完整性约束支持</p>
+<p>缺点:1.不适用与非层次模型 2,如果一个结点具有多个双亲结点,编写比较复杂 3.查询子女结点必须通过双亲结点 4.结构严密,层次命令趋于程序化</p>
+<h3 id="1-2-5-网状模型"><a href="#1-2-5-网状模型" class="headerlink" title="1.2.5 网状模型"></a>1.2.5 网状模型</h3><h3 id="1-2-6-关系模型"><a href="#1-2-6-关系模型" class="headerlink" title="1.2.6 关系模型"></a>1.2.6 关系模型</h3><p>关系模型的数据结构:1.关系 2.元组 3.属性 4.码 5.域 6.分量 7.关系模式</p>
+<p>关系:一个关系对应一张二维表</p>
+<p>元组:表中的一行即为一个元组(记录)</p>
+<p>属性:表中的一列即为一个属性,每列的名称即为属性名</p>
+<p>码:又称码键或键,是表中的某一个属性或一组属性,其值可以唯一确定一个元组</p>
+<p>域:表示某一属性的取值范围</p>
+<p>分量:元组中的一个属性值</p>
+<p>关系模式:对关系的描述</p>
+<p>关系模式要求关系必须规范化,规范条件最基本的一条是关系的每一个分量必须是一个不可分的数据项</p>
+<p>优点:1.建立在严格的数学概念基础上 2.概念单一 3.关系模型的存取路径对用户隐蔽</p>
+<h2 id="1-3-数据库系统的三级模式结构"><a href="#1-3-数据库系统的三级模式结构" class="headerlink" title="1.3 数据库系统的三级模式结构"></a>1.3 数据库系统的三级模式结构</h2><h3 id="1-3-1-模式的概念"><a href="#1-3-1-模式的概念" class="headerlink" title="1.3.1 模式的概念"></a>1.3.1 模式的概念</h3><p>数据库系统通常采用模式,外模式,内模式<strong>三级模式结构</strong></p>
+<p><strong>模式</strong>也称为逻辑结构,是数据库中全体数据的逻辑结构和特征的描述</p>
+<p>模式反映的是数据的结构及其联系,而实例反映的是数据库某一时刻的状态</p>
+<h3 id="1-3-2-数据库系统的三级模式结构"><a href="#1-3-2-数据库系统的三级模式结构" class="headerlink" title="1.3.2 数据库系统的三级模式结构"></a>1.3.2 数据库系统的三级模式结构</h3><p><strong>模式</strong>是所有用户的公共数据视图</p>
+<p><strong>外模式</strong>也称子模式或用户模式,它是数据库用户能够看见和使用的局部数据的逻辑结构和特征的描述</p>
+<p>一个数据库可以有多个外模式</p>
+<p><strong>内模式</strong>也称物理模式或存储模式,它是对数据结构和存储方式的描述,是数据在数据库内部的组织方式一个数据库只有一个内模式</p>
+<h3 id="1-3-3-数据库的两级映像与数据独立性"><a href="#1-3-3-数据库的两级映像与数据独立性" class="headerlink" title="1.3.3 数据库的两级映像与数据独立性"></a>1.3.3 数据库的两级映像与数据独立性</h3><p>两级映像保证了数据库系统中的数据能够具有较强的逻辑独立性和物理独立性</p>
+<p>1.外模式&#x2F;模式映像</p>
+<p>当模式改变时,数据库管理员对各个外模式&#x2F;模式的映像做相应改变,可以使外模式不变,保证了数据与程序的逻辑独立性</p>
+<p>2.模式&#x2F;内模式映像</p>
+<p>当模式改变时,数据库管理员对各个模式&#x2F;内模式映像做相应改变,保证了数据与程序的物理独立性</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/sqlserver/" class="print-no-link">#sqlserver</a>
+      
+        <a href="/tags/mysql/" class="print-no-link">#mysql</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据库期末题库和总结</div>
+      <div>https://tingfeng347.github.io/2024/06/03/数据库期末题库和总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年6月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/06/03/MySQL%20%E7%B2%BE%E7%AE%80%E7%AC%94%E8%AE%B0/" title="MySQL 精简笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL 精简笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/21/SQLServer%E6%8F%90%E7%A4%BANet%20Framework%20Data%20Provider%E6%B2%A1%E6%9C%89%E5%AE%89%E8%A3%85/" title="SQLServer提示Net Framework Data Provider没有安装">
+                        <span class="hidden-mobile">SQLServer提示Net Framework Data Provider没有安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

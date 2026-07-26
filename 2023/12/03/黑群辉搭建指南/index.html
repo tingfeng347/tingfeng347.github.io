@@ -1,0 +1,1142 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="黑群晖7.1&#x2F;7.2安装、上手教程，打造属于自己的个人NAS和家庭影音中心视频教程我是阿皮啊:https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1sV4y1d7xH&#x2F;?spm_id_from&#x3D;333.999.0.0 涉及的相关链接巴西大佬7.1引导页面：https:&#x2F;&#x2F;github.com&#x2F;fbelavenuto&#x2F;arpl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑群辉搭建指南">
+<meta property="og:url" content="https://tingfeng347.github.io/2023/12/03/%E9%BB%91%E7%BE%A4%E8%BE%89%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="黑群晖7.1&#x2F;7.2安装、上手教程，打造属于自己的个人NAS和家庭影音中心视频教程我是阿皮啊:https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1sV4y1d7xH&#x2F;?spm_id_from&#x3D;333.999.0.0 涉及的相关链接巴西大佬7.1引导页面：https:&#x2F;&#x2F;github.com&#x2F;fbelavenuto&#x2F;arpl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-4c509384d0ab15fcbaa2da1c49424338_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-4c07f8487f4378c262ae581c88d00c05_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-b80be970bc5ee145b52a56cc2d46e31e_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-99ab9bda187121367092a8bb69c7cbb3_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-928eefe45d4f41103f8285450276917c_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-d8fda06b7921e4029466ebe931799d32_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-dab1fd3d41e177e45cb4362b9caeceb2_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d35c5ccaed9437d1d6141abb152452c0_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-583b17fb513457bdfcaedc88d5d0ec19_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6e3cce6601df23e6d0e2c8fa922a6c48_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-62ac8fdbd908fc5c0d464810601673c6_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-3cc54aa6f890fd15d18fc67b3630de11_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-8ac05d62cc04035c79da9617afb58b90_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1769d9dfa2217a58aab8f1bae44d79b2_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-3785ed1f0ebf339eb7e1304b7f2ab336_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-d5b6b19c46318e06f127935f6abe4c86_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8cccc8efe1f63855324e401db63c6665_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-5de8b335a526cbf12ae9997776340560_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-58f720921da31d5d36301c7c12c10c3c_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-640a7cf7ac81c994a2e7722ad1a20a7c_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-178ee5848f51d8e953d429992670f1b2_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-8ff0e04afcfb2a706c8ad8279ab98059_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ccc1870b3dbdec6c3b6920887113b0e9_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-ab1d0afc9161ecc7c8cd12cec7a6bd3b_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-263fddaa30c1a7bb2508dec748b5a304_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-9cbf4e6d539ec6739fed887ac6ceee97_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-584701715aad9ddeae7a426d438ab931_1440w.webp">
+<meta property="article:published_time" content="2023-12-03T00:10:05.000Z">
+<meta property="article:modified_time" content="2026-07-23T13:55:07.176Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="群晖">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-4c509384d0ab15fcbaa2da1c49424338_1440w.webp">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>黑群辉搭建指南 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="黑群辉搭建指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-03 08:10" pubdate>
+          2023年12月3日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">黑群辉搭建指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="黑群晖7-1-7-2安装、上手教程，打造属于自己的个人NAS和家庭影音中心"><a href="#黑群晖7-1-7-2安装、上手教程，打造属于自己的个人NAS和家庭影音中心" class="headerlink" title="黑群晖7.1&#x2F;7.2安装、上手教程，打造属于自己的个人NAS和家庭影音中心"></a><strong>黑群晖7.1&#x2F;7.2安装、上手教程，打造属于自己的个人NAS和家庭影音中心</strong></h1><h1 id="视频教程"><a href="#视频教程" class="headerlink" title="视频教程"></a>视频教程</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sV4y1d7xH/?spm_id_from=333.999.0.0"><strong>我是阿皮啊</strong>:https://www.bilibili.com/video/BV1sV4y1d7xH/?spm_id_from&#x3D;333.999.0.0</a></p>
+<p>涉及的相关链接<br>巴西大佬7.1引导页面：h<a target="_blank" rel="noopener" href="https://github.com/fbelavenuto/arpl/releases">ttps:&#x2F;&#x2F;github.com&#x2F;fbelavenuto&#x2F;arpl&#x2F;releases</a><br>群晖7.2引导：<a target="_blank" rel="noopener" href="https://github.com/wjz304/rr">https://github.com/wjz304/rr</a><br>rufus刷写工具：<a target="_blank" rel="noopener" href="http://rufus.ie/en/">http://rufus.ie/en/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1e94y1W7GP?spm_id_from=333.999.0.0"><strong>在下莫老师</strong>:https://www.bilibili.com/video/BV1e94y1W7GP?spm_id_from&#x3D;333.999.0.0</a></p>
+<p>● ARPL引导镜像，来自wjz304（Github）：<a target="_blank" rel="noopener" href="https://github.com/wjz304/arpl-zh_CN/releases">https://github.com/wjz304/arpl-zh_CN&#x2F;releases</a></p>
+<p>● ARPL引导镜像，来自wjz304：<a target="_blank" rel="noopener" href="https://pan.xunlei.com/s/VNk5OGA47rSMkjx14qo_n-yAA1?pwd=ys6e#">https://pan.xunlei.com/s/VNk5OGA47rSMkjx14qo_n-yAA1?pwd&#x3D;ys6e#</a></p>
+<h1 id="图文教程"><a href="#图文教程" class="headerlink" title="图文教程"></a><strong>图文教程</strong></h1><p>目前升级黑群晖DSM7.2一共有两种方法，一个是传统的固定引导的方式，另一种则是ARPL自编译引导。一般来说固定引导方式需要你去修改的一些参数，而ARPL方式可以自动化获取，但是ARPL也有一点弊端那就是自动获取的信息可能不正确，两者算是各有利弊。</p>
+<p>接下来本文主要分享一下ARPL使用的详细过程。</p>
+<p>目前ARPL的引导一共有三种，原版是个巴西人写的，国内wjz304汉化的也就是第二种，第三种是wjz基于原版修改的支持群晖DSM7.2版本。</p>
+<h2 id="引导"><a href="#引导" class="headerlink" title="引导"></a>引导</h2><p><img src="https://pic1.zhimg.com/80/v2-4c509384d0ab15fcbaa2da1c49424338_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>原版ARPL引导已经从2月28号开始停更了，因此不推荐使用，后续能不能更新目前不得而知，而汉化版跟原版版本一直因此目前都不推荐使用。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-4c07f8487f4378c262ae581c88d00c05_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>强烈推荐第三种wjz304大佬发布的改版引导，虽然目前还不完善，但是更新还是非常频繁的，截止发文为止已经更新到23.6.0版本。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-b80be970bc5ee145b52a56cc2d46e31e_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>直接下载第一个zip压缩包即可。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-99ab9bda187121367092a8bb69c7cbb3_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>下载后把arpl.img文件解压缩出来。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-928eefe45d4f41103f8285450276917c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>使用烧录文件把arpl.img文件烧录进U盘或者其他引导盘，这里推荐rufus小巧简单无需安装打开即用。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d8fda06b7921e4029466ebe931799d32_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>将U盘插入电脑，把电脑设置为从U盘启动，注意启动之前需要连接网线，屏幕会显示获取到的IP地址，路由器中也能看到新增加的IP地址。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-dab1fd3d41e177e45cb4362b9caeceb2_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>浏览器输入刚才的地址IP地址，注意端口需填写正确。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d35c5ccaed9437d1d6141abb152452c0_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>修改默认显示语言为中文。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-583b17fb513457bdfcaedc88d5d0ec19_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>选择型号，根据自己的需求选择需要编译的群晖型号。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-6e3cce6601df23e6d0e2c8fa922a6c48_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-62ac8fdbd908fc5c0d464810601673c6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>选择版本，如果需要7.x版本直接选择最新的版本，6.x请选择其他其他版本。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-3cc54aa6f890fd15d18fc67b3630de11_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-8ac05d62cc04035c79da9617afb58b90_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>设置群晖的SN号，如果自身有洗白SN的选择第二项输入SN，如果没有选择第一项即可。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-1769d9dfa2217a58aab8f1bae44d79b2_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-3785ed1f0ebf339eb7e1304b7f2ab336_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>选择编译引导，可能需要一些时间，时间的长短根据你网络的速度而定，编译完成后会再次返回此界面。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-d5b6b19c46318e06f127935f6abe4c86_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>编译完成后会出行启动的选项，选择此选项后，即开始启动引导。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8cccc8efe1f63855324e401db63c6665_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>启动后弹出的界面，此时系统会重启，根据提示访问指定的地址开始群晖的安装。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-5de8b335a526cbf12ae9997776340560_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>在浏览器中输入上述提示的地址就会看到熟悉的群晖安装界面，图中因未安装硬盘才有此提示，正常情况下安装前请插入硬盘。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-58f720921da31d5d36301c7c12c10c3c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="自定义网卡MAC地址"><a href="#自定义网卡MAC地址" class="headerlink" title="自定义网卡MAC地址"></a><strong>自定义网卡MAC地址</strong></h2><p>编译的时候选择设置Cmdline选项。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-640a7cf7ac81c994a2e7722ad1a20a7c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>选择自定义MAC，根据自己需要填写mac地址，<strong>注意修改mac后会导致网卡重新获取IP</strong>，因此当前的浏览器在线编译的地址也会改变，需要重新输入新的ip地址。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-178ee5848f51d8e953d429992670f1b2_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="自定义加载模块"><a href="#自定义加载模块" class="headerlink" title="自定义加载模块"></a><strong>自定义加载模块</strong></h2><p>由于是黑群晖，有很多硬件是自定义的，这就导致驱动加载的问题，因此需要编译的时候需要加载指定的驱动。编译的时候选择模块，即可自定义家长驱动模块。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-8ff0e04afcfb2a706c8ad8279ab98059_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>选择需要加载的模块，此时会列出所有的自动驱动模块，前面有※的就是默认开启，可根据自己需求修改。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-ccc1870b3dbdec6c3b6920887113b0e9_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic4.zhimg.com/80/v2-ab1d0afc9161ecc7c8cd12cec7a6bd3b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>​ ​如果引导默认没有你硬件的驱动，也可选择下载一个外部模块，输入模块的url地址即可下载加载。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-263fddaa30c1a7bb2508dec748b5a304_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="修改已编译的引导"><a href="#修改已编译的引导" class="headerlink" title="修改已编译的引导"></a><strong>修改已编译的引导</strong></h2><p>​ ​如果发现编译的引导无非正常使用或者需要修改部分配置的时候，启动的时候选择configure loader选项，再次进入引导编译的界面。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-9cbf4e6d539ec6739fed887ac6ceee97_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>​ ​如果引导已经进入到启动的界面，可输入menu.sh,直接在当前界面编辑引导配置。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-584701715aad9ddeae7a426d438ab931_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>​ ​ ​最后<strong>修改完引导配置</strong>，别忘了<strong>重新编译下一引导</strong>，再开始启动。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a><strong>写在最后</strong></h2><p>​ ​今天的arpl引导编译教程就到此为止了，感谢您的观看。如果你对arpl引导的编译有其他问题欢迎留言一起讨论。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/NAS/" class="category-chain-item">NAS</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BE%A4%E6%99%96/" class="print-no-link">#群晖</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>黑群辉搭建指南</div>
+      <div>https://tingfeng347.github.io/2023/12/03/黑群辉搭建指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/03/%E7%BE%A4%E6%99%96DDNS+%E5%85%AC%E7%BD%91IPV6+%E5%BC%80%E5%90%AFHTTPS%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B,%E4%BB%BB%E6%84%8F%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%E8%AE%BE%E5%A4%87/" title="群晖DDNS+公网IPV6+开启HTTPS配置教程,任意访问内网设备">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">群晖DDNS+公网IPV6+开启HTTPS配置教程,任意访问内网设备</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%B4%E6%AD%8C%E9%A2%98%E7%9B%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" title="数据结构头歌题目相关知识">
+                        <span class="hidden-mobile">数据结构头歌题目相关知识</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

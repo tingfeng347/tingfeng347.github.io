@@ -1,0 +1,1494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="1. 什么是WSL？适用于 Linux 的 Windows 子系统 (WSL) 是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双引导。 WSL 旨在为希望同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。  使用 WSL 安装和运行各种 Linux 发行版，例如 Ubuntu、Debian、Kali 等。 安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL的配置和使用">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/04/11/WSL%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="1. 什么是WSL？适用于 Linux 的 Windows 子系统 (WSL) 是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双引导。 WSL 旨在为希望同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。  使用 WSL 安装和运行各种 Linux 发行版，例如 Ubuntu、Debian、Kali 等。 安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/store.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntustore.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/terminal.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/wsl-install.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/terminal.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/windows-file-explorer.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/vscode-remote-wsl-extensions.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/vs-target-system.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/git-versions.gif">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/docker-running.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/mongodb.png">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/gpu-acceleration.gif">
+<meta property="og:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/wslmountsimple.png">
+<meta property="og:image" content="https://lomirus.github.io/p/wsl2/firewall.png">
+<meta property="article:published_time" content="2024-04-11T15:25:38.000Z">
+<meta property="article:modified_time" content="2026-07-23T13:55:07.166Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="wsl">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://learn.microsoft.com/zh-cn/windows/wsl/media/store.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>WSL的配置和使用 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="WSL的配置和使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-11 23:25" pubdate>
+          2024年4月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          112 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">WSL的配置和使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-什么是WSL？"><a href="#1-什么是WSL？" class="headerlink" title="1. 什么是WSL？"></a><strong>1. 什么是WSL？</strong></h1><p>适用于 Linux 的 Windows 子系统 (WSL) 是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双引导。 WSL 旨在为希望同时使用 Windows 和 Linux 的开发人员提供无缝高效的体验。</p>
+<ul>
+<li><p>使用 WSL 安装和运行各种 Linux 发行版，例如 Ubuntu、Debian、Kali 等。 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install">安装 Linux 发行版</a>并从 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/compare-versions#wsl-in-the-microsoft-store">Microsoft Store</a> 接收自动更新、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/use-custom-distro">导入 Microsoft Store 中不可用的 Linux 发行版</a>，或<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/build-custom-distro">构建你自己的客户 Linux 发行版</a>。</p>
+</li>
+<li><p>将文件存储在独立的 Linux 文件系统中，具体取决于安装的发行版。</p>
+</li>
+<li><p>运行命令行工具，例如 BASH。</p>
+</li>
+<li><p>运行常用的 BASH 命令行工具（例如 <code>grep</code>、<code>sed</code>、<code>awk</code>）或其他 ELF-64 二进制文件。</p>
+</li>
+<li><p>运行 Bash 脚本和 GNU&#x2F;Linux 命令行应用程序，包括：</p>
+<ul>
+<li><p>工具：vim、emacs、tmux</p>
+</li>
+<li><p>语言：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/nodejs/setup-on-wsl2">NodeJS</a>、JavaScript、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/python/web-frameworks">Python</a>、Ruby、C&#x2F;C++、C# 和 F#、Rust、Go 等。</p>
+</li>
+<li><p>服务：SSHD、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">MySQL</a>、Apache、lighttpd、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">MongoDB</a>、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">PostgreSQL</a>。</p>
+</li>
+</ul>
+</li>
+<li><p>使用自己的 GNU&#x2F;Linux 分发包管理器安装其他软件。</p>
+</li>
+<li><p>使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。</p>
+</li>
+<li><p>在 Windows 上调用 GNU&#x2F;Linux 应用程序。</p>
+</li>
+<li><p>运行直接集成到 Windows 桌面的 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gui-apps">GNU&#x2F;Linux 图形应用程序</a></p>
+</li>
+<li><p>使用你的设备 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gpu-compute">GPU 加速 Linux 上运行的机器学习工作负载</a>。</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install">安装 WSL</a></p>
+<h2 id="什么是-WSL-2？"><a href="#什么是-WSL-2？" class="headerlink" title="什么是 WSL 2？"></a><strong>什么是 WSL 2？</strong></h2><p>安装 Linux 发行版时，WSL 2 是默认发行版类型。 WSL 2 使用虚拟化技术在轻量级实用工具虚拟机 (VM) 中运行 Linux 内核。 Linux 发行版作为独立的容器在 WSL 2 托管 VM 内运行。 通过 WSL 2 运行的 Linux 发行版将共享同一网络命名空间、设备树（而非 <code>/dev/pts</code>）、CPU&#x2F;内核&#x2F;内存&#x2F;交换空间、<code>/init</code> 二进制文件，但有自己的 PID 命名空间、装载命名空间、用户命名空间、Cgroup 命名空间和 <code>init</code> 进程。</p>
+<p>WSL 2 提高了文件系统性能，并且与 WSL 1 体系结构相比增加了完整的系统调用兼容性。 详细了解 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/compare-versions">WSL 1 和 WSL 2 的比较</a>。</p>
+<p>单个 Linux 分发版可以在 WSL 1 或 WSL 2 体系结构中运行。 每个分发版可随时升级或降级，并且你可以并行运行 WSL 1 和 WSL 2 分发版。 请参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands#set-default-wsl-version">设置 WSL 版本命令</a>。</p>
+<h1 id="2-安装WSL"><a href="#2-安装WSL" class="headerlink" title="2. 安装WSL"></a>2. 安装WSL</h1><h2 id="安装-WSL-命令"><a href="#安装-WSL-命令" class="headerlink" title="安装 WSL 命令"></a><strong>安装 WSL 命令</strong></h2><p>现在，可以使用单个命令安装运行 WSL 所需的一切内容。 在管理员模式下打开 PowerShell 或 Windows 命令提示符，方法是右键单击并选择“以管理员身份运行”，输入 wsl –install 命令，然后重启计算机。</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">wsl --install
+</code></pre>
+<p>此命令将启用运行 WSL 并安装 Linux 的 Ubuntu 发行版所需的功能。 （<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands#install">可以更改此默认发行版</a>）。</p>
+<p>如果你运行的是旧版，或只是不想使用 install 命令并希望获得分步指引，请参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-manual">旧版 WSL 手动安装步骤</a>。</p>
+<p>首次启动新安装的 Linux 发行版时，将打开一个控制台窗口，要求你等待将文件解压缩并存储到计算机上。 未来的所有启动时间应不到一秒。</p>
+<p><strong>备注</strong></p>
+<p>仅当根本没有安装 WSL 时，上述命令才有效。 如果运行 <code>wsl --install</code> 并查看 WSL 帮助文本，请尝试运行 <code>wsl --list --online</code> 以查看可用发行版列表并运行 <code>wsl --install -d &lt;DistroName&gt;</code> 以安装一个发行版。 若要卸载 WSL，请参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting#uninstall-legacy-version-of-wsl"><strong>卸载旧版 WSL</strong></a> 或<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands#unregister-or-uninstall-a-linux-distribution"><strong>注销或卸载 Linux 发行版</strong></a>。</p>
+<h2 id="更改默认安装的-Linux-发行版"><a href="#更改默认安装的-Linux-发行版" class="headerlink" title="更改默认安装的 Linux 发行版"></a><strong>更改默认安装的 Linux 发行版</strong></h2><p>默认情况下，安装的 Linux 分发版为 Ubuntu。 可以使用 <code>-d</code> 标志进行更改。</p>
+<ul>
+<li><p>若要更改安装的发行版，请输入：<code>wsl --install -d &lt;Distribution Name&gt;</code>。 将 <code>&lt;Distribution Name&gt;</code> 替换为要安装的发行版的名称。</p>
+</li>
+<li><p>若要查看可通过在线商店下载的可用 Linux 发行版列表，请输入：<code>wsl --list --online</code> 或 <code>wsl -l -o</code>。</p>
+</li>
+<li><p>若要在初始安装后安装其他 Linux 发行版，还可使用命令：<code>wsl --install -d &lt;Distribution Name&gt;</code>。</p>
+</li>
+</ul>
+<p><strong>提示</strong></p>
+<p>如果要通过 Linux&#x2F;Bash 命令行（而不是通过 PowerShell 或命令提示符）安装其他发行版，必须在命令中使用 .exe：<code>wsl.exe --install -d &lt;Distribution Name&gt;</code> 或若要列出可用发行版，则使用：<code>wsl.exe -l -o</code>。</p>
+<p>如果在安装过程中遇到问题，请查看<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting#installation-issues">疑难解答指南的安装部分</a>。</p>
+<p>要安装未列为可用版本的 Linux 发行版，可使用 TAR 文件<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/use-custom-distro">导入任何 Linux 发行版</a>。 在某些情况下，<a target="_blank" rel="noopener" href="https://wsldl-pg.github.io/ArchW-docs/How-to-Setup/">与 Arch Linux</a> 一样，也可使用 <code>.appx</code> 文件进行安装。 还可以通过 WSL 创建自己的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/build-custom-distro">自定义 Linux 发行版</a>，以供使用。</p>
+<h2 id="设置-Linux-用户信息"><a href="#设置-Linux-用户信息" class="headerlink" title="设置 Linux 用户信息"></a><strong>设置 Linux 用户信息</strong></h2><p>安装 WSL 后，需要为新安装的 Linux 发行版创建用户帐户和密码。 请参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password">设置 WSL 开发环境的最佳做法</a>指南来了解详细信息。</p>
+<h2 id="设置和最佳做法"><a href="#设置和最佳做法" class="headerlink" title="设置和最佳做法"></a><strong>设置和最佳做法</strong></h2><p>建议遵循<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment">设置 WSL 开发环境的最佳做法</a>这一指南，逐步了解以下操作：为已安装的 Linux 发行版设置用户名和密码、使用基本的 WSL 命令、安装和自定义 Windows 终端、针对 Git 版本控制进行设置、使用 VS Code 远程服务器进行代码编辑和调试、文件存储的最佳做法、设置数据库、装载外部驱动器、设置 GPU 加速等。</p>
+<h2 id="检查正在运行的-WSL-版本"><a href="#检查正在运行的-WSL-版本" class="headerlink" title="检查正在运行的 WSL 版本"></a><strong>检查正在运行的 WSL 版本</strong></h2><p>可列出已安装的 Linux 发行版，并通过在 PowerShell 或 Windows 命令提示符中输入以下命令来检查每个发行版的 WSL 版本：<code>wsl -l -v</code>。</p>
+<p>要在安装新的 Linux 发行版时将默认版本设置为 WSL 1 或 WSL 2，请使用命令 <code>wsl --set-default-version &lt;Version#&gt;</code>，将 <code>&lt;Version#&gt;</code> 替换为 1 或 2。</p>
+<p>要设置与 <code>wsl</code> 命令一起使用的默认 Linux 发行版，请输入 <code>wsl -s &lt;DistributionName&gt;</code> 或 <code>wsl --set-default &lt;DistributionName&gt;</code>，将 <code>&lt;DistributionName&gt;</code> 替换为要使用的 Linux 发行版的名称。 例如，从 PowerShell&#x2F;CMD 输入 <code>wsl -s Debian</code>，将默认发行版设置为 Debian。 现在从 Powershell 运行 <code>wsl npm init</code> 将在 Debian 中运行 <code>npm init</code> 命令。</p>
+<p>要在 PowerShell 或 Windows 命令提示符下运行特定的 WSL 发行版而不更改默认发行版，请使用命令 <code>wsl -d &lt;DistributionName&gt;</code>，将 <code>&lt;DistributionName&gt;</code> 替换为要使用的发行版的名称。</p>
+<p>有关详细信息，请参阅 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands">WSL 的基本命令</a>指南。</p>
+<h2 id="将版本从-WSL-1-升级到-WSL-2"><a href="#将版本从-WSL-1-升级到-WSL-2" class="headerlink" title="将版本从 WSL 1 升级到 WSL 2"></a><strong>将版本从 WSL 1 升级到 WSL 2</strong></h2><p>使用 <code>wsl --install</code> 命令安装的新 Linux 安装将默认设置为 WSL 2。</p>
+<p><code>wsl --set-version</code> 命令可用于从 WSL 2 降级到 WSL 1，或将以前安装的 Linux 发行版从 WSL 1 更新到 WSL 2。</p>
+<p>要查看 Linux 发行版是设置为 WSL 1 还是 WSL 2，请使用命令 <code>wsl -l -v</code>。</p>
+<p>要更改版本，请使用 <code>wsl --set-version &lt;distro name&gt; 2</code> 命令将 <code>&lt;distro name&gt;</code> 替换为要更新的 Linux 发行版的名称。 例如，<code>wsl --set-version Ubuntu-20.04 2</code> 会将 Ubuntu 20.04 发行版设置为使用 WSL 2。</p>
+<p>如果在 <code>wsl --install</code> 命令可用之前手动安装了 WSL，则可能还需要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-3---enable-virtual-machine-feature">启用 WSL 2 所使用的虚拟机可选组件</a>并<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package">安装内核包</a>（如果尚未这样做）。</p>
+<p>如需了解更多信息，请参阅 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands">WSL 命令参考</a>以获取 WSL 命令列表，并参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/compare-versions">比较 WSL 1 和 WSL 2</a>，获取有关用于你的工作场景的指南，或参阅<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment">设置 WSL 开发环境的最佳做法</a>，了解有关使用 WSL 设置良好开发工作流的一般指南。</p>
+<h2 id="使用-WSL-运行多个-Linux-发行版的方法"><a href="#使用-WSL-运行多个-Linux-发行版的方法" class="headerlink" title="使用 WSL 运行多个 Linux 发行版的方法"></a><strong>使用 WSL 运行多个 Linux 发行版的方法</strong></h2><p>WSL 支持运行想要安装的任意数量的不同 Linux 发行版。 这可能包括从 <a target="_blank" rel="noopener" href="https://aka.ms/wslstore">Microsoft Store</a> 选择发行版、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/use-custom-distro">导入自定义发行版</a>或<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/build-custom-distro">生成自己的自定义发行版</a>。</p>
+<p>安装后，有几种方法可以运行 Linux 发行版：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/get-started">安装 Windows 终端</a>（推荐）：使用 Windows 终端支持你想要安装的任意数量的命令行，并允许你在多个标签或窗口窗格中打开它们并在多个 Linux 发行版或其他命令行（PowerShell、命令提示符、Azure CLI 等）之间快速切换**。 可使用独特的配色方案、字体样式、大小、背景图像和自定义键盘快捷键来完全自定义终端。** <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal"><strong>了解详细信息。</strong></a></p>
+</li>
+<li><p>通过访问 Windows“开始”菜单并键入已安装的发行版的名称，可以直接打开 Linux 发行版。 例如：“Ubuntu”。 这会在其自己的控制台窗口中打开 Ubuntu。</p>
+</li>
+<li><p>在 Windows 命令提示符或 PowerShell 中，可以输入已安装的发行版的名称。 例如：<code>ubuntu</code></p>
+</li>
+<li><p>在 Windows 命令提示符或 PowerShell 中，可以在当前命令行中打开默认的 Linux 发行版，方法是输入：<code>wsl.exe</code>。</p>
+</li>
+<li><p>在 Windows 命令提示符或 PowerShell 中，可以在当前命令行中使用默认的 Linux 发行版，而无需输入新的发行版名称，方法是输入：<code>wsl [command]</code>。 将 <code>[command]</code> 替换为 WSL 命令，例如，替换为 <code>wsl -l -v</code> 以列出已安装的发行版，或 <code>wsl pwd</code> 以查看当前目录路径在 WSL 中的装载位置。 在 PowerShell 中，命令 <code>get-date</code> 将提供 Windows 文件系统中的日期，而 <code>wsl date</code> 将提供 Linux 文件系统中的日期。</p>
+</li>
+</ul>
+<p>选择的方法应取决于所执行的操作。 如果已在 Windows 提示符或 PowerShell 窗口中打开 WSL 命令行并想退出，请输入命令：<code>exit</code>。</p>
+<h2 id="旧版-WSL-的手动安装步骤"><a href="#旧版-WSL-的手动安装步骤" class="headerlink" title="旧版 WSL 的手动安装步骤"></a><strong>旧版 WSL 的手动安装步骤</strong></h2><h3 id="步骤-1-启用适用于-Linux-的-Windows-子系统"><a href="#步骤-1-启用适用于-Linux-的-Windows-子系统" class="headerlink" title="步骤 1 - 启用适用于 Linux 的 Windows 子系统"></a><strong>步骤 1 - 启用适用于 Linux 的 Windows 子系统</strong></h3><p>需要先启用“适用于 Linux 的 Windows 子系统”可选功能，然后才能在 Windows 上安装 Linux 分发。</p>
+<p>以管理员身份打开 PowerShell（“开始”菜单 &gt;“PowerShell” &gt;单击右键 &gt;“以管理员身份运行”），然后输入以下命令：</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+</code></pre>
+<p>建议现在转到步骤 #2，更新到 WSL 2，但如果只想安装 WSL 1，现在可以重新启动计算机，然后继续执行<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-manual#step-6---install-your-linux-distribution-of-choice">步骤 6 - 安装所选的 Linux 发行版</a>。 若要更新到 WSL 2，请等待重新启动计算机，然后继续执行下一步。</p>
+<h3 id="步骤-2-检查运行-WSL-2-的要求"><a href="#步骤-2-检查运行-WSL-2-的要求" class="headerlink" title="步骤 2 - 检查运行 WSL 2 的要求"></a><strong>步骤 2 - 检查运行 WSL 2 的要求</strong></h3><p>若要更新到 WSL 2，需要运行 Windows 10。</p>
+<ul>
+<li><p>对于 x64 系统：版本 1903 或更高版本，内部版本为 18362.1049 或更高版本。</p>
+</li>
+<li><p>对于 ARM64 系统：版本 2004 或更高版本，内部版本为 19041 或更高版本。</p>
+</li>
+</ul>
+<p>或 Windows 11。</p>
+<p><strong>备注</strong></p>
+<p>低于 18362 的版本不支持 WSL 2。 使用 <a target="_blank" rel="noopener" href="https://www.microsoft.com/software-download/windows10"><strong>Windows Update 助手</strong></a>更新 Windows 版本。 Windows 版本 1903 支持也仅适用于 x64 系统。 如果使用的是 Arm64 版本的 Windows，则需要升级到 Windows 10 版本 2004 或更高版本才能完全访问 WSL 2。 有关详细信息，请参阅<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/wsl-2-support-is-coming-to-windows-10-versions-1903-and-1909"><strong>WSL 2 即将支持 Windows 10 版本 1903 和 1909</strong></a>。</p>
+<p>若要检查 Windows 版本及内部版本号，选择 Windows 徽标键 + R，然后键入“winver”，选择“确定”。 更新到“设置”菜单中的<a href="ms-settings:windowsupdate">最新 Windows 版本</a>。</p>
+<p><strong>备注</strong></p>
+<p>如果运行的是 Windows 10 版本1903 或 1909，请在 Windows 菜单中打开“设置”，导航到“更新和安全性”，然后选择“检查更新”。 内部版本号必须是 18362.1049+ 或 18363.1049+，次要内部版本号需要高于 .1049。 阅读详细信息：<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/wsl-2-support-is-coming-to-windows-10-versions-1903-and-1909/"><strong>WSL 2 即将支持 Windows 10 版本 1903 和 1909</strong></a>。</p>
+<h3 id="步骤-3-启用虚拟机功能"><a href="#步骤-3-启用虚拟机功能" class="headerlink" title="步骤 3 - 启用虚拟机功能"></a><strong>步骤 3 - 启用虚拟机功能</strong></h3><p>安装 WSL 2 之前，必须启用“虚拟机平台”可选功能。 计算机需要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting#error-0x80370102-the-virtual-machine-could-not-be-started-because-a-required-feature-is-not-installed">虚拟化功能</a>才能使用此功能。</p>
+<p>以管理员身份打开 PowerShell 并运行：</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+</code></pre>
+<p><strong>重新启动</strong>计算机，以完成 WSL 安装并更新到 WSL 2。</p>
+<h3 id="步骤-4-下载-Linux-内核更新包"><a href="#步骤-4-下载-Linux-内核更新包" class="headerlink" title="步骤 4 - 下载 Linux 内核更新包"></a><strong>步骤 4 - 下载 Linux 内核更新包</strong></h3><p>Linux 内核更新包会安装最新版本的 <a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL2-Linux-Kernel">WSL 2 Linux 内核</a>，以便在 Windows 操作系统映像中运行 WSL。 （若要运行 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/compare-versions#wsl-in-the-microsoft-store">Microsoft Store 中的 WSL</a> 并更频繁地推送更新，请使用 <code>wsl.exe --install</code> 或 <code>wsl.exe --update</code>。）</p>
+<ol>
+<li><p>下载最新包：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">适用于 x64 计算机的 WSL2 Linux 内核更新包</a></li>
+</ul>
+<p><strong>备注</strong></p>
+<p>如果使用的是 ARM64 计算机，请下载 <a target="_blank" rel="noopener" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi"><strong>ARM64 包</strong></a>。 如果不确定自己计算机的类型，请打开命令提示符或 PowerShell，并输入：<code>systeminfo | find &quot;System Type&quot;</code>。 <strong>Caveat：</strong> 在非英文版 Windows 上，你可能必须修改搜索文本，对“System Type”字符串进行翻译。 你可能还需要对引号进行转义来用于 find 命令。 例如，在德语版中使用 <code>systeminfo | find &#39;&quot;Systemtyp&quot;&#39;</code>。</p>
+</li>
+<li><p>运行上一步中下载的更新包。 （双击以运行 - 系统将提示你提供提升的权限，选择“是”以批准此安装。）</p>
+</li>
+</ol>
+<p>安装完成后，请继续执行下一步 - 在安装新的 Linux 分发时，将 WSL 2 设置为默认版本。 （如果希望将新的 Linux 安装设置为 WSL 1，请跳过此步骤。）</p>
+<p><strong>备注</strong></p>
+<p>有关详细信息，请参阅 <a target="_blank" rel="noopener" href="https://aka.ms/cliblog"><strong>Windows 命令行博客</strong></a>上的文章<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004"><strong>对更新 WSL2 Linux 内核的更改</strong></a>。</p>
+<h3 id="步骤-5-将-WSL-2-设置为默认版本"><a href="#步骤-5-将-WSL-2-设置为默认版本" class="headerlink" title="步骤 5 - 将 WSL 2 设置为默认版本"></a><strong>步骤 5 - 将 WSL 2 设置为默认版本</strong></h3><p>打开 PowerShell，然后在安装新的 Linux 发行版时运行以下命令，将 WSL 2 设置为默认版本：</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">wsl --set-default-version 2
+</code></pre>
+<h3 id="步骤-6-安装所选的-Linux-分发"><a href="#步骤-6-安装所选的-Linux-分发" class="headerlink" title="步骤 6 - 安装所选的 Linux 分发"></a><strong>步骤 6 - 安装所选的 Linux 分发</strong></h3><ol>
+<li><p>打开 <a target="_blank" rel="noopener" href="https://aka.ms/wslstore">Microsoft Store</a>，并选择你偏好的 Linux 分发版。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/store.png" srcset="/img/loading.gif" lazyload alt="View of Linux distributions in the Microsoft Store"></p>
+<p>单击以下链接会打开每个分发版的 Microsoft Store 页面：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9N9TNGVNDL3Q">Ubuntu 18.04 LTS</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9n6svws3rx71">Ubuntu 20.04 LTS</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9PN20MSR04DW">Ubuntu 22.04 LTS</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9NJFZK00FGKV">openSUSE Leap 15.1</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9MZ3D1TRP8T1">SUSE Linux Enterprise Server 12 SP5</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9PN498VPMF3Z">SUSE Linux Enterprise Server 15 SP1</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9PKR34TNCV07">Kali Linux</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9MSVKQC78PK6">Debian GNU&#x2F;Linux</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9n6gdm4k2hnc">Fedora Remix for WSL</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9NV1GV1PXZ6P">Pengwin</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9N8LP0X93VCP">Pengwin Enterprise</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9p804crf0395">Alpine WSL</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9msmjqd017x7">Raft（免费试用版）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://apps.microsoft.com/search?query=alma+linux">Alma Linux</a></p>
+</li>
+</ul>
+</li>
+<li><p>在分发版的页面中，选择“获取”。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntustore.png" srcset="/img/loading.gif" lazyload alt="Linux distributions in the Microsoft store"></p>
+</li>
+</ol>
+<p>首次启动新安装的 Linux 分发版时，将打开一个控制台窗口，系统会要求你等待一分钟或两分钟，以便文件解压缩并存储到电脑上。 未来的所有启动时间应不到一秒。</p>
+<p>然后，需要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password">为新的 Linux 分发版创建用户帐户和密码</a>。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png" srcset="/img/loading.gif" lazyload alt="Ubuntu unpacking in the Windows console"></p>
+<p><strong>祝贺你！ 现已成功安装并设置了与 Windows 操作系统完全集成的 Linux 分发！</strong></p>
+<h2 id="排查安装问题"><a href="#排查安装问题" class="headerlink" title="排查安装问题"></a><strong>排查安装问题</strong></h2><p>如果在安装过程中遇到问题，请查看<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting#installation-issues">疑难解答指南的安装部分</a>。</p>
+<h2 id="下载发行版"><a href="#下载发行版" class="headerlink" title="下载发行版"></a><strong>下载发行版</strong></h2><p>在某些情况下，你可能无法（或不想）使用 Microsoft Store 安装 WSL Linux 发行版。 你可能正在运行不支持 Microsoft Store 的 Windows Server 或长期服务 (LTSC) 桌面操作系统 SKU，或者你的公司网络策略和&#x2F;或管理员不允许在你的环境中使用 Microsoft Store。 在这些情况下，虽然 WSL 本身可用，但你可能需要直接下载 Linux 发行版。</p>
+<p>如果 Microsoft Store 应用不可用，可使用以下链接来下载并手动安装 Linux 发行版：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wslubuntu">Ubuntu</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wslubuntu2204">Ubuntu 22.04 LTS</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wslubuntu2004">Ubuntu 20.04</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wslubuntu2004arm">Ubuntu 20.04 ARM</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-ubuntu-1804">Ubuntu 18.04</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-ubuntu-1804-arm">Ubuntu 18.04 ARM</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-ubuntu-1604">Ubuntu 16.04</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-debian-gnulinux">Debian GNU&#x2F;Linux</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-kali-linux-new">Kali Linux</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-sles-12">SUSE Linux Enterprise Server 12</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-SUSELinuxEnterpriseServer15SP2">SUSE Linux Enterprise Server 15 SP2</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-SUSELinuxEnterpriseServer15SP3">SUSE Linux Enterprise Server 15 SP3</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-opensuse-tumbleweed">openSUSE Tumbleweed</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-opensuseleap15-3">openSUSE Leap 15.3</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-opensuseleap15-2">openSUSE Leap 15.2</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-oraclelinux-8-5">Oracle Linux 8.5</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://aka.ms/wsl-oraclelinux-7-9">Oracle Linux 7.9</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/WhitewaterFoundry/WSLFedoraRemix/releases/">Fedora Remix for WSL</a></p>
+</li>
+</ul>
+<p>这将导致 <code>&lt;distro&gt;.appx</code> 包下载到你选择的文件夹。</p>
+<p>如果愿意，你也可通过命令行下载首选的发行版，可将 PowerShell 与 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.utility/invoke-webrequest">Invoke-WebRequest</a> cmdlet 一起使用。 例如，下载 Ubuntu 20.04：</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
+</code></pre>
+<p><strong>提示</strong></p>
+<p>如果下载需要很长时间，请通过设置 <code>$ProgressPreference = &#39;SilentlyContinue&#39;</code> 来关闭进度栏</p>
+<p>你还可以选择使用 <a target="_blank" rel="noopener" href="https://curl.se/">curl 命令行实用程序</a>来下载。 使用 curl 下载 Ubuntu 20.04：</p>
+<p>控制台复制</p>
+<pre><code class="hljs">curl.exe -L -o ubuntu-2004.appx https://aka.ms/wslubuntu2004
+</code></pre>
+<p>在本示例中，将执行 <code>curl.exe</code>（而不仅仅是 <code>curl</code>），以确保在 PowerShell 中调用真正的 curl 可执行文件，而不是调用 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.utility/invoke-webrequest">Invoke WebRequest</a> 的 PowerShell curl 别名。</p>
+<p>下载了发行版后，导航到包含下载内容的文件夹，并在该目录中运行以下命令，其中 <code>app-name</code> 是 Linux 发行版 .appx 文件的名称。</p>
+<p>Powershell复制</p>
+<pre><code class="hljs">Add-AppxPackage .\app_name.appx
+</code></pre>
+<p>Appx 包下载完成后，可以通过双击 appx 文件开始运行新发行版。 （命令 <code>wsl -l</code> 不会在此步骤完成之前显示发行版已安装）。</p>
+<p>如果你使用 Windows Server，或在运行上述命令时遇到问题，可在 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-on-server">Windows Server</a> 文档页上找到备用安装说明，以通过将 <code>.appx</code> 文件更改为 zip 文件来安装该文件。</p>
+<p>安装了发行版后，请按照说明<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/setup/environment#set-up-your-linux-username-and-password">为新的 Linux 发行版创建用户帐户和密码</a>。</p>
+<h2 id="安装-Windows-终端（可选）"><a href="#安装-Windows-终端（可选）" class="headerlink" title="安装 Windows 终端（可选）"></a><strong>安装 Windows 终端（可选）</strong></h2><p>使用 Windows 终端可以打开多个选项卡或窗口窗格，以显示多个 Linux 发行版或其他命令行（PowerShell、命令提示符、Azure CLI 等）并在它们之间快速切换。 可使用独特的配色方案、字体样式、大小、背景图像和自定义键盘快捷键来完全自定义终端。 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal">了解详细信息。</a></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/get-started">安装 Windows 终端</a>。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/terminal.png" srcset="/img/loading.gif" lazyload alt="Windows Terminal"></p>
+<h1 id="3-教程"><a href="#3-教程" class="headerlink" title="3.教程"></a>3.教程</h1><h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a><strong>开始使用</strong></h2><p>适用于 Linux 的 Windows 子系统随 Windows 操作系统一起提供，但必须先启用它并安装 Linux 发行版，然后才能开始使用它。</p>
+<p>若要使用简化的 –install 命令，必须运行最新版本的 Windows（内部版本 20262+）。 若要检查 Windows 版本及内部版本号，选择 Windows 徽标键 + R，然后键入“winver”，选择“确定”。 可以使用<a href="ms-settings:windowsupdate">“设置”菜单</a>或 <a target="_blank" rel="noopener" href="https://www.microsoft.com/software-download/">Windows 更新助手</a>进行更新。</p>
+<p>如果希望安装除 Ubuntu 以外的 Linux 发行版，或者希望手动完成这些步骤，请参阅 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install">WSL 安装页</a>了解更多详细信息。</p>
+<p>打开 PowerShell（或 Windows 命令提示符）并输入：</p>
+<p>PowerShell复制</p>
+<pre><code class="hljs">wsl --install
+</code></pre>
+<p>--install 命令执行以下操作：</p>
+<ul>
+<li><p>启用可选的 WSL 和虚拟机平台组件</p>
+</li>
+<li><p>下载并安装最新 Linux 内核</p>
+</li>
+<li><p>将 WSL 2 设置为默认值</p>
+</li>
+<li><p>下载并安装 Ubuntu Linux 发行版（可能需要重新启动）</p>
+</li>
+</ul>
+<p>在此安装过程中，你将需要重启计算机。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/wsl-install.png" srcset="/img/loading.gif" lazyload alt="PowerShell command line running wsl --install"></p>
+<p>如果遇到任何问题，请查看<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting">排查安装问题</a>一文。</p>
+<h2 id="设置-Linux-用户名和密码"><a href="#设置-Linux-用户名和密码" class="headerlink" title="设置 Linux 用户名和密码"></a><strong>设置 Linux 用户名和密码</strong></h2><p>使用 WSL 安装 Linux 发行版的过程完成后，使用“开始”菜单打开该发行版（默认情况下为 Ubuntu）。 系统将要求你为 Linux 发行版创建“用户名”和“密码”<strong>。</strong></p>
+<ul>
+<li><p>此<strong>用户名</strong>和<strong>密码</strong>特定于安装的每个单独的 Linux 分发版，与 Windows 用户名无关。</p>
+</li>
+<li><p>请注意，输入<strong>密码</strong>时，屏幕上不会显示任何内容。 这称为盲人键入。 你不会看到你正在键入的内容，这是完全正常的。</p>
+</li>
+<li><p>创建<strong>用户名</strong>和<strong>密码</strong>后，该帐户将是分发版的默认用户，并将在启动时自动登录。</p>
+</li>
+<li><p>此帐户将被视为 Linux 管理员，能够运行 <code>sudo</code> (Super User Do) 管理命令。</p>
+</li>
+<li><p>在 WSL 上运行的每个 Linux 发行版都有其自己的 Linux 用户帐户和密码。 每当添加分发版、重新安装或重置时，都必须配置一个 Linux 用户帐户。</p>
+</li>
+</ul>
+<p><strong>备注</strong></p>
+<p>随 WSL 一起安装的 Linux 发行版是按用户安装，不可与其他 Windows 用户帐户共享。 遇到用户名错误？ <a target="_blank" rel="noopener" href="https://serverfault.com/questions/73084/what-characters-should-i-use-or-not-use-in-usernames-on-linux"><strong>StackExchange：在 Linux 上的用户名中，应使用或不使用哪些字符？</strong></a></p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png" srcset="/img/loading.gif" lazyload alt="Ubuntu command line enter UNIX username"></p>
+<p>若要更改或重置密码，请打开 Linux 发行版并输入命令：<code>passwd</code>。 系统会要求你输入当前密码，然后要求输入新密码，之后再确认新密码。</p>
+<p>如果忘记了 Linux 分发版的密码：</p>
+<ol>
+<li><p>请打开 PowerShell，并使用以下命令进入默认 WSL 分发版的根目录：<code>wsl -u root</code></p>
+<blockquote>
+<p>如果需要在非默认分发版中更新忘记的密码，请使用命令：<code>wsl -d Debian -u root</code>，并将 <code>Debian</code> 替换为目标分发版的名称。</p>
+</blockquote>
+</li>
+<li><p>在 PowerShell 内的根级别打开 WSL 发行版后，可使用此命令更新密码：<code>passwd &lt;username&gt;</code>，其中 <code>&lt;username&gt;</code> 是发行版中帐户的用户名，而你忘记了它的密码。</p>
+</li>
+<li><p>系统将提示你输入新的 UNIX 密码，然后确认该密码。 在被告知密码已成功更新后，请使用以下命令在 PowerShell 内关闭 WSL：<code>exit</code>。</p>
+</li>
+</ol>
+<h2 id="更新和升级包"><a href="#更新和升级包" class="headerlink" title="更新和升级包"></a><strong>更新和升级包</strong></h2><p>建议使用发行版的首选包管理器定期更新和升级包。 对于 Ubuntu 或 Debian，请使用以下命令：</p>
+<p>Bash复制</p>
+<pre><code class="hljs">sudo apt update &amp;&amp; sudo apt upgrade
+</code></pre>
+<p>Windows 不会自动更新或升级 Linux 分发版。 大多数 Linux 用户往往倾向于自行控制此任务。</p>
+<h2 id="添加其他发行版"><a href="#添加其他发行版" class="headerlink" title="添加其他发行版"></a><strong>添加其他发行版</strong></h2><p>若要添加其他 Linux 发行版，可以通过 <a target="_blank" rel="noopener" href="https://aka.ms/wslstore">Microsoft Store</a>、通过 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/use-custom-distro">--import 命令</a>或通过<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/build-custom-distro">旁加载你自己的自定义发行版</a>进行安装。 你可能还想要<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/enterprise">设置自定义 WSL 映像，以便在企业中分发</a>。</p>
+<h2 id="设置-Windows-Terminal"><a href="#设置-Windows-Terminal" class="headerlink" title="设置 Windows Terminal"></a><strong>设置 Windows Terminal</strong></h2><p>Windows Terminal 可以使用命令行接口运行任何应用程序。 它的主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU 加速文本呈现引擎，你还可用它来创建你自己的主题并自定义文本、颜色、背景和快捷方式。</p>
+<p>每当安装新的 WSL Linux 发行版时，都会在 Windows Terminal 中为其创建一个新实例，该实例可根据你的偏好进行自定义。</p>
+<p>建议将 WSL 与 Windows Terminal 配合使用，尤其是在计划使用多个命令行时。 请参阅 Windows Terminal 文档，了解如何对其进行设置以及如何自定义首选项，包括：</p>
+<ul>
+<li><p>从 Microsoft Store <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/get-started">安装 Windows Terminal 或 Windows Terminal（预览版）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/get-started#invoke-the-command-palette">使用命令面板</a></p>
+</li>
+<li><p>设置键盘快捷方式等<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/#custom-actions">自定义操作</a>，使终端适应你的首选项</p>
+</li>
+<li><p>设置<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/customize-settings/startup">默认启动配置文件</a></p>
+</li>
+<li><p>自定义外观：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/customize-settings/appearance#theme">主题</a>、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/customize-settings/color-schemes">配色方案</a>、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/customize-settings/profile-general">名称和起始目录</a>、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/customize-settings/profile-appearance#background-image">背景图像</a>等</p>
+</li>
+<li><p>了解如何使用<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/command-line-arguments?tabs=windows">命令行参数</a>，例如使用拆分为窗口窗格或选项卡的多个命令行打开终端</p>
+</li>
+<li><p>了解<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/search">搜索功能</a></p>
+</li>
+<li><p>查找<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/tips-and-tricks">提示和技巧</a>，例如如何重命名选项卡或为其着色、使用鼠标交互或启用“Quake 模式”</p>
+</li>
+<li><p>查找有关如何设置<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/tutorials/custom-prompt-setup">自定义命令提示符</a>、<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/tutorials/ssh">SSH 配置文件</a>或<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/tutorials/tab-title">选项卡标题</a>的教程</p>
+</li>
+<li><p>查找<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/custom-terminal-gallery/custom-schemes">自定义终端库</a>和<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/terminal/troubleshooting">故障排除指南</a></p>
+</li>
+</ul>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/terminal.png" srcset="/img/loading.gif" lazyload alt="Windows Terminal screenshot"></p>
+<h2 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a><strong>文件存储</strong></h2><ul>
+<li><p>若要在 Windows 文件资源管理器中打开 WSL 项目，请输入：<code>explorer.exe .</code><br>请确保在命令的末尾添加句点以打开当前目录。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/filesystems#file-storage-and-performance-across-file-systems">将项目文件与计划使用的工具存储在相同的操作系统上</a>。<br>若想获得最快的性能速度，请将文件存储在 WSL 文件系统中，前提是使用 Linux 工具在 Linux 命令行（Ubuntu、OpenSUSE 等）中处理这些文件。 如果是使用 Windows 工具在 Windows 命令行（PowerShell、命令提示符）中工作，请将文件存储在 Windows 文件系统中。 可以跨操作系统访问文件，但这可能会显著降低性能。</p>
+</li>
+</ul>
+<p>例如，在存储 WSL 项目文件时：</p>
+<ul>
+<li><p>使用 Linux 文件系统根目录：<code>\\wsl$\&lt;DistroName&gt;\home\&lt;UserName&gt;\Project</code></p>
+</li>
+<li><p>而不使用 Windows 文件系统根目录：<code>C:\Users\&lt;UserName&gt;\Project</code> 或 <code>/mnt/c/Users/&lt;UserName&gt;/Project$</code></p>
+</li>
+</ul>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/windows-file-explorer.png" srcset="/img/loading.gif" lazyload alt="Windows File Explorer displaying Linux storage"></p>
+<h2 id="设置你最喜欢的代码编辑器"><a href="#设置你最喜欢的代码编辑器" class="headerlink" title="设置你最喜欢的代码编辑器"></a><strong>设置你最喜欢的代码编辑器</strong></h2><p>建议使用 Visual Studio Code 或 Visual Studio，因为它们直接支持使用 WSL 进行远程开发和调试。 Visual Studio Code 使你能够将 WSL 用作功能完备的开发环境。 Visual Studio 提供了对 C++ 跨平台开发的本机 WSL 支持。</p>
+<h3 id="使用-Visual-Studio-Code"><a href="#使用-Visual-Studio-Code" class="headerlink" title="使用 Visual Studio Code"></a><strong>使用 Visual Studio Code</strong></h3><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-vscode">开始将 Visual Studio Code 与 WSL 配合使用</a>，其中包括安装<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">远程开发扩展包</a>。 使用此扩展，能够运行 WSL、SSH 或开发容器，以使用整套 Visual Studio Code 功能进行编辑和调试。 在不同的独立开发环境之间快速切换并进行更新，而无需担心会影响本地计算机。</p>
+<p>安装并设置 VS Code 后，可以通过输入以下内容使用 VS Code 远程服务器打开 WSL 项目：<code>code .</code></p>
+<p>请确保在命令的末尾添加句点以打开当前目录。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/vscode-remote-wsl-extensions.png" srcset="/img/loading.gif" lazyload alt="VS Code with WSL extensions displayed"></p>
+<h3 id="使用-Visual-Studio"><a href="#使用-Visual-Studio" class="headerlink" title="使用 Visual Studio"></a><strong>使用 Visual Studio</strong></h3><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/cpp/build/walkthrough-build-debug-wsl2">开始将 Visual Studio 与 WSL 一起用于 C++ 跨平台开发</a>。 Visual Studio 2022 使你能够从 Visual Studio 的同一实例在 Windows、WSL 发行版和 SSH 连接上生成和调试 CMake 项目。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/vs-target-system.png" srcset="/img/loading.gif" lazyload alt="Select a target system in Visual Studio 2022"></p>
+<h2 id="使用-Git-设置版本管理"><a href="#使用-Git-设置版本管理" class="headerlink" title="使用 Git 设置版本管理"></a><strong>使用 Git 设置版本管理</strong></h2><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-git">开始在 WSL 上使用 Git</a>，并将项目连接到 Git 版本控制系统，同时使用凭据管理器进行身份验证，使用 Git Ignore 文件，了解 Git 行尾，以及使用内置到 VS Code 的 Git 命令。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/git-versions.gif" srcset="/img/loading.gif" lazyload alt="Displaying git version in the command line"></p>
+<h2 id="使用-Docker-设置远程开发容器"><a href="#使用-Docker-设置远程开发容器" class="headerlink" title="使用 Docker 设置远程开发容器"></a><strong>使用 Docker 设置远程开发容器</strong></h2><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-containers">开始使用 WSL 2 上的 Docker 远程容器</a>，并使用 Docker Desktop for Windows 将项目连接到远程开发容器。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/docker-running.png" srcset="/img/loading.gif" lazyload alt="Docker Desktop screenshot"></p>
+<h2 id="设置数据库"><a href="#设置数据库" class="headerlink" title="设置数据库"></a><strong>设置数据库</strong></h2><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/wsl-database">开始使用 WSL 上的数据库</a>，并将项目连接到 WSL 环境中的数据库。 开始使用 MySQL、PostgreSQL、MongoDB、Redis、Microsoft SQL Server 或 SQLite。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/mongodb.png" srcset="/img/loading.gif" lazyload alt="Running MongoDB in Ubuntu via WSL"></p>
+<h2 id="设置-GPU-加速以提高性能"><a href="#设置-GPU-加速以提高性能" class="headerlink" title="设置 GPU 加速以提高性能"></a><strong>设置 GPU 加速以提高性能</strong></h2><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gpu-compute">在 WSL 中设置 GPU 加速的机器学习训练</a>，并利用计算机的 GPU（图形处理单元）来加速性能繁重的工作负载。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/gpu-acceleration.gif" srcset="/img/loading.gif" lazyload alt="Running GPU acceleration with WSL"></p>
+<h2 id="基本-WSL-命令"><a href="#基本-WSL-命令" class="headerlink" title="基本 WSL 命令"></a><strong>基本 WSL 命令</strong></h2><p>通过 WSL 安装的 Linux 发行版最好使用 PowerShell 或 Windows 命令提示符 (CMD) 进行管理。 有关使用 WSL 时需要熟悉的基本命令的列表，请参阅 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/basic-commands">WSL 命令参考指南</a>。</p>
+<p>此外，许多命令在 Windows 和 Linux 之间都具有互操作性。 下面是几个示例：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/filesystems#run-linux-tools-from-a-windows-command-line">从 Windows 命令行运行 Linux 工具</a>：打开 PowerShell，通过输入以下内容使用 Linux <code>ls -la</code> 命令显示 <code>C:\temp&gt;</code> 的目录内容：<code>wsl ls -la</code></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/filesystems#mixing-linux-and-windows-commands">混合 Linux 和 Windows 命令</a>：在此示例中，使用 Linux 命令 <code>ls -la</code> 列出目录中的文件，然后使用 PowerShell 命令 <code>findstr</code> 筛选包含“git”的单词的结果：<code>wsl ls -la | findstr &quot;git&quot;</code>。 这还可以通过混合使用 Windows <code>dir</code> 命令和 Linux <code>grep</code> 命令来实现：<code>dir | wsl grep git</code>。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/filesystems#run-windows-tools-from-linux">直接从 WSL 命令行运行 Windows 工具</a>：<code>&lt;tool-name&gt;.exe</code>。例如，若要打开 .bashrc 文件（启动 Linux 命令行时运行的 shell 脚本），请输入：<code>notepad.exe .bashrc</code></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/filesystems#run-windows-tools-from-linux">使用 Linux Grep 工具运行 Windows ipconfig.exe 工具</a>：从 Bash 输入命令 <code>ipconfig.exe | grep IPv4 | cut -d: -f2</code> 或从 PowerShell 输入 <code>ipconfig.exe | wsl grep IPv4 | wsl cut -d: -f2</code>。此示例演示了 Windows 文件系统上的 ipconfig 工具，该工具先是用于显示当前 TCP&#x2F;IP 网络配置值，然后通过 Linux 工具 grep 被筛选为仅显示 IPv4 结果。</p>
+</li>
+</ul>
+<h2 id="装载外部驱动器或-USB"><a href="#装载外部驱动器或-USB" class="headerlink" title="装载外部驱动器或 USB"></a><strong>装载外部驱动器或 USB</strong></h2><p>按照此分步指南<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/wsl2-mount-disk">开始在 WSL 2 中装载 Linux 磁盘</a>。</p>
+<p><img src="https://learn.microsoft.com/zh-cn/windows/wsl/media/wslmountsimple.png" srcset="/img/loading.gif" lazyload alt="wsl mount command screenshot"></p>
+<h2 id="运行-Linux-GUI-应用"><a href="#运行-Linux-GUI-应用" class="headerlink" title="运行 Linux GUI 应用"></a><strong>运行 Linux GUI 应用</strong></h2><p>按照本教程了解如何设置和<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/tutorials/gui-apps">运行 WSL 上的 Linux GUI 应用</a>。</p>
+<h2 id="其他资源"><a href="#其他资源" class="headerlink" title="其他资源"></a><strong>其他资源</strong></h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/dev-environment/">在 Windows 上设置开发环境</a>：了解有关为首选语言或框架（如 React、Python、NodeJS、Vue 等）设置开发环境的详细信息。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/troubleshooting">疑难解答</a>：查找常见问题、在何处报告错误、在何处请求新功能以及如何参与文档编撰工作。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/faq">常见问题解答</a>：查找常见问题列表。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/release-notes">发行说明</a>：查看 WSL 发行说明，了解过去版本更新的历史记录。 还可以查找 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/kernel-release-notes">WSL Linux 内核的发行说明</a>。</p>
+</li>
+</ul>
+<h1 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h1><h2 id="网络代理"><a href="#网络代理" class="headerlink" title="网络代理"></a>网络代理</h2><h3 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h3><p>由于 WSL 2 是通过虚拟机的方式实现，所以不能像 WSL 1 时期那样直接使用 <code>127.0.0.1</code> 修改 WSL 内的网络代理。此时正确的处理方式应该是向 <code>~/.bashrc</code> 添加如下内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sh">hostip=$(<span class="hljs-built_in">cat</span> /etc/resolv.conf | grep nameserver | awk <span class="hljs-string">&#x27;&#123; print $2 &#125;&#x27;</span>)<br>port=7890 <span class="hljs-comment"># 此处端口可根据个人情况进行更改</span><br><br>PROXY_HTTP=<span class="hljs-string">&quot;http://<span class="hljs-variable">$&#123;hostip&#125;</span>:<span class="hljs-variable">$&#123;port&#125;</span>&quot;</span><br><br><span class="hljs-built_in">export</span> http_proxy=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span><br><span class="hljs-built_in">export</span> HTTP_PROXY=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span><br><br><span class="hljs-built_in">export</span> https_proxy=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span><br><span class="hljs-built_in">export</span> HTTPS_proxy=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;PROXY_HTTP&#125;</span>&quot;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>参考文章：<a target="_blank" rel="noopener" href="https://zinglix.xyz/2020/04/18/wsl2-proxy/">WSL2 中访问宿主机 Windows 的代理</a></p>
+<h3 id="取消防火墙"><a href="#取消防火墙" class="headerlink" title="取消防火墙"></a>取消防火墙</h3><p>Windows 与 WSL 之间存在防火墙，请参照以下步骤取消勾选对应选项：</p>
+<p><img src="https://lomirus.github.io/p/wsl2/firewall.png" srcset="/img/loading.gif" lazyload></p>
+<p>如果使用的是 Clash for Windows，请尝试开启 Clash for Windows 中主界面中的 Allow LAN 选项。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>在 WSL 2 中默认可获取到宿主机中的环境变量，这可能会导致某些错误，比如获取到一些没有意义的环境变量，导致环境混乱。</p>
+<p>若要禁止在 WSL 2 中访问 Windows 环境变量，可以先创建<code>/etc/wsl.conf</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> /etc/wsl.conf<br><br></code></pre></td></tr></table></figure>
+
+<p>然后修改其内容为：</p>
+<pre><code class="hljs">[interop]
+appendWindowsPath = false
+</code></pre>
+<h2 id="常用软件的安装"><a href="#常用软件的安装" class="headerlink" title="常用软件的安装"></a>常用软件的安装</h2><p>接下来安装几个我常用的软件包，这部分没什么技术含量，仅供以后查阅方面使用。</p>
+<p>首先更新软件源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt update<br><br></code></pre></td></tr></table></figure>
+
+<p>然后安装：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># python</span><br><span class="hljs-built_in">sudo</span> apt install python3<br><span class="hljs-built_in">ln</span> -s /usr/bin/python3 /usr/bin/python<br><br><span class="hljs-comment">## node/npm</span><br><span class="hljs-built_in">sudo</span> apt install nodejs<br><span class="hljs-built_in">sudo</span> apt install npm<br><br><span class="hljs-comment">## yarn</span><br><span class="hljs-built_in">sudo</span> npm install -g yarn<br><br><span class="hljs-comment">## deno</span><br><span class="hljs-built_in">sudo</span> apt install unzip<br>curl -fsSL https://deno.land/x/install/install.sh | sh<br><br><span class="hljs-comment">## rust</span><br>curl --proto <span class="hljs-string">&#x27;=https&#x27;</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh<br><span class="hljs-comment"># 建议选择 `default toolchain` 为 `nightly`</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="其他坑"><a href="#其他坑" class="headerlink" title="其他坑"></a>其他坑</h2><p>由于 WSL 2 用到了虚拟化平台功能，可能会导致其他虚拟机（如 VirtualBox）无法运行。目前我还没解决这个问题，啥时候用空解决了再更。</p>
+<p>更新：解决方案：卸载 VirtualBox, 安装VMWare.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/WSL/" class="category-chain-item">WSL</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/WSL/Windows/" class="category-chain-item">Windows</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/WSL/Windows/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/WSL/Windows/Linux/Docker/" class="category-chain-item">Docker</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
+      
+        <a href="/tags/wsl/" class="print-no-link">#wsl</a>
+      
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>WSL的配置和使用</div>
+      <div>https://tingfeng347.github.io/2024/04/11/WSL的配置和使用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/10/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E7%BB%93/" title="数据可视化总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据可视化总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/05/%E5%AE%9D%E5%A1%94%E9%83%A8%E7%BD%B2java%E9%A1%B9%E7%9B%AE/" title="宝塔部署java项目">
+                        <span class="hidden-mobile">宝塔部署java项目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

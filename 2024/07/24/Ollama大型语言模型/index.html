@@ -1,0 +1,1356 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="OllamaOllama 是一个开源的大型语言模型服务，提供了类似 OpenAI 的 API 接口和聊天界面，可以非常方便地部署最新版本的 GPT 模型并通过接口使用。支持热加载模型文件，无需重新启动即可切换不同的模型。 启动并运行大型语言模型。 macOS 操作系统Download Windows 预览版Download Linux操作系统curl -fsSL https:&#x2F;&#x2F;ollama.co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ollama大型语言模型">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="OllamaOllama 是一个开源的大型语言模型服务，提供了类似 OpenAI 的 API 接口和聊天界面，可以非常方便地部署最新版本的 GPT 模型并通过接口使用。支持热加载模型文件，无需重新启动即可切换不同的模型。 启动并运行大型语言模型。 macOS 操作系统Download Windows 预览版Download Linux操作系统curl -fsSL https:&#x2F;&#x2F;ollama.co">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-24T05:05:47.000Z">
+<meta property="article:modified_time" content="2026-01-18T01:39:31.809Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="ollama">
+<meta property="article:tag" content="大语言模型">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Ollama大型语言模型 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Ollama大型语言模型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-24 13:05" pubdate>
+          2024年7月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Ollama大型语言模型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Ollama"><a href="#Ollama" class="headerlink" title="Ollama"></a>Ollama</h1><p>Ollama 是一个开源的大型语言模型服务，提供了类似 OpenAI 的 API 接口和聊天界面，可以非常方便地部署最新版本的 GPT 模型并通过接口使用。支持热加载模型文件，无需重新启动即可切换不同的模型。</p>
+<p>启动并运行大型语言模型。</p>
+<h3 id="macOS-操作系统"><a href="#macOS-操作系统" class="headerlink" title="macOS 操作系统"></a>macOS 操作系统</h3><p><a target="_blank" rel="noopener" href="https://ollama.com/download/Ollama-darwin.zip">Download</a></p>
+<h3 id="Windows-预览版"><a href="#Windows-预览版" class="headerlink" title="Windows 预览版"></a>Windows 预览版</h3><p><a target="_blank" rel="noopener" href="https://ollama.com/download/OllamaSetup.exe">Download</a></p>
+<h3 id="Linux操作系统"><a href="#Linux操作系统" class="headerlink" title="Linux操作系统"></a>Linux操作系统</h3><pre><code class="hljs">curl -fsSL https://ollama.com/install.sh | sh
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/ollama/ollama/blob/main/docs/linux.md">手动安装说明</a></p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h3><p>The official <a target="_blank" rel="noopener" href="https://hub.docker.com/r/ollama/ollama">Ollama Docker image</a> <code>ollama/ollama</code> is available on Docker Hub.</p>
+<h3 id="Libraries"><a href="#Libraries" class="headerlink" title="Libraries"></a>Libraries</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ollama/ollama-python">ollama-python</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ollama/ollama-js">ollama-js</a></li>
+</ul>
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><p>要运行并与 <a target="_blank" rel="noopener" href="https://ollama.com/library/llama3">Llama 3</a>聊天：</p>
+<pre><code class="hljs">ollama run llama3
+</code></pre>
+<h2 id="模型库"><a href="#模型库" class="headerlink" title="模型库"></a>模型库</h2><p>Ollama 支持 ollama.com&#x2F;library 上可用的模型列表 <a target="_blank" rel="noopener" href="https://ollama.com/library" title="ollama model library">ollama.com&#x2F;library</a></p>
+<p>以下是一些可以下载的示例模型：</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Parameters</th>
+<th>Size</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Llama 3</td>
+<td>8B</td>
+<td>4.7GB</td>
+<td><code>ollama run llama3</code></td>
+</tr>
+<tr>
+<td>Llama 3</td>
+<td>70B</td>
+<td>40GB</td>
+<td><code>ollama run llama3:70b</code></td>
+</tr>
+<tr>
+<td>Phi 3 Mini</td>
+<td>3.8B</td>
+<td>2.3GB</td>
+<td><code>ollama run phi3</code></td>
+</tr>
+<tr>
+<td>Phi 3 Medium</td>
+<td>14B</td>
+<td>7.9GB</td>
+<td><code>ollama run phi3:medium</code></td>
+</tr>
+<tr>
+<td>Gemma 2</td>
+<td>9B</td>
+<td>5.5GB</td>
+<td><code>ollama run gemma2</code></td>
+</tr>
+<tr>
+<td>Gemma 2</td>
+<td>27B</td>
+<td>16GB</td>
+<td><code>ollama run gemma2:27b</code></td>
+</tr>
+<tr>
+<td>Mistral</td>
+<td>7B</td>
+<td>4.1GB</td>
+<td><code>ollama run mistral</code></td>
+</tr>
+<tr>
+<td>Moondream 2</td>
+<td>1.4B</td>
+<td>829MB</td>
+<td><code>ollama run moondream</code></td>
+</tr>
+<tr>
+<td>Neural Chat</td>
+<td>7B</td>
+<td>4.1GB</td>
+<td><code>ollama run neural-chat</code></td>
+</tr>
+<tr>
+<td>Starling</td>
+<td>7B</td>
+<td>4.1GB</td>
+<td><code>ollama run starling-lm</code></td>
+</tr>
+<tr>
+<td>Code Llama</td>
+<td>7B</td>
+<td>3.8GB</td>
+<td><code>ollama run codellama</code></td>
+</tr>
+<tr>
+<td>Llama 2 Uncensored</td>
+<td>7B</td>
+<td>3.8GB</td>
+<td><code>ollama run llama2-uncensored</code></td>
+</tr>
+<tr>
+<td>LLaVA</td>
+<td>7B</td>
+<td>4.5GB</td>
+<td><code>ollama run llava</code></td>
+</tr>
+<tr>
+<td>Solar</td>
+<td>10.7B</td>
+<td>6.1GB</td>
+<td><code>ollama run solar</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：您至少应有 8 GB 的可用 RAM 来运行 7B 型号，16 GB 的可用 RAM 来运行 13B 型号，32 GB 的 RAM 来运行 33B 型号。</p>
+</blockquote>
+<h2 id="自定义模型"><a href="#自定义模型" class="headerlink" title="自定义模型"></a>自定义模型</h2><h3 id="从-GGUF-导入"><a href="#从-GGUF-导入" class="headerlink" title="从 GGUF 导入"></a>从 GGUF 导入</h3><p>Ollama 支持在 Modelfile 中导入 GGUF 模型：</p>
+<ol>
+<li><p>创建一个名为 的文件，其中包含要导入的模型的本地文件路径的指令。ModelfileFROM</p>
+<pre><code class="hljs">FROM ./vicuna-33b.Q4_0.gguf
+</code></pre>
+</li>
+<li><p>在 Ollama 中创建模型</p>
+<pre><code class="hljs">ollama create example -f Modelfile
+</code></pre>
+</li>
+<li><p>运行模型</p>
+<pre><code class="hljs">ollama run example
+</code></pre>
+</li>
+</ol>
+<h3 id="从-PyTorch-或-Safetensors-导入"><a href="#从-PyTorch-或-Safetensors-导入" class="headerlink" title="从 PyTorch 或 Safetensors 导入"></a>从 PyTorch 或 Safetensors 导入</h3><p>有关详细信息，请参阅有关导入模型的<a href="docs/import.md">指南</a>。</p>
+<h3 id="自定义提示"><a href="#自定义提示" class="headerlink" title="自定义提示"></a>自定义提示</h3><p>Ollama 库中的模型可以通过提示进行自定义。例如，要自定义模型：llama3</p>
+<pre><code class="hljs">ollama pull llama3
+</code></pre>
+<p>创建一个：Modelfile</p>
+<pre><code class="hljs">FROM llama3
+
+# set the temperature to 1 [higher is more creative, lower is more coherent]
+PARAMETER temperature 1
+
+# set the system message
+SYSTEM &quot;&quot;&quot;
+You are Mario from Super Mario Bros. Answer as Mario, the assistant, only.
+&quot;&quot;&quot;
+</code></pre>
+<p>接下来，创建并运行模型：</p>
+<pre><code class="hljs">ollama create mario -f ./Modelfile
+ollama run mario
+&gt;&gt;&gt; hi
+Hello! It&#39;s your friend Mario.
+</code></pre>
+<h2 id="社区集成"><a href="#社区集成" class="headerlink" title="社区集成"></a>社区集成</h2><h3 id="Web-Desktop"><a href="#Web-Desktop" class="headerlink" title="Web &amp; Desktop"></a>Web &amp; Desktop</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-webui/open-webui">Open WebUI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AugustDev/enchanted">Enchanted (macOS native)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fmaclen/hollama">Hollama</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ParisNeo/lollms-webui">Lollms-Webui</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/danny-avila/LibreChat">LibreChat</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bionic-gpt/bionic-gpt">Bionic GPT</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rtcfirefly/ollama-ui">HTML UI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jikkuatwork/saddle">Saddle</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ivanfioravanti/chatbot-ollama">Chatbot UI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mckaywrigley/chatbot-ui">Chatbot UI v2</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ollama-interface/Ollama-Gui?tab=readme-ov-file">Typescript UI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/richawo/minimal-llm-ui">Minimalistic React UI for Ollama Models</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kevinhermawan/Ollamac">Ollamac</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/enricoros/big-AGI/blob/main/docs/config-local-ollama.md">big-AGI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cheshire-cat-ai/core">Cheshire Cat assistant framework</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/semperai/amica">Amica</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BruceMacD/chatd">chatd</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kghandour/Ollama-SwiftUI">Ollama-SwiftUI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/langgenius/dify">Dify.AI</a></li>
+<li><a target="_blank" rel="noopener" href="https://mindmac.app/">MindMac</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jakobhoeg/nextjs-ollama-llm-ui">NextJS Web Interface for Ollama</a></li>
+<li><a target="_blank" rel="noopener" href="https://msty.app/">Msty</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Bin-Huang/Chatbox">Chatbox</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tgraupmann/WinForm_Ollama_Copilot">WinForm Ollama Copilot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web">NextChat</a> with <a target="_blank" rel="noopener" href="https://docs.nextchat.dev/models/ollama">Get Started Doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mmo80/alpaca-webui">Alpaca WebUI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/enoch1118/ollamaGUI">OllamaGUI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/InternLM/OpenAOE">OpenAOE</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/leonid20000/OdinRunes">Odin Runes</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mrdjohnson/llm-x">LLM-X</a> (Progressive Web App)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Mintplex-Labs/anything-llm">AnythingLLM (Docker + MacOs&#x2F;Windows&#x2F;Linux native app)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapidarchitect/ollama_basic_chat">Ollama Basic Chat: Uses HyperDiv Reactive UI</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/drazdra/ollama-chats">Ollama-chats RPG</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reid41/QA-Pilot">QA-Pilot</a> (Chat with Code Repository)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sugarforever/chat-ollama">ChatOllama</a> (Open Source Chatbot based on Ollama with Knowledge Bases)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Nagi-ovo/CRAG-Ollama-Chat">CRAG Ollama Chat</a> (Simple Web Search with Corrective RAG)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/infiniflow/ragflow">RAGFlow</a> (Open-source Retrieval-Augmented Generation engine based on deep document understanding)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/StreamDeploy-DevRel/streamdeploy-llm-app-scaffold">StreamDeploy</a> (LLM Application Scaffold)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/swuecho/chat">chat</a> (chat web app for teams)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lobehub/lobe-chat">Lobe Chat</a> with <a target="_blank" rel="noopener" href="https://lobehub.com/docs/self-hosting/examples/ollama">Integrating Doc</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/datvodinh/rag-chatbot.git">Ollama RAG Chatbot</a> (Local Chat with multiple PDFs using Ollama and RAG)</li>
+<li><a target="_blank" rel="noopener" href="https://www.nurgo-software.com/products/brainsoup">BrainSoup</a> (Flexible native client with RAG &amp; multi-agent automation)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Renset/macai">macai</a> (macOS client for Ollama, ChatGPT, and other compatible API back-ends)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Otacon/olpaka">Olpaka</a> (User-friendly Flutter Web App for Ollama)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/CrazyNeil/OllamaSpring">OllamaSpring</a> (Ollama Client for macOS)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kartikm7/llocal">LLocal.in</a> (Easy to use Electron Desktop Client for Ollama)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapidarchitect/ollama_mesop/">Ollama with Google Mesop</a> (Mesop Chat Client implementation with Ollama)</li>
+<li><a target="_blank" rel="noopener" href="https://www.kerlig.com/">Kerlig AI</a> (AI writing assistant for macOS)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MindWorkAI/AI-Studio">AI Studio</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/gyopak/sidellama">Sidellama</a> (browser-based LLM client)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/trypromptly/LLMStack">LLMStack</a> (No-code multi-agent framework to build LLM agents and workflows)</li>
+</ul>
+<h3 id="Terminal"><a href="#Terminal" class="headerlink" title="Terminal"></a>Terminal</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ggozad/oterm">oterm</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/s-kostyaev/ellama">Ellama Emacs client</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zweifisch/ollama">Emacs client</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/David-Kunz/gen.nvim">gen.nvim</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nomnivore/ollama.nvim">ollama.nvim</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/marco-souza/ollero.nvim">ollero.nvim</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/gerazov/ollama-chat.nvim">ollama-chat.nvim</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/huynle/ogpt.nvim">ogpt.nvim</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/karthink/gptel">gptel Emacs client</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dustinblackman/oatmeal">Oatmeal</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pgibler/cmdh">cmdh</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/npahlfer/ooo">ooo</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/reid41/shell-pilot">shell-pilot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pythops/tenere">tenere</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/taketwo/llm-ollama">llm-ollama</a> for <a target="_blank" rel="noopener" href="https://llm.datasette.io/en/stable/">Datasette’s LLM CLI</a>.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/anaisbetts/typechat-cli">typechat-cli</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/djcopley/ShellOracle">ShellOracle</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yusufcanb/tlm">tlm</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ericcurtin/podman-ollama">podman-ollama</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sammcj/gollama">gollama</a></li>
+</ul>
+<h3 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mindsdb/mindsdb/blob/staging/mindsdb/integrations/handlers/ollama_handler/README.md">MindsDB</a> (Connects Ollama models with nearly 200 data platforms and apps)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/philippgille/chromem-go/blob/v0.5.0/embed_ollama.go">chromem-go</a> with <a target="_blank" rel="noopener" href="https://github.com/philippgille/chromem-go/tree/v0.5.0/examples/rag-wikipedia-ollama">example</a></li>
+</ul>
+<h3 id="Package-managers"><a href="#Package-managers" class="headerlink" title="Package managers"></a>Package managers</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://archlinux.org/packages/extra/x86_64/ollama/">Pacman</a></li>
+<li><a target="_blank" rel="noopener" href="https://artifacthub.io/packages/helm/ollama-helm/ollama">Helm Chart</a></li>
+<li><a target="_blank" rel="noopener" href="https://codeberg.org/tusharhero/ollama-guix">Guix channel</a></li>
+</ul>
+<h3 id="Libraries-1"><a href="#Libraries-1" class="headerlink" title="Libraries"></a>Libraries</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://python.langchain.com/docs/integrations/llms/ollama">LangChain</a> and <a target="_blank" rel="noopener" href="https://js.langchain.com/docs/modules/model_io/models/llms/integrations/ollama">LangChain.js</a> with <a target="_blank" rel="noopener" href="https://js.langchain.com/docs/use_cases/question_answering/local_retrieval_qa">example</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tmc/langchaingo/">LangChainGo</a> with <a target="_blank" rel="noopener" href="https://github.com/tmc/langchaingo/tree/main/examples/ollama-completion-example">example</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/langchain4j/langchain4j">LangChain4j</a> with <a target="_blank" rel="noopener" href="https://github.com/langchain4j/langchain4j-examples/tree/main/ollama-examples/src/main/java">example</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Abraxas-365/langchain-rust">LangChainRust</a> with <a target="_blank" rel="noopener" href="https://github.com/Abraxas-365/langchain-rust/blob/main/examples/llm_ollama.rs">example</a></li>
+<li><a target="_blank" rel="noopener" href="https://gpt-index.readthedocs.io/en/stable/examples/llm/ollama.html">LlamaIndex</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BerriAI/litellm">LiteLLM</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/awaescher/OllamaSharp">OllamaSharp for .NET</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/gbaptista/ollama-ai">Ollama for Ruby</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pepperoni21/ollama-rs">Ollama-rs for Rust</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jmont-dev/ollama-hpp">Ollama-hpp for C++</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/amithkoujalgi/ollama4j">Ollama4j for Java</a></li>
+<li><a target="_blank" rel="noopener" href="https://modelfusion.dev/integration/model-provider/ollama">ModelFusion Typescript Library</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kevinhermawan/OllamaKit">OllamaKit for Swift</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/breitburg/dart-ollama">Ollama for Dart</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cloudstudio/ollama-laravel">Ollama for Laravel</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/davidmigloz/langchain_dart">LangChainDart</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/microsoft/semantic-kernel/tree/main/python/semantic_kernel/connectors/ai/ollama">Semantic Kernel - Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/deepset-ai/haystack-integrations/blob/main/integrations/ollama.md">Haystack</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/brainlid/langchain">Elixir LangChain</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/JBGruber/rollama">Ollama for R - rollama</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hauselin/ollama-r">Ollama for R - ollama-r</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lebrunel/ollama-ex">Ollama-ex for Elixir</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/b-tocs/abap_btocs_ollama">Ollama Connector for SAP ABAP</a></li>
+<li><a target="_blank" rel="noopener" href="https://testcontainers.com/modules/ollama/">Testcontainers</a></li>
+<li><a target="_blank" rel="noopener" href="https://portkey.ai/docs/welcome/integration-guides/ollama">Portkey</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/svilupp/PromptingTools.jl">PromptingTools.jl</a> with an <a target="_blank" rel="noopener" href="https://svilupp.github.io/PromptingTools.jl/dev/examples/working_with_ollama">example</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Project-Llama/llamascript">LlamaScript</a></li>
+</ul>
+<h3 id="Mobile"><a href="#Mobile" class="headerlink" title="Mobile"></a>Mobile</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/AugustDev/enchanted">Enchanted</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Mobile-Artificial-Intelligence/maid">Maid</a></li>
+</ul>
+<h3 id="Extensions-Plugins"><a href="#Extensions-Plugins" class="headerlink" title="Extensions &amp; Plugins"></a>Extensions &amp; Plugins</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/MassimilianoPasquini97/raycast_ollama">Raycast extension</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mxyng/discollama">Discollama</a> (Discord bot inside the Ollama discord channel)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/continuedev/continue">Continue</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hinterdupfinger/obsidian-ollama">Obsidian Ollama plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/omagdy7/ollama-logseq">Logseq Ollama plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/andersrex/notesollama">NotesOllama</a> (Apple Notes Ollama plugin)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/samalba/dagger-chatbot">Dagger Chatbot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mekb-turtle/discord-ai-bot">Discord AI Bot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ruecat/ollama-telegram">Ollama Telegram Bot</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ej52/hass-ollama-conversation">Hass Ollama Conversation</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/abrenneke/rivet-plugin-ollama">Rivet plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/longy2k/obsidian-bmo-chatbot">Obsidian BMO Chatbot plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/herval/cliobot">Cliobot</a> (Telegram bot with Ollama support)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/logancyang/obsidian-copilot">Copilot for Obsidian plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pfrankov/obsidian-local-gpt">Obsidian Local GPT plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.openinterpreter.com/language-model-setup/local-models/ollama">Open Interpreter</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ex3ndr/llama-coder">Llama Coder</a> (Copilot alternative using Ollama)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bernardo-bruning/ollama-copilot">Ollama Copilot</a> (Proxy that allows you to use ollama as a copilot like Github copilot)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rjmacarthy/twinny">twinny</a> (Copilot and Copilot chat alternative using Ollama)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/RussellCanfield/wingman-ai">Wingman-AI</a> (Copilot code and chat alternative using Ollama and HuggingFace)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/n4ze3m/page-assist">Page Assist</a> (Chrome Extension)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tusharhero/aitelegrambot">AI Telegram Bot</a> (Telegram bot using Ollama in backend)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/yaroslavyaroslav/OpenAI-sublime-text">AI ST Completion</a> (Sublime Text 4 AI assistant plugin with Ollama support)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kevinthedang/discord-ollama">Discord-Ollama Chat Bot</a> (Generalized TypeScript Discord Bot w&#x2F; Tuning Documentation)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rapmd73/Companion">Discord AI chat&#x2F;moderation bot</a> Chat&#x2F;moderation bot written in python. Uses Ollama to create personalities.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/nischalj10/headless-ollama">Headless Ollama</a> (Scripts to automatically install ollama client &amp; models on any OS for apps that depends on ollama server)</li>
+</ul>
+<h3 id="Supported-backends"><a href="#Supported-backends" class="headerlink" title="Supported backends"></a>Supported backends</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ggerganov/llama.cpp">llama.cpp</a> project founded by Georgi Gerganov.</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ollama/" class="print-no-link">#ollama</a>
+      
+        <a href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大语言模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ollama大型语言模型</div>
+      <div>https://tingfeng347.github.io/2024/07/24/Ollama大型语言模型/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/25/Django5+Vue3+Docker%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9AOA%E7%B3%BB%E7%BB%9F/" title="Django5+Vue3+Docker打造企业OA系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Django5+Vue3+Docker打造企业OA系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/23/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E5%8D%9A%E5%AE%A2%E5%B9%B3%E5%8F%B0/" title="知了传课博客平台">
+                        <span class="hidden-mobile">知了传课博客平台</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

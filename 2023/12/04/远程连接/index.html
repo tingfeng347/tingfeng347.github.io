@@ -1,0 +1,1671 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="远程连接从入门到精通 一.todeskToDesk远程控制软件是一款稳定流畅的远程控制电脑手机连接软件,可远程桌面办公,远程协助运维.采用端对端加密,让每一次远程访问都安全可靠 第一步 下载安装ToDesk家里的电脑（被控端）和公司的电脑（主控端）都需要下载ToDesk软件。登录官网进行下载：www.todesk.com 注：被控端，你想要控制的电脑，下面简称被控端 主控端，进行远程控制的设备，下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="远程连接">
+<meta property="og:url" content="https://tingfeng347.github.io/2023/12/04/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="远程连接从入门到精通 一.todeskToDesk远程控制软件是一款稳定流畅的远程控制电脑手机连接软件,可远程桌面办公,远程协助运维.采用端对端加密,让每一次远程访问都安全可靠 第一步 下载安装ToDesk家里的电脑（被控端）和公司的电脑（主控端）都需要下载ToDesk软件。登录官网进行下载：www.todesk.com 注：被控端，你想要控制的电脑，下面简称被控端 主控端，进行远程控制的设备，下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pica.zhimg.com/80/v2-0eaba0686e6da08c35b5148dc614d310_1440w.webp?source=1def8aca">
+<meta property="og:image" content="https://picx.zhimg.com/80/v2-dbafc06aee1b4a09909a49682c965495_1440w.webp?source=1def8aca">
+<meta property="og:image" content="https://pica.zhimg.com/80/v2-3d7010dc4f7cc3f611ffd4a5ac2709b0_1440w.webp?source=1def8aca">
+<meta property="og:image" content="https://pica.zhimg.com/80/v2-3d43b0bcd480d10b581739426fe59b54_1440w.webp?source=1def8aca">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-5ab806007b2144851c72af55e7843983_1440w.webp?source=1def8aca">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261027023113.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261027427807.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261028247022.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261028295992.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261030289216.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261029302706.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261031397370.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261032076192.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261032493585.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261033062195.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261033311427.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261033377903.png">
+<meta property="og:image" content="https://upload-cdn.orayimg.com/upload/help/2010/202010261033561791.png">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ff99bab9417e1618e403ff0441600158_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-b1c91939bed05d425457875071f7c576_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b0cd6a945b712b2fc0f53ce1c091572d_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-9e9400b1a07882cd0da18a74932c63a9_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cc7a39319dd687d44dc9a3acd39a4198_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-47067b7928c6756a6eeb3ab5774021ba_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b79e1a389284ac9f6939e3df32b8e8fd_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-4951ff4658dad579805ba8eea49f9eae_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-550966e50774b8d9720f1f72c983aa8a_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-e05aeb9b606e9fd3a382d0bfe25dc2a1_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-2a8cb1a86e8149431d0d13b5bab37932_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-902f83f7a2c3cf9562a0987ffe1c9355_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-9197ffab03febabd1b61dc4a7227e732_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3fcb8eb3d43591a3d5964469e3288c04_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-086dd1613b151e86b0be9b5b4973d254_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-650f0de4fa9fec8b10d80908f0b6aebd_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8b8dff59cd3fcfd0cb05d68e7ba074b3_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-db11b0d8f56681a899849588ce74911f_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-93252620dfc6fb572af6ac72ebbdabc7_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-ad6d15a3ac612fe6375f410f43140827_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8aaf330251834c622fdcc56c8676cb2b_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ebe06a960c1c31626760fa8478490cc2_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-05ffd51d9a10acbae3da013ab13dd002_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-713870e3ba3090ebcc1b3d21887d0649_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-b40d6141a3dd2dbd9311da7de8a299bc_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-f6b4d081ca4a229abb70fb12424bc244_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-30f9786f34ec87331c5f1bbf29bb131e_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c2e7174e077e134289a6138c182366b3_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e5e36c562c759729c92c3540090e0766_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-78670c1aac8f01aaf5fc095b08185039_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-fb1728a0a5694742240b9e51d29a5217_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-cd3a109c038bf23b8a230729bd67fd56_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-15a8c56b4df015a3701fe88b9b4b14a7_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-034f5c307a967e7babc8446d3dce4615_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-25b8c0ece9018481e4b4626c038fa3b8_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9891b3d7bd784205bf56e6a38c0a5e68_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-2947b1a5367db5740f1915865867eaf0_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-09ba8d573de939debca2163a02a4d0a9_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-80e02d7edc9dca94ea7b069db35e7dc6_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-acb091d894956a1101256a93449b6cc5_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-9d0798d0956a7841a0061dd40a344c63_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-2b55bcce21567a79034034adebfc8165_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-6b692eb7c769708edfe09174e0708a39_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-76decea1dab000bd5f8d4dd7864bc07f_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cc91c532dd75ac104fde069e68ec3144_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-2ca0e18a9042d84867cb9af5e1907a3c_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-0ed2c1dec8015cbedd2f639687d2dc55_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-7efa067bcd5e03be36d6ce8689dd80a0_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-6ff6eede0807e60f61d2c000ccefcea6_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-7804fe115a6f435e5ac9309a5b928729_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ceb43c84007ac0ccd39398915463c564_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ceb43c84007ac0ccd39398915463c564_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6c5678f3c5dbb22945ddeff3bc51b834_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3d9966c1670d46dbf1bc543676c3f968_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c13301eccedf9d36cfff917260f0b648_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-7650fe63951f4d356057558ce855b696_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-726eee42e0801fc5051ba810908d57e2_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-f2a260e297c97d67f8487fa06a615065_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-29f09e97d730a7999d917841d97867f7_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-c5c6f64f6997513e06020b9761024370_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-e651d85dd39552800eff9818c5235f76_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a02d444c1227b6a5e4d2c491f084e104_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8818732294655f1071c330738271588b_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-255bf03a05c9de592b3b236705ef9261_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ea5e81cec4adc34a5fb853ce7809b3a5_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-0015c19f06b8bed4783265fb24a88bb6_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-5461c539440cfe2008017c4585ebb491_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-1b41b568176f33d4b674444aac9c3a17_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-30eeeefdfcf33cd26d9ebd9385d1cdb7_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-1f6c7f37aa1e22dbc9bcc9031de84f16_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-ef20b066338c816ed0ff38da6b118823_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-d6d7d367b7bb5377e3e4c660107f9943_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-3fcf1da53672a1c52bde81f11809badf_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d62ef928c41f13e1660355a63ab5804c_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-a672928febc4025ec4ba5f7c2b0e42a6_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-f21441172cc6086daebd77e0024b4d9c_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-7ebec40a9133b0cc1645f10c73cc7dfb_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-0076ea80d0d9b75c64e281b667e65766_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e1c5fdeec826db0d37befec962720a7b_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-36f0e4ba101ac180ab39d4b7660b4ea4_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cfb0ec2751c8c23e1d0f5b4f7c1a23b8_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0bed17987e87e091b85cc22d34b254d7_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-edb5c2c081476a76a737ae252bb6012e_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-db2244c0ed619936b9c71585a4eaf1e6_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-7602b5c447cdd9c5fea9cc6911ac061d_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-d81e076631c5b52e8754862dd95a341e_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8465c83d2bcbf02ba8931c629ebfa272_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-c90a65ea0f27ce45b2d466de4cae165f_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-4a61094495c7a4d0de4e611f15494d77_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-7fa9664889468a96dd1244c5b4288eac_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b10a5458ff04c45768b96176e1ffc81d_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ac159bfd5f5edbe42ee2e19bba4d8b74_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-f789aebf39a52cbc12b7b34833ab236e_1440w.webp">
+<meta property="article:published_time" content="2023-12-04T15:07:40.000Z">
+<meta property="article:modified_time" content="2026-07-23T13:55:07.176Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="远程连接">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pica.zhimg.com/80/v2-0eaba0686e6da08c35b5148dc614d310_1440w.webp?source=1def8aca">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>远程连接 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="远程连接"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-04 23:07" pubdate>
+          2023年12月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          166 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">远程连接</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>远程连接从入门到精通</p>
+<h1 id="一-todesk"><a href="#一-todesk" class="headerlink" title="一.todesk"></a>一.todesk</h1><p><strong>ToDesk远程控制软件是一款稳定流畅的远程控制电脑手机连接软件,可远程桌面办公,远程协助运维.采用端对端加密,让每一次远程访问都安全可靠</strong></p>
+<h2 id="第一步-下载安装ToDesk"><a href="#第一步-下载安装ToDesk" class="headerlink" title="第一步 下载安装ToDesk"></a><strong>第一步 下载安装ToDesk</strong></h2><p>家里的电脑（被控端）和公司的电脑（<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E4%B8%BB%E6%8E%A7%E7%AB%AF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2307489514%7D">主控端</a>）都需要下载ToDesk软件。登录官网进行下载：<a href="https://link.zhihu.com/?target=http://www.todesk.com/">www.todesk.com</a></p>
+<p><strong>注：被控端，你想要控制的电脑，下面简称被控端</strong></p>
+<p><strong>主控端，进行远程控制的设备，下面简称主控端</strong></p>
+<p><img src="https://pica.zhimg.com/80/v2-0eaba0686e6da08c35b5148dc614d310_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload></p>
+<p>点击下载后，根据提示，点击下一步，进行安装即可。</p>
+<h2 id="第二步-安装完成"><a href="#第二步-安装完成" class="headerlink" title="第二步 安装完成"></a><strong>第二步 安装完成</strong></h2><p>没有ToDesk账号的要进行账号注册（如果是控制自己公司的电脑or家里电脑的话，被控端和操控端只需要一个账号登录就可以了；如果控制的是别人的电脑，仅需主控登录帐号即可），注册完成后登陆账号。登陆后可免费<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E8%A7%A3%E9%94%81&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2307489514%7D">解锁</a>100个设备列表和全功能。</p>
+<p><img src="https://picx.zhimg.com/80/v2-dbafc06aee1b4a09909a49682c965495_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload></p>
+<p>接下来，就是开始最重要的远程操控啦</p>
+<h2 id="第三步-登录成功"><a href="#第三步-登录成功" class="headerlink" title="第三步 登录成功"></a><strong>第三步 登录成功</strong></h2><p>**界面就是这样啦！**在每台设备都会配置一个【<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E8%AE%BE%E5%A4%87%E4%BB%A3%E7%A0%81&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2307489514%7D">设备代码</a>】以及【密码】。</p>
+<p><img src="https://pica.zhimg.com/80/v2-3d7010dc4f7cc3f611ffd4a5ac2709b0_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload></p>
+<p>（1）接下来开始复制<strong>你被操控端</strong>电脑上ToDesk的设备代码</p>
+<p><img src="https://pica.zhimg.com/80/v2-3d43b0bcd480d10b581739426fe59b54_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload></p>
+<p>（被操控端）</p>
+<ol>
+<li>在主控端ToDesk中输入被控端的设备代码和密码，<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E7%82%B9%E5%87%BB%E8%BF%9E%E6%8E%A5&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2307489514%7D">点击连接</a>就可以远程操控啦~</li>
+</ol>
+<h1 id="二-向日葵远程连接"><a href="#二-向日葵远程连接" class="headerlink" title="二.向日葵远程连接"></a><img src="https://pic1.zhimg.com/80/v2-5ab806007b2144851c72af55e7843983_1440w.webp?source=1def8aca" srcset="/img/loading.gif" lazyload>二.向日葵远程连接</h1><p><a target="_blank" rel="noopener" href="https://sunlogin.oray.com/personal/">向日葵远程控制软件</a>11版本，是集主被控一体的全新客户端。偏向个人用户，只需要安装一个软件就能达到远程协助、查看主机列表、绑定硬件设备等功能，让远程操作真正做到“轻装上阵”，方便用户实现快速的远程协助功能。此次升级更新增了卡顿诊断功能，更加全面地展示当前远程连接的相关信息，极速远控尽在掌握。</p>
+<h2 id="1、向日葵安装及登录"><a href="#1、向日葵安装及登录" class="headerlink" title="1、向日葵安装及登录"></a>1、向日葵安装及登录</h2><h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><p>访问<a target="_blank" rel="noopener" href="https://sunlogin.oray.com/download/">向日葵官方网站（访问戳我）</a>，根据电脑型号下载适用的安装包； <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261027023113.png" srcset="/img/loading.gif" lazyload> 运行下载的安装包将会看到如下界面： ① 在默认位置安装向日葵软件； ② 不安装，以绿色版运行； ③ 自定义向日葵软件安装位置； <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261027427807.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="1-2-登录"><a href="#1-2-登录" class="headerlink" title="1.2 登录"></a>1.2 登录</h3><p>点击左侧功能栏目的【登录&#x2F;注册】即可展示登录操作面板。向日葵提供两种登录方式，用户选择任意一种完成登录操作即可： ① 选择“扫码登录”，使用9.8.6及以上版本的向日葵控制端APP扫码并按提示完成授权操作后即可登录向日葵软件； ② 选择“账号登录”，输入贝锐账号和密码实现登录，如忘记密码或者没有登录身份可点击下方对应的功能选项获得帮助。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261028247022.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261028295992.png" srcset="/img/loading.gif" lazyload> 登录向日葵软件后将会提示绑定当前主机到账号下，能够实现本机设备在无人值守情况下通过【远程列表】被其它设备远程控制，方便日常使用。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261030289216.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="2、功能介绍"><a href="#2、功能介绍" class="headerlink" title="2、功能介绍"></a>2、功能介绍</h2><h3 id="2-1-远程协助"><a href="#2-1-远程协助" class="headerlink" title="2.1 远程协助"></a>2.1 远程协助</h3><p>在左侧功能栏目选择【远程协助】即可看到远程协助操作界面，无需登录也能发起远控请求： ① 此处显示本机识别码和验证码，并支持自定义验证码，只需要将本机识别码发送给伙伴即可实现远控本机； ② 提供本机远程控制其它设备的操作界面，输入伙伴识别码（必填）和验证码（选填）即可发起远控请求。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261029302706.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-2-设备列表"><a href="#2-2-设备列表" class="headerlink" title="2.2 设备列表"></a>2.2 设备列表</h3><p>在左侧功能栏目选择【设备列表】即可看到当前账号下绑定的所有设备以及其他一些相关功能，注意【设备列表】界面需登录后才能访问。 （1）查看本机 ① 点击“添加设备”可添加电脑设备、安卓设备和向日葵开机棒，点击“开机设备”可查看当前账号下已添加的向日葵开机设备； ② 显示绑定在当前账号下的所有设备，带有“本机”标识的即为当前正在使用的设备； ③ 点击选择“本机”设备后，此区域将会展示本机设备详情 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261031397370.png" srcset="/img/loading.gif" lazyload> （2）查看其它设备 ① 选择想要进行操作的设备； ② 选择设备后，此区域将会展示可以进行的操作，针对不同系统的设备所提供的操作选项可能会有所不同，请以实际情况为准： a) 桌面控制：通过验证后，即可对设备进行远程控制； b) 桌面观看：只可查看远程桌面，不能操作 c) 摄像头：查看远程主机的摄像头画面； d) 远程文件：在控制端和被控端设备之间进行文件传输； e) CMD：远程打开被控主机的CMD命令行窗口，可远程调试网络； f) 远程管理：点击后跳转至网页端，经过Windows帐户密码验证后可远程查看主机系统状态； g) 在扩展功能中，支持查看远程日志、设置葵<a target="_blank" rel="noopener" href="https://domain.oray.com/">域名</a>访问和屏幕墙等功能。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261032076192.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-3-发现好玩"><a href="#2-3-发现好玩" class="headerlink" title="2.3 发现好玩"></a>2.3 发现好玩</h3><p>显示向日葵相关产品的优惠套餐、使用攻略和硬件介绍。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261032493585.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-4-手机投屏"><a href="#2-4-手机投屏" class="headerlink" title="2.4 手机投屏"></a>2.4 手机投屏</h3><p>根据界面显示的二维码，打开向日葵控制端APP，在【我的】界面左上角打开【扫一扫】，即可实现投屏功能。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261033062195.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3、菜单栏-设置"><a href="#3、菜单栏-设置" class="headerlink" title="3、菜单栏&#x2F;设置"></a>3、菜单栏&#x2F;设置</h2><p>点击向日葵软件上方的“≡”即可展示软件的各类帮助功能和设置项。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261033311427.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261033377903.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="4、卡顿诊断"><a href="#4、卡顿诊断" class="headerlink" title="4、卡顿诊断"></a>4、卡顿诊断</h2><p>在本机成功远控其他设备后，点击远程控制界面的左上角即可展示当前建立的远控的详细信息。 <img src="https://upload-cdn.orayimg.com/upload/help/2010/202010261033561791.png" srcset="/img/loading.gif" lazyload> 向日葵11的介绍到此结束，感谢您的观看。</p>
+<h1 id="三-teamviewer"><a href="#三-teamviewer" class="headerlink" title="三.teamviewer"></a>三.teamviewer</h1><p><strong>teamviewer电脑版</strong>是一款能穿透内网的电脑远程控制软件，<strong>可以在任何防火墙和NAT代理的后台实现远程控制、桌面共享和文件传输</strong>，同时支持在线状态显示、语音功能、传输文件功能、远程管理无人执守的服务器等，几乎适用于所有桌面和移动平台，包括 Windows、macOS、Android 及 iOS。软件没有复杂的安装过程，只需要双方都运行teamviewer记住彼此的ID即可轻松进行连接，并且可以完全突破防火墙的限制，不用担心是否是固定IP。</p>
+<p>同时teamviewer软件还拥有高速高质量的传输速度，无论使用LAN或者拨号连接，都会根据网络实际情况进行优化，确保你的流畅使用体验。到目前位置，<strong>软件已经有超25亿台设备进行连接访问了，多达4500万的设备同时在线，每小时新增下载量约有4000次，能够为客户和员工提供即时远程支持</strong>，也为居家办公访问远程计算机、移动设备和服务器提供了便利，让用户随时随地能够远程访问位于世界各地的计算机或移动设备，且操作行云流水，犹如近在眼前。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ff99bab9417e1618e403ff0441600158_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="http://www.ddooo.com/softdown/38103.htm">www.ddooo.com/softdown/38103.htm</a></p>
+<h2 id="teamviewer安装教程详细介绍："><a href="#teamviewer安装教程详细介绍：" class="headerlink" title="teamviewer安装教程详细介绍："></a><strong>teamviewer安装教程详细介绍：</strong></h2><p>1、安装teamviewer电脑版后，双击运行，然后选择“接受-下一步”选项，</p>
+<p><img src="https://pic3.zhimg.com/80/v2-b1c91939bed05d425457875071f7c576_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、TeamViewer显示正在安装，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b0cd6a945b712b2fc0f53ce1c091572d_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、安装完成后，勾选“我接受EULA和DPA”选项，选择“继续”即可开始使用。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-9e9400b1a07882cd0da18a74932c63a9_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="teamviewer怎么远程控制电脑？"><a href="#teamviewer怎么远程控制电脑？" class="headerlink" title="teamviewer怎么远程控制电脑？"></a><strong>teamviewer怎么远程控制电脑？</strong></h2><p>1、teamviewer电脑版进行远程控制时，需将两台计算机同时提前开启，且两台计算机都装有TeamViewer，然后打开桌面上的TeamViewer；</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cc7a39319dd687d44dc9a3acd39a4198_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、软件启动后会自动生成一个伙伴ID和密码，需要保留好，</p>
+<p><img src="https://pic3.zhimg.com/80/v2-47067b7928c6756a6eeb3ab5774021ba_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、在另一台电脑上的teamviewer软件中，在控制远程计算机栏目中，填写伙伴ID，然后选择“连接”选项，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b79e1a389284ac9f6939e3df32b8e8fd_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>4、在弹出TeamViewer验证中，填写我们记下来ID对应的密码，然后选择“登录”选项，</p>
+<p><img src="https://pic3.zhimg.com/80/v2-4951ff4658dad579805ba8eea49f9eae_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>5、登录完成后，我们的电脑会出现上方的任务栏界面，可以使用TeamViewer远程控制电脑了。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-550966e50774b8d9720f1f72c983aa8a_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="teamviewer怎么设置固定的密码？"><a href="#teamviewer怎么设置固定的密码？" class="headerlink" title="teamviewer怎么设置固定的密码？"></a><strong>teamviewer怎么设置固定的密码？</strong></h2><p>1、打开teamviewer电脑版，选择右上角“三条横线”图标，会弹出任务栏，鼠标移动到“其他”，然后点击“选项”，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-e05aeb9b606e9fd3a382d0bfe25dc2a1_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、进入TeamViewer选项界面，选择“高级”选项，</p>
+<p><img src="https://pic3.zhimg.com/80/v2-2a8cb1a86e8149431d0d13b5bab37932_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、进入到高级设置界面，往下滑动，进入“个人密码”栏目，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-902f83f7a2c3cf9562a0987ffe1c9355_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>4、在“密码”和“确认密码”输入相同的内容，选择右下角“确定”选型，固定密码即可设置完成。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-9197ffab03febabd1b61dc4a7227e732_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="teamviewer如何看谁连接过？"><a href="#teamviewer如何看谁连接过？" class="headerlink" title="teamviewer如何看谁连接过？"></a><strong>teamviewer如何看谁连接过？</strong></h2><p>1、打开我的电脑，双击打开桌面上的计算机。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-3fcb8eb3d43591a3d5964469e3288c04_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、然后我们在弹出来的窗口中点击上方的路径框输入：“C:\Documents and Settings\Administrator\Application Data\TeamViewer”，回车确定。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-086dd1613b151e86b0be9b5b4973d254_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、我们在弹出来的窗口中点击打开下图中的文本文档即可查看谁连接过。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-650f0de4fa9fec8b10d80908f0b6aebd_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><strong>常见问题</strong></p>
+<p><strong>一、teamviewer如何解除设备限制</strong></p>
+<p>1、进入teamviewer官网，登录个人账号，</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8b8dff59cd3fcfd0cb05d68e7ba074b3_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、右上角点击个人头像，选择“编辑配置文件”，</p>
+<p><img src="https://pic4.zhimg.com/80/v2-db11b0d8f56681a899849588ce74911f_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、在资料设置中选择“免费设备”进行相应的解绑即可。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-93252620dfc6fb572af6ac72ebbdabc7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>二、使用teamviewer时提示无法启动桌面进程?</strong></p>
+<p>1、在“选项”下的“常规”页面，点分配制帐户；</p>
+<p>2、登陆使用的teamviewer帐户即可。</p>
+<p><strong>三、如何使teamviewer最小化到托盘(任务栏不显示)并隐藏？</strong></p>
+<p>1、在其他栏目选择“选项”，</p>
+<p><img src="https://pic4.zhimg.com/80/v2-ad6d15a3ac612fe6375f410f43140827_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2、 选择“高级”选项，然后点击“显示高级选项”，</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8aaf330251834c622fdcc56c8676cb2b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3、滑动界面，勾选“自动最小化本地”teamviewer面板”选项，然后选择右下角“确定”即可。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-ebe06a960c1c31626760fa8478490cc2_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h1 id="四-微软远程桌面"><a href="#四-微软远程桌面" class="headerlink" title="四.微软远程桌面"></a>四.微软远程桌面</h1><p>微软官方的远程连接软件，延迟非常低，推荐配合公网ip或内网穿透使用</p>
+<h2 id="被控制端设置："><a href="#被控制端设置：" class="headerlink" title="被控制端设置："></a><strong>被控制端设置：</strong></h2><p><strong>1、首先将ip设置为固定ip</strong></p>
+<p>首先在桌面同时按住win+r键，键盘输入cmd回车</p>
+<p><img src="https://pic3.zhimg.com/80/v2-05ffd51d9a10acbae3da013ab13dd002_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>输入ipconfig&#x2F;all查看ip基本信息</p>
+<p><img src="https://pic2.zhimg.com/80/v2-713870e3ba3090ebcc1b3d21887d0649_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>信息中的 ipv4地址，子网掩码，默认网关，DNS服务器是我们下一步要用到的。</p>
+<p><strong>2、点开文件资源管理器</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-b40d6141a3dd2dbd9311da7de8a299bc_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>在左侧找到网络，右键点击选择属性</p>
+<p><img src="https://pic1.zhimg.com/80/v2-f6b4d081ca4a229abb70fb12424bc244_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击连接的网络</p>
+<p><img src="https://pic3.zhimg.com/80/v2-30f9786f34ec87331c5f1bbf29bb131e_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>然后 属性-双击 Internet协议版本4（TCP&#x2F;IPv4）-点击 使用下面的IP地址 然后在对应填入第一步中的对应信息，再选择使用下面的DNS服务器地址，首选DNS服务器填写第一步中的DNS服务器，备用DNS服务器可用8.8.8.8，8.8.8.8是Google提供的免费DNS服务器的IP地址。全部填写完后按确定（记得全部都要填写！）</p>
+<p><img src="https://pic4.zhimg.com/80/v2-c2e7174e077e134289a6138c182366b3_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-e5e36c562c759729c92c3540090e0766_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic2.zhimg.com/80/v2-78670c1aac8f01aaf5fc095b08185039_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>3、右键 计算机 选择属性</strong>，点击远程设置，在远程协助框中勾选 允许远程协助连接这台计算机，在远程桌面勾选 允许远程连接到此计算机 并勾选下面的复选框 如下图所示</p>
+<p><img src="https://pic4.zhimg.com/80/v2-fb1728a0a5694742240b9e51d29a5217_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-cd3a109c038bf23b8a230729bd67fd56_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>此时控制端的设置就已经完毕</p>
+<h2 id="控制端："><a href="#控制端：" class="headerlink" title="控制端："></a><strong>控制端：</strong></h2><p>在桌面同时按住win+r打开运行，输入 mstsc</p>
+<p><img src="https://pic4.zhimg.com/80/v2-15a8c56b4df015a3701fe88b9b4b14a7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>回车打开 远程桌面连接 ，点击选项-体验-在下拉框中选择 LAN(10Mbps或更高)</p>
+<p><img src="https://pic2.zhimg.com/80/v2-034f5c307a967e7babc8446d3dce4615_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击常规，在 计算机 位置输入 被控制端的ip地址，即ipconfig&#x2F;all中的首选ip地址</p>
+<p><img src="https://pic1.zhimg.com/80/v2-25b8c0ece9018481e4b4626c038fa3b8_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击连接即可，会弹出对话框</p>
+<p>用户名和密码必需输入被控制电脑的系统管理员</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9891b3d7bd784205bf56e6a38c0a5e68_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>即可实现连接</p>
+<p>依靠如上操作，win10可以在一个局域网内实现远程控制，但是如何要使用win10自带远程控制帮网友小姐姐（连在不同网络的两个人）操作电脑，则还需要多做几步，需要在被控制电脑开放一个端口到互联网上，操作较为复杂。</p>
+<h1 id="五-moonlight"><a href="#五-moonlight" class="headerlink" title="五.moonlight"></a>五.moonlight</h1><p>Moonlight的串流技术，就是通过网路实时压缩和传输影音的技术。手机、平板、笔记本，哪怕是另一台电脑，都可以通过串流，链接上你的主力电脑，直接操作你的主力电脑。</p>
+<p><strong>让我们先来看看局域网串流的设置方法吧，后面在来讲远程串流。</strong></p>
+<p>首先你必须是N卡的用户。</p>
+<p>然后，你需要购买一台5G+2.4G的双频路由器，我们大多人家中的老式路由器只是2.4G单频路由器，传输速率很慢，所以至少要换成5G双频，但前提是你的手机能接受5Gwifi，太老的手机可能不支持这个功能。如果是wifi6的路由器自然是更好，但这需要手机也支持wifi6。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2947b1a5367db5740f1915865867eaf0_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>然后下载moonlight软件点击网址<a href="https://link.zhihu.com/?target=https://github.com/moonlight-stream">https://github.com/moonlight-stream</a>，进入上图网页。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-09ba8d573de939debca2163a02a4d0a9_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-80e02d7edc9dca94ea7b069db35e7dc6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击对应版本的链接，下一个页面找到Downloads，点击“APK”，进入下一个页面，红框标注的两个就是moonlight软件下载地址，nonRoot版是你手机没有root用的，root版是你手机root后用的。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-acb091d894956a1101256a93449b6cc5_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>电脑端下载GeForce Experience，打开软件，在右上角找到齿轮图标。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-9d0798d0956a7841a0061dd40a344c63_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击齿轮，点击SHIELD，打开右上角滑块，再点击添加，按照C:\Windows\System32\mstsc.exe这个地址，将mstsc.exe添加进去，mstsc.exe就是你的桌面，等会串流，可以用手机直接操控你的电脑桌面。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-2b55bcce21567a79034034adebfc8165_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>打开手机上的moonlight，可以看到我的电脑已经被识别，如果没有看到我们的电脑，可以点击右上角的加号，输入你电脑的IP进行搜索。点击这个电脑图标，进入后会发现我们刚才添加的桌面，点击链接，手机开始串流你的电脑。如果链接失败，将moonlight升级到最新版再试试。</p>
+<p>然后我们再来看看moonlight的设置。</p>
+<p><strong>视频分辨率，视频帧数，视频码率。</strong></p>
+<p>如果你有5G路由器，那么你可以设置为1080P、60帧和两万码率。如果你还没有5G路由器，那么你可以降低这三者以达到流畅的运行效果。</p>
+<p><strong>将触控屏作为触控板使用</strong></p>
+<p>建议取消勾选，取消后，我们可以在手机端点击拖动窗口和桌面图标，不然就只有点击功能。</p>
+<p><strong>显示屏幕控制按钮</strong></p>
+<p>勾选后会显示虚拟手柄，但这个真心不好用，还是接手柄把，蓝牙手柄或者otg线接有线手柄都可以。先连接好手柄，再开启串流，不然手柄有可能无法被识别。</p>
+<p><strong>在电脑上播放声音</strong></p>
+<p>不勾选，串流后，PC端就没有声音了，如果你的PC接了一套几千元的音响，那么还是勾选把。</p>
+<p><strong>更改H265设置</strong></p>
+<p>可以查查看自己的手机或者平板是否支持H265，如果支持可以选择“强制使用H265”，H265在同样的清晰度下对无线传输的要求更低。</p>
+<p><strong>启用性能信息</strong></p>
+<p>勾选后，画面中将出现串流信息，可以看到当前局域网的传输速率。</p>
+<p>好了，接上手柄，开启不一样的游戏体验吧！记得手机上点击回退键并不会退出串流，而要点击“退出串流”才算是真正退出来了。</p>
+<p><strong>远程串流篇：</strong></p>
+<p>如果人在户外怎么办呢？这时我们就要开启远程串流了。</p>
+<p>首先确认你的ip是不是公网ip，在百度搜索“ip”显示出来的这一段数组。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-6b692eb7c769708edfe09174e0708a39_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>开头如果是100，说明你是内网ip，不是公网ip，打客服电话去申请公网ip吧，也许客服会痛快的给你申请，也许不会。如果没有公网ip，放弃远程串流吧。</p>
+<p>即便是公网IP，也不是固定ip，换句话说，不知道什么时候ip就变了。如果你刚好在户外想用moonlight串流，而你之前的ip地址识别不到你的电脑，说明ip已经变了，你就只能给运营商打电话，报你的宽带账号，让他们告诉你宽带的当前ip，准备好小本本哦。</p>
+<p>接下来我们要设置端口映射，这个设置简单来说就是让你在外网能够通过ip找到你的电脑。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-76decea1dab000bd5f8d4dd7864bc07f_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>这是我们大多数人的家庭网络连接示意图，端口映射是在“猫”上设置的。中间隔了一个路由器，这个路由器会导致我们最后串流失败，至于为什么，不用知道，只要知道：“猫”就相当于一个路由器，路由器（猫）接路由器，等于串联了两个路由器，对此moonlght感到不爽。</p>
+<p>所以你要么将电脑直接接在“猫”上，要么就对路由器进行“有线桥接”的操作。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cc91c532dd75ac104fde069e68ec3144_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>先来看传统路由器的“有线桥接”操作。先拔掉路由器上的所有网线，重置路由器，然后用手机登录路由器的wifi。在路由器背面找到路由器的ip地址，用户名和密码，在手机浏览器输入这个IP地址，然后登陆进入路由器的设置界面，如上图。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-2ca0e18a9042d84867cb9af5e1907a3c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>在“高级设置”里的找到“LAN口设置”，也许你的路由器位置跟我不一样。可见“LAN口ip设置”是“自动”，“ip地址”是192.168.0.1。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-0ed2c1dec8015cbedd2f639687d2dc55_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>将“LAN口ip设置”改成“手动”，“ip地址”改为192.168.1.2。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-7efa067bcd5e03be36d6ce8689dd80a0_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>因为我的光猫ip地址是192.168.1.1，所以桥接到猫的路由器的LAN口就要设置为相同段数，可以是192.168.1.1、2、3、4、5……都行。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-6ff6eede0807e60f61d2c000ccefcea6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>路由器的LAN口设置好后点击保存，然后弹出对话框，点击确定，然后你的手机就自动退出wifi了，需要重新连接路由器的wifi，然后在浏览器中输入你刚设置的LAN口ip，如果能进入路由器，说明桥接设置成功。</p>
+<p>然后将猫的网线插到路由器的LAN口上（也有人说是WAN口，我测试好像是都可以），然后再将电脑也连接到路由器的LAN口上。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-7804fe115a6f435e5ac9309a5b928729_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-ceb43c84007ac0ccd39398915463c564_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>然后进入“网络连接”，设置以太网的Internet协议版本4，不会设置的同学就这么干，其他跟我设置的一样，“ip地址”“默认网关”“首选DNS服务器”这三项的第三个数字跟猫的ip地址第三个数字一样，“ip地址”第4个数字跟刚才设置的LAN口ip地址的第四个数字和猫的ip地址第四个数字不一样就行了。</p>
+<p>现在如果可以上网，说明路由器有线桥接成功，如果不行，ip地址第四个数字换一个再试试。</p>
+<p>如果是现在新款路由器，比如华为的AX3路由器，可以一键设置有线桥接，更加方便。如果你设置有线桥接失败，请查阅网上“有线桥接”的相关教程，或者干脆把电脑直接接在猫上，一了百了。一定是有线桥接，无线桥接速度是很坑的。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ceb43c84007ac0ccd39398915463c564_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>即便直接接在猫上，也要给你的电脑设置一个固定的ip，接下来有用。</p>
+<p>在光猫的背面可以找到光猫的ip地址，用户名和密码，在浏览输入这个IP地址，然后登陆进入光猫的设置界面。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-6c5678f3c5dbb22945ddeff3bc51b834_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>找到端口映射页面，不同的光猫这个功能的位置可能不一样，连名字可能都不一样。</p>
+<p>这时我们进入mooblight官网的安装指南：</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide">https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide</a></p>
+<p>找到下列一串数字，这就是端口映射需要设置的端口的编号。</p>
+<p>TCP 47984, 47989, 48010</p>
+<p>UDP 47998, 47999, 48000, 48010</p>
+<p>可见，TCP模式下的端口有三个，UDP模式下的端口有4个，不用纠结这些，我们直接来操作。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-3d9966c1670d46dbf1bc543676c3f968_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>服务器名称随便写，局域网ip就填我们刚才给电脑设置的固定ip，内部端口外部端口填写相同的数字，然后点击添加映射，然后再次创建，直到把上面七个端口全部映射好。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-c13301eccedf9d36cfff917260f0b648_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>全部映射好后应该是这个样子的。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-7650fe63951f4d356057558ce855b696_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-726eee42e0801fc5051ba810908d57e2_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>然后手机打开流量，或者连接别人家的wifi，不能连和电脑同一个宽带下的wifi，不然搜索会失败。进入手机的moonlight，点击右上角加号，填写你的公网ip地址，就可以搜索到你的电脑了，恭喜你，你开启了远程串流。</p>
+<p>买一个小米wifi插座，再将电脑主板设置成通电就开机，这样你在户外的时候就可以通过wifi插座远程开机你的电脑，这样就不用一直开着电脑了。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-f2a260e297c97d67f8487fa06a615065_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>上图便是远程串流的示意图，移动设备，通过4G或者wifi接入网络，串流你家的电脑。这其中3个环节会影响你串流的流畅度：家庭宽带、4G、wifi。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-29f09e97d730a7999d917841d97867f7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-c5c6f64f6997513e06020b9761024370_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>我用两个路由器测试过局域网串流，一个从别人那继承来的老式路由器，一个是我新买的双频路由器，在手机里查看wifi速度分别是72m和150m。150m的新路由器自然没话说，1080P、60帧、20000码率流畅运行。但是72m的老路由器则有点吃力，同样的画面质量，不仅能感觉到延迟，而且玩游戏时偶尔还会掉帧。</p>
+<p>而远程串流，则要看我们家庭网络的上行速度，也就是你电脑把信号发送到互联网的速度。200m的宽带，上行最多也才30m。72m运行1080P、60帧、20000码率都够呛，这个30m的上行速度实在是坑爹，那就更别说用50m或者30m宽带的人了，上行速度可能只有2m或者4m。我目前看到“测速网”有上行提速业务，给你提升到50M，每月300元，好贵……</p>
+<p>家庭网络的上行速度是第一道限制。第二道限制就是你的4G网络速度，用流量来远程串联，超级费流量先不说，4G网的网速大概只有20M，也就是说，就算你家庭网络上行有100M，你的手机也只能以20M网速来读取，照样卡，不过再等等，5G普及了就好了。</p>
+<p>所以在户外进行远程串流最好是用wifi，就算你链接的是一台垃圾路由器，wifi速度可能也会有72m，如果你身边正好有一个不错的wifi网络环境，那么就可以把你的家庭网络上行网速全部利用上。</p>
+<p>在淘宝上搜索电信宽带提速，可以找到上行提速至20m，每月30元的套餐，20m的上行，可以让你在720P下远程串流办公…………总之，远程串流我觉得还达不到实用的程度，问题就卡在这个上行速度上。</p>
+<p>好了，以上就是我玩moonlight过程中的所有心得，希望对你有用。</p>
+<h1 id="六-parsec"><a href="#六-parsec" class="headerlink" title="六.parsec"></a>六.parsec</h1><p>Parsec是一个可以建立P2P连接的远程桌面，个人在同一个路由器的WIFI下使用时发现几乎零延迟，同时也可以进行游戏。Parsec 支持 Windows、macOS、安卓、树莓派、Linux 客户端，以及网页版。也就是说你可以通过以上设备远程和小伙伴一起联机云游戏，还是非常不错的。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-e651d85dd39552800eff9818c5235f76_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-a02d444c1227b6a5e4d2c491f084e104_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="Parsec-为工作而工作"><a href="#Parsec-为工作而工作" class="headerlink" title="Parsec 为工作而工作"></a><strong>Parsec 为工作而工作</strong></h2><p>我们是终极远程桌面，功能强大，足以让开发人员、设计师、架构师和工程师团队在任何地方完成工作并一起工作。下载我们的白皮书并了解如何操作。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8818732294655f1071c330738271588b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="从任何地方连接"><a href="#从任何地方连接" class="headerlink" title="从任何地方连接"></a><strong>从任何地方连接</strong></h2><p>Parsec 的远程访问技术在最苛刻的媒体上进行了测试：游戏。随时随地连接到您自己的计算机，共享链接以与朋友协作或合作，或者在Parsec Arcade 中加入游戏。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-255bf03a05c9de592b3b236705ef9261_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="像专业人士一样进行设置"><a href="#像专业人士一样进行设置" class="headerlink" title="像专业人士一样进行设置"></a><strong>像专业人士一样进行设置</strong></h2><p>我们非常适合远程任何东西。双显示器、改进的颜色和绘图板支持随我们的 Warp 一起提供，专为专业人士设计。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-ea5e81cec4adc34a5fb853ce7809b3a5_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>支持多平台</strong>：(Windows&#x2F;Web&#x2F;macOS&#x2F;Android&#x2F;Raspberry Pi 3&#x2F;Linux)</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0015c19f06b8bed4783265fb24a88bb6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h2 id="一、下载客户端并注册-登录账号"><a href="#一、下载客户端并注册-登录账号" class="headerlink" title="一、下载客户端并注册&#x2F;登录账号"></a><strong>一、下载客户端并注册&#x2F;登录账号</strong></h2><p>进入官网后为如下界面，点击DOWNLOAD NOW，根据需求下载对应客户端即可，安装好后先点击下面的 signup 进行注册账号，输入邮箱、用户名、密码，注册好后登录就行了。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-5461c539440cfe2008017c4585ebb491_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>也可以在线注册</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-1b41b568176f33d4b674444aac9c3a17_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>右上角，点击Login后，有如下界面</p>
+<p><img src="https://pic4.zhimg.com/80/v2-30eeeefdfcf33cd26d9ebd9385d1cdb7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic3.zhimg.com/80/v2-1f6c7f37aa1e22dbc9bcc9031de84f16_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>点击Sign up,设置你的用户名，并填写邮箱，设置密码。</p>
+<p>首次登陆时，你的邮箱中将收到一封确认当前IP地址的邮件，点击确认即可成功登录。</p>
+<h2 id="二、设置"><a href="#二、设置" class="headerlink" title="二、设置"></a><strong>二、设置</strong></h2><p>登录后会看到主界面，这里主要注意左边竖排的几个图标。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-ef20b066338c816ed0ff38da6b118823_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>从上到下大概是：</strong></p>
+<ul>
+<li><p>**电脑：**设置主机客机，看看谁正在连接或正在连接谁；</p>
+</li>
+<li><p>**Arcade：**你可以理解为让陌生的网友可以一起组队开黑的社区平台；</p>
+</li>
+<li><p>**设置：**字面意思的设置；</p>
+</li>
+</ul>
+<p>点击设置，可以看到蓝色的几个选项卡，设置内容有点多，我就只写几个比较重要的设置，其它设置可以借助翻译软件，结合自身情况去调整。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-d6d7d367b7bb5377e3e4c660107f9943_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>Client（客户端设置）→Vsync（垂直同步）</strong></p>
+<p>它是一个用来解决画面撕裂的功能，在你电脑的帧数跟不上游戏的帧数的时候你就要考虑关掉它。</p>
+<p>更简单的说法，如果你觉得游戏卡，你就关掉这个选项试试，别的游戏也适用这个道理。</p>
+<p><strong>Client（客户端设置）→Decoder（解码器）</strong></p>
+<p>这取决于你自己电脑的显卡，根据自己显卡类型选择。</p>
+<p><strong>Host（主机设置）→Hosting Enable（允许成为主机）</strong></p>
+<p>默认是Enable（开启）的，但应该不会有人不小心把它关了吧？</p>
+<p><strong>Approved Apps（允许的应用）</strong></p>
+<p>这个功能很有助于保护隐私，建议开启。它可以只显示你希望显示的内容。</p>
+<p>比如说今天我和朋友要玩《Ollie &amp; Bollie: Outdoor Estate》，那么我应该先启动游戏，游戏才会在这个列表中显示，勾选游戏就可以啦。那个一橙一蓝的小人就是游戏的logo。</p>
+<p>和设置直播的时候展示什么给观众是一样的。</p>
+<p>如果你玩到一般切到了别的地方，比如打开了浏览器，那么客机会维持在游戏的界面，同时屏幕变灰，中间会提示“主机正在做一些别的事情”。</p>
+<ul>
+<li><p>**好友：**在这里添加你的好友；</p>
+</li>
+<li><p>**帮助：**里面有几个链接，比如阅读官方帮助文档，在Discord寻求帮助（一个国外用的类似YY的软件），第三和第四个大概是查看接口和日志文件，非专业人士就可以不管这两个先。总体没什么卵用，因为我相信出了问题很多人第一反应是百度而不是读文档；</p>
+</li>
+<li><p>**退出登录：**字面意思的退出登录。</p>
+</li>
+</ul>
+<h2 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a><strong>三、使用</strong></h2><p>这部分主要讲怎么和朋友联机。如果你有使用Discord的经验最好，因为我认为几乎是一致的。</p>
+<p><strong>方法一：发送链接</strong></p>
+<p><strong>适合多人联机或和陌生人链接（比如和朋友的朋友的朋友一起玩）。</strong></p>
+<p>点击左边的电脑选项卡，其中有一台就是你的电脑，点击“Share”</p>
+<p><img src="https://pic4.zhimg.com/80/v2-3fcf1da53672a1c52bde81f11809badf_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>然后屏幕上方就会有一个绿色的对话框提示你“链接已经复制到剪贴板”之类的，你在别的软件把这个链接分享给你的朋友。你的朋友点击这个链接，一开始会提示LOADING（加载中），然后点击蓝色的“和xxx一起玩”。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d62ef928c41f13e1660355a63ab5804c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>方法二：好友联机</strong></p>
+<p>这个方法更加简单，适合人少的情况。</p>
+<p>点击好友图标，点Add Friend添加好友。它会弹出一个输入框，输入对方的用户名或id都可以。</p>
+<p>用户名是你注册的时候填写的，id是跟在你用户名后面#的内容，客户端右上角都可以查询到。</p>
+<p>发送好友请求后可能要几十秒到一分钟，在View Friend Requests会看到好友请求，通过即可。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a672928febc4025ec4ba5f7c2b0e42a6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>每次你们都上线时，好友直接就会出现在你的电脑旁边，点击Connect就可以啦。</p>
+<p>发起请求后，主机会弹出提示框，白色接受，红色拒绝。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-f21441172cc6086daebd77e0024b4d9c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>在下面多了一个你朋友的头像图标，鼠标放在上面可以看到延迟。</p>
+<p>21ms，够流畅吗？</p>
+<p><img src="https://pic4.zhimg.com/80/v2-7ebec40a9133b0cc1645f10c73cc7dfb_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>下面是最关键的：为什么客机键鼠用不了？</strong></p>
+<p>点击你好友的图标，把keyboard（键盘）和Mouse（鼠标）的权限给他打开。至于第一个默认打开的Gamepad，是手柄，或者在你的电脑上设置一套手柄的键位。最后一个是把朋友踢下线。</p>
+<p>所以说它真的对游戏很友好。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0076ea80d0d9b75c64e281b667e65766_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>现在就可以愉快地联机啦！</p>
+<h1 id="七-Zerotier"><a href="#七-Zerotier" class="headerlink" title="七.Zerotier"></a>七.Zerotier</h1><p>这是一个类似于 ZooKeeper 的工具，一款异地组网工具。每台服务器上只需要安装对应的客户端，连接到同一个网络，就可以实现 IP 互相访问。在此之上，还有自定义 DNS 服务器的功能，将通过 IP 这个步骤转换为通过域名进行访问，相当实用。</p>
+<p>纵观国内的文章，基本都是上来就一步一步搭建，没有任何解释性说明。在几天的折腾后，搞了篇解释比较强的文章。</p>
+<p>根据 Zerotier 的官方简介，是这个意思：</p>
+<blockquote>
+<p>Connect team members from anywhere in the world on any device. ZeroTier creates secure networks between on-premise, cloud, desktop, and mobile devices.</p>
+</blockquote>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a><strong>概念</strong></h2><p>所有的设备都是客户端，连接方式是点对点。在路由器下面的话是用 uPnP 的方式进行转发实现客户端到客户端的直接连接。如果 uPnP 没有开启，会通过传统的服务器转发的方式进行连接。</p>
+<h3 id="Earth"><a href="#Earth" class="headerlink" title="Earth"></a><strong>Earth</strong></h3><p>根据其介绍，将地球上的所有设备连起来。那这里的 Earth 指的就是整体的一个服务。</p>
+<h3 id="Network"><a href="#Network" class="headerlink" title="Network"></a><strong>Network</strong></h3><p>每一个 Network 包含的所有设备都在同一个网络里。每个网络有一个 Network ID。各客户端通过这个 ID 连接到此网络。当然，一个账号是可以创建多个网络的。</p>
+<p>网络氛围 Public 和 Private。一般我们自己组网是要用 Private，需要在页面授权设备才可以进行访问。Public 权限好像不太有人会需要吧..</p>
+<p>以下介绍的所有概念都是属于 Network 下的。</p>
+<h3 id="Planet"><a href="#Planet" class="headerlink" title="Planet"></a><strong>Planet</strong></h3><p>星球嘛。指的是官方提供的服务器节点。各客户端都是通过这些服务来互相寻址的。相当于 zookeeper 的不同节点。</p>
+<h3 id="Moon"><a href="#Moon" class="headerlink" title="Moon"></a><strong>Moon</strong></h3><p>自定义的 Planet。由于 Zerotier 没有国内节点，在两个设备刚开始互连的时候有可能需要通过国外的节点寻址（不过我没发现有什么慢的）导致创建连接的速度偏慢。在自己的网络里搭建 Moon 可以使连接提速。</p>
+<h3 id="Leaf"><a href="#Leaf" class="headerlink" title="Leaf"></a><strong>Leaf</strong></h3><p>客户端。就是连接到网络上的每一个设备。其实经过测试，Moon 也是客户端的一种。这里特指没有额外功能，单纯用于连接的客户端。</p>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a><strong>开始使用</strong></h2><p>Zerotier 支持基本所有设备：Windows、MacOS、iOS、Android、Linux、FreeBSD、Synology、QNAP、WD MyCloud、OpenWRT。再不济，支持 Docker，凡是能跑 Docker 能联网的设备都可以用。</p>
+<p>其中 iOS 不支持自定义 Moon，Android 的自定义 Moon 要下载非官方的 APP。</p>
+<p>本着不给自己找麻烦的原则，能用 ui 就用 ui，能一键搭建就一键搭建。给了 docker-compose 就直接用，不要折腾乱七八糟的东西。</p>
+<h3 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a><strong>注册账号</strong></h3><p><a href="https://link.zhihu.com/?target=https://my.zerotier.com/">官方网站登录</a>，我直接用 Github 登录。登录后发现我两年前玩过这个东西…</p>
+<p><img src="https://pic4.zhimg.com/80/v2-e1c5fdeec826db0d37befec962720a7b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="创建网络"><a href="#创建网络" class="headerlink" title="创建网络"></a><strong>创建网络</strong></h3><p>不用输入任何没用的信息，上来直接创建网络，只需一次点击，网络就创建好了。</p>
+<p>记住这个 Network ID，以后会经常见到。</p>
+<p>点击网络进去，默认配置基本够用。</p>
+<h3 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a><strong>MacOS</strong></h3><pre><code class="hljs">brew install zerotier-one
+</code></pre>
+<p><a href="https://link.zhihu.com/?target=https://download.zerotier.com/dist/ZeroTier%2520One.pkg">官方下载链接</a></p>
+<p>安装好后，启动。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-36f0e4ba101ac180ab39d4b7660b4ea4_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>在下面输入网络 ID，点击 Join Network 即可。</p>
+<blockquote>
+<p>Windows 的 UI 跟这个一毛一样。</p>
+</blockquote>
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a><strong>iOS</strong></h3><p>AppStore 搜索 Zerotier，下载。点击右上角加号，输入网络 ID，OK。</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a><strong>Linux</strong></h3><p>根据官网给的说明，直接运行脚本即可。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">curl -s https://install.zerotier.com | sudo bash<br><br></code></pre></td></tr></table></figure>
+
+<p>如果你安装了 GPG 密钥验证，用下面这条命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">curl -s &#x27;https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg&#x27; | gpg --import &amp;&amp; \<br>if z=$(curl -s &#x27;https://install.zerotier.com/&#x27; | gpg); then echo &quot;$z&quot; | sudo bash; fi<br><br></code></pre></td></tr></table></figure>
+
+<p>脚本会自动将 Zerotier 的源添加到 apt&#x2F;yum 里并安装。</p>
+<p>安装好后，运行命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">sudo zerotier-cli join 你的网络ID<br><br></code></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<h3 id="群晖"><a href="#群晖" class="headerlink" title="群晖"></a><strong>群晖</strong></h3><p>DSM 7 不支持 root 安装第三方程序，因此官网建议使用 Docker 来实现。英文文档在这里：<a href="https://link.zhihu.com/?target=https://docs.zerotier.com/devices/synology/">https://docs.zerotier.com/devices/synology/</a></p>
+<p>简单说就是 ROOT 权限。</p>
+<p>首先，将虚拟网卡添加到启动项：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">echo -e &#x27;#!/bin/sh -e \ninsmod /lib/modules/tun.ko&#x27; &gt; /usr/local/etc/rc.d/tun.sh<br>chmod a+x /usr/local/etc/rc.d/tun.sh<br>/usr/local/etc/rc.d/tun.sh<br><br></code></pre></td></tr></table></figure>
+
+<p>以上执行后就有虚拟网卡了。然后创建 docker 容器：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text">docker run -d           \<br>  --name zt             \<br>  --restart=always      \<br>  --device=/dev/net/tun \<br>  --net=host            \<br>  --cap-add=NET_ADMIN   \<br>  --cap-add=SYS_ADMIN   \<br>  -v /var/lib/zerotier-one:/var/lib/zerotier-one zerotier/zerotier-synology:latest<br><br></code></pre></td></tr></table></figure>
+
+<p>启动后，执行以下加入网络</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">docker exec -it zt zerotier-cli join 你的网络ID<br><br></code></pre></td></tr></table></figure>
+
+<p>有 compose 的话，我是这么操作的：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs text">version: &#x27;3.3&#x27;<br>services:<br>  zerotier-synology:<br>    container_name: zt<br>    restart: always<br>    devices:<br>      - /dev/net/tun<br>    cap_add:<br>      - NET_ADMIN<br>      - SYS_ADMIN<br>    network_mode: host<br>    volumes:<br>      - &#x27;./data:/var/lib/zerotier-one&#x27;<br>    image: &#x27;zerotier/zerotier-synology:latest&#x27;<br><br></code></pre></td></tr></table></figure>
+
+<p>加入网络：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">docker-compose exec zerotier-synology zerotier-cli join 你的网络ID<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="OpenWRT"><a href="#OpenWRT" class="headerlink" title="OpenWRT"></a><strong>OpenWRT</strong></h3><p>软路由上，有一个 Zerotier 工具，启用，输入网络 ID，保存并启用即可。</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a><strong>Docker</strong></h3><p>首先启用虚拟网卡（跟群晖一样，这步我还不知道怎么搞）</p>
+<p>用以下 docker compose 文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs text">version: &#x27;3.3&#x27;<br>services:<br>  zerotier:<br>    devices:<br>      - /dev/net/tun<br>    privileged: true<br>    image: zerotier/zerotier<br>    network_mode: host<br>    cap_add:<br>      - NET_ADMIN<br>      - SYS_ADMIN<br>    command: [&#x27;你的网络ID&#x27;]<br>    volumes:<br>      - ./data:/var/lib/zerotier-one<br><br></code></pre></td></tr></table></figure>
+
+<p>我不知道为什么网上的人都爱用第三方很久不更新的镜像。用官方的不香吗。</p>
+<p>直接启动即可。</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a><strong>授权</strong></h3><p>每一次添加了客户端后，在控制面板上会显示新设备加入，勾上前面的勾表示对这个设备授权，会给其分配 IP，显示 zerotier 客户端的版本号和物理地址。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cfb0ec2751c8c23e1d0f5b4f7c1a23b8_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>免费版最多一个网络可以有 50 个设备。真大方.. 怎么用都够用了。</p>
+<p>好了，这回，只要输入对应的虚拟 IP，就可以访问对应的设备了。这些设备相当于都处于同一个局域网下了。你会发现，速度相当快了。</p>
+<h3 id="命令行的使用"><a href="#命令行的使用" class="headerlink" title="命令行的使用"></a><strong>命令行的使用</strong></h3><p>所有的设备都是使用 zerotier 相同源码编译的客户端。我们平时主要操作的就是 zerotier-cli。其他的，zerotier-one 是运行程序，zerotier-idtool 是生成客户端 id 使用的。zerotier-cli 要使用<strong>root</strong>权限运行。</p>
+<p>zerotier-cli peers</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0bed17987e87e091b85cc22d34b254d7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>Path 指的是连接时连接到的 IP 地址。这台机器是我最头疼的一台，它给 zerotier 的地址都是 ipv6 的，导致它的节点与其他 ipv4 的节点没办法互联，搞了我好几天了。</p>
+<p>不过也可以看见，同一内网下的话，IP 会使用内网的 IP，不需要再经历转发的流程。</p>
+<p>其中 link 代表了连接状况。DIRECT 代表可以直接连接，RELAY 代表需要转发。转发的速度当然会慢一些，因此尽量保证你的 NET 类型为 A&#x2F;B。（跟 switch 学来的）这里我还没有细致研究，不过只要你的路由器支持 uPnP，一般都是直连。</p>
+<p>这里有连接方式的官方介绍，我懒得看：<a href="https://link.zhihu.com/?target=https://docs.zerotier.com/zerotier/troubleshooting%23recommended-local-network-and-internet-gateway-configuration">https://docs.zerotier.com/zerotier/troubleshooting#recommended-local-network-and-internet-gateway-configuration</a></p>
+<p>zerotier-cli listnetworks</p>
+<p><img src="https://pic3.zhimg.com/80/v2-edb5c2c081476a76a737ae252bb6012e_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>这里有以下信息：网络 ID、名称、本机的虚拟 IP 地址，和网络状态。其中，网络状态 OK 表示正常，REQUEST_CONFIGURATION 表示没有 uPNP，连不上，ACCESS_DENIED 表示还没有授权。其他的状态我还没见过。</p>
+<p>查看连接情况：zerotier-cli info</p>
+<h2 id="高级"><a href="#高级" class="headerlink" title="高级"></a><strong>高级</strong></h2><h3 id="自定义-Moon"><a href="#自定义-Moon" class="headerlink" title="自定义 Moon"></a><strong>自定义 Moon</strong></h3><p>任何一个节点都可以作为 Moon 使用。当然，正常的我们肯定会选择公网 IP 的节点，一般都会使用云服务器。</p>
+<p>官方文档在这里：<a href="https://link.zhihu.com/?target=https://docs.zerotier.com/zerotier/moons">https://docs.zerotier.com/zerotier/moons</a></p>
+<p>那么第一步就是搞一台云服务器，在上面连接好网络。</p>
+<p>进入配置文件夹，linux 上的是</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">/var/lib/zerotier-one<br></code></pre></td></tr></table></figure>
+
+<p>。执行</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">zerotier-idtool initmoon identity.public &gt;&gt;moon.json<br></code></pre></td></tr></table></figure>
+
+<p>打开的文件大概长这个样子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs text">&#123;<br>  &quot;id&quot;: &quot;deadbeef00&quot;,<br>  &quot;objtype&quot;: &quot;world&quot;,<br>  &quot;roots&quot;: [<br>    &#123;<br>      &quot;identity&quot;: &quot;deadbeef00:0:34031483094...&quot;,<br>      &quot;stableEndpoints&quot;: []<br>    &#125;<br>  ],<br>  &quot;signingKey&quot;: &quot;b324d84cec708d1b51d5ac03e75afba501a12e2124705ec34a614bf8f9b2c800f44d9824ad3ab2e3da1ac52ecb39ac052ce3f54e58d8944b52632eb6d671d0e0&quot;,<br>  &quot;signingKey_SECRET&quot;: &quot;ffc5dd0b2baf1c9b220d1c9cb39633f9e2151cf350a6d0e67c913f8952bafaf3671d2226388e1406e7670dc645851bf7d3643da701fd4599fedb9914c3918db3&quot;,<br>  &quot;updatesMustBeSignedBy&quot;: &quot;b324d84cec708d1b51d5ac03e75afba501a12e2124705ec34a614bf8f9b2c800f44d9824ad3ab2e3da1ac52ecb39ac052ce3f54e58d8944b52632eb6d671d0e0&quot;,<br>  &quot;worldType&quot;: &quot;moon&quot;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>在其中的</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">roots/stableEndpoints<br></code></pre></td></tr></table></figure>
+
+<p>数组中填上本机的</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">虚拟IP/端口号<br></code></pre></td></tr></table></figure>
+
+<p>，一般端口都是 9993。如果你服务器支持 ipv6，填上 ipv6 也是不错的。</p>
+<p>服务器要打开 9993 端口！</p>
+<p>然后执行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">zerotier-idtool genmoon moon.json<br>mkdir moons.d<br><br></code></pre></td></tr></table></figure>
+
+<p>会生成一个 000xxxx.moon 的文件，将其放在 moons.d 文件夹中。</p>
+<p>这个 000xxx 就是此 mood 的 id。</p>
+<p>在与其连接的客户端上，执行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">zerotier-cli orbit 000xxx 000xxx<br><br></code></pre></td></tr></table></figure>
+
+<p>其中，第一个是 Word ID，第二个是 moon id。不用考虑细节，两个一样就对了。</p>
+<p>这样，在连接的时候，就可以看到这台机器已经从 LEAF 变成了 MOON。</p>
+<h3 id="自定义-controller"><a href="#自定义-controller" class="headerlink" title="自定义 controller"></a><strong>自定义 controller</strong></h3><p>Controller 就相当于一个完整的 zerotier 服务。由于 iOS 端不支持自定义 controller，我也没做这个东西。等我把家里的网络重新整理一遍再来玩这个。</p>
+<h3 id="自定义-dns"><a href="#自定义-dns" class="headerlink" title="自定义 dns"></a><strong>自定义 dns</strong></h3><p>使用 zerotier&#x2F;zeronsd 来进行 DNS 的设置，官方文档在这里：<a href="https://link.zhihu.com/?target=https://docs.zerotier.com/zeronsd/quickstart">https://docs.zerotier.com/zeronsd/quickstart</a></p>
+<p>这个功能目前还是 BETA 版，我将在把家里的网络整理好后再来配置 DNS。</p>
+<p>这个 DNS 处于网络的里面，主要用于避免客户端以 IP 进行访问，太复杂了。</p>
+<h1 id="8-Tailscale"><a href="#8-Tailscale" class="headerlink" title="8.Tailscale"></a>8.Tailscale</h1><p><code>Tailscale</code> 是一种基于 <code>WireGuard</code> 的虚拟组网工具，它能帮助我们把安装了 <code>Tailscale</code> 服务的机器，都放到同一个局域网内，即公司或者家里的 <code>PC</code> 机器连到同一网络，甚至云服务器都能放到同一个局域网。</p>
+<ul>
+<li><p>Tailscale 官网</p>
+</li>
+<li><p>Tailscale 文档</p>
+</li>
+</ul>
+<p><img src="https://pic3.zhimg.com/80/v2-db2244c0ed619936b9c71585a4eaf1e6_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="1-工具介绍"><a href="#1-工具介绍" class="headerlink" title="1. 工具介绍"></a><strong>1. 工具介绍</strong></h3><p>介绍该工具的有点和特性</p>
+<p>没有公网 <code>IP</code>，又想能满足远程办公需求？担心暴露公网 <code>IP</code> 而被频繁的恶意扫描、攻击？<code>Tailscale</code> 的诞生，成为解决这些痛点的全新选择。</p>
+<ul>
+<li><p>无需注册&#x2F;授权登录&#x2F;开箱即用</p>
+</li>
+<li><p>无需配置防火墙</p>
+</li>
+<li><p>没有额外的配置</p>
+</li>
+<li><p>高安全性&#x2F;私密性</p>
+</li>
+<li><p>自动密钥轮换</p>
+</li>
+<li><p>基于 <code>WireGuard®</code> 保护</p>
+</li>
+<li><p>点对点连接</p>
+</li>
+<li><p>支持用户审查端到端的访问记录</p>
+</li>
+<li><p>访问&#x2F;连接&#x2F;高度可控</p>
+</li>
+<li><p>支持使用节点共享与指定的 <code>Tailscale</code> 用户共享您的设备</p>
+</li>
+<li><p>支持使用 <code>CL</code> 限制对设备的访问。</p>
+</li>
+<li><p>低延时&#x2F;不限速</p>
+</li>
+<li><p>设备间在不跨运营商的前提条件下，设备所在网络环境的上行带宽就是访问下载的最大带宽</p>
+</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/80/v2-7602b5c447cdd9c5fea9cc6911ac061d_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>我们知道 <code>TailScale</code> 是基于 Wireguard 开发而来的，所以天生支持协议加密，安全性更高，而且是 <code>P2P</code> 连线，流量不经服务器，延迟更低。并且，对个人用户免费。</p>
+<ul>
+<li>[1] 传输文件</li>
+</ul>
+<p><code>TailScale</code> 内置 <code>taildrop</code>，可以在设备间传输文件，因为其支持全平台，所以实际上这也是一个很好用的全平台文件传输工具。而且如果设备处在同一个局域网的话，传输速度也会非常快。</p>
+<ul>
+<li>[2] 远程开发</li>
+</ul>
+<p>通过笔记本可以远程台式主机或者服务器，进行开发。优点在于，台式机硬件的售价非常便宜，可以用很低的成本组装一台超强配置的机器。移动办公的精髓应该在与你可以随时随地的连接上一个统一且强大的工作环境， 而不是抱着同一台笔记本走南闯北。</p>
+<ul>
+<li>[3] 服务代理</li>
+</ul>
+<p><code>TailScale</code> 节点间是点对点 <code>tls</code> 连接，所以实际上也可以用来做网络代理。</p>
+<h3 id="2-使用方式"><a href="#2-使用方式" class="headerlink" title="2. 使用方式"></a><strong>2. 使用方式</strong></h3><p>介绍 Tailscale 官网的在线使用方式</p>
+<ul>
+<li>当我们访问官方并点击了 Get Started 之后，会发现只能够使用谷歌、微软和同性交友平台的账户镜像登录，使用自己邮箱进行属于增值付费业务。</li>
+</ul>
+<p><img src="https://pic3.zhimg.com/80/v2-d81e076631c5b52e8754862dd95a341e_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>这里我们使用自己的账户进行登录之后，需要我们首先现在对应设备的客户端工具，只有 Linux 设备可以使用命令行安装，其他设备均需要安装客户端工具才行。需要注意的是，如果你是 macOS 的话，需要使用除中国区外的账户进行登录(得准备一个美区账户)，才能够安装。如果是安卓手机的话，需要到谷歌应用商店安装(需要科学上网)。</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text"># linux$ curl -fsSL https://tailscale.com/install.sh | sh<br><br># 还可以使用docker安装# https://github.com/tailscale/tailscale/blob/main/Dockerfile$ docker run -d --name=tailscaled \<br>    -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun \<br>    --network=host --privileged fastandfearless/tailscale tailscaled# 打印tailscale登录地址并进行授权登录$ docker exec tailscaled tailscale up# 获取设备TailscaleIP地址$ ip addr show tailscale0# 查看设备状态$ docker exec tailscaled tailscale status<br><br># 本地编译安装# https://github.com/tailscale/tailscale/wiki/Tailscaled-on-macOS# 安装go工具$ brew install go# 直接编译# 会在$HOME/go/bin目录下面生成二进制包$ go install tailscale.com/cmd/tailscale&#123;,d&#125;@main# 后台守护进程运行tailscaled服务# sudo tailscaled uninstall-system-daemon$ sudo $HOME/go/bin/tailscaled<br>$ sudo $HOME/go/bin/tailscaled install-system-daemon# 启动服务$ tailscale up<br>$ tailscale status<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://pic3.zhimg.com/80/v2-8465c83d2bcbf02ba8931c629ebfa272_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>当你登录并授权登录成功后，会自动为该设备分配一个 Tailscale IP(可用于局域网内设备间的访问)，之后可以看到这么一份带有 IP 的列表了。</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-c90a65ea0f27ce45b2d466de4cae165f_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>有了 Tailscale 的虚拟组网服务后，办公室和自由职业时期的居家办公体验，相差已经变得很小了。下来，我们就慢慢了解一下其用法和使用场景吧！</li>
+</ul>
+<h3 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3. 使用场景"></a><strong>3. 使用场景</strong></h3><p>安装上之后，我们可以怎么玩呢？</p>
+<ul>
+<li>[1] 访问内网服务</li>
+</ul>
+<p>如果你使用的 <code>Mac</code> 电脑的话，肯定存储是一个头痛的问题，因为一般情况下都会购买 <code>128G</code> 和 <code>256G</code> 版本的机器(不要问为什么，问的话就是穷)。这样当磁盘不够的时候，就让人感觉到焦虑。但是当我们使用 <code>Tailscale</code> 并拥有 <code>WebDav</code> 之后，就能很好的拓展存储空间，可以内网连接我的群晖 <code>NAS</code> 提供的 <code>WebDav</code> 了。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-4a61094495c7a4d0de4e611f15494d77_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>[2] 远程访问机器 - 群晖</li>
+</ul>
+<p>远程使用 <code>PC</code> 的情况，可以通过 <code>TeamViewer</code> 完成。但是使用 <code>RDP</code> 协议来远程操作，效果体验更佳而且更稳定。但是 <code>PC</code> 机需要一直开机状态，如果我们只是偶尔使用一下的话，这有些费电了。</p>
+<p>当我们使用 <code>Tailscale</code> 之后，通过群晖(或者机器机器也可以)做一个反向代理方便进入家里的梅林路由器，并修改本地 <code>Mac</code> 的 <code>hosts</code> 文件来解析我们自定义的域名。群晖 NAS 的控制面板中自带了配置反向代理的地方，可以省的我们折腾。进入梅林路由器，进入网络工具中的通过网络唤醒界面，选择对应的 <code>PC</code> 即可。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-7fa9664889468a96dd1244c5b4288eac_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>当然，首先这台 <code>PC</code> 机需要配置好通过 <code>WOL</code> 唤醒才行，而配置可以自己参考网络唤醒全攻略。等待电脑唤醒完成后，使用远程桌面进行远程连接，就可以得到一个用户体验很不错的体验了。</p>
+<ul>
+<li>[3] 远程访问机器 - 主机</li>
+</ul>
+<p>上面我们知道群晖会自带反向代理的功能，但是并不是每个人都会买这个的，那有没有其他方式来处理这个问题呢？肯定是可以的，我们这里通过 <code>Linux</code> 接入 <code>TailScale</code> 服务，让其充当网关，这样就可以问整个内网网段了。</p>
+<p>这样做的好处，还有一个就是，家里或者公司不是每一部设备都可以安装到 <code>TailScale</code> 服务的，比如打印机之类的。这样设定 <code>PC</code> 机充当子路由(<code>Subnet Route</code>)，其他所有的外网的 <code>TailScale</code> 装置都可以透过这部 <code>Linux</code> 装置作为网关访问家里内网所有的设备。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text"># Linux机器设置IP转发(临时)$ echo &#x27;net.ipv4.ip_forward = 1&#x27; | sudo tee -a /etc/sysctl.conf<br>$ echo &#x27;net.ipv6.conf.all.forwarding = 1&#x27; | sudo tee -a /etc/sysctl.conf<br>$ sudo sysctl -p /etc/sysctl.conf<br><br></code></pre></td></tr></table></figure>
+
+<p><code>TailScale</code> 不需要防火墙配置，会自动管理规则，以允许转发。设定过程也没涉及到 <code>iptable</code>的设置，一条指令可以完成。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text"># 替换为自己的网段(IPV4或IPV6)$ sudo tailscale up --advertise-routes=20.13.3.0/24<br><br></code></pre></td></tr></table></figure>
+
+<p>这里设置完成之后，默认并没有开启转发功能。需要我们登陆网页，在控制台页面找到我们这台机器，打开路由设置功能。基于安全特性，<code>Tailscale</code> 每隔 <code>6</code> 个月需要重新授权装置，我们这里可以选择关掉这个。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b10a5458ff04c45768b96176e1ffc81d_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-ac159bfd5f5edbe42ee2e19bba4d8b74_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>[4] 代理服务 - 科学上网</li>
+</ul>
+<p>比如我在境外服务器上安装一个 <code>tailscale</code> 的节点，然后再在境外服务器上安装一个 <code>cow</code>（用来做 <code>http proxy server</code>）。那我就可以在任意一台机器上，访问境外服务器的 <code>tailscale</code> 子网 <code>IP + cow</code> 端口的形式实现 <code>HTTP/SOCKS</code> 代理。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text"># 安装cow工具(梯子机器)$ curl -L git.io/cow | bash# 修改配置文件$ cat /home/escape/.cow/rc<br>listen = http://100.100.100.100:17777<br><br># 将其添加到systemd服务中$ sudo vim /etc/systemd/system/cow.service\[Unit\]Description=cow serviceAfter=network.target<br>StartLimitIntervalSec=0\[Service\]Type=simple<br>Restart=always<br>RestartSec=1<br>User=escape<br>ExecStart=/usr/local/bin/cow -c /home/escape/.cow/rc\[Install\]WantedBy=multi-user.target<br><br></code></pre></td></tr></table></figure>
+
+<p><code>Tailscale</code> 提供的 <code>relays</code> 数量有限，而且全部在国外。你也可以自建中继。自建中继服务器被称为 <code>derper</code>，是用 <code>go</code> 开发的，建议先安装 <code>go</code> 环境。<code>go</code> 是预编译的，安装起来很简单，下载、解压即可。</p>
+<p>启动 <code>derper</code> 的参数，其中 <code>-hostname</code> 表示有效的公网域名，<code>derper</code> 会自动为这个域名申请 <code>Let&#39;s Encrypt TLS</code> 证书，其中 <code>-a</code> 表示指定 <code>derper</code> 监听的 <code>tcp</code> 端口，默认为 <code>443</code>，修改为其他端口的话似乎转发流量会有问题，其中 <code>-stun</code> 表示 <code>stun</code> 协议的 <code>udp</code> 端口，<code>health check</code> 的时候会用到。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs text"># 安装$ go install tailscale.com/cmd/derper@main# 启动$ sudo derper -c=/root/derper.conf -hostname=xx.xx.xx -a=:443 -stun<br><br># 加入自启动里面sudo vi /etc/systemd/system/derper.service\[Unit\]Description=derper serviceAfter=network.target<br>StartLimitIntervalSec=0\[Service\]Type=simple<br>Restart=always<br>RestartSec=1<br>User=root<br>ExecStart=/home/escape/.go/bin/derper -c=/root/derper.conf -hostname=x.x.x.x -a :443 -stun\[Install\]WantedBy=multi-user.target<br><br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，因为 <code>derper</code> 会申请公网 <code>TLS</code> 证书，如果你的服务器在国内，那么域名必须要备案。而且由于中国封锁了 <code>Let&#39;s Encrypt</code>，所以你的 <code>derper</code> 在启动一会儿后，很可能会报错表示证书申请失败。所以，使用香港、日本、新加坡的主机会好很多。</p>
+<h3 id="4-命令使用"><a href="#4-命令使用" class="headerlink" title="4. 命令使用"></a><strong>4. 命令使用</strong></h3><p>这里主要介绍 tailscale 命令的使用</p>
+<ul>
+<li>一图搞定</li>
+</ul>
+<h1 id="9-cpolar"><a href="#9-cpolar" class="headerlink" title="9.cpolar"></a><img src="https://pic3.zhimg.com/80/v2-f789aebf39a52cbc12b7b34833ab236e_1440w.webp" srcset="/img/loading.gif" lazyload>9.<a target="_blank" rel="noopener" href="https://www.cpolar.com/docs">cpolar</a></h1><p> cpolar是一种安全的内网穿透云服务，它将内网下的本地服务器通过安全隧道暴露至公网。使得公网用户可以正常访问内网服务，是一款内网穿透软件。只需一行命令，就可以将内网站点发布至公网，方便给客户演示。高效调试微信公众号、小程序、对接支付宝网关等云端服务，提高您的编程效率。</p>
+<p>官方网页教程比较详细，这里就不在追述了。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cpolar.com/docs">https://www.cpolar.com/docs</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" class="category-chain-item">远程连接</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/" class="print-no-link">#远程连接</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>远程连接</div>
+      <div>https://tingfeng347.github.io/2023/12/04/远程连接/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/05/ventoy%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/" title="ventoy实现多系统部署">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ventoy实现多系统部署</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/03/%E6%9D%82%E9%A1%B9/" title="杂项">
+                        <span class="hidden-mobile">杂项</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

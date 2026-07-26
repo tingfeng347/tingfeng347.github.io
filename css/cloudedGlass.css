@@ -1,0 +1,183 @@
+* {
+  --background-blur: 15px;
+}
+
+#board {
+  -webkit-backdrop-filter: blur(calc(var(--background-blur) * 2));
+  backdrop-filter: blur(calc(var(--background-blur) * 2));
+}
+
+
+#toc {
+  visibility: visible !important;
+  padding: 10px;
+  top: 4rem;
+  background-color: var(--board-bg-color);
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(var(--background-blur));
+  backdrop-filter: blur(var(--background-blur));
+}
+
+/* Fluid 1.9.9 将目录项改为可折行，窄侧栏会把中文逐字拆开。 */
+@media (min-width: 992px) {
+  .side-col:last-child .sidebar {
+    display: none;
+  }
+
+  .side-col:last-child .sidebar.toc-is-visible {
+    position: fixed;
+    top: 4.5rem;
+    right: 1.5rem;
+    display: block;
+    width: 15rem;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(65vh + 3rem);
+    margin-left: 0 !important;
+    padding: 0;
+    z-index: 10;
+  }
+
+  .side-col:last-child #toc .toc-header,
+  .side-col:last-child #toc .toc-list-item {
+    white-space: nowrap;
+  }
+
+  .side-col:last-child #toc .tocbot-link {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1.15rem;
+  }
+
+  .side-col:last-child #toc .toc-body {
+    max-height: 65vh;
+  }
+
+  .side-col:last-child #toc .toc-list-item {
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  .side-col:last-child #toc .toc-toggle {
+    float: right;
+    margin: 0.45rem 0.1rem 0 0;
+  }
+
+  .side-col:last-child #toc .toc-list-item::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+
+[data-user-color-scheme='dark'] {
+  --link-hover-bg-color: #36415199;
+  --text-color: #cecece !important;
+  --sec-text-color: #cecece !important;
+}
+
+:root {
+  --link-hover-bg-color: #f8f9fa57;
+  --text-color: #000;
+  --sec-text-color: #000;
+}
+
+.category-list .category {
+  margin-bottom: 0;
+}
+
+/* Colorful tag cloud - override pale default colors */
+.tagcloud a {
+  color: #e74c3c !important;
+}
+.tagcloud a:nth-child(7n+1) { color: #e74c3c !important; }
+.tagcloud a:nth-child(7n+2) { color: #2ecc71 !important; }
+.tagcloud a:nth-child(7n+3) { color: #3498db !important; }
+.tagcloud a:nth-child(7n+4) { color: #e67e22 !important; }
+.tagcloud a:nth-child(7n+5) { color: #9b59b6 !important; }
+.tagcloud a:nth-child(7n+6) { color: #1abc9c !important; }
+.tagcloud a:nth-child(7n+7) { color: #f39c12 !important; }
+
+/* Hide image captions/names below images */
+.markdown-body figcaption.image-caption {
+  display: none !important;
+}
+
+
+#web_bg {
+  transition: all 0.5s;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* 搜索弹窗与页面玻璃面板保持一致，并移除标题和输入框的横线。 */
+#modalSearch .modal-content {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(calc(var(--background-blur) * 1.5));
+  backdrop-filter: blur(calc(var(--background-blur) * 1.5));
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.16);
+}
+
+#modalSearch .modal-header {
+  border-bottom: 0;
+}
+
+#modalSearch .md-form {
+  margin-bottom: 1.5rem !important;
+}
+
+#modalSearch #local-search-input {
+  height: auto;
+  border: 0 !important;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: none !important;
+  padding: 0.8rem 1rem;
+}
+
+#modalSearch #local-search-input:focus {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 0 0.18rem rgba(41, 166, 216, 0.2) !important;
+}
+
+[data-user-color-scheme='dark'] #modalSearch .modal-content {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(25, 32, 43, 0.7);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+[data-user-color-scheme='dark'] #modalSearch #local-search-input {
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-user-color-scheme='dark'] #modalSearch #local-search-input:focus {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* 使用站点自身的目录高亮状态，避免 tocbot 的旧偏移量覆盖点击项。 */
+#toc-body.toc-custom-sync .tocbot-active-link:not(.toc-custom-active) {
+  color: var(--text-color);
+  font-weight: normal;
+}
+
+#toc-body.toc-custom-sync .toc-custom-active {
+  color: var(--link-hover-color);
+  font-weight: bold;
+}
+
+#toc-body.toc-custom-sync .toc-list-item.is-active-li:not(.toc-custom-active-item)::before {
+  visibility: hidden;
+}
+
+#toc-body.toc-custom-sync .toc-custom-active-item::before {
+  visibility: visible;
+}

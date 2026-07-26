@@ -1,0 +1,1263 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="知了传课问答平台介绍 flask学习，来自b站知了传课,问答平台，登录+注册+提问+回答  演示登录页面 注册页面 发布问答 问答列表 回答 搜索Flask  Flask 是一个轻量级的 Web 开发框架  基于 Python 编写，适用于开发小型应用和 API   基础知识安装和配置 使用 pip 安装 Flask：pip install flask  导入 Flask 库：from flask">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知了传课问答平台">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/07/09/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="知了传课问答平台介绍 flask学习，来自b站知了传课,问答平台，登录+注册+提问+回答  演示登录页面 注册页面 发布问答 问答列表 回答 搜索Flask  Flask 是一个轻量级的 Web 开发框架  基于 Python 编写，适用于开发小型应用和 API   基础知识安装和配置 使用 pip 安装 Flask：pip install flask  导入 Flask 库：from flask">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709084914762.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709084843559.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709085903776.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709085937045.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709090016208.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709160853298.png">
+<meta property="article:published_time" content="2024-07-09T08:28:44.000Z">
+<meta property="article:modified_time" content="2026-07-23T14:40:31.529Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="flask">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709084914762.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>知了传课问答平台 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="知了传课问答平台"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-09 16:28" pubdate>
+          2024年7月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">知了传课问答平台</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="知了传课问答平台"><a href="#知了传课问答平台" class="headerlink" title="知了传课问答平台"></a>知了传课问答平台</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h2><blockquote>
+<p>flask学习，来自b站知了传课,问答平台，登录+注册+提问+回答</p>
+</blockquote>
+<h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a><strong>演示</strong></h2><h3 id="登录页面"><a href="#登录页面" class="headerlink" title="登录页面"></a><strong>登录页面</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709084914762.png" srcset="/img/loading.gif" lazyload alt="image-20240709084914762"></p>
+<h3 id="注册页面"><a href="#注册页面" class="headerlink" title="注册页面"></a><strong>注册页面</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709084843559.png" srcset="/img/loading.gif" lazyload alt="image-20240709084843559"></p>
+<h3 id="发布问答"><a href="#发布问答" class="headerlink" title="发布问答"></a><strong>发布问答</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709085903776.png" srcset="/img/loading.gif" lazyload alt="image-20240709085903776"></p>
+<h3 id="问答列表"><a href="#问答列表" class="headerlink" title="问答列表"></a><strong>问答列表</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709085937045.png" srcset="/img/loading.gif" lazyload alt="image-20240709085937045"></p>
+<h3 id="回答"><a href="#回答" class="headerlink" title="回答"></a><strong>回答</strong></h3><p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709090016208.png" srcset="/img/loading.gif" lazyload alt="image-20240709090016208"></p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a><strong>搜索</strong></h3><h1 id=""><a href="#" class="headerlink" title=""></a><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/flask1/assets/image-20240709160853298.png" srcset="/img/loading.gif" lazyload></h1><p><strong>Flask</strong></p>
+<ul>
+<li><p>Flask 是一个轻量级的 Web 开发框架</p>
+</li>
+<li><p>基于 Python 编写，适用于开发小型应用和 API</p>
+</li>
+</ul>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a><strong>基础知识</strong></h2><h3 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a><strong>安装和配置</strong></h3><ul>
+<li><p>使用 <code>pip</code> 安装 Flask：<code>pip install flask</code></p>
+</li>
+<li><p>导入 Flask 库：<code>from flask import Flask</code></p>
+</li>
+</ul>
+<h3 id="应用程序"><a href="#应用程序" class="headerlink" title="应用程序"></a><strong>应用程序</strong></h3><ul>
+<li><p>创建应用程序对象：<code>app = Flask(__name__)</code>，其中 <code>__name__</code> 参数为当前模块名</p>
+</li>
+<li><p>默认情况下，静态文件夹（即存放静态文件的文件夹）和模板文件夹（即存放 HTML 文件的文件夹）位于应用程序根目录中的 <code>static</code> 和 <code>templates</code> 文件夹中。可以通过 <code>static_folder</code> 和 <code>template_folder</code> 参数指定其他位置。</p>
+</li>
+<li><p>使用 <code>debug=True</code> 参数开启调试模式。</p>
+</li>
+<li><p>设置根路由响应函数：<code>@app.route(&#39;/&#39;)</code> 和 <code>def index():</code></p>
+</li>
+</ul>
+<h3 id="运行应用程序"><a href="#运行应用程序" class="headerlink" title="运行应用程序"></a><strong>运行应用程序</strong></h3><ul>
+<li><p>通过命令行运行：<code>flask run</code>，默认端口为 5000。</p>
+</li>
+<li><p>或者在代码中运行：<code>if __name__ == &#39;__main__&#39;: app.run()</code>。</p>
+</li>
+</ul>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a><strong>路由</strong></h2><h3 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a><strong>静态路由</strong></h3><ul>
+<li><p>@app.route(‘&#x2F;hello’) 可以匹配 <code>http://localhost:5000/hello</code> 请求</p>
+</li>
+<li><p>使用 <code>methods=[&#39;GET&#39;]</code> 参数指定 HTTP 方法。</p>
+</li>
+</ul>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a><strong>动态路由</strong></h3><ul>
+<li><p>变量规则：使用尖括号表示变量名。例如 <code>@app.route(&#39;/user/&lt;username&gt;&#39;)</code> 可以匹配 <code>http://localhost:5000/user/john</code> 请求。</p>
+</li>
+<li><p>可以使用 ‘{variable: type}’ 指定变量类型。例如 <code>@app.route(&#39;/post/&lt;int:post_id&gt;&#39;)</code> 表示 post_id 只能是整数类型。</p>
+</li>
+<li><p>同时使用多个变量：例如 <code>@app.route(&#39;/path/&lt;path:subpath&gt;&#39;)</code> 表示 subpath 可以包含斜杠 <code>/</code>。</p>
+</li>
+</ul>
+<h3 id="HTTP-方法"><a href="#HTTP-方法" class="headerlink" title="HTTP 方法"></a><strong>HTTP 方法</strong></h3><ul>
+<li><p>支持不同的 HTTP 方法：<code>@app.route(&#39;/login&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;])</code></p>
+</li>
+<li><p>常用的方法：<code>GET</code>、<code>POST</code>、<code>PUT</code>、<code>DELETE</code></p>
+</li>
+</ul>
+<h3 id="URL-生成"><a href="#URL-生成" class="headerlink" title="URL 生成"></a><strong>URL 生成</strong></h3><ul>
+<li>使用 <code>url_for()</code> 函数生成 URL。例如 <code>url_for(&#39;index&#39;)</code> 会返回 <code>/</code>。</li>
+</ul>
+<h3 id="重定向和错误处理"><a href="#重定向和错误处理" class="headerlink" title="重定向和错误处理"></a><strong>重定向和错误处理</strong></h3><ul>
+<li><p>重定向：使用 <code>redirect()</code> 函数，例如 <code>return redirect(url_for(&#39;index&#39;))</code>。</p>
+</li>
+<li><p>错误处理：使用 <code>@app.errorhandler()</code> 装饰器和对应的响应函数，例如 <code>@app.errorhandler(404)</code> 和 <code>def page_not_found(error):</code>。</p>
+</li>
+</ul>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a><strong>模板</strong></h2><h3 id="Jinja2-模板引擎"><a href="#Jinja2-模板引擎" class="headerlink" title="Jinja2 模板引擎"></a><strong>Jinja2 模板引擎</strong></h3><ul>
+<li><p>使用模板：<code>render_template(&#39;index.html&#39;, name=name)</code>，第一个参数为模板文件名，后面的参数为模板上下文。</p>
+</li>
+<li><p>在模板中使用变量：使用双花括号表示，例如 <code>Hello, {{ name }}!</code>。</p>
+</li>
+<li><p>在模板中使用控制结构：使用 <code>&#123;% %&#125;</code> 标签，例如 <code> Hello, Stranger! </code>。</p>
+</li>
+<li><p>继承模板：<code>&#123;% extends "base.html" %&#125;</code>，表示该模板继承自 base.html 模板。</p>
+</li>
+<li><p>定义块：<code>&#123;% block content %&#125;` 和 `&#123;% endblock %&#125;</code>，可以在子模板中重写。</p>
+</li>
+<li><p>包含模板：<code>&#123;% include "common.html" %&#125;</code>，将 common.html 模板引入到当前模板中。</p>
+</li>
+</ul>
+<h3 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a><strong>静态文件</strong></h3><ul>
+<li><p>存放位置：应用程序根目录下的 <code>static</code> 文件夹。</p>
+</li>
+<li><p>使用方式：<code>url_for(&#39;static&#39;, filename=&#39;style.css&#39;)</code>。</p>
+</li>
+</ul>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a><strong>表单</strong></h2><h3 id="WTForms-扩展"><a href="#WTForms-扩展" class="headerlink" title="WTForms 扩展"></a><strong>WTForms 扩展</strong></h3><ul>
+<li><p>安装扩展库：<code>pip install flask-wtf</code></p>
+</li>
+<li><p>导入扩展库：<code>from flask_wtf import FlaskForm</code></p>
+</li>
+<li><p>定义表单类：<code>class LoginForm(FlaskForm):</code>，每个字段都是一个实例化后的 wtforms 字段。</p>
+</li>
+<li><p>渲染表单：<code>{{ form.username.label }} {{ form.username() }}</code>，label 表示字段的标签（即描述），() 表示渲染成 HTML 元素。</p>
+</li>
+</ul>
+<h3 id="CSRF-防护"><a href="#CSRF-防护" class="headerlink" title="CSRF 防护"></a><strong>CSRF 防护</strong></h3><ul>
+<li><p>使用 Flask-WTF 扩展提供的 CSRF 防护机制。</p>
+</li>
+<li><p>设置应用程序的 SECRET_KEY 属性。</p>
+</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a><strong>数据库</strong></h2><h3 id="SQLAlchemy-扩展"><a href="#SQLAlchemy-扩展" class="headerlink" title="SQLAlchemy 扩展"></a><strong>SQLAlchemy 扩展</strong></h3><ul>
+<li><p>安装扩展库：<code>pip install flask-sqlalchemy</code></p>
+</li>
+<li><p>导入扩展库：<code>from flask_sqlalchemy import SQLAlchemy</code></p>
+</li>
+<li><p>配置数据库连接：<code>app.config[&#39;SQLALCHEMY_DATABASE_URI&#39;] = &#39;sqlite:///test.db&#39;</code></p>
+</li>
+<li><p>创建数据库实例：<code>db = SQLAlchemy(app)</code></p>
+</li>
+<li><p>定义数据表：<code>class User(db.Model):</code>，自定义数据表需要继承 db.Model 类。</p>
+</li>
+<li><p>在数据表中定义字段：例如 <code>id = db.Column(db.Integer, primary_key=True)</code>，表示 id 为整数类型，是主键。</p>
+</li>
+<li><p>创建数据表：<code>db.create_all()</code></p>
+</li>
+</ul>
+<h3 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a><strong>数据操作</strong></h3><ul>
+<li><p>添加数据：<code>user = User(username=&#39;tom&#39;, password=&#39;123&#39;)</code> 和 <code>db.session.add(user)</code>。</p>
+</li>
+<li><p>查询数据：<code>user = User.query.filter_by(username=&#39;tom&#39;).first()</code>，使用过滤器进行数据的查询。</p>
+</li>
+<li><p>更新数据：<code>user.password = &#39;456&#39;</code> 和 <code>db.session.commit()</code>，更新字段值后调用 commit() 函数提交到数据库。</p>
+</li>
+<li><p>删除数据：<code>db.session.delete(user)</code> 和 <code>db.session.commit()</code>，删除记录时同样需要调用 commit() 函数。</p>
+</li>
+</ul>
+<h2 id="蓝图"><a href="#蓝图" class="headerlink" title="蓝图"></a><strong>蓝图</strong></h2><ul>
+<li><p>概述：将应用程序分割成不同的模块，每个模块都有自己的路由和视图函数。</p>
+</li>
+<li><p>创建蓝图：<code>bp = Blueprint(&#39;auth&#39;, __name__, url_prefix=&#39;/auth&#39;)</code>，其中 <code>auth</code> 是蓝图名称，<code>url_prefix</code> 参数指定蓝图的 URL 前缀。</p>
+</li>
+<li><p>注册蓝图：<code>app.register_blueprint(bp)</code>。</p>
+</li>
+</ul>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a><strong>登录</strong></h2><ul>
+<li><p>Flask-Login 扩展提供了用户认证和登录的功能。</p>
+</li>
+<li><p>安装扩展库：<code>pip install flask-login</code></p>
+</li>
+<li><p>导入扩展库：<code>from flask_login import LoginManager, login_user, logout_user, current_user</code></p>
+</li>
+<li><p>配置登录管理器：<code>login_manager = LoginManager(app)</code>， <code>login_manager.login_view = &#39;login&#39;</code>，<code>login_manager.login_message = u&quot;请先登录&quot;</code></p>
+</li>
+<li><p>定义 User 类：<code>class User(UserMixin, db.Model):</code>，自定义 User 类需要继承 UserMixin 类并在数据库实例中初始化。</p>
+</li>
+<li><p>定义表单：与使用 WTForms 扩展类似，只需要在表单类中定义相应的字段。</p>
+</li>
+<li><p>实现登录逻辑：<code>if form.validate_on_submit():</code>，验证表单数据后调用 <code>login_user(user, remember=form.remember_me.data)</code> 完成登录。</p>
+</li>
+<li><p>实现登出逻辑：<code>logout_user()</code>。</p>
+</li>
+<li><p>实现登录保护：使用 <code>@login_required</code> 装饰器，例如 <code>@app.route(&#39;/secret&#39;) @login_required def secret():</code>。</p>
+</li>
+</ul>
+<h2 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a><strong>邮件</strong></h2><ul>
+<li><p>Flask-Mail 扩展提供了邮件发送的功能。</p>
+</li>
+<li><p>安装扩展库：<code>pip install flask-mail</code></p>
+</li>
+<li><p>导入扩展库：<code>from flask_mail import Mail, Message</code></p>
+</li>
+<li><p>配置邮件：<code>app.config[&#39;MAIL_SERVER&#39;] = &#39;smtp.163.com&#39;</code>，<code>app.config[&#39;MAIL_PORT&#39;] = 465</code>，<code>app.config[&#39;MAIL_USE_SSL&#39;] = True</code>，<code>app.config[&#39;MAIL_USE_TLS&#39;] = False</code>，<code>app.config[&#39;MAIL_USERNAME&#39;] = os.environ.get(&#39;MAIL_USERNAME&#39;)</code>，<code>app.config[&#39;MAIL_PASSWORD&#39;] = os.environ.get(&#39;MAIL_PASSWORD&#39;)</code></p>
+</li>
+<li><p>创建邮件实例：<code>mail = Mail(app)</code></p>
+</li>
+<li><p>发送邮件：<code>msg = Message(&#39;Hello&#39;, sender=&#39;sender@example.com&#39;, recipients=[&#39;recipient@example.com&#39;])</code>，<code>msg.body = &quot;This is a test email.&quot;</code>，<code>mail.send(msg)</code>。</p>
+</li>
+</ul>
+<h2 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a><strong>RESTful API</strong></h2><ul>
+<li><p>Flask-RESTful 扩展提供了支持 RESTful API 的功能。</p>
+</li>
+<li><p>安装扩展库：<code>pip install flask-restful</code></p>
+</li>
+<li><p>导入扩展库：<code>from flask_restful import Resource, Api</code></p>
+</li>
+<li><p>创建 API 实例：<code>api = Api(app)</code></p>
+</li>
+<li><p>定义资源：<code>class TodoList(Resource):</code>，在类中定义 HTTP 方法，例如 <code>def get(self):</code>（处理 GET 请求）。</p>
+</li>
+<li><p>添加资源到 API：<code>api.add_resource(TodoList, &#39;/todos&#39;)</code>，其中 <code>/todos</code> 是 URL 路径。</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E5%90%8E%E7%AB%AF/%E5%89%8D%E7%AB%AF/" class="category-chain-item">前端</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/flask/" class="print-no-link">#flask</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>知了传课问答平台</div>
+      <div>https://tingfeng347.github.io/2024/07/09/知了传课问答平台/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/09/Python%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="Python豆瓣电影数据分析可视化系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python豆瓣电影数据分析可视化系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/21/%E6%97%A0%E4%BA%BA%E5%BA%97%E5%94%AE%E8%B4%A7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="无人店售货管理系统">
+                        <span class="hidden-mobile">无人店售货管理系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
