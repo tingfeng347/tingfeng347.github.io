@@ -228,10 +228,6 @@
       btnGroup.appendChild(topBtn);
     }
 
-    function syncPosition() {
-      btnGroup.style.right = '24px';
-    }
-
     function syncVisibility() {
       if (!board) return;
       var scrollHeight = document.body.scrollTop + document.documentElement.scrollTop;
@@ -275,7 +271,6 @@
 
     window.addEventListener('scroll', syncVisibility, { passive: true });
     window.setTimeout(function() {
-      syncPosition();
       syncVisibility();
     }, 300);
   }

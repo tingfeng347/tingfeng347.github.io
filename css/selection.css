@@ -1,8 +1,8 @@
 /* 侧栏折叠按钮 — 与回到顶部按钮统一风格，横排 */
   #toggle-sidebar-btns {
     position: fixed;
-    right: 1.25rem !important;
-    left: auto !important;
+    right: 4rem;
+    left: auto;
     z-index: 99;
     display: flex;
     flex-direction: row;

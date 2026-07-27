@@ -484,7 +484,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.7k 字
+          5.5k 字
         
       </span>
     
@@ -495,7 +495,7 @@
         
         
         
-          48 分钟
+          47 分钟
         
       </span>
     
@@ -751,11 +751,11 @@
 <p>输入 <code>$$</code>, 然后按“return”键将触发一个接受_Tex &#x2F; LaTex_源代码的输入区域。以下是一个例子： V1×V2&#x3D;∣∣∣∣∣i∂X∂u∂X∂vj∂Y∂u∂Y∂vk00∣∣∣∣∣�1×�2&#x3D;|���∂�∂�∂�∂�0∂�∂�∂�∂�0|</p>
 <p>在 markdown 源文件中，数学公式块是由’$$’标记包装的 <em>LaTeX</em> 表达式：</p>
 <pre><code class="hljs">$$
-\mathbf&#123;V&#125;_1 \times \mathbf&#123;V&#125;_2 =  \begin&#123;vmatrix&#125; 
-\mathbf&#123;i&#125; &amp; \mathbf&#123;j&#125; &amp; \mathbf&#123;k&#125; \\
-\frac&#123;\partial X&#125;&#123;\partial u&#125; &amp;  \frac&#123;\partial Y&#125;&#123;\partial u&#125; &amp; 0 \\
-\frac&#123;\partial X&#125;&#123;\partial v&#125; &amp;  \frac&#123;\partial Y&#125;&#123;\partial v&#125; &amp; 0 \\
-\end&#123;vmatrix&#125;
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \\
+\end{vmatrix}
 $$
 </code></pre>
 <h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>输入 <code>| First Header | Second Header |</code> 并按下 <code>return</code> 键将创建一个包含两列的表。</p>
@@ -819,7 +819,7 @@ $$
 </code></pre>
 <p>在typora中单击链接将其展开以进行编辑，command + 单击将在 Web 浏览器中打开超链接。</p>
 <h3 id="URL网址"><a href="#URL网址" class="headerlink" title="URL网址"></a>URL网址</h3><p>Typora允许您将 URL 作为链接插入，用 <code>&lt;</code>括号括起来<code>&gt;</code>。</p>
-<p><code>&lt;i@typora.io&gt;</code> 成为 <a href="mailto:&#x69;&#x40;&#116;&#x79;&#x70;&#x6f;&#114;&#97;&#x2e;&#105;&#111;">i@typora.io</a>.</p>
+<p><code>&lt;i@typora.io&gt;</code> 成为 <a href="mailto:&#x69;&#x40;&#116;&#121;&#112;&#111;&#x72;&#97;&#46;&#x69;&#111;">i@typora.io</a>.</p>
 <p>Typora也将自动链接标准URL。例如： <a href="www.google.com">www.google.com</a>.</p>
 <h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>图像与链接类似， 但在链接语法之前需要添加额外的 <code>!</code> 字符。 图像语法如下所示：</p>
 <pre><code class="hljs">![替代文字](/path/to/img.jpg)
@@ -864,7 +864,7 @@ __双重下划线__
 <p><code>&lt;u&gt;下划线&lt;/u&gt;</code> 变成 下划线</p>
 <h3 id="表情符号-😄"><a href="#表情符号-😄" class="headerlink" title="表情符号 😄"></a>表情符号 😄</h3><p>输入表情符号的语法是 <code>:smile:</code></p>
 <p>用户可以通过 <code>ESC</code> 按键触发表情符号的自动完成建议，或者在偏好设置面板里启用后自动触发表情符号。此外，还支持直接从 <code>Edit</code> -&gt; <code>Emoji &amp; Symbols</code> 菜单栏输入UTF8表情符号字符。</p>
-<h3 id="内联数学公式"><a href="#内联数学公式" class="headerlink" title="内联数学公式"></a>内联数学公式</h3><p>要使用此功能，首先，请在 <code>偏好设置</code> 面板 -&gt; <code>Markdown扩展语法</code> 选项卡中启用它。然后使用 <code>$</code> 来包裹TeX命令，例如： <code>$\lim_&#123;x \to \infty&#125; \exp(-x) = 0$</code> 将呈现为LaTeX命令。</p>
+<h3 id="内联数学公式"><a href="#内联数学公式" class="headerlink" title="内联数学公式"></a>内联数学公式</h3><p>要使用此功能，首先，请在 <code>偏好设置</code> 面板 -&gt; <code>Markdown扩展语法</code> 选项卡中启用它。然后使用 <code>$</code> 来包裹TeX命令，例如： <code>$\lim_{x \to \infty} \exp(-x) = 0$</code> 将呈现为LaTeX命令。</p>
 <p>要触发内联公式的预览提示功能：输入“$”, 然后按 <code>ESC</code> 键, 然后输入TeX命令</p>
 <h3 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h3><p>要使用此功能，首先，请在 <code>偏好设置</code> 面板 -&gt; <code>Markdown扩展语法</code> 选项卡中启用它。然后用 <code>~</code> 来包裹下标内容，例如： <code>H~2~O</code>, <code>X~long\ text~</code>&#x2F;</p>
 <h3 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h3><p>要使用此功能，首先，请在 <code>偏好设置</code> 面板 -&gt; <code>Markdown扩展语法</code> 选项卡中启用它。然后用 <code>^</code> 来包裹上标内容，例如： <code>X^2^</code>。</p>

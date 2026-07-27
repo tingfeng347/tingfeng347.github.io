@@ -616,7 +616,7 @@
         
         
         
-          323 分钟
+          322 分钟
         
       </span>
     
@@ -1858,7 +1858,7 @@ printinfo(1, a=2,b=3)
 
 输出: 
 1
-&#123;&#39;a&#39;: 2, &#39;b&#39;: 3&#125;
+{&#39;a&#39;: 2, &#39;b&#39;: 3}
 </code></pre>
 <p>声明函数时，参数中星号 <strong>*</strong> 可以单独出现，例如:</p>
 <pre><code class="hljs">def f(a,b,*,c):
@@ -2039,7 +2039,7 @@ datetime.datetime(2016, 9, 16, 22, 33, 32, 7)
 &gt;&gt;&gt;now.strftime(&quot;%A, %d. %B %Y %I:%M%p&quot;)
 &#39;Tuesday, 20. September 2016 01:53PM&#39;
 
-&gt;&gt;&gt;print(&quot;今天是&#123;0:%Y&#125;年&#123;0:%m&#125;月&#123;0:%d&#125;日&quot;.format(now))
+&gt;&gt;&gt;print(&quot;今天是{0:%Y}年{0:%m}月{0:%d}日&quot;.format(now))
 今天是2016年09月20日
 </code></pre>
 <p>5.10 七段数码管绘制</p>
@@ -2186,12 +2186,12 @@ if condition：条件语句，可以过滤列表中不符合条件的值。
 </code></pre>
 <p>列表是一个十分灵活的数据结构，它具有处理任意长度、混合类型的能力，并提供了丰富的基础操作符和方法。当程序需要使用组合数据类型管理批量数据时，请尽量使用列表类型。</p>
 <h3 id="6-2-集合类型"><a href="#6-2-集合类型" class="headerlink" title="6.2 集合类型"></a><strong>6.2 集合类型</strong></h3><p>集合类型主要用于三个场景：成员关系测试、元素去重和删除数据项，例子如下。</p>
-<pre><code class="hljs">&gt;&gt;&gt;&quot;BIT&quot; in &#123;&quot;PYTHON&quot;, &quot;BIT&quot;, 123, &quot;GOOD&quot;&#125; #成员关系测试
+<pre><code class="hljs">&gt;&gt;&gt;&quot;BIT&quot; in {&quot;PYTHON&quot;, &quot;BIT&quot;, 123, &quot;GOOD&quot;} #成员关系测试
 True
 &gt;&gt;&gt;tup = (&quot;PYTHON&quot;, &quot;BIT&quot;, 123, &quot;GOOD&quot;, 123) #元素去重
 &gt;&gt;&gt;set(tup)
-&#123;123, &#39;GOOD&#39;, &#39;BIT&#39;, &#39;PYTHON&#39;&#125;
-&gt;&gt;&gt;newtup = tuple(set(tup)–&#123;&#39;PYTHON&#39;&#125;) # 去重同时删除数据项
+{123, &#39;GOOD&#39;, &#39;BIT&#39;, &#39;PYTHON&#39;}
+&gt;&gt;&gt;newtup = tuple(set(tup)–{&#39;PYTHON&#39;}) # 去重同时删除数据项
 (&#39;GOOD&#39;, 123, &#39;BIT&#39;) 
 </code></pre>
 <p>集合类型与其他类型最大的不同在于它不包含重复元素，因此，当需要对一维数据进行去重或进行数据重复处理时，一般通过集合来完成。</p>
@@ -2242,7 +2242,7 @@ True
 <p>值&#x3D;字典变量[键]</p>
 <p>采用字典类型的方法：</p>
 <p>值&#x3D;字典变量.get(键,default&#x3D;None)</p>
-<pre><code class="hljs">&gt;&gt;&gt;Dcountry=&#123;&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;&#125;
+<pre><code class="hljs">&gt;&gt;&gt;Dcountry={&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;}
 
 &gt;&gt;&gt;Dcountry[&quot;中国&quot;]
 &#39;北京&#39;
@@ -2255,7 +2255,7 @@ True
 <p>2、字典变量.values()，返回字典中所有的值信息。</p>
 <p>3、字典变量.items()，返回所有的键值对。</p>
 <p>可以使用list()将以上返回值类型转换成列表。</p>
-<pre><code class="hljs">&gt;&gt;&gt;Dcountry=&#123;&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;&#125;
+<pre><code class="hljs">&gt;&gt;&gt;Dcountry={&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;}
 &gt;&gt;&gt;Dcountry.keys()
 dict_keys([&#39;中国&#39;, &#39;美国&#39;, &#39;法国&#39;])
 &gt;&gt;&gt;Dcountry.values()
@@ -2267,14 +2267,14 @@ dict_items([(&#39;中国&#39;, &#39;北京&#39;), (&#39;美国&#39;, &#39;华盛
 <p>字典变量[键]&#x3D;值</p>
 <pre><code class="hljs">&gt;&gt;&gt;Dcountry[&quot;中国&quot;]=&#39;大北京&#39;
 &gt;&gt;&gt;print(Dcountry)
-&#123;&#39;中国&#39;: &#39;大北京&#39;, &#39;法国&#39;: &#39;巴黎&#39;, &#39;美国&#39;: &#39;华盛顿&#39;&#125;
+{&#39;中国&#39;: &#39;大北京&#39;, &#39;法国&#39;: &#39;巴黎&#39;, &#39;美国&#39;: &#39;华盛顿&#39;}
 </code></pre>
 <p><strong>添加新的键值对：</strong></p>
 <p>字典变量[键]&#x3D;值</p>
-<pre><code class="hljs">&gt;&gt;&gt;Dcountry=&#123;&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;&#125;
+<pre><code class="hljs">&gt;&gt;&gt;Dcountry={&quot;中国&quot;:&quot;北京&quot;, &quot;美国&quot;:&quot;华盛顿&quot;, &quot;法国&quot;:&quot;巴黎&quot;}
 &gt;&gt;&gt;Dcountry[&quot;英国&quot;]=&quot;伦敦&quot;
 &gt;&gt;&gt;print(Dcountry)
-&#123;&#39;中国&#39;: &#39;北京&#39;, &#39;法国&#39;: &#39;巴黎&#39;, &#39;美国&#39;: &#39;华盛顿&#39;, &#39;英国&#39;: &#39;伦敦&#39;&#125;
+{&#39;中国&#39;: &#39;北京&#39;, &#39;法国&#39;: &#39;巴黎&#39;, &#39;美国&#39;: &#39;华盛顿&#39;, &#39;英国&#39;: &#39;伦敦&#39;}
 </code></pre>
 <h5 id="删除字典"><a href="#删除字典" class="headerlink" title="删除字典"></a><strong>删除字典</strong></h5><p>删除键值对：</p>
 <p>del 字典变量[键]</p>
@@ -2304,9 +2304,9 @@ dict_items([(&#39;中国&#39;, &#39;北京&#39;), (&#39;美国&#39;, &#39;华盛
      语句块
 </code></pre>
 <p>此时for循环返回的两个变量是字典的key和value</p>
-<pre><code class="hljs">dic=&#123;&quot;中国&quot;:1,&quot;美国&quot;:2,&quot;俄罗斯&quot;:3&#125;
+<pre><code class="hljs">dic={&quot;中国&quot;:1,&quot;美国&quot;:2,&quot;俄罗斯&quot;:3}
 for k,v in sorted(dic.items(),key= lambda item:item[1],reverse=True):#
-      print(&#39;&#123;&#125; &#123;&#125;&#39;.format(k,v))
+      print(&#39;{} {}&#39;.format(k,v))
 俄罗斯 3
 美国 2
 中国 1
@@ -2317,7 +2317,7 @@ for k,v in sorted(dic.items(),key= lambda item:item[1],reverse=True):#
 <p>•iterable—–可迭代对象</p>
 <p>•key——–设置用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。</p>
 <p>•返回值：返回重新排序的列表。</p>
-<pre><code class="hljs">&gt;&gt;&gt;dic=&#123;&quot;中国&quot;:1,&quot;美国&quot;:2,&quot;俄罗斯&quot;:3&#125;
+<pre><code class="hljs">&gt;&gt;&gt;dic={&quot;中国&quot;:1,&quot;美国&quot;:2,&quot;俄罗斯&quot;:3}
 &gt;&gt;&gt;sorted(dic.items(),key= lambda item:item[1],reverse=True):
 #item[1]表示按字典的value排序，item[0]按字典的key排序
  [(&#39;俄罗斯&#39;, 3), (&#39;美国&#39;, 2), (&#39;中国&#39;, 1)]

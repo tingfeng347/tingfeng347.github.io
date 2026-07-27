@@ -1480,10 +1480,10 @@ import matplotlib.pyplot as plt
 ​
 ​
 # 创建测试数据
-df = pd.DataFrame(&#123;
+df = pd.DataFrame({
     &#39;year&#39;: [2016, 2017, 2018, 2019, 2020],
     &#39;sales&#39;: [100, 130, 150, 170, 200]
-&#125;)
+})
 ​
 ​
 # In[3]:
@@ -1517,10 +1517,10 @@ import time
 # In[18]:
 ​
 ​
-headers = &#123;
+headers = {
     &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36&#39;,
     &#39;Cookie&#39;:&#39;SUB=_2AkMTf37Hf8NxqwJRmPAVyG7jbol0wwrEieKlI48cJRMxHRl-yT9vqlYOtRB6OP9QKBlDDjMdGlMFok5NIqGTLxEXHcGr; SUBP=0033WrSXqPxfM72-Ws9jqgMF55529P9D9W5UiecUPRV2SWjRzBIq2X0V; SINAGLOBAL=618205954960.4446.1681196722663; UOR=www.baidu.com,weibo.com,tophub.today; _s_tentry=-; Apache=5834475057987.334.1682445226156; ULV=1682445226181:3:3:1:5834475057987.334.1682445226156:1681202990452; XSRF-TOKEN=WKel-EKSczosZuoOMXKVIH9H; WBPSESS=durPiJxsbzq5XDaI2wW0N0pbOd3fbV1w3XF-VOcj7XTJ8vDiYa5jmFydo3U2yLd3wSJp3fMJK1n5h3EzWFi1ruvJTHRYOs9aoG4rZ64JjMz9qH5LbEnhw5Cxomz5i-gj&#39;
-&#125;
+}
 ​
 url = &#39;https://s.weibo.com/top/summary&#39;
 ​
@@ -1534,7 +1534,7 @@ try:
     if response.status_code == 200:
         print(response.text)
     else:
-        print(f&#39;Request failed with status code &#123;response.status_code&#125;&#39;)
+        print(f&#39;Request failed with status code {response.status_code}&#39;)
 except RequestException as e:
     print(e)
 ​
@@ -1569,10 +1569,10 @@ items = soup.select(&#39;tbody &gt; tr&#39;)
 for item in items:
     hot_title = item.select_one(&#39;.td-02 &gt; a&#39;).get_text(strip=True)
     hot_url = &#39;https://s.weibo.com&#39; + item.select_one(&#39;.td-02 &gt; a&#39;)[&#39;href&#39;]
-    hot_item = &#123;
+    hot_item = {
         &#39;hot_title&#39;: hot_title,
         &#39;hot_url&#39;: hot_url
-    &#125;
+    }
     hot_list.append(hot_item)
 ​
 ​

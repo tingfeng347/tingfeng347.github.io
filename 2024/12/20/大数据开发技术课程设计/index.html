@@ -499,7 +499,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7k 字
+          6.9k 字
         
       </span>
     
@@ -510,7 +510,7 @@
         
         
         
-          59 分钟
+          58 分钟
         
       </span>
     
@@ -792,12 +792,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.log4j.Logger;
 ​
 // 数据预处理类
-public class DataPreprocessing &#123;
+public class DataPreprocessing {
     // 日志记录器，用于记录程序运行信息
     private static final Logger logger = Logger.getLogger(DataPreprocessing.class);
 ​
     // 主方法，程序入口
-    public static void main(String[] args) throws Exception &#123;
+    public static void main(String[] args) throws Exception {
         // 创建 Hadoop 配置对象
         Configuration conf = new Configuration();
         // 获取文件系统对象
@@ -820,9 +820,9 @@ public class DataPreprocessing &#123;
         Path outputPath = new Path(&quot;/Tipdm/Hadoop/MapReduce/Result&quot;);
 ​
         // 如果输出路径已存在，则删除
-        if (fs.exists(outputPath)) &#123;
+        if (fs.exists(outputPath)) {
             fs.delete(outputPath, true);
-        &#125;
+        }
 ​
         // 设置任务的输入路径
         FileInputFormat.addInputPath(job, inputPath);
@@ -831,37 +831,37 @@ public class DataPreprocessing &#123;
 ​
         // 提交任务并等待执行完成
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
+    }
 ​
     // Mapper 类，用于处理每行数据，将其作为 key 输出
-    public static class DataPreprocessingMapper extends Mapper&lt;Object, Text, Text, Text&gt; &#123;
+    public static class DataPreprocessingMapper extends Mapper&lt;Object, Text, Text, Text&gt; {
         // 用于标识是否是表头行
         private boolean isHeader = true;
 ​
         @Override
-        public void map(Object key, Text value, Context context) throws IOException, InterruptedException &#123;
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             // 如果是表头行，直接跳过
-            if (isHeader) &#123;
+            if (isHeader) {
                 isHeader = false; // 只跳过第一行
                 return;
-            &#125;
+            }
             // 将当前行转换为字符串
             String line = value.toString();
             // 将行内容作为 key 输出，value 设置为空字符串
             context.write(new Text(line), new Text(&quot;&quot;));
-        &#125;
-    &#125;
+        }
+    }
 ​
     // Reducer 类，用于对 Mapper 输出的数据进行去重
-    public static class DataPreprocessingReducer extends Reducer&lt;Text, Text, Text, Text&gt; &#123;
+    public static class DataPreprocessingReducer extends Reducer&lt;Text, Text, Text, Text&gt; {
 ​
         @Override
-        public void reduce(Text key, Iterable&lt;Text&gt; values, Context context) throws IOException, InterruptedException &#123;
+        public void reduce(Text key, Iterable&lt;Text&gt; values, Context context) throws IOException, InterruptedException {
             // 每个 key 是唯一的，直接输出即可，实现去重
             context.write(key, null);
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 ​
 </code></pre>
 <p><strong>MapReduce去重后数据</strong></p>

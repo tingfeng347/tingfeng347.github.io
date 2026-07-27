@@ -496,7 +496,7 @@
         
         
         
-          63 分钟
+          62 分钟
         
       </span>
     
@@ -1180,7 +1180,7 @@
 <p>最后我们爬取到的字段信息：电影名，评分，封面图，详情url，上映时间，导演，类型，制作国家，语言，片长，电影简介，星星比例，多少人评价，预告片，前五条评论，五张详情图片</p>
 <h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><pre><code class="hljs"> for i,moveInfomation in enumerate(moveisInfomation):
         try:
-            resultData = &#123;&#125;
+            resultData = {}
             # 详情
             resultData[&#39;detailLink&#39;] = detailUrls[i]
             # 导演（数组）
@@ -1241,7 +1241,7 @@
 
             # 五条热评
             comments_info = soup.find_all(&#39;span&#39;, class_=&#39;comment-info&#39;)
-            comments = [&#123;&#125; for x in range(5)]
+            comments = [{} for x in range(5)]
             for i, comment in enumerate(comments_info):
                 comments[i][&#39;user&#39;] = comment.contents[1].get_text()
                 comments[i][&#39;start&#39;] = re.findall(&#39;(\d*)&#39;, comment.contents[5].attrs[&#39;class&#39;][0])[7]
@@ -1262,7 +1262,7 @@
 <p>从豆瓣电影数据中提取演员和导演的电影数量信息，以便后续的分析和可视化展示。</p>
 <pre><code class="hljs">def getAllActorMovieNum():
     allData = homeData.getAllData()
-    ActorMovieNum = &#123;&#125;
+    ActorMovieNum = {}
     for i in allData:
         for j in i[1]:
             if ActorMovieNum.get(j,-1) == -1:
@@ -1280,7 +1280,7 @@
 <p>定义统计导演执导电影数量的函数getAllDirectorMovieNum()：</p>
 <pre><code class="hljs">def getAllDirectorMovieNum():
     allData = homeData.getAllData()
-    ActorMovieNum = &#123;&#125;
+    ActorMovieNum = {}
     for i in allData:
         for j in i[4]:
             if ActorMovieNum.get(j,-1) == -1:
@@ -1374,7 +1374,7 @@ df = ps.DataFrame(homeData.getAllData(),columns=[
             address.append(i)
     
     # 创建一个空字典来存储地址及其出现次数
-    addressDic = &#123;&#125;
+    addressDic = {}
     
     # 遍历地址列表中的每个元素
     for i in address:
@@ -1408,7 +1408,7 @@ df = ps.DataFrame(homeData.getAllData(),columns=[
             languages.append(i)
     
     # 创建一个空字典来存储语言及其出现次数
-    langsDic = &#123;&#125;
+    langsDic = {}
     
     # 遍历语言列表中的每个元素
     for i in languages:

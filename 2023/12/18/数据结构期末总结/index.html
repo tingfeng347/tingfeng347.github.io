@@ -499,7 +499,7 @@
         
         
         
-          127 分钟
+          126 分钟
         
       </span>
     
@@ -684,20 +684,20 @@
 <p>这种“渐进时间复杂度”常常使用数量级的形式来表示，简称时间复杂度，记为T(n)&#x3D;O(f(n))</p>
 <pre><code class="hljs">x=x+1; O(1)
 ​
-for(i=1;i&lt;=n;j++)&#123;   
+for(i=1;i&lt;=n;j++){   
     x=x+1;      O(n)
-&#125;
+}
 ​
-for(i=1;i&lt;n;i++)&#123;
-    for(j=1;j&lt;=m;j++)&#123;
+for(i=1;i&lt;n;i++){
+    for(j=1;j&lt;=m;j++){
         x=x+1;          O(nxm)
-    &#125;
-&#125;
+    }
+}
 ​
 i=1;
-while(i&lt;=n)&#123;
+while(i&lt;=n){
     i=5*i;        O(log5 n)
-&#125;
+}
 ​
 ​
 O(1)常数阶，基本操作执行次数为常数
@@ -719,13 +719,13 @@ O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;...&lt;O(3^n)&lt;O(n!
 <p><strong>算法运行过程中临时占用的存储空间</strong>分为两部分，一是为所有形参变量分配的存储空间，二是在为函数体中定义的内部临时</p>
 <p>变量分配的存储空间</p>
 <p>空间复杂度S(n)&#x3D;f(n)&#x3D;O(f(n)) n为问题的规模</p>
-<pre><code class="hljs">long factorical(long n)&#123;
-     if(n&lt;=1)&#123;
+<pre><code class="hljs">long factorical(long n){
+     if(n&lt;=1){
          return 1;
-     &#125;else&#123;
+     }else{
          return n*factorial(n-1);        
-     &#125;
-&#125;
+     }
+}
 递归算法的空间复杂度为递归计算过程中所消耗的堆栈空间的大小，它等于一次调用所分配的临时存储空间的
 大小乘以被调用的次数。该算法的空间复杂度为S(n)=O(n)
 </code></pre>
@@ -828,26 +828,26 @@ front.next=front.next.next;出队
 <p>本趟的起始位置为i，否则，匹配失败。</p>
 <p>在好的情况下，时间复杂度为O(n+m)</p>
 <p>在最坏的情况下，时间复杂度为O(n*m)</p>
-<pre><code class="hljs">public int index (String t)&#123;
-    if(this.length&lt;t.getLength())&#123;
+<pre><code class="hljs">public int index (String t){
+    if(this.length&lt;t.getLength()){
         return -1;
-    &#125;
+    }
     int a = -1;
-    for(int i=0;i&lt;this.length;i++)&#123;
+    for(int i=0;i&lt;this.length;i++){
         int j=0;
-        while(j&lt;t.getLength()&amp;&amp;this.chars[i+j]==t.chars[j])&#123;
-            if(this.chars[i+j]!=t.chars[j])&#123;
+        while(j&lt;t.getLength()&amp;&amp;this.chars[i+j]==t.chars[j]){
+            if(this.chars[i+j]!=t.chars[j]){
                 break;
-            &#125;
+            }
             j++;
-        &#125;
-        if(j==t.getLength())&#123;
+        }
+        if(j==t.getLength()){
             a=i;
             break;
-        &#125;
-    &#125;
+        }
+    }
     return a;
-&#125;
+}
 </code></pre>
 <h3 id="4-5-矩阵"><a href="#4-5-矩阵" class="headerlink" title="4.5 矩阵"></a><strong>4.5 矩阵</strong></h3><h4 id="4-5-1-矩阵的定义"><a href="#4-5-1-矩阵的定义" class="headerlink" title="4.5.1 矩阵的定义"></a><strong>4.5.1 矩阵的定义</strong></h4><p>一般用二维数组来存储矩阵 ,有些程序设计语言还提供了矩阵运算方法</p>
 <h4 id="4-5-2-特殊矩阵-对称矩阵"><a href="#4-5-2-特殊矩阵-对称矩阵" class="headerlink" title="4.5.2 特殊矩阵 对称矩阵"></a><strong>4.5.2 特殊矩阵 对称矩阵</strong></h4><p>若n阶矩阵A中的元素满足：aij&#x3D;aji ,1&lt;&#x3D;j, j&lt;&#x3D;n,则称其为<strong>n阶对称矩阵。</strong></p>

@@ -484,7 +484,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          88k 字
+          85k 字
         
       </span>
     
@@ -495,7 +495,7 @@
         
         
         
-          732 分钟
+          712 分钟
         
       </span>
     
@@ -716,27 +716,27 @@ export JAVA_HOME=/usr/java/jdk1.8.0_281-amd64
   &lt;/property&gt;    
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8032&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8032&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8030&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8030&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8088&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8088&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8090&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8090&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8031&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8031&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
-    &lt;value&gt;$&#123;yarn.resourcemanager.hostname&#125;:8033&lt;/value&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8033&lt;/value&gt;
   &lt;/property&gt;
   &lt;property&gt;
     &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
@@ -980,11 +980,11 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 ​
 // 定义一个词频统计的类
-public class WordCount &#123;
+public class WordCount {
 ​
     // Mapper类，用于处理输入数据并输出键值对
     public static class TokenizerMapper
-            extends Mapper&lt;Object, Text, Text, IntWritable&gt; &#123;
+            extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
 ​
         // 定义一个常量值1，用于表示每个单词出现的次数
         private final static IntWritable one = new IntWritable(1);
@@ -993,54 +993,54 @@ public class WordCount &#123;
 ​
         // map方法，负责将输入的文本数据按单词进行分割并输出&lt;单词, 1&gt;的键值对
         public void map(Object key, Text value, Context context
-        ) throws IOException, InterruptedException &#123;
+        ) throws IOException, InterruptedException {
             // 将输入的每一行文本转换为字符串并使用StringTokenizer按空格分割单词
             StringTokenizer itr = new StringTokenizer(value.toString());
             // 遍历所有单词
-            while (itr.hasMoreTokens()) &#123;
+            while (itr.hasMoreTokens()) {
                 // 取出下一个单词并设置为当前的word
                 word.set(itr.nextToken());
                 // 输出&lt;单词, 1&gt;的键值对
                 context.write(word, one);
-            &#125;
-        &#125;
-    &#125;
+            }
+        }
+    }
 ​
     // Reducer类，用于将相同的单词累加词频
     public static class IntSumReducer
-            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;
+            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
         // 定义一个IntWritable对象用于存储最终的结果
         private IntWritable result = new IntWritable();
 ​
         // reduce方法，负责将相同单词的所有值进行累加
         public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
                            Context context
-        ) throws IOException, InterruptedException &#123;
+        ) throws IOException, InterruptedException {
             // 初始化累加器
             int sum = 0;
             // 遍历当前单词的所有值，并进行累加
-            for (IntWritable val : values) &#123;
+            for (IntWritable val : values) {
                 sum += val.get();
-            &#125;
+            }
             // 将累加结果设置到result中
             result.set(sum);
             // 输出&lt;单词, 累加结果&gt;的键值对
             context.write(key, result);
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 主方法，设置作业配置并启动作业
-    public static void main(String[] args) throws Exception &#123;
+    public static void main(String[] args) throws Exception {
         // 创建一个Hadoop配置对象
         Configuration conf = new Configuration();
         // 解析命令行参数，获取输入和输出路径
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();
         // 如果没有指定足够的参数，输出错误信息并退出
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;Usage: wordcount &lt;in&gt; [&lt;in&gt;...] &lt;out&gt;&quot;);
             System.exit(2);
-        &#125;
+        }
         // 创建一个MapReduce作业，并设置作业名称为&quot;word count&quot;
         Job job = Job.getInstance(conf, &quot;word count&quot;);
         // 设置作业的主类
@@ -1056,16 +1056,16 @@ public class WordCount &#123;
         // 设置输出值类型为IntWritable
         job.setOutputValueClass(IntWritable.class);
         // 为作业添加输入路径，可能有多个
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-        &#125;
+        }
         // 设置作业的输出路径
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));
         // 提交作业并等待作业完成，完成后根据结果退出
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h4 id="MapReduce任务初始化的通用代码"><a href="#MapReduce任务初始化的通用代码" class="headerlink" title="MapReduce任务初始化的通用代码"></a><strong>MapReduce任务初始化的通用代码</strong></h4><pre><code class="hljs">Configuration conf = new Configuration();
@@ -1079,9 +1079,9 @@ job.setOutputKeyClass(MyKeyWritable.class);
 job.setOutputValueClass(MyValueWritable.class);   
 job.setInputFormatClass(MyInputFormat.class);
 job.setOutputFormatClass(MyOutputFormat.class);
-for (int i = 0; i &lt; args.length - 1; ++i) &#123;
+for (int i = 0; i &lt; args.length - 1; ++i) {
     FileInputFormat.addInputPath(job, new Path(args[i])); 
-    &#125;
+    }
 FileOutputFormat.setOutputPath(job,new Path(args[args.length - 1]));
 job.waitForCompletion(true);
 </code></pre>
@@ -1109,52 +1109,52 @@ End
 ​
 //代码4-5 Mapper模块代码
 // Mapper模块
-public static class MyMap extends Mapper&lt;Object, Text, Text, IntWritable&gt; &#123;
+public static class MyMap extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
     public void map(Object key, Text value, Context context)
-            throws IOException, InterruptedException &#123;
+            throws IOException, InterruptedException {
         String line = value.toString();
         String arr[] = line.split(&quot;,&quot;);
         context.write(new Text(arr[4].substring(0, 9)), new IntWritable(1));
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 //代码4-6 Reducer模块代码
 // Reducer模块
-public static class MyReduce extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;
+public static class MyReduce extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
     public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context)
-            throws IOException, InterruptedException &#123;
+            throws IOException, InterruptedException {
         int count = 0;
-        for (IntWritable value : values) &#123;
+        for (IntWritable value : values) {
             count++;
-        &#125;
+        }
         context.write(key, new IntWritable(count));
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 //代码4-7 Driver模块代码
-public static void main(String[] args) throws Exception &#123;
+public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
             System.exit(2);
-        &#125;
+        }
         Job job = Job.getInstance(conf, &quot;visits count&quot;);
         job.setJarByClass(dailyAccessCount.class);
         job.setMapperClass(MyMap.class);
         job.setReducerClass(MyReduce.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-        &#125;
+        }
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
+    }
 ​
 </code></pre>
 <h4 id="dailyAccessCount-java"><a href="#dailyAccessCount-java" class="headerlink" title="dailyAccessCount.java"></a><strong>dailyAccessCount.java</strong></h4><pre><code class="hljs">// 代码4.6
@@ -1172,15 +1172,15 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import java.io.IOException;
 ​
 // 定义一个统计每日访问量的类
-public class dailyAccessCount &#123;
+public class dailyAccessCount {
 ​
     // Mapper类，继承自Hadoop的Mapper类，负责将输入数据进行映射
     public static class MyMap
-            extends Mapper&lt;Object, Text, Text, IntWritable&gt; &#123;
+            extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
         
         // map方法将输入的每一行数据进行处理，输出键值对
         public void map(Object key, Text value, Context context)
-                throws IOException, InterruptedException &#123;
+                throws IOException, InterruptedException {
             // 将输入的行数据转换为字符串
             String line = value.toString();
             // 按逗号分隔字符串
@@ -1188,40 +1188,40 @@ public class dailyAccessCount &#123;
             // 将第5列(索引为4)的日期部分(只取到天)作为键，输出键值对&lt;日期, 1&gt;
             context.write(new Text(arr[4].substring(0, 9)),
                     new IntWritable(1));
-        &#125;
-    &#125;
+        }
+    }
 ​
     // Reducer类，继承自Hadoop的Reducer类，负责对映射后的数据进行归约
     public static class MyReduce
-            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;
+            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
 ​
         // reduce方法将同一个键的所有值进行累加，输出最终的访问次数
         public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
                            Context context)
-                throws IOException, InterruptedException &#123;
+                throws IOException, InterruptedException {
             // 初始化计数器
             int count = 0;
             // 遍历当前键的所有值，并累加计数
-            for (IntWritable value : values) &#123;
+            for (IntWritable value : values) {
                 count++;
-            &#125;
+            }
             // 输出键值对&lt;日期, 总访问次数&gt;
             context.write(key, new IntWritable(count));
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 主方法，设置作业配置并启动作业
-    public static void main(String[] args) throws Exception &#123;
+    public static void main(String[] args) throws Exception {
         // 创建一个Hadoop配置对象
         Configuration conf = new Configuration();
         // 解析命令行参数，获取输入和输出路径
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();
         // 如果没有指定足够的参数，输出错误信息并退出
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
             System.exit(2);
-        &#125;
+        }
         // 创建一个MapReduce作业，并设置作业名称为&quot;visits count&quot;
         Job job = Job.getInstance(conf, &quot;visits count&quot;);
         // 设置作业的主类
@@ -1235,16 +1235,16 @@ public class dailyAccessCount &#123;
         // 设置输出值类型为IntWritable
         job.setOutputValueClass(IntWritable.class);
         // 为作业添加输入路径，可能有多个
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-        &#125;
+        }
         // 设置作业的输出路径
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));
         // 提交作业并等待作业完成，完成后根据结果退出
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 输入键类型（Object）: 这是输入数据的偏移量或标识符。在默认情况下，输入的键是数据的偏移量（通常是 Long 或 Object），但如果输入格式发生变化，键类型也可以是其他类型。
@@ -1282,39 +1282,39 @@ job.setNumReduceTasks(num);
 ​
 //代码4-12 Mapper模块代码
 // Mapper模块
-public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; &#123;
+public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; {
     public void map(Object key, Text value, Context context)
-            throws IOException, InterruptedException &#123;
+            throws IOException, InterruptedException {
         String line = value.toString();
         //指定tab为分隔符
         String arr[] = line.split(&quot;\t&quot;);
         //key：统计结果， value：日期
         context.write(new IntWritable(Integer.parseInt(arr[1])),
                 new Text(arr[0]));
-    &#125;
-&#125;
+    }
+}
 ​
 //代码4-13 Reducer模块代码
 // Reducer模块
-public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; &#123;
+public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; {
     public void reduce(IntWritable key, Iterable&lt;Text&gt; values,
                        Context context)
-            throws IOException, InterruptedException &#123;
-        for (Text value : values) &#123;
+            throws IOException, InterruptedException {
+        for (Text value : values) {
             context.write(value, key);
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 ​
 //代码4-14 Driver模块代码
-public static void main(String[] args) throws Exception &#123;
+public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
             System.exit(2);
-        &#125;
+        }
         Job job = Job.getInstance(conf, &quot;Visits Sort&quot;);
         job.setJarByClass(accessTimesSort.class);
         job.setMapperClass(MyMap.class);
@@ -1323,13 +1323,13 @@ public static void main(String[] args) throws Exception &#123;
         job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-        &#125;
+        }
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
+    }
 ​
 ​
 ​
@@ -1350,44 +1350,44 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import java.io.IOException;
 ​
 // 定义访问次数排序类
-public class accessTimesSort &#123;
+public class accessTimesSort {
 ​
     // Mapper类，输入的键值对为&lt;Object, Text&gt;，输出为&lt;IntWritable, Text&gt;
-    public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; &#123;
+    public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; {
         // map方法，用于将输入的每一行转换为输出的键值对
         public void map(Object key, Text value, Context context)
-                throws IOException, InterruptedException &#123;
+                throws IOException, InterruptedException {
             String line = value.toString();  // 将输入的每一行文本转换为字符串
             // 指定tab为分隔符，将行数据分割成数组
             String arr[] = line.split(&quot;\t&quot;);
             // 输出的键是统计的访问次数（转换为IntWritable），值是日期（Text类型）
             context.write(new IntWritable(Integer.parseInt(arr[1])),
                     new Text(arr[0]));
-        &#125;
-    &#125;
+        }
+    }
 ​
     // Reducer类，输入的键值对为&lt;IntWritable, Text&gt;，输出为&lt;Text, IntWritable&gt;
-    public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; &#123;
+    public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; {
         // reduce方法，将按访问次数排序的结果输出
         public void reduce(IntWritable key, Iterable&lt;Text&gt; values,
                            Context context)
-                throws IOException, InterruptedException &#123;
+                throws IOException, InterruptedException {
             // 遍历同一个访问次数对应的所有日期，输出&lt;日期, 访问次数&gt;
-            for (Text value : values) &#123;
+            for (Text value : values) {
                 context.write(value, key);
-            &#125;
-        &#125;
-    &#125;
+            }
+        }
+    }
 ​
     // 主方法，负责配置并运行MapReduce作业
-    public static void main(String[] args) throws Exception &#123;
+    public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();  // 创建Hadoop的配置对象
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();  // 解析命令行参数，获取输入和输出路径
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);  // 如果参数不足，输出错误信息并退出
             System.exit(2);
-        &#125;
+        }
         Job job = Job.getInstance(conf, &quot;Visits Sort&quot;);  // 创建一个MapReduce作业，名称为“Visits Sort”
         job.setJarByClass(accessTimesSort.class);  // 设置作业的主类
         job.setMapperClass(MyMap.class);  // 设置Mapper类
@@ -1396,14 +1396,14 @@ public class accessTimesSort &#123;
         job.setMapOutputValueClass(Text.class);  // 设置Mapper输出值类型为Text
         job.setOutputKeyClass(Text.class);  // 设置最终输出键类型为Text
         job.setOutputValueClass(IntWritable.class);  // 设置最终输出值类型为IntWritable
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));  // 设置输入路径
-        &#125;
+        }
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));  // 设置输出路径
         System.exit(job.waitForCompletion(true) ? 0 : 1);  // 提交作业并等待完成，成功则返回0，否则返回1
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 ​
@@ -1438,33 +1438,33 @@ import org.apache.hadoop.util.GenericOptionsParser;
 import java.io.IOException;
 ​
 // 定义SelectData类，用于筛选数据
-public class SelectData &#123;
+public class SelectData {
     
     // 自定义Mapper类，输入的键值对为&lt;Object, Text&gt;，输出为&lt;Text, Text&gt;
-    public static class MyMap extends Mapper&lt;Object, Text, Text, Text&gt; &#123;
+    public static class MyMap extends Mapper&lt;Object, Text, Text, Text&gt; {
         // map方法，用于处理每一行输入数据
         public void map(Object key, Text value, Context context) 
-                throws IOException, InterruptedException &#123;
+                throws IOException, InterruptedException {
             String line = value.toString();  // 将输入的每一行文本转换为字符串
             String arr[] = line.split(&quot;,&quot;);  // 按逗号分割字符串
             // 如果第5列包含“2021/1”或“2021/2”字符串
-            if (arr[4].contains(&quot;2021/1&quot;) || arr[4].contains(&quot;2021/2&quot;)) &#123;
+            if (arr[4].contains(&quot;2021/1&quot;) || arr[4].contains(&quot;2021/2&quot;)) {
                 // 输出的键是第3列数据，值是日期的前9个字符（格式化后的日期）
                 context.write(new Text(arr[2]), 
                         new Text(arr[4].substring(0, 9)));
-            &#125;
-        &#125;
-    &#125;
+            }
+        }
+    }
 ​
     // 主方法，负责配置并运行MapReduce作业
-    public static void main(String[] args) throws Exception &#123;
+    public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();  // 创建Hadoop的配置对象
         String[] otherArgs = new GenericOptionsParser(conf, args)
                 .getRemainingArgs();  // 解析命令行参数，获取输入和输出路径
-        if (otherArgs.length &lt; 2) &#123;
+        if (otherArgs.length &lt; 2) {
             System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);  // 如果参数不足，输出错误信息并退出
             System.exit(2);
-        &#125;
+        }
         Job job = Job.getInstance(conf, &quot;Select Data&quot;);  // 创建一个MapReduce作业，名称为“Select Data”
         job.setJarByClass(SelectData.class);  // 设置作业的主类
         job.setMapperClass(MyMap.class);  // 设置Mapper类
@@ -1477,16 +1477,16 @@ public class SelectData &#123;
         // 设置Reducer任务数为0，表示没有Reducer任务
         job.setNumReduceTasks(0);
         // 添加输入路径
-        for (int i = 0; i &lt; otherArgs.length - 1; ++i) &#123;
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
-        &#125;
+        }
         // 设置输出路径
         FileOutputFormat.setOutputPath(job,
                 new Path(otherArgs[otherArgs.length - 1]));
         // 提交作业并等待完成，成功则返回0，否则返回1
         System.exit(job.waitForCompletion(true) ? 0 : 1);
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h3 id="任务实现5-2"><a href="#任务实现5-2" class="headerlink" title="任务实现5.2"></a><strong>任务实现5.2</strong></h3><h4 id="任务5-2示例代码"><a href="#任务5-2示例代码" class="headerlink" title="任务5.2示例代码"></a><strong>任务5.2示例代码</strong></h4><pre><code class="hljs">// 代码5.4 列举子目录
@@ -1496,8 +1496,8 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
-public class view_folders &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class view_folders {
+    public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
         //获取文件系统
@@ -1507,16 +1507,16 @@ public class view_folders &#123;
         // 获取文件列表
         FileStatus[] fileStatuses = fs.listStatus(path);
         // 遍历文件列表
-        for (FileStatus file : fileStatuses) &#123;
+        for (FileStatus file : fileStatuses) {
             // 判断是否是文件夹
-            if (file.isDirectory()) &#123;
+            if (file.isDirectory()) {
                 System.out.println(file.getPath().toString());
-            &#125;
-        &#125;
+            }
+        }
         // 关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 // 代码5.5 列举文件
@@ -1525,8 +1525,8 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
-public class view_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class view_files {
+    public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
         //获取文件系统
@@ -1536,16 +1536,16 @@ public class view_files &#123;
         // 获取文件列表
         FileStatus[] fileStatuses = fs.listStatus(path);
         // 遍历文件列表
-        for (FileStatus file : fileStatuses) &#123;
+        for (FileStatus file : fileStatuses) {
             // 判断是否是文件夹
-            if (file.isFile()) &#123;
+            if (file.isFile()) {
                 System.out.println(file.getPath().toString());
-            &#125;
-        &#125;
+            }
+        }
         // 关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 //代码5.6 创建目录
 import org.apache.hadoop.conf.Configuration;
@@ -1553,8 +1553,8 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
 ​
-public class mkdir_folders &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class mkdir_folders {
+    public static void main(String[] args) throws Exception {
         //获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1566,16 +1566,16 @@ public class mkdir_folders &#123;
         fs.mkdirs(path);
         //关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 //代码5.7 删除文件
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
-public class delete_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class delete_files {
+    public static void main(String[] args) throws Exception {
         //获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1587,16 +1587,16 @@ public class delete_files &#123;
         fs.delete(path, true);
         //关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 //代码5.8 上传文件至HDFS
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
-public class put_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class put_files {
+    public static void main(String[] args) throws Exception {
         // 获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1609,8 +1609,8 @@ public class put_files &#123;
         fs.copyFromLocalFile(fromPath, toPath);
         // 关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 //代码5.9 下载HDFS上的文件至本地
@@ -1618,8 +1618,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 ​
-public class load_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class load_files {
+    public static void main(String[] args) throws Exception {
         // 获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1632,8 +1632,8 @@ public class load_files &#123;
         fs.copyToLocalFile(false, fromPath, toPath, true);
         // 关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 // 5.10 读取文件内容
 import org.apache.hadoop.conf.Configuration;
@@ -1644,8 +1644,8 @@ import org.apache.hadoop.fs.Path;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 ​
-public class read_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class read_files {
+    public static void main(String[] args) throws Exception {
         //获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1659,16 +1659,16 @@ public class read_files &#123;
         BufferedReader br = new BufferedReader(new InputStreamReader(is,
                 &quot;utf-8&quot;));
         String line = &quot;&quot;;
-        while ((line = br.readLine()) != null) &#123;
+        while ((line = br.readLine()) != null) {
             System.out.println(line);
-        &#125;
+        }
         //关闭数据字节流
         br.close();
         is.close();
         //关闭文件系统
         fs.close();
-    &#125;
-&#125;
+    }
+}
 ​
 //代码5.11 写入数据
 ​
@@ -1683,8 +1683,8 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 ​
-public class write_files &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class write_files {
+    public static void main(String[] args) throws Exception {
         //获取配置
         Configuration conf = new Configuration();
         conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
@@ -1704,10 +1704,10 @@ public class write_files &#123;
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
                 &quot;utf-8&quot;));
         String line = &quot;&quot;;
-        while ((line = br.readLine()) != null) &#123;
+        while ((line = br.readLine()) != null) {
             bw.write(line);
             bw.newLine();
-        &#125;
+        }
         //关闭数据字节流
         bw.close();
         os.close();
@@ -1716,8 +1716,8 @@ public class write_files &#123;
         //关闭文件系统
         fs.close();
 ​
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h4 id="task5-2-java"><a href="#task5-2-java" class="headerlink" title="task5_2.java"></a><strong>task5_2.java</strong></h4><pre><code class="hljs">//代码 5.12 读取序列化文件
@@ -1731,8 +1731,8 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 ​
-public class task5_2 &#123;
-    public static void main(String[] args) throws Exception &#123;
+public class task5_2 {
+    public static void main(String[] args) throws Exception {
         // 创建 Hadoop 配置对象
         Configuration conf = new Configuration();
         // 设置 Hadoop 文件系统的默认文件系统地址为 master:8020
@@ -1755,18 +1755,18 @@ public class task5_2 &#123;
                 new FileOutputStream(&quot;D:\\janfeb.txt&quot;, true)));
         
         // 读取 SequenceFile 文件中的每一个键值对，并写入到 janfeb.txt 文件
-        while (reader.next(key, value)) &#123;
+        while (reader.next(key, value)) {
             // 将键值对以“键值\t键值对”格式写入到文件，每行一个键值对
             out.write(key.toString() + &quot;\t&quot; + value.toString() + &quot;\r\n&quot;);
-        &#125;
+        }
         
         // 关闭 BufferedWriter，释放资源
         out.close();
         
         // 关闭 SequenceFile.Reader，释放资源
         reader.close();
-    &#125;
-&#125;
+    }
+}
 ​
 ​
 /*
@@ -1787,54 +1787,54 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 ​
-public class MemberLogTime implements WritableComparable&lt;MemberLogTime&gt; &#123;
+public class MemberLogTime implements WritableComparable&lt;MemberLogTime&gt; {
 ​
     private String member_name;
     private String logTime;
 ​
-    public MemberLogTime() &#123;
-    &#125;
+    public MemberLogTime() {
+    }
 ​
-    public MemberLogTime(String member_name, String logTime) &#123;
+    public MemberLogTime(String member_name, String logTime) {
         this.member_name = member_name;
         this.logTime = logTime;
-    &#125;
+    }
 ​
-    public String getMember_name() &#123;
+    public String getMember_name() {
         return member_name;
-    &#125;
+    }
 ​
-    public void setMember_name(String member_name) &#123;
+    public void setMember_name(String member_name) {
         this.member_name = member_name;
-    &#125;
+    }
 ​
-    public String getLogTime() &#123;
+    public String getLogTime() {
         return logTime;
-    &#125;
+    }
 ​
-    public void setLogTime(String logTime) &#123;
+    public void setLogTime(String logTime) {
         this.logTime = logTime;
-    &#125;
+    }
 ​
-    public int compareTo(MemberLogTime o) &#123;
+    public int compareTo(MemberLogTime o) {
         return this.getMember_name().compareTo(o.getMember_name());
-    &#125;
+    }
 ​
-    public void write(DataOutput dataOutput) throws IOException &#123;
+    public void write(DataOutput dataOutput) throws IOException {
         dataOutput.writeUTF(member_name);
         dataOutput.writeUTF(logTime);
-    &#125;
+    }
 ​
-    public void readFields(DataInput dataInput) throws IOException &#123;
+    public void readFields(DataInput dataInput) throws IOException {
         this.member_name = dataInput.readUTF();
         this.logTime = dataInput.readUTF();
-    &#125;
+    }
 ​
     @Override
-    public String toString() &#123;
+    public String toString() {
         return this.member_name + &quot;,&quot; + this.logTime;
-    &#125;
-&#125;
+    }
+}
 ​
 
 // 代码5.15 Conbiner代码
@@ -1844,17 +1844,17 @@ import java.io.IOException;
 ​
 ​
 public class LogCountCombiner extends
-        Reducer&lt;MemberLogTime, IntWritable, MemberLogTime, IntWritable&gt; &#123;
+        Reducer&lt;MemberLogTime, IntWritable, MemberLogTime, IntWritable&gt; {
     @Override
     protected void reduce(MemberLogTime key, Iterable&lt;IntWritable&gt; values, Context context)
-            throws IOException, InterruptedException &#123;
+            throws IOException, InterruptedException {
         int sum = 0;
-        for (IntWritable val : values) &#123;
+        for (IntWritable val : values) {
             sum += val.get();
-        &#125;
+        }
         context.write(key, new IntWritable(sum));
-    &#125;
-&#125;
+    }
+}
 ​
 //代码5.16 配置Combiner类
 job.setCombinerClass(LogCountCombiner.class);
@@ -1863,53 +1863,53 @@ job.setCombinerClass(LogCountCombiner.class);
 job.setCombinerClass(LogCountReducer.class);
 ​
 //代码5.18 HashPartitoner源码
-public class HashPartitioner&lt;K2, V2&gt; implements Partitioner&lt;K2, V2&gt;&#123;
-  public void configure(JobConf job)&#123;&#125;
-  public int getPartition(K2 key,V2 value,int numReduceTasks) &#123;
+public class HashPartitioner&lt;K2, V2&gt; implements Partitioner&lt;K2, V2&gt;{
+  public void configure(JobConf job){}
+  public int getPartition(K2 key,V2 value,int numReduceTasks) {
     return (key.hashCode() &amp; Integer.MAX_VALUE) % numReduceTasks;
-  &#125;
-&#125;
+  }
+}
 ​
 //代码5.19 自定义Partitioner
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Partitioner;
 ​
 public class LogCountPartitioner
-        extends Partitioner&lt;MemberLogTime, IntWritable&gt; &#123;
+        extends Partitioner&lt;MemberLogTime, IntWritable&gt; {
     public int getPartition(
-            MemberLogTime key, IntWritable value, int numPartitions) &#123;
+            MemberLogTime key, IntWritable value, int numPartitions) {
         String date = key.getLogTime();
-        if (date.contains(&quot;2021/1&quot;)) &#123;
+        if (date.contains(&quot;2021/1&quot;)) {
             return 0 % numPartitions;
-        &#125; else &#123;
+        } else {
             return 1 % numPartitions;
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 ​
 //代码5.20  设置Partitioner类和Reducer个数
 job.setPartitionerClass(LogCountPartitioner.class);
 job.setNumReduceTasks(2);
 ​
 //代码5.21 定义枚举类型
-enum LogCounter &#123;
+enum LogCounter {
     January,
     February
-&#125;
+}
 ​
 //代码5.22 使用计数器
-if (logTime.contains(&quot;2021/1&quot;)) &#123;
+if (logTime.contains(&quot;2021/1&quot;)) {
     context.getCounter(LogCounter.January).increment(1);
-&#125; else if (logTime.contains(&quot;2021/2&quot;)) &#123;
+} else if (logTime.contains(&quot;2021/2&quot;)) {
     context.getCounter(LogCounter.February).increment(1);
-&#125;
+}
 ​
 //代码5.23 使用动态计数器
-if (key.getLogTime().contains(&quot;2021/1&quot;)) &#123;
+if (key.getLogTime().contains(&quot;2021/1&quot;)) {
     context.getCounter(&quot;OutputCounter&quot;, &quot;JanuaryResult&quot;).increment(1);
-&#125; else if (key.getLogTime().contains(&quot;2021/2&quot;)) &#123;
+} else if (key.getLogTime().contains(&quot;2021/2&quot;)) {
     context.getCounter(&quot;OutputCounter&quot;, &quot;FebruaryResult&quot;).increment(1);
-&#125;
+}
 ​
 </code></pre>
 <h4 id="LogCount-java"><a href="#LogCount-java" class="headerlink" title="LogCount.java"></a><strong>LogCount.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.conf.Configuration;  // 引入Hadoop的配置类，用于配置Hadoop作业的属性
@@ -1924,9 +1924,9 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;  // 引入Hadoo
 ​
 import java.io.IOException;  // 引入IOException类，用于捕获输入输出异常
 ​
-public class LogCount &#123;
+public class LogCount {
     public static void main(String[] args)
-            throws IOException, ClassNotFoundException, InterruptedException &#123;
+            throws IOException, ClassNotFoundException, InterruptedException {
         
         // 创建Hadoop作业的配置对象
         Configuration conf = new Configuration();
@@ -1960,8 +1960,8 @@ public class LogCount &#123;
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         // 提交作业并等待完成，返回作业执行结果，-1表示成功，1表示失败
         System.err.println(job.waitForCompletion(true) ? -1 : 1);
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h4 id="LogCountMapper-java"><a href="#LogCountMapper-java" class="headerlink" title="LogCountMapper.java"></a><strong>LogCountMapper.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.io.IntWritable;  // 导入Hadoop的IntWritable类，用于表示整型值
@@ -1972,7 +1972,7 @@ import java.io.IOException;  // 导入IO异常类
 ​
 // 定义LogCountMapper类，继承自Mapper类
 public class LogCountMapper
-        extends Mapper&lt;Text, Text, MemberLogTime, IntWritable&gt; &#123;  // Mapper的输入类型为&lt;Text, Text&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
+        extends Mapper&lt;Text, Text, MemberLogTime, IntWritable&gt; {  // Mapper的输入类型为&lt;Text, Text&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
     
     // 创建一个MemberLogTime类型的对象，用于存储每一条日志记录的相关信息
     private MemberLogTime mt = new MemberLogTime(); 
@@ -1981,28 +1981,28 @@ public class LogCountMapper
     private IntWritable one = new IntWritable(1);
 ​
     // 定义一个枚举类LogCounter，用于统计不同月份的日志数量
-    enum LogCounter &#123;
+    enum LogCounter {
         January,  // 1月
         February  // 2月
-    &#125;
+    }
 ​
     @Override
     // 重写map方法，执行Map操作
     protected void map(
             Text key, Text value,
             Mapper&lt;Text, Text, MemberLogTime, IntWritable&gt;.Context context)
-            throws IOException, InterruptedException &#123;  // 输入参数：key为成员名，value为日志时间；输出参数：context用于输出结果
+            throws IOException, InterruptedException {  // 输入参数：key为成员名，value为日志时间；输出参数：context用于输出结果
         String member_name = key.toString();  // 将key（成员名）转换为字符串
         String logTime = value.toString();  // 将value（日志时间）转换为字符串
         
         // 如果日志时间包含&quot;2021/1&quot;，表示1月的日志
-        if (logTime.contains(&quot;2021/1&quot;)) &#123;
+        if (logTime.contains(&quot;2021/1&quot;)) {
             // 增加January计数器的值
             context.getCounter(LogCounter.January).increment(1);  
-        &#125; else if (logTime.contains(&quot;2021/2&quot;)) &#123;  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
+        } else if (logTime.contains(&quot;2021/2&quot;)) {  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
             // 增加February计数器的值
             context.getCounter(LogCounter.February).increment(1);  
-        &#125;
+        }
 ​
         // 设置MemberLogTime对象的成员名
         mt.setMember_name(member_name);
@@ -2011,8 +2011,8 @@ public class LogCountMapper
         
         // 将MemberLogTime对象和计数1输出到context中
         context.write(mt, one);
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h4 id="LogCountReducer-java"><a href="#LogCountReducer-java" class="headerlink" title="LogCountReducer.java"></a><strong>LogCountReducer.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.io.IntWritable;  // 导入Hadoop的IntWritable类，用于表示整型值
@@ -2023,7 +2023,7 @@ import java.io.IOException;  // 导入IO异常类
 // 定义LogCountReducer类，继承自Reducer类
 public class LogCountReducer
         extends Reducer&lt;MemberLogTime, IntWritable,
-        MemberLogTime, IntWritable&gt; &#123;  // Reducer的输入类型为&lt;MemberLogTime, IntWritable&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
+        MemberLogTime, IntWritable&gt; {  // Reducer的输入类型为&lt;MemberLogTime, IntWritable&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
 ​
     @Override
     // 重写reduce方法，执行归约操作
@@ -2031,26 +2031,26 @@ public class LogCountReducer
             MemberLogTime key, Iterable&lt;IntWritable&gt; value,
             Reducer&lt;MemberLogTime, IntWritable, MemberLogTime,
                     IntWritable&gt;.Context context)
-            throws IOException, InterruptedException &#123;  // 输入参数：key为MemberLogTime，value为多个IntWritable的集合；输出参数：context用于输出结果
+            throws IOException, InterruptedException {  // 输入参数：key为MemberLogTime，value为多个IntWritable的集合；输出参数：context用于输出结果
         // 如果日志时间包含&quot;2021/1&quot;，表示1月的日志
-        if (key.getLogTime().contains(&quot;2021/1&quot;)) &#123;
+        if (key.getLogTime().contains(&quot;2021/1&quot;)) {
             // 增加&quot;OutputCounter&quot;计数器中的&quot;JanuaryResult&quot;计数值
             context.getCounter(&quot;OutputCounter&quot;, &quot;JanuaryResult&quot;).increment(1);  
-        &#125; else if (key.getLogTime().contains(&quot;2021/2&quot;)) &#123;  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
+        } else if (key.getLogTime().contains(&quot;2021/2&quot;)) {  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
             // 增加&quot;OutputCounter&quot;计数器中的&quot;FebruaryResult&quot;计数值
             context.getCounter(&quot;OutputCounter&quot;, &quot;FebruaryResult&quot;).increment(1);  
-        &#125;
+        }
 ​
         int sum = 0;  // 初始化sum变量，用于累计该key的所有值
         // 遍历value中所有的IntWritable值
-        for (IntWritable val : value) &#123;
+        for (IntWritable val : value) {
             sum += val.get();  // 将每个val的值加到sum中
-        &#125;
+        }
         
         // 将最终的结果（key和累计的sum）输出到context中
         context.write(key, new IntWritable(sum));  
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h3 id="任务实现5-4"><a href="#任务实现5-4" class="headerlink" title="任务实现5.4"></a><strong>任务实现5.4</strong></h3><h4 id="任务5-4示例代码"><a href="#任务5-4示例代码" class="headerlink" title="任务5.4示例代码"></a><strong>任务5.4示例代码</strong></h4><pre><code class="hljs">//代码5-29 驱动类使用ToolRunner
@@ -2069,20 +2069,20 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 ​
-public class LogCount extends Configured implements Tool &#123;
-    public static void main(String[] args) &#123;
-        String[] myArgs = &#123;
+public class LogCount extends Configured implements Tool {
+    public static void main(String[] args) {
+        String[] myArgs = {
                 &quot;/Tipdm/Hadoop/MapReduce/Result/Select_Data/part-m-00000&quot;,
                 &quot;/Tipdm/Hadoop/MapReduce/Result/Log_Count&quot;
-        &#125;;
-        try &#123;
+        };
+        try {
             ToolRunner.run(new Configuration(), new LogCount(), myArgs);
-        &#125; catch (Exception e) &#123;
+        } catch (Exception e) {
             e.printStackTrace();
-        &#125;
-    &#125;
+        }
+    }
 ​
-    public int run(String[] args) throws Exception &#123;
+    public int run(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, &quot;Log Count&quot;);
         job.setJarByClass(LogCount.class);
@@ -2099,8 +2099,8 @@ public class LogCount extends Configured implements Tool &#123;
         FileSystem.get(conf).delete(new Path(args[1]), true);
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         return job.waitForCompletion(true) ? -1 : 1;
-    &#125;
-&#125;
+    }
+}
 ​
 
 //代码5-34 工具类实现代码
@@ -2113,54 +2113,54 @@ import java.io.IOException;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 ​
-public class JarUtil &#123;
-    public static String jar(Class&lt;?&gt; cls) &#123;
+public class JarUtil {
+    public static String jar(Class&lt;?&gt; cls) {
         String outputJar = cls.getName() + &quot;.jar&quot;;
         String input = cls.getClassLoader().getResource(&quot;&quot;).getFile();
         input = input.substring(0, input.length() - 1);
         input = input.substring(0, input.lastIndexOf(&quot;/&quot;) + 1);
         jar(input, outputJar);
         return outputJar;
-    &#125;
+    }
 ​
-    private static void jar(String inputFileName, String outputFileName) &#123;
+    private static void jar(String inputFileName, String outputFileName) {
         JarOutputStream out = null;
-        try &#123;
+        try {
             out = new JarOutputStream(new FileOutputStream(outputFileName));
             File f = new File(inputFileName);
             jar(out, f, &quot;&quot;);
-        &#125; catch (Exception e) &#123;
+        } catch (Exception e) {
             e.printStackTrace();
-        &#125; finally &#123;
-            try &#123;
+        } finally {
+            try {
                 out.close();
-            &#125; catch (IOException e) &#123;
+            } catch (IOException e) {
                 e.printStackTrace();
-            &#125;
-        &#125;
-    &#125;
+            }
+        }
+    }
 ​
-    private static void jar(JarOutputStream out, File f, String base) throws Exception &#123;
-        if (f.isDirectory()) &#123;
+    private static void jar(JarOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
             File[] fl = f.listFiles();
             // 注意，这里用左斜杠
             base = base.length() == 0 ? &quot;&quot; : base + &quot;/&quot;; 
-            for (int i = 0; i &lt; fl.length; i++) &#123;
+            for (int i = 0; i &lt; fl.length; i++) {
                 jar(out, fl[i], base + fl[i].getName());
-            &#125;
-        &#125; else &#123;
+            }
+        } else {
             out.putNextEntry(new JarEntry(base));
             FileInputStream in = new FileInputStream(f);
             byte[] buffer = new byte[1024];
             int n = in.read(buffer);
-            while (n != -1) &#123;
+            while (n != -1) {
                 out.write(buffer, 0, n);
                 n = in.read(buffer);
-            &#125;
+            }
             in.close();
-        &#125;
-    &#125;
-&#125;
+        }
+    }
+}
 ​
 
 // 代码5-27 set方法使用
@@ -2185,7 +2185,7 @@ String splitter=context.getConfiguration().get(&quot;splitter&quot;);
 hadoop jar /opt/jars/Hadoop/logcount.jar No5.Text.test3.LogCount
     
 //代码5-31 连接Hadoop集群配置的方法
-public static Configuration getMyConfiguration() &#123;
+public static Configuration getMyConfiguration() {
     // 声明配置
     Configuration conf = new Configuration();
     conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
@@ -2201,10 +2201,10 @@ public static Configuration getMyConfiguration() &#123;
     conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
     conf.set(&quot;mapreduce.job.jar&quot;, &quot;E:\\LC.jar&quot;);
     return conf;
-&#125;
+}
 ​
 //代码5-32 调用自定义的获取集群配置的方法
-public static Configuration getMyConfiguration() &#123;
+public static Configuration getMyConfiguration() {
     // 声明配置
     Configuration conf = new Configuration();
     conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
@@ -2220,14 +2220,14 @@ public static Configuration getMyConfiguration() &#123;
     conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
     conf.set(&quot;mapreduce.job.jar&quot;, &quot;E:\\LC.jar&quot;);
     return conf;
-&#125;
+}
 ​
 //代码5-33 log4j.properties文件代码
 log4j.rootLogger = INFO,stdout
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.Target=System.out
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=%d&#123;yyyy/MM/dd HH:mm:ss,SSS&#125;- %c&#123;1&#125;: %m%n
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy/MM/dd HH:mm:ss,SSS}- %c{1}: %m%n
 ​
     
 //代码5-35 设置自动打包
@@ -2248,20 +2248,20 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 ​
-public class LogCount extends Configured implements Tool &#123;
-    public static void main(String[] args) &#123;
-        String[] myArgs = &#123;
+public class LogCount extends Configured implements Tool {
+    public static void main(String[] args) {
+        String[] myArgs = {
                 &quot;/Tipdm/Hadoop/MapReduce/Result/Select_Data/part-m-00000&quot;,
                 &quot;/Tipdm/Hadoop/MapReduce/Result/Log_Count3&quot;
-        &#125;;
-        try &#123;
+        };
+        try {
             ToolRunner.run(new Configuration(), new LogCount(), myArgs);
-        &#125; catch (Exception e) &#123;
+        } catch (Exception e) {
             e.printStackTrace();
-        &#125;
-    &#125;
+        }
+    }
 ​
-    public int run(String[] args) throws Exception &#123;
+    public int run(String[] args) throws Exception {
         Configuration conf = getMyConfiguration();
         Job job = Job.getInstance(conf, &quot;Log Count&quot;);
         job.setJarByClass(LogCount.class);
@@ -2278,9 +2278,9 @@ public class LogCount extends Configured implements Tool &#123;
         FileSystem.get(conf).delete(new Path(args[1]), true);
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         return job.waitForCompletion(true) ? -1 : 1;
-    &#125;
+    }
 ​
-    public static Configuration getMyConfiguration() &#123;
+    public static Configuration getMyConfiguration() {
         // 声明配置
         Configuration conf = new Configuration();
         conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
@@ -2296,8 +2296,8 @@ public class LogCount extends Configured implements Tool &#123;
         conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
         conf.set(&quot;mapreduce.job.jar&quot;,JarUtil.jar(LogCount.class));
         return conf;
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h2 id="第6章-Hive数据仓库"><a href="#第6章-Hive数据仓库" class="headerlink" title="第6章 Hive数据仓库"></a><strong>第6章 Hive数据仓库</strong></h2><h3 id="任务6-2-访问Hive的3种方式"><a href="#任务6-2-访问Hive的3种方式" class="headerlink" title="任务6.2 访问Hive的3种方式"></a><strong>任务6.2 访问Hive的3种方式</strong></h3><h4 id="6-2-1-设置内嵌Derby模式"><a href="#6-2-1-设置内嵌Derby模式" class="headerlink" title="6.2.1 设置内嵌Derby模式"></a><strong>6.2.1 设置内嵌Derby模式</strong></h4><pre><code class="hljs">代码6-1 创建文件夹
@@ -2972,44 +2972,44 @@ import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import java.io.IOException;
-public class HBaseTest &#123;
+public class HBaseTest {
     public static Configuration configuration;  //管理HBase的配置信息
     public static Connection connection;  //管理HBase的连接
     public static Admin admin;   //管理HBase数据库表信息
-    public static void main(String[] args)throws IOException&#123;
+    public static void main(String[] args)throws IOException{
         init();
-        createTable(&quot;students&quot;,new String[]&#123;&quot;score&quot;&#125;);
+        createTable(&quot;students&quot;,new String[]{&quot;score&quot;});
         insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Bigdata&quot;,&quot;69&quot;);
         insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Python&quot;,&quot;86&quot;);
         insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;JavaWeb&quot;,&quot;77&quot;);
         close();
-&#125;
-&#125;
+}
+}
 ​
 代码7-34 建立连接/关闭连接
 //建立连接
-    public static void init()&#123;       
+    public static void init(){       
         configuration  = HBaseConfiguration.create();
         configuration.set(&quot;hbase.rootdir&quot;,&quot;hdfs://master:9000/hbase&quot;);
-        try&#123;
+        try{
             connection = ConnectionFactory.createConnection(configuration);
             admin = connection.getAdmin();
-        &#125;catch (IOException e)&#123;
+        }catch (IOException e){
             e.printStackTrace();
-        &#125;
-&#125;
+        }
+}
 // 关闭连接
-    public static void close()&#123;
-        try&#123;
-            if(admin != null)&#123;
+    public static void close(){
+        try{
+            if(admin != null){
                 admin.close();
-            &#125;
-            if(null != connection)&#123;
+            }
+            if(null != connection){
                 connection.close();
-            &#125;
-        &#125;catch (IOException e)&#123;
+            }
+        }catch (IOException e){
             e.printStackTrace();
-        &#125;
+        }
 ​
 </code></pre>
 <h4 id="7-4-2-实现表的创建"><a href="#7-4-2-实现表的创建" class="headerlink" title="7.4.2 实现表的创建"></a><strong>7.4.2 实现表的创建</strong></h4><pre><code class="hljs">/**
@@ -3019,28 +3019,28 @@ public class HBaseTest &#123;
  * @param colFamily 列族数组
  * @throws IOException 如果在创建表过程中出现异常
  */
-public static void createTable(String myTableName, String[] colFamily) throws IOException &#123;
+public static void createTable(String myTableName, String[] colFamily) throws IOException {
     // 将表名字符串转换为HBase的TableName对象
     TableName tableName = TableName.valueOf(myTableName);    
     // 检查表是否已经存在
-    if(admin.tableExists(tableName))&#123;
+    if(admin.tableExists(tableName)){
         // 如果表存在，输出提示信息
         System.out.println(&quot;table is exists!&quot;);
-    &#125;else &#123;
+    }else {
         // 如果表不存在，开始创建新表        
         // 使用TableDescriptorBuilder构建表的描述符
         TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tableName);        
         // 遍历列族数组，为每个列族创建并添加列族描述符
-        for(String str : colFamily)&#123;
+        for(String str : colFamily){
             // 使用ColumnFamilyDescriptorBuilder为列族创建描述符，并将列族名转换为字节数组
             ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(str)).build();         
             // 将列族描述符添加到表的描述符中
             tableDescriptor.setColumnFamily(family);
-        &#125;
+        }
         // 使用管理员对象（admin）创建表
         admin.createTable(tableDescriptor.build());
-    &#125;
-&#125;
+    }
+}
 ​
 </code></pre>
 <h4 id="7-4-3-向表中插入数据"><a href="#7-4-3-向表中插入数据" class="headerlink" title="7.4.3 向表中插入数据"></a><strong>7.4.3 向表中插入数据</strong></h4><pre><code class="hljs">代码7-36 insertData()方法插入数据
@@ -3053,7 +3053,7 @@ public static void createTable(String myTableName, String[] colFamily) throws IO
      * @param val       数据
      * @throws IOException
      */
-public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws IOException &#123;
+public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws IOException {
     // 获取HBase连接中的指定表
     Table table = connection.getTable(TableName.valueOf(tableName));
     // 创建一个Put对象，指定行键
@@ -3064,7 +3064,7 @@ public static void insertData(String tableName, String rowKey, String colFamily,
     table.put(put);
     // 关闭表连接
     table.close();
-&#125;
+}
     
 代码7-37  插入数据
 insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Bigdata&quot;,&quot;96&quot;);
@@ -3089,53 +3089,53 @@ import org.apache.hadoop.hbase.util.Bytes;
 ​
 import java.io.IOException;
 ​
-public class HBaseTest &#123;
+public class HBaseTest {
     public static Configuration configuration;  //初始化HBase的配置信息
     public static Connection connection;  //初始化HBase的连接
     public static Admin admin;   //初始化HBase数据库表信息
 ​
-    public static void main(String[] args) throws IOException &#123;
+    public static void main(String[] args) throws IOException {
         init();
-        createTable(&quot;students&quot;, new String[]&#123;&quot;score&quot;&#125;);
+        createTable(&quot;students&quot;, new String[]{&quot;score&quot;});
         insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;Bigdata&quot;, &quot;69&quot;);
         insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;Python&quot;, &quot;86&quot;);
         insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;JavaWeb&quot;, &quot;77&quot;);
         close();
-    &#125;
+    }
 ​
     //建立连接
-    public static void init() &#123;
+    public static void init() {
         configuration = HBaseConfiguration.create();
 //        configuration.set(&quot;hbase.rootdir&quot;, &quot;hdfs://master:9000/hbase&quot;);
-        try &#123;
+        try {
             connection = ConnectionFactory.createConnection(configuration);
             admin = connection.getAdmin();
-        &#125; catch (IOException e) &#123;
+        } catch (IOException e) {
             e.printStackTrace();
-        &#125;
-    &#125;
+        }
+    }
 ​
     /**
      * @param myTableName 表名
      * @param colFamily   列族
      * @throws IOException
      */
-    public static void createTable(String myTableName, String[] colFamily) throws IOException &#123;
+    public static void createTable(String myTableName, String[] colFamily) throws IOException {
         TableName tableName = TableName.valueOf(myTableName);
-        if (admin.tableExists(tableName)) &#123;
+        if (admin.tableExists(tableName)) {
             System.out.println(&quot;talbe is exists!&quot;);
-        &#125; else &#123;
+        } else {
             TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.
                     newBuilder(tableName);
-            for (String str : colFamily) &#123;
+            for (String str : colFamily) {
                 ColumnFamilyDescriptor family =
                         ColumnFamilyDescriptorBuilder.newBuilder(Bytes.
                                 toBytes(str)).build();
                 tableDescriptor.setColumnFamily(family);
-            &#125;
+            }
             admin.createTable(tableDescriptor.build());
-        &#125;
-    &#125;
+        }
+    }
 ​
     /**
      * 插入数据
@@ -3148,29 +3148,29 @@ public class HBaseTest &#123;
      * @throws IOException
      */
     public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws
-            IOException &#123;
+            IOException {
         Table table = connection.getTable(TableName.valueOf(tableName));
         Put put = new Put(rowKey.getBytes());
         put.addColumn(colFamily.getBytes(), col.getBytes(), val.getBytes());
         table.put(put);
         table.close();
-    &#125;
+    }
 ​
     // 关闭连接
-    public static void close() &#123;
-        try &#123;
-            if (admin != null) &#123;
+    public static void close() {
+        try {
+            if (admin != null) {
                 admin.close();
-            &#125;
-            if (null != connection) &#123;
+            }
+            if (null != connection) {
                 connection.close();
-            &#125;
-        &#125; catch (IOException e) &#123;
+            }
+        } catch (IOException e) {
             e.printStackTrace();
-        &#125;
+        }
 ​
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <h3 id="任务7-5-查询分析通话记录数据"><a href="#任务7-5-查询分析通话记录数据" class="headerlink" title="任务7.5 查询分析通话记录数据"></a><strong>任务7.5 查询分析通话记录数据</strong></h3><h4 id="7-5-2-任务实现"><a href="#7-5-2-任务实现" class="headerlink" title="7.5.2 任务实现"></a><strong>7.5.2 任务实现</strong></h4><pre><code class="hljs">代码7-39  配置pom.xml文件
 &lt;dependencies&gt;
@@ -3211,78 +3211,78 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-public class PhoneLogDemo &#123;
+public class PhoneLogDemo {
       public static Configuration configuration;
       public static Connection connection;
       public static Admin admin;
       public static Random random;
       public static SimpleDateFormat sdf;
-      public static void main(String[] args) throws IOException, ParseException &#123;
+      public static void main(String[] args) throws IOException, ParseException {
               random = new Random();
               new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
               // 初始化并建立连接
               init();
               // 创建一个表名为phone_log、列族名为basic的表
-              createTable(&quot;phone_log&quot;, new String[]&#123;&quot;basic&quot;&#125;);
+              createTable(&quot;phone_log&quot;, new String[]{&quot;basic&quot;});
               // 插入随机生成的数据
               insert(&quot;phone_log&quot;,&quot;basic&quot;);
               // 关闭连接
               close();    
-&#125;
+}
 ​
 代码7-41  定义init()方法
 // 初始化并建立连接
-public static void init() &#123;
+public static void init() {
              // 创建配置对象
              Configuration conf = HBaseConfiguration.create();
-             try &#123;
+             try {
                   // 获取HBase连接对象
                   connection = ConnectionFactory.createConnection(conf);
                   // 获取操作对象
                   admin = connection.getAdmin();
-             &#125; catch (IOException e) &#123;
+             } catch (IOException e) {
                   e.printStackTrace();
-             &#125;
-&#125;
+             }
+}
 // 关闭admin和connection
-public static void close() &#123;
-       if (admin != null) &#123;
-             try &#123;
+public static void close() {
+       if (admin != null) {
+             try {
                   admin.close();
-                &#125; catch (IOException e) &#123;
+                } catch (IOException e) {
                       e.printStackTrace();
-                   &#125;
-       &#125;
-       if (null != connection) &#123;
-             try &#123;
+                   }
+       }
+       if (null != connection) {
+             try {
                   connection.close();
-             &#125; catch (IOException e) &#123;
+             } catch (IOException e) {
                    e.printStackTrace();
-             &#125;
-       &#125;
-&#125;
+             }
+       }
+}
 ​
 代码7-42  定义createTable()方法
-public static void createTable(String myTableName, String[] colFamily) throws IOException &#123;
+public static void createTable(String myTableName, String[] colFamily) throws IOException {
     TableName tableName = TableName.valueOf(myTableName);
      // 判断表是否存在
-     if (admin.tableExists(tableName)) &#123;
+     if (admin.tableExists(tableName)) {
          // 如果存在那么输出“table exists!”  
          System.out.println(&quot;table exists!&quot;);    
-     &#125; else &#123;    
+     } else {    
          // 如果不存在那么添加表描述符信息及列族信息
          TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.
 newBuilder(tableName);
-         for (String str : colFamily) &#123;
+         for (String str : colFamily) {
                ColumnFamilyDescriptor family=
                   ColumnFamilyDescriptorBuilder.newBuilder
 (Bytes.toBytes(str)).build();
              //将列族描述符添加到表描述符上
              tableDescriptor.setColumnFamily(family);   
-         &#125;
+         }
              admin.createTable(tableDescriptor.build());
-     &#125;
-&#125;
+     }
+}
 ​
 代码7-43  定义insert()方法
 /**
@@ -3293,17 +3293,17 @@ newBuilder(tableName);
   date：通话日期
 * rowkey：当前用户手机号码（Long.MAX_VALUE-timestamp）
 */
-public static void insert(String tableName, String colFamily) throws IOException, ParseException &#123;
+public static void insert(String tableName, String colFamily) throws IOException, ParseException {
     Table table = connection.getTable(TableName.valueOf(tableName));
     List&lt;Put&gt; putList = new ArrayList&lt;Put&gt;();
-    for (int i =1; i &lt;= 10; i++) &#123;
+    for (int i =1; i &lt;= 10; i++) {
          // 当前用户电话号码
          String phoneNum = getPhoneNum(&quot;158&quot;);  // 生成以“158”开头的用户电话号码
          System.out.println(phoneNum);
          // 清空集合
          putList.clear();
          // 模拟1000条通话记录
-         for (int j = 1; j &lt;= 1000; j++) &#123;
+         for (int j = 1; j &lt;= 1000; j++) {
                 // 生成数据
                 String dnum = getPhoneNum(&quot;199&quot;);  // 生成以“199”开头的对方用户电话号码
                 int length = random.nextInt(99) + 1;  // 随机生成通话时长
@@ -3319,13 +3319,13 @@ toBytes(dnum));
                 put.addColumn(colFamily.getBytes(), &quot;date&quot;.getBytes(), Bytes. toBytes(date));
                 // 将put添加到集合
                    putList.add(put);
-         &#125;
+         }
           // 执行添加操作，每次添加1000条通话记录
            table.put(putList);
-    &#125;
-&#125;
+    }
+}
 // 2019-01-01 00:00:00 - 2019-12-31 23:59:59
- private static String getDate(int year) &#123;
+ private static String getDate(int year) {
       Calendar calendar = Calendar.getInstance();
       calendar.set(year, 0, 1);//2019-01-01
       calendar.add(Calendar.MONTH, random.nextInt(12));
@@ -3334,10 +3334,10 @@ toBytes(dnum));
       calendar.add(Calendar.MINUTE, random.nextInt(60));
       calendar.add(Calendar.MILLISECOND, random.nextInt(60));
        return sdf.format(calendar.getTime());
- &#125;
- private static String getPhoneNum(String prefixNum) &#123;
+ }
+ private static String getPhoneNum(String prefixNum) {
        return prefixNum + String.format(&quot;%08d&quot;, random.nextInt(99999999));
- &#125;
+ }
 ​
 图7-22  查看phone_log表结构
 hbase&gt;desc &#39;phone_log&#39;
@@ -3355,7 +3355,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 ​
-public class Search &#123;
+public class Search {
 ​
       public static Configuration configuration;
       public static Connection connection;
@@ -3363,7 +3363,7 @@ public class Search &#123;
       public static Random random;
       public static SimpleDateFormat sdf;
 ​
-      public static void main(String[] args) throws IOException, ParseException &#123;
+      public static void main(String[] args) throws IOException, ParseException {
             random = new Random();
             sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
             // 初始化并建立连接
@@ -3372,10 +3372,10 @@ public class Search &#123;
             scan(&quot;phone_log&quot;,&quot;15894116226&quot;);
             // 关闭连接
             close();
-      &#125;
+      }
 ​
 代码7-45  查询指定用户某个时间段的通话记录
-public static void scan(String tableName, String num) throws ParseException, IOException &#123;
+public static void scan(String tableName, String num) throws ParseException, IOException {
       String phoneNume = num;
       Scan scan = new Scan();
       String startRow = phoneNume+&quot;_&quot;+(Long.MAX_VALUE -sdf.parse(&quot;2019-01-08 21:38:13&quot;).getTime());
@@ -3386,22 +3386,22 @@ public static void scan(String tableName, String num) throws ParseException, IOE
       Table table = connection.getTable(TableName.valueOf(tableName));
       ResultScanner resultScanner = table.getScanner(scan);
       // 遍历输出
-      for(Result result:resultScanner)&#123;
+      for(Result result:resultScanner){
            printMsg(result);
-       &#125;
+       }
       // 关闭
        resultScanner.close();
- &#125;
+ }
  
 代码7-46  设置输出结果
 // 设置输出结果
-public static void printMsg(Result result) &#123;
+public static void printMsg(Result result) {
 System.out.print(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell
 (&quot;basic&quot;.getBytes(),&quot;dnum&quot;.getBytes())))+&quot;\t&quot;);
 System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;type&quot;.getBytes())))+&quot;\t&quot;);
 System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;length&quot;.getBytes())))+&quot;\t&quot;);
 System.out.println(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;date&quot;.getBytes()))));
-&#125;
+}
 ​
 ​
 </code></pre>
@@ -3420,7 +3420,7 @@ import java.util.Calendar;  // 引入Calendar类，用于日期和时间的操�
 import java.util.List;  // 引入List接口
 import java.util.Random;  // 引入Random类，用于生成随机数据
 ​
-public class PhoneLogDemo &#123;
+public class PhoneLogDemo {
     // 声明静态变量
     public static Configuration configuration;  // HBase配置对象
     public static Connection connection;  // HBase连接对象
@@ -3428,7 +3428,7 @@ public class PhoneLogDemo &#123;
     public static Random random;  // 用于生成随机数据的对象
     public static SimpleDateFormat sdf;  // 日期格式化工具类
 ​
-    public static void main(String[] args) throws IOException, ParseException &#123;
+    public static void main(String[] args) throws IOException, ParseException {
         random = new Random();  // 初始化随机数生成器
         new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 创建SimpleDateFormat对象，日期格式
         sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 将SimpleDateFormat实例赋值给sdf
@@ -3437,49 +3437,49 @@ public class PhoneLogDemo &#123;
         init();
         
         // 创建名为phone_log的表，列族为basic
-        createTable(&quot;phone_log&quot;, new String[]&#123;&quot;basic&quot;&#125;);
+        createTable(&quot;phone_log&quot;, new String[]{&quot;basic&quot;});
         
         // 插入随机生成的数据
         insert(&quot;phone_log&quot;, &quot;basic&quot;);
         
         // 关闭连接
         close();
-    &#125;
+    }
 ​
     // 初始化并建立HBase连接
-    public static void init() &#123;
+    public static void init() {
         // 创建HBase配置对象
         Configuration conf = HBaseConfiguration.create();
-        try &#123;
+        try {
             // 获取HBase连接对象
             connection = ConnectionFactory.createConnection(conf);
             // 获取HBase管理员对象，用于表的管理操作
             admin = connection.getAdmin();
-        &#125; catch (IOException e) &#123;
+        } catch (IOException e) {
             e.printStackTrace();  // 捕获并打印IOException异常
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 创建HBase表的方法
-    public static void createTable(String myTableName, String[] colFamily) throws IOException &#123;
+    public static void createTable(String myTableName, String[] colFamily) throws IOException {
         TableName tableName = TableName.valueOf(myTableName);  // 将表名字符串转换为TableName对象
         // 判断表是否已经存在
-        if (admin.tableExists(tableName)) &#123;
+        if (admin.tableExists(tableName)) {
             System.out.println(&quot;table exists!&quot;);  // 如果表存在，输出提示信息
-        &#125; else &#123;
+        } else {
             // 如果表不存在，创建表描述符对象
             TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tableName);
             // 遍历列族数组，添加列族信息
-            for (String str : colFamily) &#123;
+            for (String str : colFamily) {
                 // 创建列族描述符
                 ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(str)).build();
                 // 将列族描述符添加到表描述符
                 tableDescriptor.setColumnFamily(family);
-            &#125;
+            }
             // 创建表
             admin.createTable(tableDescriptor.build());
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 插入数据的方法
     /**
@@ -3490,18 +3490,18 @@ public class PhoneLogDemo &#123;
      * date：通话日期；
      * rowkey：当前用户手机号码（Long.MAX_VALUE - timestamp）
      */
-    public static void insert(String tableName, String colFamily) throws IOException, ParseException &#123;
+    public static void insert(String tableName, String colFamily) throws IOException, ParseException {
         // 获取表对象
         Table table = connection.getTable(TableName.valueOf(tableName));
         List&lt;Put&gt; putList = new ArrayList&lt;Put&gt;();  // 存储Put对象的集合
         // 模拟10个用户
-        for (int i = 1; i &lt;= 10; i++) &#123;
+        for (int i = 1; i &lt;= 10; i++) {
             // 生成当前用户电话号码
             String phoneNum = getPhoneNum(&quot;158&quot;);  // 生成以“158”开头的手机号码
             System.out.println(phoneNum);  // 输出当前用户电话号码
             putList.clear();  // 清空Put集合
             // 模拟每个用户1000条通话记录
-            for (int j = 1; j &lt;= 1000; j++) &#123;
+            for (int j = 1; j &lt;= 1000; j++) {
                 // 生成对方用户电话号码
                 String dnum = getPhoneNum(&quot;199&quot;);  // 生成以“199”开头的对方电话号码
                 // 随机生成通话时长（1到99秒之间）
@@ -3521,14 +3521,14 @@ public class PhoneLogDemo &#123;
                 put.addColumn(colFamily.getBytes(), &quot;date&quot;.getBytes(), Bytes.toBytes(date));
                 // 将Put对象添加到集合中
                 putList.add(put);
-            &#125;
+            }
             // 执行批量插入操作，每次插入1000条通话记录
             table.put(putList);
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 随机生成通话日期（2019年范围内）
-    private static String getDate(int year) &#123;
+    private static String getDate(int year) {
         Calendar calendar = Calendar.getInstance();  // 获取当前日期
         calendar.set(year, 0, 1);  // 设置为2019年1月1日
         // 随机生成日期（随机月份、日期、小时、分钟等）
@@ -3538,32 +3538,32 @@ public class PhoneLogDemo &#123;
         calendar.add(Calendar.MINUTE, random.nextInt(60));
         calendar.add(Calendar.MILLISECOND, random.nextInt(60));
         return sdf.format(calendar.getTime());  // 返回格式化后的日期字符串
-    &#125;
+    }
 ​
     // 随机生成手机号码
-    private static String getPhoneNum(String prefixNum) &#123;
+    private static String getPhoneNum(String prefixNum) {
         // 返回以指定前缀开头的手机号码（8位随机数）
         return prefixNum + String.format(&quot;%08d&quot;, random.nextInt(99999999));
-    &#125;
+    }
 ​
     // 关闭HBase连接
-    public static void close() &#123;
-        if (admin != null) &#123;
-            try &#123;
+    public static void close() {
+        if (admin != null) {
+            try {
                 admin.close();  // 关闭管理员对象
-            &#125; catch (IOException e) &#123;
+            } catch (IOException e) {
                 e.printStackTrace();  // 捕获并打印IOException异常
-            &#125;
-        &#125;
-        if (null != connection) &#123;
-            try &#123;
+            }
+        }
+        if (null != connection) {
+            try {
                 connection.close();  // 关闭HBase连接
-            &#125; catch (IOException e) &#123;
+            } catch (IOException e) {
                 e.printStackTrace();  // 捕获并打印IOException异常
-            &#125;
-        &#125;
-    &#125;
-&#125;
+            }
+        }
+    }
+}
 ​
 </code></pre>
 <h4 id="Search-java"><a href="#Search-java" class="headerlink" title="Search.java"></a><strong>Search.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.conf.Configuration;  // 引入Hadoop配置类
@@ -3579,7 +3579,7 @@ import java.text.SimpleDateFormat;  // 引入日期格式化类
 import java.util.Calendar;  // 引入Calendar类，用于日期和时间的操作
 import java.util.Random;  // 引入Random类，用于生成随机数
 ​
-public class Search &#123;
+public class Search {
 ​
     // 声明静态变量
     public static Configuration configuration;  // HBase配置对象
@@ -3588,7 +3588,7 @@ public class Search &#123;
     public static Random random;  // 用于生成随机数的对象
     public static SimpleDateFormat sdf;  // 日期格式化工具类，用于处理时间格式
 ​
-    public static void main(String[] args) throws IOException, ParseException &#123;
+    public static void main(String[] args) throws IOException, ParseException {
         random = new Random();  // 初始化随机数生成器
         sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 创建SimpleDateFormat实例，用于日期格式化
 ​
@@ -3600,24 +3600,24 @@ public class Search &#123;
         
         // 关闭连接
         close();
-    &#125;
+    }
 ​
     // 初始化并建立HBase连接
-    public static void init() &#123;
+    public static void init() {
         // 创建HBase配置对象
         Configuration conf = HBaseConfiguration.create();
-        try &#123;
+        try {
             // 获取HBase连接对象
             connection = ConnectionFactory.createConnection(conf);
             // 获取HBase管理员对象，用于表的管理操作
             admin = connection.getAdmin();
-        &#125; catch (IOException e) &#123;
+        } catch (IOException e) {
             e.printStackTrace();  // 捕获并打印IOException异常
-        &#125;
-    &#125;
+        }
+    }
 ​
     // 执行HBase表的扫描操作，根据指定的用户和时间范围查询记录
-    public static void scan(String tableName, String num) throws ParseException, IOException &#123;
+    public static void scan(String tableName, String num) throws ParseException, IOException {
         String phoneNume = num;  // 保存用户电话号码
 ​
         // 创建Scan对象，表示一次查询
@@ -3638,16 +3638,16 @@ public class Search &#123;
         ResultScanner resultScanner = table.getScanner(scan);
         
         // 遍历扫描结果并输出
-        for (Result result : resultScanner) &#123;
+        for (Result result : resultScanner) {
             printMsg(result);  // 打印每一条查询结果
-        &#125;
+        }
         
         // 关闭扫描器
         resultScanner.close();
-    &#125;
+    }
 ​
     // 设置输出查询结果的格式
-    public static void printMsg(Result result) &#123;
+    public static void printMsg(Result result) {
         // 获取并输出列族basic中的dnum列的值（对方电话号码）
         System.out.print(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;dnum&quot;.getBytes()))) + &quot;\t&quot;);
         
@@ -3659,26 +3659,26 @@ public class Search &#123;
         
         // 获取并输出列族basic中的date列的值（通话日期）
         System.out.println(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;date&quot;.getBytes()))));
-    &#125;
+    }
 ​
     // 关闭HBase连接和管理员对象
-    public static void close() &#123;
-        if (admin != null) &#123;
-            try &#123;
+    public static void close() {
+        if (admin != null) {
+            try {
                 admin.close();  // 关闭管理员对象
-            &#125; catch (IOException e) &#123;
+            } catch (IOException e) {
                 e.printStackTrace();  // 捕获并打印IOException异常
-            &#125;
-        &#125;
-        if (null != connection) &#123;
-            try &#123;
+            }
+        }
+        if (null != connection) {
+            try {
                 connection.close();  // 关闭HBase连接
-            &#125; catch (IOException e) &#123;
+            } catch (IOException e) {
                 e.printStackTrace();  // 捕获并打印IOException异常
-            &#125;
-        &#125;
-    &#125;
-&#125;
+            }
+        }
+    }
+}
 ​
 </code></pre>
 
