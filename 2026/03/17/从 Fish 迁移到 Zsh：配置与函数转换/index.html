@@ -1,0 +1,1252 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="Fish → Zsh 迁移笔记记录了从 fish shell 逐步迁移配置到 zsh 的过程和经验。 目录 Starship 多 shell 独立配置 环境变量同步 x-cmd 跨 shell 支持 函数翻译对照 缩写&#x2F;别名翻译 清理提示   Starship 多 shell 独立配置原理Starship 默认读 ~&#x2F;.config&#x2F;starship.toml，所有 shell 共用。通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从 Fish 迁移到 Zsh：配置与函数转换">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/03/17/%E4%BB%8E%20Fish%20%E8%BF%81%E7%A7%BB%E5%88%B0%20Zsh%EF%BC%9A%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="Fish → Zsh 迁移笔记记录了从 fish shell 逐步迁移配置到 zsh 的过程和经验。 目录 Starship 多 shell 独立配置 环境变量同步 x-cmd 跨 shell 支持 函数翻译对照 缩写&#x2F;别名翻译 清理提示   Starship 多 shell 独立配置原理Starship 默认读 ~&#x2F;.config&#x2F;starship.toml，所有 shell 共用。通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-17T06:30:00.000Z">
+<meta property="article:modified_time" content="2026-07-27T10:39:23.250Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="Fish">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Zsh">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>从 Fish 迁移到 Zsh：配置与函数转换 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从 Fish 迁移到 Zsh：配置与函数转换"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-03-17 14:30" pubdate>
+          2026年3月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">从 Fish 迁移到 Zsh：配置与函数转换</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Fish-→-Zsh-迁移笔记"><a href="#Fish-→-Zsh-迁移笔记" class="headerlink" title="Fish → Zsh 迁移笔记"></a>Fish → Zsh 迁移笔记</h1><p>记录了从 fish shell 逐步迁移配置到 zsh 的过程和经验。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#starship-%E5%A4%9A-shell-%E7%8B%AC%E7%AB%8B%E9%85%8D%E7%BD%AE">Starship 多 shell 独立配置</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%90%8C%E6%AD%A5">环境变量同步</a></li>
+<li><a href="#x-cmd-%E8%B7%A8-shell-%E6%94%AF%E6%8C%81">x-cmd 跨 shell 支持</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E7%BF%BB%E8%AF%91%E5%AF%B9%E7%85%A7">函数翻译对照</a></li>
+<li><a href="#%E7%BC%A9%E5%86%99%E5%88%AB%E5%90%8D%E7%BF%BB%E8%AF%91">缩写&#x2F;别名翻译</a></li>
+<li><a href="#%E6%B8%85%E7%90%86%E6%8F%90%E7%A4%BA">清理提示</a></li>
+</ol>
+<hr>
+<h2 id="Starship-多-shell-独立配置"><a href="#Starship-多-shell-独立配置" class="headerlink" title="Starship 多 shell 独立配置"></a>Starship 多 shell 独立配置</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Starship 默认读 <code>~/.config/starship.toml</code>，所有 shell 共用。通过 <code>STARSHIP_CONFIG</code> 环境变量让不同 shell 各用各的配置。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>复制出多份配置：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> ~/.config/starship.toml ~/.config/starship-fish.toml<br><span class="hljs-built_in">cp</span> ~/.config/starship.toml ~/.config/starship-zsh.toml<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在各 shell rc 中指定配置：</li>
+</ol>
+<p>Fish (<code>~/.config/fish/config.fish</code>)：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-keyword">set</span> -gx <span class="hljs-comment">STARSHIP_CONFIG</span> ~/.config/<span class="hljs-comment">starship-fish.toml</span><br>starship <span class="hljs-comment">init fish</span> | <span class="hljs-comment">source</span><br></code></pre></td></tr></table></figure>
+
+<p>Zsh (<code>~/.zshrc</code>)：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">export</span> STARSHIP_CONFIG=~/.config/starship-zsh.toml<br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(starship init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><ul>
+<li><code>STARSHIP_CONFIG</code> 必须在 <code>starship init</code> <strong>之前</strong>设置</li>
+<li>Starship 配置查找优先级：<code>$STARSHIP_CONFIG</code> → <code>~/.config/starship.toml</code></li>
+<li>设了 <code>STARSHIP_CONFIG</code> 后，旧的 <code>starship.toml</code> 不再被读取</li>
+</ul>
+<h3 id="配色快速替换"><a href="#配色快速替换" class="headerlink" title="配色快速替换"></a>配色快速替换</h3><p>不改布局只换色，只需改 <code>[palettes.colors]</code> 里的十六进制色值。</p>
+<h3 id="已知问题：分隔符空白"><a href="#已知问题：分隔符空白" class="headerlink" title="已知问题：分隔符空白"></a>已知问题：分隔符空白</h3><p>Starship 的 <code>format</code> 字符串中分隔符写死，但中间的模块可能为空（如 git 不在仓库时、语言版本不匹配时），导致 <code></code> 双分隔符。<strong>无优雅解法</strong>，要么忍受要么用 <code>$all</code> 自动格式（但会失去定制的渐变效果）。</p>
+<hr>
+<h2 id="环境变量同步"><a href="#环境变量同步" class="headerlink" title="环境变量同步"></a>环境变量同步</h2><p>Fish 的 <code>set -gx</code> 对应 Zsh 的 <code>export</code>：</p>
+<table>
+<thead>
+<tr>
+<th>Fish</th>
+<th>Zsh</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>set -gx VAR value</code></td>
+<td><code>export VAR=value</code></td>
+</tr>
+<tr>
+<td><code>set -gx PATH $PATH /new/path</code></td>
+<td><code>export PATH=&quot;$PATH:/new/path&quot;</code></td>
+</tr>
+<tr>
+<td><code>set -p PATH ~/.local/bin</code></td>
+<td><code>export PATH=&quot;$HOME/.local/bin:$PATH&quot;</code></td>
+</tr>
+</tbody></table>
+<p>需要同步的变量直接从 <code>~/.config/fish/config.fish</code> 搜索 <code>set -gx</code>，翻译后加到 <code>.zshrc</code>：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-built_in">export</span> TERMINFO_DIRS=/usr/lib/kitty/terminfo:/usr/share/terminfo<br><span class="hljs-built_in">export</span> EZA_COLORS=<span class="hljs-string">&quot;di=38;2;122;162;247:...&quot;</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$PATH</span>:./node_modules/.bin&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="x-cmd-跨-shell-支持"><a href="#x-cmd-跨-shell-支持" class="headerlink" title="x-cmd 跨 shell 支持"></a>x-cmd 跨 shell 支持</h2><p>x-cmd 核心是 bash 脚本（<code>~/.x-cmd.root/bin/___x_cmdexe_exp</code>），fish 通过 rc 文件包装。zsh 需要手动创建包装函数和 PATH。</p>
+<h3 id="添加到-zshrc"><a href="#添加到-zshrc" class="headerlink" title="添加到 .zshrc"></a>添加到 <code>.zshrc</code></h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># PATH</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.x-cmd.root/local/data/pkg/sphere/X/l/j/h/bin:<span class="hljs-variable">$HOME</span>/.x-cmd.root/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br><br><span class="hljs-comment"># 包装函数</span><br><span class="hljs-function"><span class="hljs-title">x</span></span>() &#123;<br>    ___X_CMD_REAL_CALLER_SHELL=zsh \<br>    ___X_CMD_RUNMODE=9 \<br>    bash <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.x-cmd.root/bin/___x_cmdexe_exp&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="关键环境变量"><a href="#关键环境变量" class="headerlink" title="关键环境变量"></a>关键环境变量</h3><ul>
+<li><code>___X_CMD_REAL_CALLER_SHELL=zsh</code> — 告诉 x-cmd 当前是哪个 shell</li>
+<li><code>___X_CMD_RUNMODE=9</code> — 交互模式</li>
+<li>fish 的 <code>set -g ___X_CMD_REAL_CALLER_SHELL fish</code> 只在 fish 会话内有效，zsh 看不到</li>
+</ul>
+<hr>
+<h2 id="函数翻译对照"><a href="#函数翻译对照" class="headerlink" title="函数翻译对照"></a>函数翻译对照</h2><p>Fish 函数定义翻译为 Zsh 函数：</p>
+<table>
+<thead>
+<tr>
+<th>Fish</th>
+<th>Zsh</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>function name</code></td>
+<td><code>name() { ... }</code></td>
+</tr>
+<tr>
+<td><code>$argv</code></td>
+<td><code>&quot;$@&quot;</code></td>
+</tr>
+<tr>
+<td><code>command foo $argv</code></td>
+<td><code>command foo &quot;$@&quot;</code></td>
+</tr>
+<tr>
+<td><code>if not set -q VAR</code></td>
+<td><code>if [ -z &quot;$VAR&quot; ]</code></td>
+</tr>
+<tr>
+<td>&#96;eval …</td>
+<td>source&#96;</td>
+</tr>
+<tr>
+<td><code>builtin cd -- &quot;$dir&quot;</code></td>
+<td><code>builtin cd -- &quot;$dir&quot;</code></td>
+</tr>
+<tr>
+<td><code>and</code> &#x2F; <code>or</code></td>
+<td><code>&amp;&amp;</code> &#x2F; &#96;</td>
+</tr>
+</tbody></table>
+<h3 id="示例：cat-→-bat"><a href="#示例：cat-→-bat" class="headerlink" title="示例：cat → bat"></a>示例：cat → bat</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">function</span> <span class="hljs-built_in">cat</span><br>    <span class="hljs-built_in">command</span> bat <span class="hljs-variable">$argv</span><br>end<br></code></pre></td></tr></table></figure>
+
+<p>↓</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-function"><span class="hljs-title">cat</span></span>() &#123; <span class="hljs-built_in">command</span> bat <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="陷阱：别名与函数冲突"><a href="#陷阱：别名与函数冲突" class="headerlink" title="陷阱：别名与函数冲突"></a>陷阱：别名与函数冲突</h3><p>oh-my-zsh 预设了一些别名（如 <code>alias ls=&#39;ls --color=tty&#39;</code>），<strong>zsh 不允许函数和别名同名</strong>。定义同名函数前必须先 <code>unalias</code>：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># ❌ 报错：defining function based on alias `ls&#x27; / parse error near `()&#x27;</span><br><span class="hljs-function"><span class="hljs-title">ls</span></span>() &#123; <span class="hljs-built_in">command</span> eza --icons <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span>; &#125;<br><br><span class="hljs-comment"># ✅ 先清除别名再定义</span><br><span class="hljs-built_in">unalias</span> <span class="hljs-built_in">ls</span> 2&gt;/dev/null<br><span class="hljs-function"><span class="hljs-title">ls</span></span>() &#123; <span class="hljs-built_in">command</span> eza --icons <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+<p>也适用于 <code>cat</code>、<code>grep</code> 等 oh-my-zsh 可能预设别名的命令。</p>
+<h3 id="示例：yazi-文件管理器"><a href="#示例：yazi-文件管理器" class="headerlink" title="示例：yazi 文件管理器"></a>示例：yazi 文件管理器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">function</span> y<br>    <span class="hljs-built_in">set</span> tmp (<span class="hljs-built_in">mktemp</span> -t <span class="hljs-string">&quot;yazi-cwd.XXXXXX&quot;</span>)<br>    yazi <span class="hljs-variable">$argv</span> --cwd-file=<span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">read</span> -z cwd &lt; <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span>; and [ -n <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span> ]; and [ <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span> != <span class="hljs-string">&quot;<span class="hljs-variable">$PWD</span>&quot;</span> ]<br>        <span class="hljs-built_in">builtin</span> <span class="hljs-built_in">cd</span> -- <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span><br>    end<br>    <span class="hljs-built_in">rm</span> -f -- <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span><br>end<br></code></pre></td></tr></table></figure>
+
+<p>↓</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-function"><span class="hljs-title">y</span></span>() &#123;<br>    <span class="hljs-built_in">local</span> tmp=$(<span class="hljs-built_in">mktemp</span> -t <span class="hljs-string">&quot;yazi-cwd.XXXXXX&quot;</span>)<br>    yazi <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span> --cwd-file=<span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span><br>    <span class="hljs-built_in">local</span> cwd=$(<span class="hljs-built_in">cat</span> <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span>)<br>    <span class="hljs-keyword">if</span> [ -n <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span> ] &amp;&amp; [ <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span> != <span class="hljs-string">&quot;<span class="hljs-variable">$PWD</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">builtin</span> <span class="hljs-built_in">cd</span> -- <span class="hljs-string">&quot;<span class="hljs-variable">$cwd</span>&quot;</span><br>    <span class="hljs-keyword">fi</span><br>    <span class="hljs-built_in">rm</span> -f -- <span class="hljs-string">&quot;<span class="hljs-variable">$tmp</span>&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="示例：conda-按需加载"><a href="#示例：conda-按需加载" class="headerlink" title="示例：conda 按需加载"></a>示例：conda 按需加载</h3><p>Fish 用 <code>conda shell.fish hook</code>，Zsh 用 <code>conda shell.zsh hook</code>：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs zsh">conda-<span class="hljs-function"><span class="hljs-title">on</span></span>() &#123;<br>    <span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$CONDA_SHLVL</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>        <span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(/opt/miniconda3/bin/conda shell.zsh hook)</span>&quot;</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;conda 已激活&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;conda 已经在运行中&quot;</span><br>    <span class="hljs-keyword">fi</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="示例：中文函数名"><a href="#示例：中文函数名" class="headerlink" title="示例：中文函数名"></a>示例：中文函数名</h3><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs zsh">安装() &#123; <span class="hljs-built_in">command</span> yay -S <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span>; &#125;<br>滚()   &#123; sysup; &#125;<br>卸载() &#123; <span class="hljs-built_in">command</span> yay -Rns <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span>; &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="缩写-别名翻译"><a href="#缩写-别名翻译" class="headerlink" title="缩写&#x2F;别名翻译"></a>缩写&#x2F;别名翻译</h2><p>Fish 的 <code>abbr</code>（输入后展开）Zsh 没有原生等价物，用 <code>alias</code> 近似替代：</p>
+<table>
+<thead>
+<tr>
+<th>Fish abbr</th>
+<th>Zsh alias</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>abbr grub &#39;LANGUAGE=... sudo grub-mkconfig ...&#39;</code></td>
+<td><code>alias grub=&#39;LANGUAGE=... sudo ...&#39;</code></td>
+</tr>
+<tr>
+<td><code>abbr fa fastfetch</code></td>
+<td><code>alias fa=&#39;fastfetch&#39;</code></td>
+</tr>
+<tr>
+<td><code>abbr reboot &#39;systemctl reboot&#39;</code></td>
+<td><code>alias reboot=&#39;systemctl reboot&#39;</code></td>
+</tr>
+<tr>
+<td><code>abbr lsfg &#39;LSFG_PROCESS=&quot;miyu&quot;&#39;</code></td>
+<td><code>alias lsfg=&#39;export LSFG_PROCESS=miyu&#39;</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>区别</strong>：fish 的 <code>abbr</code> 输入后按空格才展开，可以预览后再确认；zsh 的 <code>alias</code> 直接替换执行，没有预览步骤。</p>
+</blockquote>
+<hr>
+<h2 id="终端状态管理"><a href="#终端状态管理" class="headerlink" title="终端状态管理"></a>终端状态管理</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>fish 在每次命令执行后<strong>自动恢复终端设置</strong>。zsh 不会，子进程留下的”脏”终端状态会直接继承。</p>
+<p>典型场景：<code>sl</code>（蒸汽火车动画）通过管道传给 <code>lolcat</code>（彩虹色）后，<code>sl</code> 检测到 stdout 不是 TTY，行为异常，退出时没有恢复 raw 模式等终端设置。zsh 继承了这种脏状态，导致后续命令（如 <code>shorin</code>）的输出列对齐错乱。</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>对有副作用的命令，函数内手动恢复终端：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zsh"><span class="hljs-comment"># ❌ 终端状态可能被污染</span><br><span class="hljs-function"><span class="hljs-title">sl</span></span>() &#123; <span class="hljs-built_in">command</span> sl | lolcat; &#125;<br><br><span class="hljs-comment"># ✅ 执行后恢复终端</span><br><span class="hljs-function"><span class="hljs-title">sl</span></span>() &#123; <span class="hljs-built_in">command</span> sl | lolcat; tput sgr0; <span class="hljs-built_in">stty</span> sane 2&gt;/dev/null; &#125;<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>恢复命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tput sgr0</code></td>
+<td>重置文字颜色、粗体等显示属性</td>
+</tr>
+<tr>
+<td><code>stty sane</code></td>
+<td>恢复终端行设置（raw&#x2F;cooked、回显等）</td>
+</tr>
+</tbody></table>
+<p>两者都不清屏。</p>
+<h3 id="通用建议"><a href="#通用建议" class="headerlink" title="通用建议"></a>通用建议</h3><p>迁移任何涉及终端控制的命令（动画、TUI、管道穿过色工具）时，在 zsh 包装函数末尾加上 <code>tput sgr0; stty sane 2&gt;/dev/null</code>。这能避免终端状态污染导致后续命令输出错乱（如 <code>column</code> 列对齐失败）。</p>
+<blockquote>
+<p>注意：fish 这类问题不会出现，因为它每次命令后自动恢复终端。zsh 需要手动处理。</p>
+</blockquote>
+<hr>
+<h2 id="清理提示"><a href="#清理提示" class="headerlink" title="清理提示"></a>清理提示</h2><p>写完配置后检查语法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">zsh -n ~/.zshrc<br></code></pre></td></tr></table></figure>
+
+<p>无输出 &#x3D; 语法正确。生效：<code>exec zsh</code>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/%E7%BB%88%E7%AB%AF/" class="category-chain-item">终端</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Zsh/" class="print-no-link">#Zsh</a>
+      
+        <a href="/tags/Shell/" class="print-no-link">#Shell</a>
+      
+        <a href="/tags/Fish/" class="print-no-link">#Fish</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从 Fish 迁移到 Zsh：配置与函数转换</div>
+      <div>https://tingfeng347.github.io/2026/03/17/从 Fish 迁移到 Zsh：配置与函数转换/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年3月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/03/26/Rime%20%E9%9B%BE%E5%87%87%E6%8B%BC%E9%9F%B3%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/" title="Rime 雾凇拼音配置记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Rime 雾凇拼音配置记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/03/09/Tmux%20%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9AResurrect%20%E4%B8%8E%20Continuum%20%E9%85%8D%E7%BD%AE/" title="Tmux 会话持久化：Resurrect 与 Continuum 配置">
+                        <span class="hidden-mobile">Tmux 会话持久化：Resurrect 与 Continuum 配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
