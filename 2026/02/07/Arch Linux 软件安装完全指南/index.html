@@ -1,0 +1,1324 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="Arch Linux 软件安装完全指南本指南详细介绍 Arch Linux 系统中安装软件的各种方法，包括官方仓库、AUR、AppImage、Flatpak、Snap 以及源码编译。 目录 官方仓库 (pacman) AUR (Arch User Repository) AppImage Flatpak Snap 源码编译 卸载与清理 最佳实践 故障排除 附录：CC-Switch 安装示例   1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arch Linux 软件安装完全指南">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/02/07/Arch%20Linux%20%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="Arch Linux 软件安装完全指南本指南详细介绍 Arch Linux 系统中安装软件的各种方法，包括官方仓库、AUR、AppImage、Flatpak、Snap 以及源码编译。 目录 官方仓库 (pacman) AUR (Arch User Repository) AppImage Flatpak Snap 源码编译 卸载与清理 最佳实践 故障排除 附录：CC-Switch 安装示例   1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-07T02:30:00.000Z">
+<meta property="article:modified_time" content="2026-07-27T10:32:39.864Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AUR">
+<meta property="article:tag" content="Arch Linux">
+<meta property="article:tag" content="Pacman">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Arch Linux 软件安装完全指南 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Arch Linux 软件安装完全指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-07 10:30" pubdate>
+          2026年2月7日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Arch Linux 软件安装完全指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Arch-Linux-软件安装完全指南"><a href="#Arch-Linux-软件安装完全指南" class="headerlink" title="Arch Linux 软件安装完全指南"></a>Arch Linux 软件安装完全指南</h1><p>本指南详细介绍 Arch Linux 系统中安装软件的各种方法，包括官方仓库、AUR、AppImage、Flatpak、Snap 以及源码编译。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#1-%E5%AE%98%E6%96%B9%E4%BB%93%E5%BA%93-pacman">官方仓库 (pacman)</a></li>
+<li><a href="#2-aur-arch-user-repository">AUR (Arch User Repository)</a></li>
+<li><a href="#3-appimage">AppImage</a></li>
+<li><a href="#4-flatpak">Flatpak</a></li>
+<li><a href="#5-snap">Snap</a></li>
+<li><a href="#6-%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91">源码编译</a></li>
+<li><a href="#7-%E5%8D%B8%E8%BD%BD%E4%B8%8E%E6%B8%85%E7%90%86">卸载与清理</a></li>
+<li><a href="#8-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li>
+<li><a href="#9-%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4">故障排除</a></li>
+<li><a href="#10-%E9%99%84%E5%BD%95cc-switch-%E5%AE%89%E8%A3%85%E7%A4%BA%E4%BE%8B">附录：CC-Switch 安装示例</a></li>
+</ol>
+<hr>
+<h2 id="1-官方仓库-pacman"><a href="#1-官方仓库-pacman" class="headerlink" title="1. 官方仓库 (pacman)"></a>1. 官方仓库 (pacman)</h2><p>pacman 是 Arch Linux 的包管理器，用于管理官方仓库中的软件包。</p>
+<h3 id="1-1-基本操作"><a href="#1-1-基本操作" class="headerlink" title="1.1 基本操作"></a>1.1 基本操作</h3><h4 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装单个软件包</span><br><span class="hljs-built_in">sudo</span> pacman -S &lt;软件包名&gt;<br><br><span class="hljs-comment"># 安装多个软件包</span><br><span class="hljs-built_in">sudo</span> pacman -S &lt;包1&gt; &lt;包2&gt; &lt;包3&gt;<br><br><span class="hljs-comment"># 安装软件包组（如 gnome 组）</span><br><span class="hljs-built_in">sudo</span> pacman -S gnome<br></code></pre></td></tr></table></figure>
+
+<h4 id="搜索软件"><a href="#搜索软件" class="headerlink" title="搜索软件"></a>搜索软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在仓库中搜索软件</span><br>pacman -Ss &lt;关键词&gt;<br><br><span class="hljs-comment"># 搜索已安装的软件</span><br>pacman -Qs &lt;关键词&gt;<br><br><span class="hljs-comment"># 显示软件包详细信息</span><br>pacman -Si &lt;软件包名&gt;<br><br><span class="hljs-comment"># 显示已安装软件包信息</span><br>pacman -Qi &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="更新系统"><a href="#更新系统" class="headerlink" title="更新系统"></a>更新系统</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 同步数据库并更新所有软件包</span><br><span class="hljs-built_in">sudo</span> pacman -Syu<br><br><span class="hljs-comment"># 仅同步数据库（不更新）</span><br><span class="hljs-built_in">sudo</span> pacman -Sy<br><br><span class="hljs-comment"># 更新单个软件包</span><br><span class="hljs-built_in">sudo</span> pacman -S &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="卸载软件"><a href="#卸载软件" class="headerlink" title="卸载软件"></a>卸载软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载软件包（保留依赖）</span><br><span class="hljs-built_in">sudo</span> pacman -R &lt;软件包名&gt;<br><br><span class="hljs-comment"># 卸载软件包及其未使用的依赖</span><br><span class="hljs-built_in">sudo</span> pacman -Rs &lt;软件包名&gt;<br><br><span class="hljs-comment"># 卸载软件包、依赖及配置文件</span><br><span class="hljs-built_in">sudo</span> pacman -Rns &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-高级操作"><a href="#1-2-高级操作" class="headerlink" title="1.2 高级操作"></a>1.2 高级操作</h3><h4 id="清理缓存"><a href="#清理缓存" class="headerlink" title="清理缓存"></a>清理缓存</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 清理未安装软件包的缓存</span><br><span class="hljs-built_in">sudo</span> pacman -Sc<br><br><span class="hljs-comment"># 清理所有缓存（谨慎使用）</span><br><span class="hljs-built_in">sudo</span> pacman -Scc<br><br><span class="hljs-comment"># 使用 paccache 保留最近 3 个版本</span><br><span class="hljs-built_in">sudo</span> paccache -r<br></code></pre></td></tr></table></figure>
+
+<h4 id="查询文件"><a href="#查询文件" class="headerlink" title="查询文件"></a>查询文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查询文件属于哪个软件包</span><br>pacman -Qo /path/to/file<br><br><span class="hljs-comment"># 列出软件包安装的所有文件</span><br>pacman -Ql &lt;软件包名&gt;<br><br><span class="hljs-comment"># 查询远程仓库中的文件</span><br>pacman -F &lt;文件名&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="依赖分析"><a href="#依赖分析" class="headerlink" title="依赖分析"></a>依赖分析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出软件包的依赖</span><br>pactree &lt;软件包名&gt;<br><br><span class="hljs-comment"># 列出依赖该软件包的其他包</span><br>pactree -r &lt;软件包名&gt;<br><br><span class="hljs-comment"># 列出孤立软件包（不再需要的依赖）</span><br>pacman -Qdt<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-3-配置文件"><a href="#1-3-配置文件" class="headerlink" title="1.3 配置文件"></a>1.3 配置文件</h3><p>pacman 的主要配置文件位于 <code>/etc/pacman.conf</code>，镜像列表位于 <code>/etc/pacman.d/mirrorlist</code>。</p>
+<h4 id="常用配置选项"><a href="#常用配置选项" class="headerlink" title="常用配置选项"></a>常用配置选项</h4><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 在 [options] 部分</span><br>Color                    <span class="hljs-comment"># 启用彩色输出</span><br><span class="hljs-attr">ParallelDownloads</span> = <span class="hljs-number">5</span>    <span class="hljs-comment"># 并行下载数量</span><br>VerbosePkgLists          <span class="hljs-comment"># 显示详细更新信息</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="添加第三方仓库"><a href="#添加第三方仓库" class="headerlink" title="添加第三方仓库"></a>添加第三方仓库</h4><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># 在文件末尾添加（如 archlinuxcn 仓库）</span><br><span class="hljs-section">[archlinuxcn]</span><br><span class="hljs-attr">Server</span> = https://repo.archlinuxcn.org/<span class="hljs-variable">$arch</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2-AUR-Arch-User-Repository"><a href="#2-AUR-Arch-User-Repository" class="headerlink" title="2. AUR (Arch User Repository)"></a>2. AUR (Arch User Repository)</h2><p>AUR 是社区维护的软件仓库，包含大量官方仓库没有的软件包。</p>
+<h3 id="2-1-基本概念"><a href="#2-1-基本概念" class="headerlink" title="2.1 基本概念"></a>2.1 基本概念</h3><ul>
+<li><strong>PKGBUILD</strong>: 构建脚本，描述如何编译和打包软件</li>
+<li><strong>makepkg</strong>: 构建工具，读取 PKGBUILD 并生成可安装的包</li>
+<li><strong>AUR helper</strong>: 辅助工具，自动化 AUR 包的安装过程</li>
+</ul>
+<h3 id="2-2-手动安装（推荐用于学习）"><a href="#2-2-手动安装（推荐用于学习）" class="headerlink" title="2.2 手动安装（推荐用于学习）"></a>2.2 手动安装（推荐用于学习）</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装基础开发工具</span><br><span class="hljs-built_in">sudo</span> pacman -S base-devel git<br></code></pre></td></tr></table></figure>
+
+<h4 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 克隆软件包仓库</span><br>git <span class="hljs-built_in">clone</span> https://aur.archlinux.org/&lt;软件包名&gt;.git<br><br><span class="hljs-comment"># 2. 进入目录</span><br><span class="hljs-built_in">cd</span> &lt;软件包名&gt;<br><br><span class="hljs-comment"># 3. 检查 PKGBUILD（重要！）</span><br>less PKGBUILD<br><br><span class="hljs-comment"># 4. 构建并安装</span><br>makepkg -si<br></code></pre></td></tr></table></figure>
+
+<h4 id="makepkg-常用选项"><a href="#makepkg-常用选项" class="headerlink" title="makepkg 常用选项"></a>makepkg 常用选项</h4><ul>
+<li><code>-s</code>: 自动安装依赖</li>
+<li><code>-i</code>: 构建完成后自动安装</li>
+<li><code>-r</code>: 构建后删除构建依赖</li>
+<li><code>-c</code>: 清理临时文件</li>
+</ul>
+<h3 id="2-3-使用-AUR-Helper"><a href="#2-3-使用-AUR-Helper" class="headerlink" title="2.3 使用 AUR Helper"></a>2.3 使用 AUR Helper</h3><p>AUR helper 可以自动化 AUR 包的安装过程。</p>
+<h4 id="yay-Yet-Another-Yogurt"><a href="#yay-Yet-Another-Yogurt" class="headerlink" title="yay (Yet Another Yogurt)"></a>yay (Yet Another Yogurt)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 yay</span><br><span class="hljs-built_in">sudo</span> pacman -S git base-devel<br>git <span class="hljs-built_in">clone</span> https://aur.archlinux.org/yay.git<br><span class="hljs-built_in">cd</span> yay<br>makepkg -si<br><br><span class="hljs-comment"># 使用 yay 安装软件</span><br>yay -S &lt;软件包名&gt;<br><br><span class="hljs-comment"># 搜索软件</span><br>yay -Ss &lt;关键词&gt;<br><br><span class="hljs-comment"># 更新所有软件包（包括 AUR）</span><br>yay -Syu<br></code></pre></td></tr></table></figure>
+
+<h4 id="paru"><a href="#paru" class="headerlink" title="paru"></a>paru</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 paru</span><br><span class="hljs-built_in">sudo</span> pacman -S git base-devel<br>git <span class="hljs-built_in">clone</span> https://aur.archlinux.org/paru.git<br><span class="hljs-built_in">cd</span> paru<br>makepkg -si<br><br><span class="hljs-comment"># 使用 paru 安装软件</span><br>paru -S &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-安全注意事项"><a href="#2-4-安全注意事项" class="headerlink" title="2.4 安全注意事项"></a>2.4 安全注意事项</h3><ol>
+<li><strong>检查 PKGBUILD</strong>: 安装前务必检查 PKGBUILD 内容</li>
+<li><strong>查看评论</strong>: 阅读 AUR 页面上的用户评论</li>
+<li><strong>验证来源</strong>: 确保软件来源可信</li>
+<li><strong>定期更新</strong>: AUR 包不自动更新，需手动更新</li>
+</ol>
+<hr>
+<h2 id="3-AppImage"><a href="#3-AppImage" class="headerlink" title="3. AppImage"></a>3. AppImage</h2><p>AppImage 是一种便携式软件分发格式，无需安装即可运行。</p>
+<h3 id="3-1-基本使用"><a href="#3-1-基本使用" class="headerlink" title="3.1 基本使用"></a>3.1 基本使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 下载 AppImage 文件</span><br>wget https://example.com/software.AppImage<br><br><span class="hljs-comment"># 2. 添加执行权限</span><br><span class="hljs-built_in">chmod</span> +x software.AppImage<br><br><span class="hljs-comment"># 3. 运行</span><br>./software.AppImage<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-系统集成"><a href="#3-2-系统集成" class="headerlink" title="3.2 系统集成"></a>3.2 系统集成</h3><h4 id="安装到用户目录"><a href="#安装到用户目录" class="headerlink" title="安装到用户目录"></a>安装到用户目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建本地 bin 目录（如果不存在）</span><br><span class="hljs-built_in">mkdir</span> -p ~/.local/bin<br><br><span class="hljs-comment"># 移动 AppImage</span><br><span class="hljs-built_in">mv</span> software.AppImage ~/.local/bin/<br><br><span class="hljs-comment"># 创建符号链接（可选）</span><br><span class="hljs-built_in">ln</span> -s ~/.local/bin/software.AppImage ~/.local/bin/software<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建桌面快捷方式"><a href="#创建桌面快捷方式" class="headerlink" title="创建桌面快捷方式"></a>创建桌面快捷方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; ~/.local/share/applications/software.desktop &lt;&lt; <span class="hljs-string">EOF</span><br><span class="hljs-string">[Desktop Entry]</span><br><span class="hljs-string">Name=Software Name</span><br><span class="hljs-string">Comment=Software description</span><br><span class="hljs-string">Exec=/home/$USER/.local/bin/software.AppImage</span><br><span class="hljs-string">Icon=application-x-executable</span><br><span class="hljs-string">Terminal=false</span><br><span class="hljs-string">Type=Application</span><br><span class="hljs-string">Categories=Utility;</span><br><span class="hljs-string">EOF</span><br><br><span class="hljs-comment"># 更新桌面数据库</span><br>update-desktop-database ~/.local/share/applications/<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-AppImage-管理工具"><a href="#3-3-AppImage-管理工具" class="headerlink" title="3.3 AppImage 管理工具"></a>3.3 AppImage 管理工具</h3><h4 id="appimaged"><a href="#appimaged" class="headerlink" title="appimaged"></a>appimaged</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 appimaged</span><br><span class="hljs-built_in">sudo</span> pacman -S appimaged<br><br><span class="hljs-comment"># 启用服务</span><br>systemctl --user <span class="hljs-built_in">enable</span> appimaged<br>systemctl --user start appimaged<br></code></pre></td></tr></table></figure>
+
+<h4 id="AppImageLauncher"><a href="#AppImageLauncher" class="headerlink" title="AppImageLauncher"></a>AppImageLauncher</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 从 AUR 安装</span><br>yay -S appimagelauncher<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-4-优缺点"><a href="#3-4-优缺点" class="headerlink" title="3.4 优缺点"></a>3.4 优缺点</h3><p><strong>优点</strong>:</p>
+<ul>
+<li>无需安装，便携式</li>
+<li>自包含所有依赖</li>
+<li>不影响系统</li>
+</ul>
+<p><strong>缺点</strong>:</p>
+<ul>
+<li>文件体积较大</li>
+<li>需要手动更新</li>
+<li>集成度较低</li>
+</ul>
+<hr>
+<h2 id="4-Flatpak"><a href="#4-Flatpak" class="headerlink" title="4. Flatpak"></a>4. Flatpak</h2><p>Flatpak 是另一种通用软件包管理系统。</p>
+<h3 id="4-1-安装与配置"><a href="#4-1-安装与配置" class="headerlink" title="4.1 安装与配置"></a>4.1 安装与配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 Flatpak</span><br><span class="hljs-built_in">sudo</span> pacman -S flatpak<br><br><span class="hljs-comment"># 添加 Flathub 仓库（主要软件源）</span><br>flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo<br><br><span class="hljs-comment"># 重启系统或重新登录</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-基本操作"><a href="#4-2-基本操作" class="headerlink" title="4.2 基本操作"></a>4.2 基本操作</h3><h4 id="安装软件-1"><a href="#安装软件-1" class="headerlink" title="安装软件"></a>安装软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 搜索软件</span><br>flatpak search &lt;关键词&gt;<br><br><span class="hljs-comment"># 安装软件</span><br>flatpak install flathub &lt;软件包名&gt;<br><br><span class="hljs-comment"># 运行软件</span><br>flatpak run &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="管理软件"><a href="#管理软件" class="headerlink" title="管理软件"></a>管理软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出已安装软件</span><br>flatpak list<br><br><span class="hljs-comment"># 更新所有软件</span><br>flatpak update<br><br><span class="hljs-comment"># 卸载软件</span><br>flatpak uninstall &lt;软件包名&gt;<br><br><span class="hljs-comment"># 清理未使用的运行时</span><br>flatpak uninstall --unused<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-图形界面工具"><a href="#4-3-图形界面工具" class="headerlink" title="4.3 图形界面工具"></a>4.3 图形界面工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 GNOME Software（支持 Flatpak）</span><br><span class="hljs-built_in">sudo</span> pacman -S gnome-software<br><br><span class="hljs-comment"># 安装 Discover（KDE 支持 Flatpak）</span><br><span class="hljs-built_in">sudo</span> pacman -S discover<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-4-优缺点"><a href="#4-4-优缺点" class="headerlink" title="4.4 优缺点"></a>4.4 优缺点</h3><p><strong>优点</strong>:</p>
+<ul>
+<li>跨发行版兼容</li>
+<li>沙箱隔离，更安全</li>
+<li>自动更新</li>
+</ul>
+<p><strong>缺点</strong>:</p>
+<ul>
+<li>首次下载运行时较大</li>
+<li>启动速度略慢</li>
+<li>沙箱可能限制某些功能</li>
+</ul>
+<hr>
+<h2 id="5-Snap"><a href="#5-Snap" class="headerlink" title="5. Snap"></a>5. Snap</h2><p>Snap 由 Ubuntu 开发，也是一种通用包管理系统。</p>
+<h3 id="5-1-安装与配置"><a href="#5-1-安装与配置" class="headerlink" title="5.1 安装与配置"></a>5.1 安装与配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 snapd</span><br><span class="hljs-built_in">sudo</span> pacman -S snapd<br><br><span class="hljs-comment"># 启用 snapd 服务</span><br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now snapd.socket<br><br><span class="hljs-comment"># 创建符号链接</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -s /var/lib/snapd/snap /snap<br><br><span class="hljs-comment"># 重启系统</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-基本操作"><a href="#5-2-基本操作" class="headerlink" title="5.2 基本操作"></a>5.2 基本操作</h3><h4 id="安装软件-2"><a href="#安装软件-2" class="headerlink" title="安装软件"></a>安装软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 搜索软件</span><br>snap find &lt;关键词&gt;<br><br><span class="hljs-comment"># 安装软件</span><br><span class="hljs-built_in">sudo</span> snap install &lt;软件包名&gt;<br><br><span class="hljs-comment"># 安装特定版本</span><br><span class="hljs-built_in">sudo</span> snap install &lt;软件包名&gt; --channel=stable<br></code></pre></td></tr></table></figure>
+
+<h4 id="管理软件-1"><a href="#管理软件-1" class="headerlink" title="管理软件"></a>管理软件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出已安装软件</span><br>snap list<br><br><span class="hljs-comment"># 更新软件</span><br><span class="hljs-built_in">sudo</span> snap refresh &lt;软件包名&gt;<br><br><span class="hljs-comment"># 卸载软件</span><br><span class="hljs-built_in">sudo</span> snap remove &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-通道系统"><a href="#5-3-通道系统" class="headerlink" title="5.3 通道系统"></a>5.3 通道系统</h3><p>Snap 使用通道（channel）系统管理版本：</p>
+<ul>
+<li><code>stable</code>: 稳定版（默认）</li>
+<li><code>candidate</code>: 候选版</li>
+<li><code>beta</code>: 测试版</li>
+<li><code>edge</code>: 开发版</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看可用通道</span><br>snap info &lt;软件包名&gt;<br><br><span class="hljs-comment"># 切换通道</span><br><span class="hljs-built_in">sudo</span> snap switch &lt;软件包名&gt; --channel=beta<br><span class="hljs-built_in">sudo</span> snap refresh<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-4-优缺点"><a href="#5-4-优缺点" class="headerlink" title="5.4 优缺点"></a>5.4 优缺点</h3><p><strong>优点</strong>:</p>
+<ul>
+<li>自动更新</li>
+<li>沙箱隔离</li>
+<li>跨发行版</li>
+</ul>
+<p><strong>缺点</strong>:</p>
+<ul>
+<li>启动速度较慢</li>
+<li>占用空间较大</li>
+<li>与系统集成度较低</li>
+</ul>
+<hr>
+<h2 id="6-源码编译"><a href="#6-源码编译" class="headerlink" title="6. 源码编译"></a>6. 源码编译</h2><p>某些软件需要从源码编译安装。</p>
+<h3 id="6-1-基本步骤"><a href="#6-1-基本步骤" class="headerlink" title="6.1 基本步骤"></a>6.1 基本步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 安装编译工具</span><br><span class="hljs-built_in">sudo</span> pacman -S base-devel<br><br><span class="hljs-comment"># 2. 下载源码</span><br>wget https://example.com/software.tar.gz<br>tar -xzf software.tar.gz<br><span class="hljs-built_in">cd</span> software<br><br><span class="hljs-comment"># 3. 配置（检查依赖）</span><br>./configure<br><br><span class="hljs-comment"># 4. 编译</span><br>make<br><br><span class="hljs-comment"># 5. 安装</span><br><span class="hljs-built_in">sudo</span> make install<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-使用-CMake"><a href="#6-2-使用-CMake" class="headerlink" title="6.2 使用 CMake"></a>6.2 使用 CMake</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建构建目录</span><br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br><br><span class="hljs-comment"># 配置</span><br>cmake ..<br><br><span class="hljs-comment"># 编译</span><br>make<br><br><span class="hljs-comment"># 安装</span><br><span class="hljs-built_in">sudo</span> make install<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-3-使用-Meson"><a href="#6-3-使用-Meson" class="headerlink" title="6.3 使用 Meson"></a>6.3 使用 Meson</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置</span><br>meson setup build<br><br><span class="hljs-comment"># 编译</span><br>ninja -C build<br><br><span class="hljs-comment"># 安装</span><br><span class="hljs-built_in">sudo</span> ninja -C build install<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-4-注意事项"><a href="#6-4-注意事项" class="headerlink" title="6.4 注意事项"></a>6.4 注意事项</h3><ol>
+<li><strong>依赖管理</strong>: 需要手动安装所有依赖</li>
+<li><strong>更新困难</strong>: 需要手动下载新版本重新编译</li>
+<li><strong>冲突风险</strong>: 可能与系统包管理器冲突</li>
+<li><strong>卸载困难</strong>: 没有标准的卸载方法</li>
+</ol>
+<hr>
+<h2 id="7-卸载与清理"><a href="#7-卸载与清理" class="headerlink" title="7. 卸载与清理"></a>7. 卸载与清理</h2><h3 id="7-1-pacman-卸载"><a href="#7-1-pacman-卸载" class="headerlink" title="7.1 pacman 卸载"></a>7.1 pacman 卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 基本卸载</span><br><span class="hljs-built_in">sudo</span> pacman -R &lt;软件包名&gt;<br><br><span class="hljs-comment"># 卸载并删除未使用的依赖</span><br><span class="hljs-built_in">sudo</span> pacman -Rs &lt;软件包名&gt;<br><br><span class="hljs-comment"># 卸载并删除配置文件</span><br><span class="hljs-built_in">sudo</span> pacman -Rns &lt;软件包名&gt;<br><br><span class="hljs-comment"># 强制卸载（谨慎使用）</span><br><span class="hljs-built_in">sudo</span> pacman -Rdd &lt;软件包名&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-2-AUR-卸载"><a href="#7-2-AUR-卸载" class="headerlink" title="7.2 AUR 卸载"></a>7.2 AUR 卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 pacman 命令卸载（与官方包相同）</span><br><span class="hljs-built_in">sudo</span> pacman -Rs &lt;软件包名&gt;<br><br><span class="hljs-comment"># 使用 yay 卸载</span><br>yay -Rs &lt;软件包名&gt;<br><br><span class="hljs-comment"># 清理 AUR 缓存</span><br>yay -Sc<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-3-AppImage-卸载"><a href="#7-3-AppImage-卸载" class="headerlink" title="7.3 AppImage 卸载"></a>7.3 AppImage 卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除 AppImage 文件</span><br><span class="hljs-built_in">rm</span> ~/.local/bin/software.AppImage<br><br><span class="hljs-comment"># 删除符号链接（如果有）</span><br><span class="hljs-built_in">rm</span> ~/.local/bin/software<br><br><span class="hljs-comment"># 删除桌面文件</span><br><span class="hljs-built_in">rm</span> ~/.local/share/applications/software.desktop<br><br><span class="hljs-comment"># 更新桌面数据库</span><br>update-desktop-database ~/.local/share/applications/<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-4-Flatpak-卸载"><a href="#7-4-Flatpak-卸载" class="headerlink" title="7.4 Flatpak 卸载"></a>7.4 Flatpak 卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载软件</span><br>flatpak uninstall &lt;软件包名&gt;<br><br><span class="hljs-comment"># 清理未使用的运行时</span><br>flatpak uninstall --unused<br><br><span class="hljs-comment"># 删除所有 Flatpak 数据</span><br><span class="hljs-built_in">rm</span> -rf ~/.local/share/flatpak<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-5-Snap-卸载"><a href="#7-5-Snap-卸载" class="headerlink" title="7.5 Snap 卸载"></a>7.5 Snap 卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 卸载软件</span><br><span class="hljs-built_in">sudo</span> snap remove &lt;软件包名&gt;<br><br><span class="hljs-comment"># 清理 Snap 缓存</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">rm</span> -rf /var/lib/snapd/cache/*<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-6-系统清理"><a href="#7-6-系统清理" class="headerlink" title="7.6 系统清理"></a>7.6 系统清理</h3><h4 id="清理包缓存"><a href="#清理包缓存" class="headerlink" title="清理包缓存"></a>清理包缓存</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 paccache 保留最近 3 个版本</span><br><span class="hljs-built_in">sudo</span> paccache -r<br><br><span class="hljs-comment"># 清理未安装软件包的缓存</span><br><span class="hljs-built_in">sudo</span> pacman -Sc<br><br><span class="hljs-comment"># 清理所有缓存（谨慎使用）</span><br><span class="hljs-built_in">sudo</span> pacman -Scc<br></code></pre></td></tr></table></figure>
+
+<h4 id="清理孤立包"><a href="#清理孤立包" class="headerlink" title="清理孤立包"></a>清理孤立包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出孤立包</span><br>pacman -Qdt<br><br><span class="hljs-comment"># 卸载所有孤立包</span><br><span class="hljs-built_in">sudo</span> pacman -Rs $(pacman -Qdtq)<br></code></pre></td></tr></table></figure>
+
+<h4 id="清理日志"><a href="#清理日志" class="headerlink" title="清理日志"></a>清理日志</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 清理旧日志</span><br><span class="hljs-built_in">sudo</span> journalctl --vacuum-time=2weeks<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="8-最佳实践"><a href="#8-最佳实践" class="headerlink" title="8. 最佳实践"></a>8. 最佳实践</h2><h3 id="8-1-安装优先级"><a href="#8-1-安装优先级" class="headerlink" title="8.1 安装优先级"></a>8.1 安装优先级</h3><ol>
+<li><strong>官方仓库</strong>: 优先使用，稳定可靠</li>
+<li><strong>AUR</strong>: 官方没有时使用，注意安全</li>
+<li><strong>Flatpak&#x2F;Snap</strong>: 跨平台软件或需要沙箱时使用</li>
+<li><strong>AppImage</strong>: 便携式使用或测试软件</li>
+<li><strong>源码编译</strong>: 最后选择，需要特殊配置时使用</li>
+</ol>
+<h3 id="8-2-安全建议"><a href="#8-2-安全建议" class="headerlink" title="8.2 安全建议"></a>8.2 安全建议</h3><ol>
+<li><strong>定期更新</strong>: 每周运行 <code>sudo pacman -Syu</code></li>
+<li><strong>检查来源</strong>: 安装前验证软件来源</li>
+<li><strong>备份配置</strong>: 重要配置文件定期备份</li>
+<li><strong>使用快照</strong>: 考虑使用 Timeshift 等工具创建系统快照</li>
+</ol>
+<h3 id="8-3-维护建议"><a href="#8-3-维护建议" class="headerlink" title="8.3 维护建议"></a>8.3 维护建议</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 每周维护命令</span><br><span class="hljs-built_in">sudo</span> pacman -Syu                    <span class="hljs-comment"># 更新系统</span><br><span class="hljs-built_in">sudo</span> paccache -r                    <span class="hljs-comment"># 清理缓存</span><br>pacman -Qdt                         <span class="hljs-comment"># 检查孤立包</span><br><span class="hljs-built_in">sudo</span> journalctl --vacuum-time=2weeks <span class="hljs-comment"># 清理日志</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="9-故障排除"><a href="#9-故障排除" class="headerlink" title="9. 故障排除"></a>9. 故障排除</h2><h3 id="9-1-常见问题"><a href="#9-1-常见问题" class="headerlink" title="9.1 常见问题"></a>9.1 常见问题</h3><h4 id="依赖冲突"><a href="#依赖冲突" class="headerlink" title="依赖冲突"></a>依赖冲突</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看冲突详情</span><br><span class="hljs-built_in">sudo</span> pacman -Syu 2&gt;&amp;1 | grep conflict<br><br><span class="hljs-comment"># 强制覆盖（谨慎使用）</span><br><span class="hljs-built_in">sudo</span> pacman -Syu --overwrite /path/to/file<br></code></pre></td></tr></table></figure>
+
+<h4 id="密钥错误"><a href="#密钥错误" class="headerlink" title="密钥错误"></a>密钥错误</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 初始化密钥环</span><br><span class="hljs-built_in">sudo</span> pacman-key --init<br><br><span class="hljs-comment"># 刷新密钥</span><br><span class="hljs-built_in">sudo</span> pacman-key --populate archlinux<br><br><span class="hljs-comment"># 更新密钥</span><br><span class="hljs-built_in">sudo</span> pacman -S archlinux-keyring<br></code></pre></td></tr></table></figure>
+
+<h4 id="数据库锁定"><a href="#数据库锁定" class="headerlink" title="数据库锁定"></a>数据库锁定</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 删除锁文件（确保没有 pacman 进程运行）</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">rm</span> /var/lib/pacman/db.lck<br></code></pre></td></tr></table></figure>
+
+<h4 id="部分更新问题"><a href="#部分更新问题" class="headerlink" title="部分更新问题"></a>部分更新问题</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 强制同步数据库</span><br><span class="hljs-built_in">sudo</span> pacman -Syyu<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-2-AUR-问题"><a href="#9-2-AUR-问题" class="headerlink" title="9.2 AUR 问题"></a>9.2 AUR 问题</h3><h4 id="构建失败"><a href="#构建失败" class="headerlink" title="构建失败"></a>构建失败</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更新系统</span><br><span class="hljs-built_in">sudo</span> pacman -Syu<br><br><span class="hljs-comment"># 清理构建缓存</span><br>makepkg -c<br><br><span class="hljs-comment"># 检查依赖</span><br>makepkg -s<br></code></pre></td></tr></table></figure>
+
+<h4 id="签名验证失败"><a href="#签名验证失败" class="headerlink" title="签名验证失败"></a>签名验证失败</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导入缺失的密钥</span><br>gpg --recv-keys &lt;KEY_ID&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-3-性能优化"><a href="#9-3-性能优化" class="headerlink" title="9.3 性能优化"></a>9.3 性能优化</h3><h4 id="并行编译"><a href="#并行编译" class="headerlink" title="并行编译"></a>并行编译</h4><p>编辑 <code>/etc/makepkg.conf</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 设置并行编译线程数</span><br>MAKEFLAGS=<span class="hljs-string">&quot;-j<span class="hljs-subst">$(nproc)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="优化编译标志"><a href="#优化编译标志" class="headerlink" title="优化编译标志"></a>优化编译标志</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 针对当前 CPU 优化</span><br>CFLAGS=<span class="hljs-string">&quot;-march=native -O2&quot;</span><br>CXXFLAGS=<span class="hljs-string">&quot;<span class="hljs-variable">$CFLAGS</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="10-附录：CC-Switch-安装示例"><a href="#10-附录：CC-Switch-安装示例" class="headerlink" title="10. 附录：CC-Switch 安装示例"></a>10. 附录：CC-Switch 安装示例</h2><h3 id="10-1-通过-pacman-安装（推荐）"><a href="#10-1-通过-pacman-安装（推荐）" class="headerlink" title="10.1 通过 pacman 安装（推荐）"></a>10.1 通过 pacman 安装（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 添加 archlinuxcn 仓库（如果尚未添加）</span><br><span class="hljs-built_in">sudo</span> nano /etc/pacman.conf<br><span class="hljs-comment"># 在文件末尾添加：</span><br><span class="hljs-comment"># [archlinuxcn]</span><br><span class="hljs-comment"># Server = https://repo.archlinuxcn.org/$arch</span><br><br><span class="hljs-comment"># 导入密钥</span><br><span class="hljs-built_in">sudo</span> pacman -S archlinuxcn-keyring<br><br><span class="hljs-comment"># 安装 cc-switch</span><br><span class="hljs-built_in">sudo</span> pacman -S cc-switch<br><br><span class="hljs-comment"># 卸载</span><br><span class="hljs-built_in">sudo</span> pacman -Rns cc-switch<br></code></pre></td></tr></table></figure>
+
+<h3 id="10-2-通过-AppImage-安装"><a href="#10-2-通过-AppImage-安装" class="headerlink" title="10.2 通过 AppImage 安装"></a>10.2 通过 AppImage 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载 x86_64 版本</span><br>wget https://github.com/user/repo/releases/download/v3.16.0/CC-Switch-v3.16.0-Linux-x86_64.AppImage<br><br><span class="hljs-comment"># 安装到用户目录</span><br><span class="hljs-built_in">mkdir</span> -p ~/.local/bin<br><span class="hljs-built_in">cp</span> CC-Switch-v3.16.0-Linux-x86_64.AppImage ~/.local/bin/cc-switch.AppImage<br><span class="hljs-built_in">chmod</span> +x ~/.local/bin/cc-switch.AppImage<br><br><span class="hljs-comment"># 创建符号链接</span><br><span class="hljs-built_in">ln</span> -s ~/.local/bin/cc-switch.AppImage ~/.local/bin/cc-switch<br><br><span class="hljs-comment"># 创建桌面文件</span><br><span class="hljs-built_in">cat</span> &gt; ~/.local/share/applications/cc-switch.desktop &lt;&lt; <span class="hljs-string">EOF</span><br><span class="hljs-string">[Desktop Entry]</span><br><span class="hljs-string">Name=CC-Switch</span><br><span class="hljs-string">Comment=All-in-One assistant tool for Claude Code, Codex, OpenCode, openclaw &amp; Gemini CLI</span><br><span class="hljs-string">Exec=/home/$USER/.local/bin/cc-switch.AppImage</span><br><span class="hljs-string">Icon=utilities-terminal</span><br><span class="hljs-string">Terminal=false</span><br><span class="hljs-string">Type=Application</span><br><span class="hljs-string">Categories=Development;Utility;</span><br><span class="hljs-string">EOF</span><br><br><span class="hljs-comment"># 更新桌面数据库</span><br>update-desktop-database ~/.local/share/applications/<br><br><span class="hljs-comment"># 卸载</span><br><span class="hljs-built_in">rm</span> ~/.local/bin/cc-switch.AppImage<br><span class="hljs-built_in">rm</span> ~/.local/bin/cc-switch<br><span class="hljs-built_in">rm</span> ~/.local/share/applications/cc-switch.desktop<br>update-desktop-database ~/.local/share/applications/<br></code></pre></td></tr></table></figure>
+
+<h3 id="10-3-对比"><a href="#10-3-对比" class="headerlink" title="10.3 对比"></a>10.3 对比</h3><table>
+<thead>
+<tr>
+<th>方面</th>
+<th>pacman</th>
+<th>AppImage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>版本</td>
+<td>v3.15.0</td>
+<td>v3.16.0</td>
+</tr>
+<tr>
+<td>依赖</td>
+<td>系统依赖</td>
+<td>自包含</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>自动</td>
+<td>手动</td>
+</tr>
+<tr>
+<td>权限</td>
+<td>需要 sudo</td>
+<td>用户权限</td>
+</tr>
+<tr>
+<td>位置</td>
+<td>系统目录</td>
+<td>用户目录</td>
+</tr>
+<tr>
+<td>集成</td>
+<td>完全集成</td>
+<td>需要手动配置</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Pacman">Arch Wiki - pacman</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Arch_User_Repository">Arch Wiki - AUR</a></li>
+<li><a target="_blank" rel="noopener" href="https://flatpak.org/">Flatpak 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://snapcraft.io/">Snap 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://appimage.org/">AppImage 官网</a></li>
+</ul>
+<hr>
+<p><em>最后更新：2026年6月1日</em></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Arch-Linux/" class="print-no-link">#Arch Linux</a>
+      
+        <a href="/tags/Pacman/" class="print-no-link">#Pacman</a>
+      
+        <a href="/tags/AUR/" class="print-no-link">#AUR</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Arch Linux 软件安装完全指南</div>
+      <div>https://tingfeng347.github.io/2026/02/07/Arch Linux 软件安装完全指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/02/22/Zsh%20%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%BE%8E%E5%8C%96%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%882026%EF%BC%89/" title="Zsh 配置与美化完全指南（2026）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Zsh 配置与美化完全指南（2026）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线">
+                        <span class="hidden-mobile">大模型学习路线</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

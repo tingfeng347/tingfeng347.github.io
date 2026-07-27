@@ -1,0 +1,1663 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="Zsh 配置与美化完全指南（2026 最新版） 最后更新：2026 年 6 月 7 日 本文综合了 2025-2026 年最新、最受社区推荐的 Zsh 配置与美化方案，涵盖终端选择、框架对比、Prompt 工具、插件推荐、性能优化、字体选配等完整内容。   目录 2026 年 Zsh 生态概览 终端模拟器选择 Zsh 安装 Nerd Font 字体安装 框架选择：Oh My Zsh vs Zini">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zsh 配置与美化完全指南（2026）">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/02/22/Zsh%20%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%BE%8E%E5%8C%96%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%882026%EF%BC%89/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="Zsh 配置与美化完全指南（2026 最新版） 最后更新：2026 年 6 月 7 日 本文综合了 2025-2026 年最新、最受社区推荐的 Zsh 配置与美化方案，涵盖终端选择、框架对比、Prompt 工具、插件推荐、性能优化、字体选配等完整内容。   目录 2026 年 Zsh 生态概览 终端模拟器选择 Zsh 安装 Nerd Font 字体安装 框架选择：Oh My Zsh vs Zini">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-02-22T06:20:00.000Z">
+<meta property="article:modified_time" content="2026-07-27T10:32:39.865Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Zsh">
+<meta property="article:tag" content="终端美化">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Zsh 配置与美化完全指南（2026） - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Zsh 配置与美化完全指南（2026）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-02-22 14:20" pubdate>
+          2026年2月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          24k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          201 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Zsh 配置与美化完全指南（2026）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Zsh-配置与美化完全指南（2026-最新版）"><a href="#Zsh-配置与美化完全指南（2026-最新版）" class="headerlink" title="Zsh 配置与美化完全指南（2026 最新版）"></a>Zsh 配置与美化完全指南（2026 最新版）</h1><blockquote>
+<p><strong>最后更新：2026 年 6 月 7 日</strong></p>
+<p>本文综合了 2025-2026 年最新、最受社区推荐的 Zsh 配置与美化方案，涵盖终端选择、框架对比、Prompt 工具、插件推荐、性能优化、字体选配等完整内容。</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#1-2026-%E5%B9%B4-zsh-%E7%94%9F%E6%80%81%E6%A6%82%E8%A7%88">2026 年 Zsh 生态概览</a></li>
+<li><a href="#2-%E7%BB%88%E7%AB%AF%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%80%89%E6%8B%A9">终端模拟器选择</a></li>
+<li><a href="#3-zsh-%E5%AE%89%E8%A3%85">Zsh 安装</a></li>
+<li><a href="#4-nerd-font-%E5%AD%97%E4%BD%93%E5%AE%89%E8%A3%85">Nerd Font 字体安装</a></li>
+<li><a href="#5-%E6%A1%86%E6%9E%B6%E9%80%89%E6%8B%A9oh-my-zsh-vs-zinit-vs-%E6%97%A0%E6%A1%86%E6%9E%B6">框架选择：Oh My Zsh vs Zinit vs 无框架</a></li>
+<li><a href="#6-prompt-%E5%B7%A5%E5%85%B7starship-vs-powerlevel10k">Prompt 工具：Starship vs Powerlevel10k</a></li>
+<li><a href="#7-starship-%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE">Starship 详细配置</a></li>
+<li><a href="#8-powerlevel10k-%E9%85%8D%E7%BD%AE%E4%BC%A0%E7%BB%9F%E8%B7%AF%E7%BA%BF">Powerlevel10k 配置（传统路线）</a></li>
+<li><a href="#9-%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90">必备插件推荐</a></li>
+<li><a href="#10-%E7%8E%B0%E4%BB%A3-cli-%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90">现代 CLI 工具推荐</a></li>
+<li><a href="#11-%E9%85%8D%E8%89%B2%E6%96%B9%E6%A1%88%E4%B8%8E%E4%B8%BB%E9%A2%98">配色方案与主题</a></li>
+<li><a href="#12-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97">性能优化指南</a></li>
+<li><a href="#13-%E5%AE%8C%E6%95%B4%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B">完整配置示例</a></li>
+<li><a href="#14-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ol>
+<hr>
+<h2 id="1-2026-年-Zsh-生态概览"><a href="#1-2026-年-Zsh-生态概览" class="headerlink" title="1. 2026 年 Zsh 生态概览"></a>1. 2026 年 Zsh 生态概览</h2><h3 id="当前推荐技术栈"><a href="#当前推荐技术栈" class="headerlink" title="当前推荐技术栈"></a>当前推荐技术栈</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>推荐方案</th>
+<th>备选方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>终端模拟器</td>
+<td><strong>Ghostty</strong> &#x2F; <strong>WezTerm</strong></td>
+<td>Kitty, Alacritty, iTerm2</td>
+</tr>
+<tr>
+<td>Shell</td>
+<td>Zsh 5.9+</td>
+<td>-</td>
+</tr>
+<tr>
+<td>框架</td>
+<td><strong>Zinit</strong>（性能优先）&#x2F; <strong>Oh My Zsh</strong>（易用优先）</td>
+<td>无框架手动管理</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td><strong>Starship</strong> ⭐</td>
+<td>Powerlevel10k</td>
+</tr>
+<tr>
+<td>必备插件</td>
+<td>zsh-autosuggestions, zsh-syntax-highlighting</td>
+<td>fast-syntax-highlighting</td>
+</tr>
+<tr>
+<td>配色</td>
+<td>Catppuccin &#x2F; Tokyo Night &#x2F; Gruvbox</td>
+<td>Nord, Dracula</td>
+</tr>
+<tr>
+<td>字体</td>
+<td><strong>MesloLGS NF</strong> &#x2F; <strong>JetBrainsMono NF</strong></td>
+<td>Hack NF, FiraCode NF</td>
+</tr>
+</tbody></table>
+<h3 id="2025-2026-年重要趋势"><a href="#2025-2026-年重要趋势" class="headerlink" title="2025-2026 年重要趋势"></a>2025-2026 年重要趋势</h3><ol>
+<li><p><strong>Powerlevel10k 维护停滞 → Starship 崛起</strong>：Powerlevel10k 在 2025 年后更新极少，社区大量迁移至 Starship。Starship 是用 Rust 编写的跨 Shell Prompt，活跃维护、速度快、配置简洁（TOML 格式）。</p>
+</li>
+<li><p><strong>Ghostty 成为终端新标杆</strong>：由 HashiCorp 联合创始人 Mitchell Hashimoto 用 Zig 编写，2026 年已发布 1.3 版本，在 macOS 上渲染速度比 iTerm2 和 Kitty 快约 4 倍。</p>
+</li>
+<li><p><strong>轻量化趋势</strong>：越来越多用户从 Oh My Zsh 迁移到 Zinit 或无框架方案，追求更快的启动速度（目标 &lt; 100ms）。</p>
+</li>
+<li><p><strong>Catppuccin 主题一统天下</strong>：这套柔和的粉彩配色方案已成为终端、编辑器、各类工具的主流主题选择。</p>
+</li>
+</ol>
+<hr>
+<h2 id="2-终端模拟器选择"><a href="#2-终端模拟器选择" class="headerlink" title="2. 终端模拟器选择"></a>2. 终端模拟器选择</h2><p>一个好的终端模拟器是 Zsh 美化的基础，需要支持 <strong>True Color（24-bit）</strong>、<strong>Nerd Font</strong>、<strong>GPU 加速渲染</strong>。</p>
+<h3 id="2026-年终端模拟器对比"><a href="#2026-年终端模拟器对比" class="headerlink" title="2026 年终端模拟器对比"></a>2026 年终端模拟器对比</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Ghostty</th>
+<th>WezTerm</th>
+<th>Kitty</th>
+<th>Alacritty</th>
+<th>Warp</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编写语言</td>
+<td>Zig</td>
+<td>Rust</td>
+<td>C&#x2F;Python</td>
+<td>Rust</td>
+<td>Rust</td>
+</tr>
+<tr>
+<td>GPU 渲染</td>
+<td>Metal&#x2F;Vulkan&#x2F;DirectX</td>
+<td>OpenGL</td>
+<td>OpenGL</td>
+<td>OpenGL</td>
+<td>Metal&#x2F;DirectX</td>
+</tr>
+<tr>
+<td>分屏&#x2F;标签</td>
+<td>✅ 原生</td>
+<td>✅ 原生+复用</td>
+<td>✅ 原生</td>
+<td>❌ 需 tmux</td>
+<td>✅ 原生</td>
+</tr>
+<tr>
+<td>配置格式</td>
+<td>自定义配置</td>
+<td>Lua</td>
+<td>kitty.conf</td>
+<td>TOML&#x2F;YAML</td>
+<td>GUI + JSON</td>
+</tr>
+<tr>
+<td>图片预览</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌ 需 fork</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>macOS&#x2F;Linux&#x2F;Win</td>
+<td>✅ 全平台</td>
+<td>✅ 全平台</td>
+<td>✅ 全平台</td>
+<td>macOS&#x2F;Linux&#x2F;Win</td>
+</tr>
+<tr>
+<td>AI 功能</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅ 内置</td>
+</tr>
+<tr>
+<td>开源</td>
+<td>✅ MIT</td>
+<td>✅ MIT</td>
+<td>✅ GPL</td>
+<td>✅ Apache 2.0</td>
+<td>❌ 部分专有</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>极快</td>
+<td>快</td>
+<td>快</td>
+<td>最快</td>
+<td>中</td>
+</tr>
+<tr>
+<td>活跃度（2026）</td>
+<td>⭐ 极高</td>
+<td>高</td>
+<td>中</td>
+<td>中</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<h3 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h3><ul>
+<li><strong>追求极致性能与简洁</strong> → <strong>Ghostty</strong>（2026 年最佳）</li>
+<li><strong>需要跨平台一致体验与 Lua 深度自定义</strong> → <strong>WezTerm</strong></li>
+<li><strong>需要内置 AI 辅助</strong> → <strong>Warp</strong>（注意：部分闭源，需登录）</li>
+<li><strong>极简主义、配合 tmux 使用</strong> → <strong>Alacritty</strong></li>
+<li><strong>想要最丰富的内置功能</strong> → <strong>Kitty</strong></li>
+</ul>
+<h3 id="Ghostty-快速配置示例"><a href="#Ghostty-快速配置示例" class="headerlink" title="Ghostty 快速配置示例"></a>Ghostty 快速配置示例</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># ~/.config/ghostty/config</span><br><span class="hljs-attr">font-family</span> = JetBrainsMo<span class="hljs-literal">no</span> Nerd Font<br><span class="hljs-attr">font-size</span> = <span class="hljs-number">14</span><br><span class="hljs-attr">theme</span> = catppuccin-mocha<br><span class="hljs-attr">background-opacity</span> = <span class="hljs-number">0.95</span><br><span class="hljs-attr">window-padding-x</span> = <span class="hljs-number">8</span><br><span class="hljs-attr">window-padding-y</span> = <span class="hljs-number">4</span><br><span class="hljs-attr">confirm-close-surface</span> = <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="WezTerm-快速配置示例"><a href="#WezTerm-快速配置示例" class="headerlink" title="WezTerm 快速配置示例"></a>WezTerm 快速配置示例</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- ~/.config/wezterm/wezterm.lua</span><br><span class="hljs-keyword">local</span> wezterm = <span class="hljs-built_in">require</span> <span class="hljs-string">&#x27;wezterm&#x27;</span><br><span class="hljs-keyword">return</span> &#123;<br>  font = wezterm.font(<span class="hljs-string">&#x27;JetBrainsMono Nerd Font&#x27;</span>),<br>  font_size = <span class="hljs-number">14.0</span>,<br>  color_scheme = <span class="hljs-string">&#x27;Catppuccin Mocha&#x27;</span>,<br>  enable_tab_bar = <span class="hljs-literal">true</span>,<br>  use_fancy_tab_bar = <span class="hljs-literal">false</span>,<br>  window_background_opacity = <span class="hljs-number">0.95</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="3-Zsh-安装"><a href="#3-Zsh-安装" class="headerlink" title="3. Zsh 安装"></a>3. Zsh 安装</h2><h3 id="Arch-Linux"><a href="#Arch-Linux" class="headerlink" title="Arch Linux"></a>Arch Linux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> pacman -S zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="Ubuntu-Debian"><a href="#Ubuntu-Debian" class="headerlink" title="Ubuntu &#x2F; Debian"></a>Ubuntu &#x2F; Debian</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt install zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="Fedora-RHEL"><a href="#Fedora-RHEL" class="headerlink" title="Fedora &#x2F; RHEL"></a>Fedora &#x2F; RHEL</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> dnf install zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># macOS 自带 Zsh (Catalina 10.15+) /bin/zsh</span><br><span class="hljs-comment"># 或安装 Homebrew 版本获得更新版本</span><br>brew install zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="设置为默认-Shell"><a href="#设置为默认-Shell" class="headerlink" title="设置为默认 Shell"></a>设置为默认 Shell</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 zsh 路径</span><br><span class="hljs-built_in">which</span> zsh<br><span class="hljs-comment"># 设置为默认 Shell</span><br>chsh -s $(<span class="hljs-built_in">which</span> zsh)<br><span class="hljs-comment"># 注销重新登录后生效</span><br><span class="hljs-comment"># 验证</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span><br><span class="hljs-comment"># 应输出：/bin/zsh 或 /usr/bin/zsh</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-Nerd-Font-字体安装"><a href="#4-Nerd-Font-字体安装" class="headerlink" title="4. Nerd Font 字体安装"></a>4. Nerd Font 字体安装</h2><p>Nerd Font 是美化终端的关键——Starship 和 Powerlevel10k 的图标（glyphs）都需要 Nerd Font 才能正常渲染。否则会显示为方块或乱码。</p>
+<h3 id="推荐字体"><a href="#推荐字体" class="headerlink" title="推荐字体"></a>推荐字体</h3><table>
+<thead>
+<tr>
+<th>字体</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MesloLGS NF</strong></td>
+<td>Powerlevel10k 官方推荐，四字体风格一应俱全</td>
+</tr>
+<tr>
+<td><strong>JetBrainsMono Nerd Font</strong></td>
+<td>JetBrains 出品的编程字体，含连字（ligatures）</td>
+</tr>
+<tr>
+<td><strong>Hack Nerd Font</strong></td>
+<td>经典等宽编程字体，清晰易读</td>
+</tr>
+<tr>
+<td><strong>FiraCode Nerd Font</strong></td>
+<td>含丰富连字的编程字体</td>
+</tr>
+</tbody></table>
+<h3 id="Arch-Linux-安装"><a href="#Arch-Linux-安装" class="headerlink" title="Arch Linux 安装"></a>Arch Linux 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法1：直接安装 ttf-jetbrains-mono-nerd（推荐）</span><br><span class="hljs-built_in">sudo</span> pacman -S ttf-jetbrains-mono-nerd<br><br><span class="hljs-comment"># 方法2：安装多个 Nerd Fonts</span><br><span class="hljs-built_in">sudo</span> pacman -S ttf-nerd-fonts-symbols<br>yay -S nerd-fonts-complete    <span class="hljs-comment"># AUR，安装全部</span><br><br><span class="hljs-comment"># 方法3：手动安装 MesloLGS NF</span><br><span class="hljs-built_in">mkdir</span> -p ~/.local/share/fonts<br><span class="hljs-built_in">cd</span> ~/.local/share/fonts<br><span class="hljs-comment"># 从 https://github.com/romkatv/powerlevel10k-media 下载 MesloLGS NF 字体文件</span><br>fc-cache -fv<br></code></pre></td></tr></table></figure>
+
+<h3 id="Ubuntu-Debian-安装"><a href="#Ubuntu-Debian-安装" class="headerlink" title="Ubuntu &#x2F; Debian 安装"></a>Ubuntu &#x2F; Debian 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 JetBrainsMono Nerd Font</span><br>wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip<br>unzip JetBrainsMono.zip -d ~/.local/share/fonts<br>fc-cache -fv<br></code></pre></td></tr></table></figure>
+
+<h3 id="macOS-安装"><a href="#macOS-安装" class="headerlink" title="macOS 安装"></a>macOS 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew tap homebrew/cask-fonts<br>brew install font-jetbrains-mono-nerd-font<br><span class="hljs-comment"># 或安装 Hack Nerd Font</span><br>brew install font-hack-nerd-font<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="5-框架选择：Oh-My-Zsh-vs-Zinit-vs-无框架"><a href="#5-框架选择：Oh-My-Zsh-vs-Zinit-vs-无框架" class="headerlink" title="5. 框架选择：Oh My Zsh vs Zinit vs 无框架"></a>5. 框架选择：Oh My Zsh vs Zinit vs 无框架</h2><h3 id="方案对比"><a href="#方案对比" class="headerlink" title="方案对比"></a>方案对比</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Oh My Zsh</th>
+<th>Zinit</th>
+<th>无框架&#x2F;手动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>上手难度</td>
+<td>⭐ 最简单</td>
+<td>⭐⭐ 中等</td>
+<td>⭐⭐⭐ 需要了解 Zsh</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>500-1000ms</td>
+<td>&lt;100ms</td>
+<td>&lt;50ms</td>
+</tr>
+<tr>
+<td>插件数量</td>
+<td>300+ 自带</td>
+<td>可从任意 GitHub 仓库加载</td>
+<td>自由选择</td>
+</tr>
+<tr>
+<td>主题数量</td>
+<td>150+</td>
+<td>不限</td>
+<td>不限</td>
+</tr>
+<tr>
+<td>自动更新</td>
+<td>✅ <code>omz update</code></td>
+<td>❌ 需手动</td>
+<td>❌ 需手动</td>
+</tr>
+<tr>
+<td>配置复杂度</td>
+<td>低</td>
+<td>中</td>
+<td>高</td>
+</tr>
+<tr>
+<td>适合人群</td>
+<td>新手、追求社区生态</td>
+<td>追求速度、有 Zsh 基础</td>
+<td>极客、极简主义</td>
+</tr>
+</tbody></table>
+<h3 id="5-1-Oh-My-Zsh（新手推荐）"><a href="#5-1-Oh-My-Zsh（新手推荐）" class="headerlink" title="5.1 Oh My Zsh（新手推荐）"></a>5.1 Oh My Zsh（新手推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装</span><br>sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span><br><br><span class="hljs-comment"># 或使用 wget</span><br>sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>安装后，配置文件在 <code>~/.zshrc</code>。默认启用 <code>git</code> 插件。</p>
+<h3 id="5-2-Zinit（性能优先，推荐进阶用户）"><a href="#5-2-Zinit（性能优先，推荐进阶用户）" class="headerlink" title="5.2 Zinit（性能优先，推荐进阶用户）"></a>5.2 Zinit（性能优先，推荐进阶用户）</h3><p>Zinit 是当前最快的 Zsh 插件管理器，支持 Turbo 模式（延迟加载），可将启动时间降低到 100ms 以下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 Zinit</span><br>ZINIT_HOME=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_DATA_HOME:-<span class="hljs-variable">$&#123;HOME&#125;</span>/.local/share&#125;</span>/zinit/zinit.git&quot;</span><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-string">&quot;<span class="hljs-subst">$(dirname $ZINIT_HOME)</span>&quot;</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zdharma-continuum/zinit.git <span class="hljs-string">&quot;<span class="hljs-variable">$ZINIT_HOME</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-无框架手动管理（最灵活）"><a href="#5-3-无框架手动管理（最灵活）" class="headerlink" title="5.3 无框架手动管理（最灵活）"></a>5.3 无框架手动管理（最灵活）</h3><p>如果你只用少量插件，完全可以不依赖任何框架，直接手动 source 插件。启动速度最快（~50ms）。</p>
+<hr>
+<h2 id="6-Prompt-工具：Starship-vs-Powerlevel10k"><a href="#6-Prompt-工具：Starship-vs-Powerlevel10k" class="headerlink" title="6. Prompt 工具：Starship vs Powerlevel10k"></a>6. Prompt 工具：Starship vs Powerlevel10k</h2><h3 id="⭐-Starship（2026-年推荐）"><a href="#⭐-Starship（2026-年推荐）" class="headerlink" title="⭐ Starship（2026 年推荐）"></a>⭐ Starship（2026 年推荐）</h3><p>Starship 是目前最推荐的 Prompt 工具，用 Rust 编写，跨 Shell 支持（Zsh&#x2F;Bash&#x2F;Fish&#x2F;PowerShell&#x2F;Nushell），TOML 配置简洁明了，社区活跃。</p>
+<ul>
+<li><strong>优点</strong>：跨 Shell 一致体验、TOML 配置极易读写、Rust 性能好、有丰富 Preset、活跃维护</li>
+<li><strong>缺点</strong>：进程启动有微小开销（几乎不可感），复杂定制不如 p10k 灵活</li>
+</ul>
+<p><strong>安装：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Arch Linux</span><br><span class="hljs-built_in">sudo</span> pacman -S starship<br><br><span class="hljs-comment"># macOS</span><br>brew install starship<br><br><span class="hljs-comment"># 通用安装脚本</span><br>curl -sS https://starship.rs/install.sh | sh<br></code></pre></td></tr></table></figure>
+
+<p><strong>启用（在 ~&#x2F;.zshrc 末尾添加）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(starship init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Powerlevel10k（经典方案）"><a href="#Powerlevel10k（经典方案）" class="headerlink" title="Powerlevel10k（经典方案）"></a>Powerlevel10k（经典方案）</h3><p>Powerlevel10k 曾是 Zsh 美化标杆，提供交互式配置向导，渲染极快，Instant Prompt 可在 10ms 内显示提示符。</p>
+<ul>
+<li><strong>优点</strong>：极致的 Zsh 原生性能、Instant Prompt 机制、交互式配置、功能完备</li>
+<li><strong>缺点</strong>：2025 年起维护停滞、Zsh 代码可读性差（复杂 shell 脚本），自定义 prompt 段需要编写 Zsh 代码</li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>趋势提醒</strong>：2025 年 5 月起，大量用户从 Powerlevel10k 迁移到 Starship，主要原因是 p10k 更新停滞。如果你已经在用 p10k 且满意，可以继续使用；如果是新配置，推荐直接选择 Starship。</p>
+</blockquote>
+<hr>
+<h2 id="7-Starship-详细配置"><a href="#7-Starship-详细配置" class="headerlink" title="7. Starship 详细配置"></a>7. Starship 详细配置</h2><p>Starship 配置文件：<code>~/.config/starship.toml</code></p>
+<h3 id="7-1-内置-Preset-一键配置"><a href="#7-1-内置-Preset-一键配置" class="headerlink" title="7.1 内置 Preset 一键配置"></a>7.1 内置 Preset 一键配置</h3><p>Starship 提供了多个官方预设主题，一键生成配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看可用 Preset</span><br>starship preset --<span class="hljs-built_in">help</span><br><br><span class="hljs-comment"># 可用的 Preset：</span><br><span class="hljs-comment"># - catppuccin-powerline    ⭐ 最推荐，Catppuccin 配色 + Powerline 风格</span><br><span class="hljs-comment"># - pastel-powerline        柔和的 Powerline 风格</span><br><span class="hljs-comment"># - tokyo-night             Tokyo Night 配色</span><br><span class="hljs-comment"># - gruvbox-rainbow         Gruvbox 彩虹配色</span><br><span class="hljs-comment"># - jetpack                 极简风格</span><br><span class="hljs-comment"># - nerd-font-symbols       使用 Nerd Font 图标的默认配置</span><br><span class="hljs-comment"># - pure-prompt             模拟 Pure Prompt 风格</span><br><span class="hljs-comment"># - no-nerd-font            不使用 Nerd Font 图标的配置</span><br><span class="hljs-comment"># - no-runtime-versions     隐藏语言运行时版本</span><br><span class="hljs-comment"># - bracketed-segments      用括号包裹各段</span><br><span class="hljs-comment"># - plain-text-symbols      纯文本符号</span><br><br><span class="hljs-comment"># 应用 Catppuccin Powerline Preset（推荐）</span><br>starship preset catppuccin-powerline -o ~/.config/starship.toml<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-2-Catppuccin-Powerline-配置详解"><a href="#7-2-Catppuccin-Powerline-配置详解" class="headerlink" title="7.2 Catppuccin Powerline 配置详解"></a>7.2 Catppuccin Powerline 配置详解</h3><p>Catppuccin 是目前最流行的配色方案，Starship 官方提供了内置支持。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># ~/.config/starship.toml</span><br><br><span class="hljs-comment"># ============ 全局设置 ============</span><br><span class="hljs-attr">&quot;$schema&quot;</span> = <span class="hljs-string">&#x27;https://starship.rs/config-schema.json&#x27;</span><br><span class="hljs-attr">add_newline</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">command_timeout</span> = <span class="hljs-number">1000</span><br><br><span class="hljs-comment"># 引用的调色板</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_mocha&#x27;</span><br><br><span class="hljs-comment"># ============ Catppuccin 调色板定义 ============</span><br><span class="hljs-section">[palettes.catppuccin_mocha]</span><br><span class="hljs-attr">rosewater</span> = <span class="hljs-string">&#x27;#f5e0dc&#x27;</span><br><span class="hljs-attr">flamingo</span> = <span class="hljs-string">&#x27;#f2cdcd&#x27;</span><br><span class="hljs-attr">pink</span> = <span class="hljs-string">&#x27;#f5c2e7&#x27;</span><br><span class="hljs-attr">mauve</span> = <span class="hljs-string">&#x27;#cba6f7&#x27;</span><br><span class="hljs-attr">red</span> = <span class="hljs-string">&#x27;#f38ba8&#x27;</span><br><span class="hljs-attr">maroon</span> = <span class="hljs-string">&#x27;#eba0ac&#x27;</span><br><span class="hljs-attr">peach</span> = <span class="hljs-string">&#x27;#fab387&#x27;</span><br><span class="hljs-attr">yellow</span> = <span class="hljs-string">&#x27;#f9e2af&#x27;</span><br><span class="hljs-attr">green</span> = <span class="hljs-string">&#x27;#a6e3a1&#x27;</span><br><span class="hljs-attr">teal</span> = <span class="hljs-string">&#x27;#94e2d5&#x27;</span><br><span class="hljs-attr">sky</span> = <span class="hljs-string">&#x27;#89dceb&#x27;</span><br><span class="hljs-attr">sapphire</span> = <span class="hljs-string">&#x27;#74c7ec&#x27;</span><br><span class="hljs-attr">blue</span> = <span class="hljs-string">&#x27;#89b4fa&#x27;</span><br><span class="hljs-attr">lavender</span> = <span class="hljs-string">&#x27;#b4befe&#x27;</span><br><span class="hljs-attr">text</span> = <span class="hljs-string">&#x27;#cdd6f4&#x27;</span><br><span class="hljs-attr">subtext1</span> = <span class="hljs-string">&#x27;#bac2de&#x27;</span><br><span class="hljs-attr">subtext0</span> = <span class="hljs-string">&#x27;#a6adc8&#x27;</span><br><span class="hljs-attr">overlay2</span> = <span class="hljs-string">&#x27;#9399b2&#x27;</span><br><span class="hljs-attr">overlay1</span> = <span class="hljs-string">&#x27;#7f849c&#x27;</span><br><span class="hljs-attr">overlay0</span> = <span class="hljs-string">&#x27;#6c7086&#x27;</span><br><span class="hljs-attr">surface2</span> = <span class="hljs-string">&#x27;#585b70&#x27;</span><br><span class="hljs-attr">surface1</span> = <span class="hljs-string">&#x27;#45475a&#x27;</span><br><span class="hljs-attr">surface0</span> = <span class="hljs-string">&#x27;#313244&#x27;</span><br><span class="hljs-attr">base</span> = <span class="hljs-string">&#x27;#1e1e2e&#x27;</span><br><span class="hljs-attr">mantle</span> = <span class="hljs-string">&#x27;#181825&#x27;</span><br><span class="hljs-attr">crust</span> = <span class="hljs-string">&#x27;#11111b&#x27;</span><br><br><span class="hljs-comment"># ============ 提示符布局 ============</span><br><span class="hljs-comment"># 左侧：目录 + Git 信息 + 字符</span><br><span class="hljs-comment"># 右侧：所有其他信息</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">$directory\</span><br><span class="hljs-string">$git_branch\</span><br><span class="hljs-string">$git_status\</span><br><span class="hljs-string">$fill\</span><br><span class="hljs-string">$cmd_duration\</span><br><span class="hljs-string">$time\</span><br><span class="hljs-string">$line_break\</span><br><span class="hljs-string">$character\</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># ============ 各模块配置 ============</span><br><br><span class="hljs-comment"># --- 目录 ---</span><br><span class="hljs-section">[directory]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $path ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><span class="hljs-attr">truncation_length</span> = <span class="hljs-number">3</span><br><span class="hljs-attr">truncate_to_repo</span> = <span class="hljs-literal">true</span><br><br><span class="hljs-comment"># --- Git 分支 ---</span><br><span class="hljs-section">[git_branch]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:mauve bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$branch ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><br><span class="hljs-comment"># --- Git 状态 ---</span><br><span class="hljs-section">[git_status]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:peach bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;([](fg:surface0 bg:surface1)[$all_status$ahead_behind]($style)[](fg:surface1 bg:surface0)) &#x27;</span><br><br><span class="hljs-comment"># --- 命令执行时间 ---</span><br><span class="hljs-section">[cmd_duration]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:yellow bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[  $duration ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><span class="hljs-attr">min_time</span> = <span class="hljs-number">2000</span>    <span class="hljs-comment"># 超过2秒才显示</span><br><br><span class="hljs-comment"># --- 时间 ---</span><br><span class="hljs-section">[time]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:teal bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[  $time ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><span class="hljs-attr">disabled</span> = <span class="hljs-literal">false</span><br><span class="hljs-attr">time_format</span> = <span class="hljs-string">&#x27;%H:%M:%S&#x27;</span><br><br><span class="hljs-comment"># --- 提示字符 ---</span><br><span class="hljs-section">[character]</span><br><span class="hljs-attr">success_symbol</span> = <span class="hljs-string">&#x27;[❯](bold green)&#x27;</span><br><span class="hljs-attr">error_symbol</span> = <span class="hljs-string">&#x27;[❯](bold red)&#x27;</span><br><span class="hljs-attr">vimcmd_symbol</span> = <span class="hljs-string">&#x27;[❮](bold green)&#x27;</span><br><br><span class="hljs-comment"># --- Python ---</span><br><span class="hljs-section">[python]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$version ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><br><span class="hljs-comment"># --- Node.js ---</span><br><span class="hljs-section">[nodejs]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:green bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$version ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><br><span class="hljs-comment"># --- Rust ---</span><br><span class="hljs-section">[rust]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:peach bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$version ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><br><span class="hljs-comment"># --- Go ---</span><br><span class="hljs-section">[golang]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:sky bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$version ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><br><span class="hljs-comment"># --- Docker ---</span><br><span class="hljs-section">[docker_context]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$context ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><br><span class="hljs-comment"># --- Kubernetes ---</span><br><span class="hljs-section">[kubernetes]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27;☸ &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[](fg:surface0 bg:surface1)[ $symbol$context ]($style)[](fg:surface1 bg:surface0) &#x27;</span><br><span class="hljs-attr">disabled</span> = <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-3-极简-Starship-配置"><a href="#7-3-极简-Starship-配置" class="headerlink" title="7.3 极简 Starship 配置"></a>7.3 极简 Starship 配置</h3><p>如果你喜欢简洁，这是一个最小化配置：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># ~/.config/starship.toml</span><br><span class="hljs-attr">add_newline</span> = <span class="hljs-literal">false</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;$directory$git_branch$git_status$character&#x27;</span><br><br><span class="hljs-section">[character]</span><br><span class="hljs-attr">success_symbol</span> = <span class="hljs-string">&#x27;[❯](bold green)&#x27;</span><br><span class="hljs-attr">error_symbol</span> = <span class="hljs-string">&#x27;[❯](bold red)&#x27;</span><br><br><span class="hljs-section">[directory]</span><br><span class="hljs-attr">truncation_length</span> = <span class="hljs-number">3</span><br><br><span class="hljs-section">[git_branch]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;bold purple&#x27;</span><br><br><span class="hljs-section">[git_status]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;bold yellow&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-4-更多-Starship-Preset-效果"><a href="#7-4-更多-Starship-Preset-效果" class="headerlink" title="7.4 更多 Starship Preset 效果"></a>7.4 更多 Starship Preset 效果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Tokyo Night 配色</span><br>starship preset tokyo-night -o ~/.config/starship.toml<br><br><span class="hljs-comment"># Gruvbox Rainbow（复古暖色调）</span><br>starship preset gruvbox-rainbow -o ~/.config/starship.toml<br><br><span class="hljs-comment"># Pastel Powerline</span><br>starship preset pastel-powerline -o ~/.config/starship.toml<br><br><span class="hljs-comment"># Jetpack 极简</span><br>starship preset jetpack -o ~/.config/starship.toml<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="8-Powerlevel10k-配置（传统路线）"><a href="#8-Powerlevel10k-配置（传统路线）" class="headerlink" title="8. Powerlevel10k 配置（传统路线）"></a>8. Powerlevel10k 配置（传统路线）</h2><p>如果你仍想使用 Powerlevel10k，这里是完整配置流程。</p>
+<h3 id="8-1-安装（配合-Oh-My-Zsh）"><a href="#8-1-安装（配合-Oh-My-Zsh）" class="headerlink" title="8.1 安装（配合 Oh My Zsh）"></a>8.1 安装（配合 Oh My Zsh）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 克隆 p10k 仓库</span><br>git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git \<br>  <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k<br><br><span class="hljs-comment"># 编辑 ~/.zshrc</span><br><span class="hljs-comment"># 设置：ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="8-2-安装（不依赖-Oh-My-Zsh）"><a href="#8-2-安装（不依赖-Oh-My-Zsh）" class="headerlink" title="8.2 安装（不依赖 Oh My Zsh）"></a>8.2 安装（不依赖 Oh My Zsh）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;source ~/powerlevel10k/powerlevel10k.zsh-theme&#x27;</span> &gt;&gt; ~/.zshrc<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-3-运行配置向导"><a href="#8-3-运行配置向导" class="headerlink" title="8.3 运行配置向导"></a>8.3 运行配置向导</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 重新启动 Zsh，或手动运行</span><br>p10k configure<br></code></pre></td></tr></table></figure>
+
+<p>向导会让你选择：</p>
+<ol>
+<li>字体支持（推荐安装 MesloLGS NF 后选 <code>y</code>）</li>
+<li>提示符样式（Rainbow &#x2F; Lean &#x2F; Classic &#x2F; Pure 等）</li>
+<li>字符集（Unicode &#x2F; ASCII）</li>
+<li>显示时机（Always &#x2F; Only when previous command fails）</li>
+<li>更多细节选项……</li>
+</ol>
+<p>配置保存在 <code>~/.p10k.zsh</code>，可以手动编辑微调。</p>
+<h3 id="8-4-p10k-Instant-Prompt（加速启动）"><a href="#8-4-p10k-Instant-Prompt（加速启动）" class="headerlink" title="8.4 p10k Instant Prompt（加速启动）"></a>8.4 p10k Instant Prompt（加速启动）</h3><p>在 <code>~/.zshrc</code> 的<strong>最顶部</strong>添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.</span><br><span class="hljs-keyword">if</span> [[ -r <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span> ]]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CACHE_HOME:-<span class="hljs-variable">$HOME</span>/.cache&#125;</span>/p10k-instant-prompt-<span class="hljs-variable">$&#123;(%):-%n&#125;</span>.zsh&quot;</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<p>这可以让提示符在 Zsh 完全初始化前就显示出来。</p>
+<h3 id="8-5-自定义颜色"><a href="#8-5-自定义颜色" class="headerlink" title="8.5 自定义颜色"></a>8.5 自定义颜色</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 256 色表</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> &#123;0..255&#125;; <span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">print</span> -Pn <span class="hljs-string">&quot;%K&#123;<span class="hljs-variable">$i</span>&#125;  %k%F&#123;<span class="hljs-variable">$i</span>&#125;<span class="hljs-variable">$&#123;(l:3::0:)i&#125;</span>%f &quot;</span> <span class="hljs-variable">$&#123;<span class="hljs-variable">$&#123;(M)$((i%6)):#3&#125;</span>:+$&#x27;\n&#x27;&#125;</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+
+<p>编辑 <code>~/.p10k.zsh</code>，找到颜色定义部分（如 <code>POWERLEVEL9K_DIR_BACKGROUND</code>）进行修改。</p>
+<hr>
+<h2 id="9-必备插件推荐"><a href="#9-必备插件推荐" class="headerlink" title="9. 必备插件推荐"></a>9. 必备插件推荐</h2><h3 id="9-1-核心插件（必装）"><a href="#9-1-核心插件（必装）" class="headerlink" title="9.1 核心插件（必装）"></a>9.1 核心插件（必装）</h3><table>
+<thead>
+<tr>
+<th>插件</th>
+<th>功能</th>
+<th>GitHub Stars</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>zsh-autosuggestions</strong></td>
+<td>Fish-style 历史命令建议</td>
+<td>35K+</td>
+<td>根据历史记录灰显建议，按 → 接受</td>
+</tr>
+<tr>
+<td><strong>zsh-syntax-highlighting</strong></td>
+<td>实时命令语法高亮</td>
+<td>25K+</td>
+<td>有效命令变绿，无效变红</td>
+</tr>
+<tr>
+<td><strong>fast-syntax-highlighting</strong></td>
+<td>更快的语法高亮</td>
+<td>2K+</td>
+<td>zsh-syntax-highlighting 的替代品，速度更快</td>
+</tr>
+</tbody></table>
+<h3 id="9-2-Oh-My-Zsh-方式安装插件"><a href="#9-2-Oh-My-Zsh-方式安装插件" class="headerlink" title="9.2 Oh My Zsh 方式安装插件"></a>9.2 Oh My Zsh 方式安装插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 zsh-autosuggestions</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions \<br>  <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br><br><span class="hljs-comment"># 安装 zsh-syntax-highlighting</span><br>git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git \<br>  <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting<br><br><span class="hljs-comment"># 在 ~/.zshrc 中启用</span><br><span class="hljs-comment"># plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</span><br><span class="hljs-comment"># ⚠️ zsh-syntax-highlighting 必须放在最后！</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="9-3-Zinit-方式安装插件（性能最优）"><a href="#9-3-Zinit-方式安装插件（性能最优）" class="headerlink" title="9.3 Zinit 方式安装插件（性能最优）"></a>9.3 Zinit 方式安装插件（性能最优）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在 ~/.zshrc 中</span><br><span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$ZINIT_HOME</span>/zinit.zsh&quot;</span><br><br><span class="hljs-comment"># 加载插件（支持 Turbo 延迟加载）</span><br>zinit light zsh-users/zsh-autosuggestions<br>zinit light zsh-users/zsh-syntax-highlighting   <span class="hljs-comment"># 必须最后</span><br>zinit light zsh-users/zsh-completions<br>zinit light Aloxaf/fzf-tab<br><br><span class="hljs-comment"># Turbo 模式延迟加载（语法高亮等可交互时才需要）</span><br>zinit <span class="hljs-built_in">wait</span> lucid <span class="hljs-keyword">for</span> \<br>  atinit<span class="hljs-string">&quot;ZI[BLAH]&quot;</span> \<br>  zsh-users/zsh-syntax-highlighting<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-4-推荐的-Oh-My-Zsh-内置插件"><a href="#9-4-推荐的-Oh-My-Zsh-内置插件" class="headerlink" title="9.4 推荐的 Oh My Zsh 内置插件"></a>9.4 推荐的 Oh My Zsh 内置插件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">plugins=(<br>  git                    <span class="hljs-comment"># git 别名（gst, gaa, gcmsg 等）</span><br>  <span class="hljs-built_in">sudo</span>                   <span class="hljs-comment"># 按两次 ESC 给上一条命令加 sudo</span><br>  extract                <span class="hljs-comment"># 万能解压（支持 tar.gz/zip/rar 等）</span><br>  z                      <span class="hljs-comment"># 智能目录跳转（按使用频率）</span><br>  <span class="hljs-built_in">history</span>                <span class="hljs-comment"># 增强的历史命令</span><br>  command-not-found      <span class="hljs-comment"># 命令未找到时建议安装包</span><br>  copypath               <span class="hljs-comment"># 复制当前路径</span><br>  copyfile               <span class="hljs-comment"># 复制文件内容</span><br>  web-search             <span class="hljs-comment"># 从命令行搜索 Google</span><br>  docker                 <span class="hljs-comment"># Docker 别名和补全</span><br>  docker-compose         <span class="hljs-comment"># Docker Compose 别名和补全</span><br>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="9-5-fzf-tab（模糊-Tab-补全）"><a href="#9-5-fzf-tab（模糊-Tab-补全）" class="headerlink" title="9.5 fzf-tab（模糊 Tab 补全）"></a>9.5 fzf-tab（模糊 Tab 补全）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 用 fzf 替换 Zsh 默认 Tab 补全，提供交互式模糊选择</span><br>git <span class="hljs-built_in">clone</span> https://github.com/Aloxaf/fzf-tab \<br>  <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/fzf-tab<br><br><span class="hljs-comment"># 在 plugins 中添加 fzf-tab</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="9-6-性能提示"><a href="#9-6-性能提示" class="headerlink" title="9.6 性能提示"></a>9.6 性能提示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># zsh-autosuggestions 性能调优</span><br>ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20   <span class="hljs-comment"># 限制缓冲区大小</span><br>ZSH_AUTOSUGGEST_USE_ASYNC=1          <span class="hljs-comment"># 异步加载建议</span><br><br><span class="hljs-comment"># 高亮样式</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#663399,standout&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="10-现代-CLI-工具推荐"><a href="#10-现代-CLI-工具推荐" class="headerlink" title="10. 现代 CLI 工具推荐"></a>10. 现代 CLI 工具推荐</h2><p>这些不是 Zsh 插件，但能让终端体验大幅提升：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>替代</th>
+<th>功能</th>
+<th>安装（Arch）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>zoxide</strong></td>
+<td><code>cd</code></td>
+<td>智能目录跳转，学习你的习惯</td>
+<td><code>sudo pacman -S zoxide</code></td>
+</tr>
+<tr>
+<td><strong>fzf</strong></td>
+<td><code>Ctrl-R</code></td>
+<td>模糊查找（文件&#x2F;历史&#x2F;git）</td>
+<td><code>sudo pacman -S fzf</code></td>
+</tr>
+<tr>
+<td><strong>eza</strong></td>
+<td><code>ls</code></td>
+<td>彩色、图标、git 状态</td>
+<td><code>sudo pacman -S eza</code></td>
+</tr>
+<tr>
+<td><strong>bat</strong></td>
+<td><code>cat</code></td>
+<td>语法高亮、行号、Git 改动</td>
+<td><code>sudo pacman -S bat</code></td>
+</tr>
+<tr>
+<td><strong>fd</strong></td>
+<td><code>find</code></td>
+<td>快速查找文件</td>
+<td><code>sudo pacman -S fd</code></td>
+</tr>
+<tr>
+<td><strong>ripgrep (rg)</strong></td>
+<td><code>grep</code></td>
+<td>超快速文本搜索</td>
+<td><code>sudo pacman -S ripgrep</code></td>
+</tr>
+<tr>
+<td><strong>delta</strong></td>
+<td><code>git diff</code></td>
+<td>美化 git diff 输出</td>
+<td><code>sudo pacman -S git-delta</code></td>
+</tr>
+<tr>
+<td><strong>Atuin</strong></td>
+<td><code>Ctrl-R</code></td>
+<td>SQLite 历史同步（多机）</td>
+<td><code>sudo pacman -S atuin</code></td>
+</tr>
+<tr>
+<td><strong>tldr</strong></td>
+<td><code>man</code></td>
+<td>简化版命令手册</td>
+<td><code>sudo pacman -S tldr</code></td>
+</tr>
+<tr>
+<td><strong>btop</strong></td>
+<td><code>top/htop</code></td>
+<td>美观的系统监控</td>
+<td><code>sudo pacman -S btop</code></td>
+</tr>
+</tbody></table>
+<h3 id="初始化配置（添加到-zshrc）"><a href="#初始化配置（添加到-zshrc）" class="headerlink" title="初始化配置（添加到 ~&#x2F;.zshrc）"></a>初始化配置（添加到 ~&#x2F;.zshrc）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># zoxide - 智能跳转</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(zoxide init zsh)</span>&quot;</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">cd</span>=<span class="hljs-string">&quot;z&quot;</span>              <span class="hljs-comment"># 可选：用 zoxide 替换 cd</span><br><br><span class="hljs-comment"># fzf - 模糊查找</span><br><span class="hljs-built_in">source</span> /usr/share/fzf/key-bindings.zsh<br><span class="hljs-built_in">source</span> /usr/share/fzf/completion.zsh<br><br><span class="hljs-comment"># eza 别名（替换 ls）</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">ls</span>=<span class="hljs-string">&#x27;eza --icons --group-directories-first&#x27;</span><br><span class="hljs-built_in">alias</span> ll=<span class="hljs-string">&#x27;eza -l --icons --group-directories-first --git&#x27;</span><br><span class="hljs-built_in">alias</span> la=<span class="hljs-string">&#x27;eza -la --icons --group-directories-first --git&#x27;</span><br><span class="hljs-built_in">alias</span> lt=<span class="hljs-string">&#x27;eza -T --icons --level=2&#x27;</span>    <span class="hljs-comment"># 树状显示</span><br><span class="hljs-built_in">alias</span> tree=<span class="hljs-string">&#x27;eza -T --icons&#x27;</span><br><br><span class="hljs-comment"># bat - 美化预览</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">cat</span>=<span class="hljs-string">&#x27;bat --paging=never&#x27;</span><br><br><span class="hljs-comment"># fd - 快速查找</span><br><span class="hljs-built_in">alias</span> find=<span class="hljs-string">&#x27;fd&#x27;</span><br><br><span class="hljs-comment"># Atuin - 增强历史（替代 Ctrl-R）</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(atuin init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="11-配色方案与主题"><a href="#11-配色方案与主题" class="headerlink" title="11. 配色方案与主题"></a>11. 配色方案与主题</h2><h3 id="11-1-终端配色方案"><a href="#11-1-终端配色方案" class="headerlink" title="11.1 终端配色方案"></a>11.1 终端配色方案</h3><p>除了 Shell Prompt 的配色，终端模拟器本身的配色方案也很重要。推荐以下配色：</p>
+<table>
+<thead>
+<tr>
+<th>配色方案</th>
+<th>风格</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Catppuccin Mocha</strong></td>
+<td>温暖暗色，柔和粉彩</td>
+<td>日常开发，最流行</td>
+</tr>
+<tr>
+<td><strong>Catppuccin Latte</strong></td>
+<td>温暖亮色</td>
+<td>白天使用</td>
+</tr>
+<tr>
+<td><strong>Tokyo Night</strong></td>
+<td>冷峻夜色</td>
+<td>VS Code 风格统一</td>
+</tr>
+<tr>
+<td><strong>Gruvbox Dark</strong></td>
+<td>复古暖色</td>
+<td>护眼、经典</td>
+</tr>
+<tr>
+<td><strong>Nord</strong></td>
+<td>极地蓝冷色</td>
+<td>清爽风格</td>
+</tr>
+<tr>
+<td><strong>Dracula</strong></td>
+<td>紫色暗色</td>
+<td>经典暗色主题</td>
+</tr>
+<tr>
+<td><strong>One Dark</strong></td>
+<td>低对比暗色</td>
+<td>Atom 风格</td>
+</tr>
+<tr>
+<td><strong>Rosé Pine</strong></td>
+<td>玫瑰暗色</td>
+<td>柔和优雅</td>
+</tr>
+</tbody></table>
+<h3 id="11-2-快速应用配色（Ghostty-示例）"><a href="#11-2-快速应用配色（Ghostty-示例）" class="headerlink" title="11.2 快速应用配色（Ghostty 示例）"></a>11.2 快速应用配色（Ghostty 示例）</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># ~/.config/ghostty/config</span><br><span class="hljs-attr">theme</span> = catppuccin-mocha<br></code></pre></td></tr></table></figure>
+
+<h3 id="11-3-快速应用配色（WezTerm-示例）"><a href="#11-3-快速应用配色（WezTerm-示例）" class="headerlink" title="11.3 快速应用配色（WezTerm 示例）"></a>11.3 快速应用配色（WezTerm 示例）</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-comment">-- ~/.config/wezterm/wezterm.lua</span><br><span class="hljs-keyword">return</span> &#123;<br>  color_scheme = <span class="hljs-string">&#x27;Catppuccin Mocha&#x27;</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>WezTerm 内置了大量配色，可通过以下命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wezterm ls-fonts --list-builtin-color-schemes<br></code></pre></td></tr></table></figure>
+
+<h3 id="11-4-Starship-调色板切换"><a href="#11-4-Starship-调色板切换" class="headerlink" title="11.4 Starship 调色板切换"></a>11.4 Starship 调色板切换</h3><p>如果你使用 Catppuccin Powerline Preset，可通过修改 <code>palette</code> 值切换不同色调：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># 暗色系</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_mocha&#x27;</span>       <span class="hljs-comment"># 最流行，深色暖调</span><br><br><span class="hljs-comment"># 其他变体</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_frappe&#x27;</span>      <span class="hljs-comment"># 稍冷的暗色</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_macchiato&#x27;</span>   <span class="hljs-comment"># 中暗色</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_latte&#x27;</span>       <span class="hljs-comment"># 亮色系</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="12-性能优化指南"><a href="#12-性能优化指南" class="headerlink" title="12. 性能优化指南"></a>12. 性能优化指南</h2><blockquote>
+<p>目标：Zsh 启动时间 <strong>&lt; 200ms</strong>（理想 &lt; 100ms）</p>
+</blockquote>
+<h3 id="12-1-测量启动时间"><a href="#12-1-测量启动时间" class="headerlink" title="12.1 测量启动时间"></a>12.1 测量启动时间</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 测量完整启动时间</span><br><span class="hljs-keyword">time</span> zsh -i -c <span class="hljs-built_in">exit</span><br><br><span class="hljs-comment"># 使用 zprof 分析（需在 .zshrc 顶部添加 zmodload zsh/zprof）</span><br><span class="hljs-comment"># 然后在 .zshrc 末尾添加 zprof</span><br><span class="hljs-built_in">zmodload</span> zsh/zprof<br><span class="hljs-comment"># ... 配置内容 ...</span><br><span class="hljs-built_in">zprof</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="12-2-Oh-My-Zsh-加速"><a href="#12-2-Oh-My-Zsh-加速" class="headerlink" title="12.2 Oh My Zsh 加速"></a>12.2 Oh My Zsh 加速</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在 ~/.zshrc 中 Oh My Zsh 加载之前添加：</span><br><br><span class="hljs-comment"># 关闭自动更新检查</span><br>DISABLE_AUTO_UPDATE=<span class="hljs-string">&quot;true&quot;</span><br><br><span class="hljs-comment"># 关闭魔法函数（如果不需要）</span><br>DISABLE_MAGIC_FUNCTIONS=<span class="hljs-string">&quot;true&quot;</span><br><br><span class="hljs-comment"># 关闭 compfix（权限修复）</span><br>DISABLE_COMPFIX=<span class="hljs-string">&quot;true&quot;</span><br><br><span class="hljs-comment"># 缓存补全（每日刷新一次）</span><br><span class="hljs-built_in">autoload</span> -Uz compinit<br><span class="hljs-keyword">if</span> [[ -n <span class="hljs-variable">$&#123;ZDOTDIR:-<span class="hljs-variable">$HOME</span>&#125;</span>/.zcompdump(#qN.mh+24) ]]; <span class="hljs-keyword">then</span><br>  compinit<br><span class="hljs-keyword">else</span><br>  compinit -C<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="12-3-懒加载昂贵工具"><a href="#12-3-懒加载昂贵工具" class="headerlink" title="12.3 懒加载昂贵工具"></a>12.3 懒加载昂贵工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># nvm 懒加载（使用 Oh My Zsh 内置 nvm 插件）</span><br>plugins+=(nvm)<br><span class="hljs-built_in">zstyle</span> <span class="hljs-string">&#x27;:omz:plugins:nvm&#x27;</span> lazy <span class="hljs-built_in">yes</span><br><br><span class="hljs-comment"># fnm 替代 nvm（更快） + 懒加载</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(fnm env --use-on-cd --shell zsh --version-file-strategy=recursive)</span>&quot;</span><br><br><span class="hljs-comment"># 使用 zsh-defer 延迟加载（需安装 zsh-defer 插件）</span><br>zsh-defer <span class="hljs-built_in">source</span> /path/to/heavy/init.zsh<br></code></pre></td></tr></table></figure>
+
+<h3 id="12-4-最佳实践清单"><a href="#12-4-最佳实践清单" class="headerlink" title="12.4 最佳实践清单"></a>12.4 最佳实践清单</h3><ul>
+<li>✅ 只用真正需要的插件（建议 &lt; 10 个）</li>
+<li>✅ <code>zsh-syntax-highlighting</code> 必须放在最后加载</li>
+<li>✅ 避免重复调用 <code>compinit</code></li>
+<li>✅ 使用异步提示（Starship 默认 &#x2F; p10k Instant Prompt）</li>
+<li>✅ 用 <code>fnm</code> 替代 <code>nvm</code>，<code>zoxide</code> 替代 <code>autojump</code></li>
+<li>✅ 不要加载整个 Oh My Zsh 库，用 Zinit 按需选取</li>
+<li>✅ 考虑无框架方案以获得最快速度</li>
+</ul>
+<hr>
+<h2 id="13-完整配置示例"><a href="#13-完整配置示例" class="headerlink" title="13. 完整配置示例"></a>13. 完整配置示例</h2><h3 id="13-1-推荐方案：Zinit-Starship-核心插件（性能与美观兼得）"><a href="#13-1-推荐方案：Zinit-Starship-核心插件（性能与美观兼得）" class="headerlink" title="13.1 推荐方案：Zinit + Starship + 核心插件（性能与美观兼得）"></a>13.1 推荐方案：Zinit + Starship + 核心插件（性能与美观兼得）</h3><p>这是 2026 年最推荐的配置方案，兼顾速度、美观和可维护性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># =====================================================</span><br><span class="hljs-comment"># ~/.zshrc  -  2026 终极 Zsh 配置</span><br><span class="hljs-comment"># 架构：Zinit 插件管理器 + Starship Prompt</span><br><span class="hljs-comment"># 目标启动速度：&lt; 120ms</span><br><span class="hljs-comment"># =====================================================</span><br><br><span class="hljs-comment"># ---------- Zinit 安装 ----------</span><br>ZINIT_HOME=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_DATA_HOME:-<span class="hljs-variable">$&#123;HOME&#125;</span>/.local/share&#125;</span>/zinit/zinit.git&quot;</span><br><span class="hljs-keyword">if</span> [[ ! -f <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;ZINIT_HOME&#125;</span>/zinit.zsh&quot;</span> ]]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">print</span> -P <span class="hljs-string">&quot;%F&#123;33&#125;▓▒░ %F&#123;220&#125;Installing %F&#123;33&#125;ZDHARMA-CONTINUUM%F&#123;220&#125; Initiative Plugin Manager (%F&#123;33&#125;zdharma-continuum/zinit%F&#123;220&#125;)…%f&quot;</span><br>  <span class="hljs-built_in">command</span> <span class="hljs-built_in">mkdir</span> -p <span class="hljs-string">&quot;<span class="hljs-subst">$(dirname $ZINIT_HOME)</span>&quot;</span> &amp;&amp; <span class="hljs-built_in">command</span> <span class="hljs-built_in">chmod</span> g-rwX <span class="hljs-string">&quot;<span class="hljs-subst">$(dirname $ZINIT_HOME)</span>&quot;</span><br>  <span class="hljs-built_in">command</span> git <span class="hljs-built_in">clone</span> https://github.com/zdharma-continuum/zinit.git <span class="hljs-string">&quot;<span class="hljs-variable">$ZINIT_HOME</span>&quot;</span> &amp;&amp; \<br>    <span class="hljs-built_in">print</span> -P <span class="hljs-string">&quot;%F&#123;33&#125;▓▒░ %F&#123;34&#125;Installation successful.%f%b&quot;</span> || \<br>    <span class="hljs-built_in">print</span> -P <span class="hljs-string">&quot;%F&#123;160&#125;▓▒░ The clone has failed.%f%b&quot;</span><br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;ZINIT_HOME&#125;</span>/zinit.zsh&quot;</span><br><br><span class="hljs-comment"># ---------- 基础设置 ----------</span><br><span class="hljs-built_in">export</span> EDITOR=<span class="hljs-string">&#x27;nvim&#x27;</span><br><span class="hljs-built_in">export</span> VISUAL=<span class="hljs-string">&#x27;nvim&#x27;</span><br><span class="hljs-built_in">export</span> LANG=en_US.UTF-8<br><span class="hljs-built_in">export</span> LC_ALL=en_US.UTF-8<br><br><span class="hljs-comment"># ---------- 历史记录 ----------</span><br>HISTSIZE=50000<br>SAVEHIST=50000<br>HISTFILE=~/.zsh_history<br><span class="hljs-built_in">setopt</span> HIST_IGNORE_ALL_DUPS      <span class="hljs-comment"># 忽略重复历史</span><br><span class="hljs-built_in">setopt</span> HIST_IGNORE_SPACE          <span class="hljs-comment"># 忽略以空格开头的命令</span><br><span class="hljs-built_in">setopt</span> HIST_SAVE_NO_DUPS          <span class="hljs-comment"># 不保存重复项</span><br><span class="hljs-built_in">setopt</span> SHARE_HISTORY              <span class="hljs-comment"># 跨终端共享历史</span><br><br><span class="hljs-comment"># ---------- Shell 行为 ----------</span><br><span class="hljs-built_in">setopt</span> AUTO_CD                    <span class="hljs-comment"># 目录名可直接进入</span><br><span class="hljs-built_in">setopt</span> INTERACTIVE_COMMENTS       <span class="hljs-comment"># 允许交互式注释</span><br><span class="hljs-built_in">setopt</span> NO_BEEP                    <span class="hljs-comment"># 禁用响铃</span><br><span class="hljs-built_in">setopt</span> CORRECT                    <span class="hljs-comment"># 命令拼写纠正</span><br><br><span class="hljs-comment"># ---------- 补全 ----------</span><br><span class="hljs-built_in">autoload</span> -Uz compinit<br><span class="hljs-built_in">zstyle</span> <span class="hljs-string">&#x27;:completion:*&#x27;</span> menu <span class="hljs-keyword">select</span><br><span class="hljs-built_in">zstyle</span> <span class="hljs-string">&#x27;:completion:*&#x27;</span> matcher-list <span class="hljs-string">&#x27;m:&#123;a-z&#125;=&#123;A-Za-z&#125;&#x27;</span><br><span class="hljs-built_in">zstyle</span> <span class="hljs-string">&#x27;:completion:*&#x27;</span> list-colors <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;(s.:.)LS_COLORS&#125;</span>&quot;</span><br><span class="hljs-built_in">zmodload</span> zsh/complist<br>compinit -d ~/.cache/zcompdump<br>_comp_options+=(globdots)         <span class="hljs-comment"># 补全也匹配隐藏文件</span><br><br><span class="hljs-comment"># ---------- 插件加载 (Zinit) ----------</span><br><span class="hljs-comment"># 语法高亮 - 必须最后加载</span><br>zinit light zsh-users/zsh-syntax-highlighting<br><br><span class="hljs-comment"># 自动建议 - 异步加载</span><br>zinit light zsh-users/zsh-autosuggestions<br><br><span class="hljs-comment"># 额外补全</span><br>zinit light zsh-users/zsh-completions<br><br><span class="hljs-comment"># fzf-tab: 模糊 Tab 补全</span><br>zinit light Aloxaf/fzf-tab<br><br><span class="hljs-comment"># ---------- 自动建议配置 ----------</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#665c54&quot;</span><br>ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20<br>ZSH_AUTOSUGGEST_USE_ASYNC=1<br><br><span class="hljs-comment"># ---------- 现代 CLI 工具 ----------</span><br><span class="hljs-comment"># zoxide (智能 cd)</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(zoxide init zsh)</span>&quot;</span><br><br><span class="hljs-comment"># fzf (模糊查找)</span><br><span class="hljs-built_in">source</span> /usr/share/fzf/key-bindings.zsh 2&gt;/dev/null<br><span class="hljs-built_in">source</span> /usr/share/fzf/completion.zsh 2&gt;/dev/null<br><br><span class="hljs-comment"># ---------- 别名 ----------</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">ls</span>=<span class="hljs-string">&#x27;eza --icons --group-directories-first&#x27;</span><br><span class="hljs-built_in">alias</span> ll=<span class="hljs-string">&#x27;eza -l --icons --group-directories-first --git&#x27;</span><br><span class="hljs-built_in">alias</span> la=<span class="hljs-string">&#x27;eza -la --icons --group-directories-first --git&#x27;</span><br><span class="hljs-built_in">alias</span> lt=<span class="hljs-string">&#x27;eza -T --icons --level=2&#x27;</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">cat</span>=<span class="hljs-string">&#x27;bat --paging=never&#x27;</span><br><span class="hljs-built_in">alias</span> vim=<span class="hljs-string">&#x27;nvim&#x27;</span><br><span class="hljs-built_in">alias</span> g=<span class="hljs-string">&#x27;git&#x27;</span><br><span class="hljs-built_in">alias</span> grep=<span class="hljs-string">&#x27;rg&#x27;</span><br><span class="hljs-built_in">alias</span> find=<span class="hljs-string">&#x27;fd&#x27;</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">df</span>=<span class="hljs-string">&#x27;df -h&#x27;</span><br><span class="hljs-built_in">alias</span> free=<span class="hljs-string">&#x27;free -m&#x27;</span><br><span class="hljs-built_in">alias</span> ..=<span class="hljs-string">&#x27;cd ..&#x27;</span><br><span class="hljs-built_in">alias</span> ...=<span class="hljs-string">&#x27;cd ../..&#x27;</span><br><br><span class="hljs-comment"># ---------- Starship Prompt (必须在最后) ----------</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(starship init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="13-2-新手方案：Oh-My-Zsh-Starship"><a href="#13-2-新手方案：Oh-My-Zsh-Starship" class="headerlink" title="13.2 新手方案：Oh My Zsh + Starship"></a>13.2 新手方案：Oh My Zsh + Starship</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ~/.zshrc</span><br><br><span class="hljs-comment"># Oh My Zsh 路径</span><br><span class="hljs-built_in">export</span> ZSH=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.oh-my-zsh&quot;</span><br><br><span class="hljs-comment"># Starship 作为 Prompt（不设置 ZSH_THEME）</span><br>ZSH_THEME=<span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-comment"># 插件（精简版）</span><br>plugins=(<br>  git<br>  <span class="hljs-built_in">sudo</span><br>  extract<br>  z<br>  zsh-autosuggestions<br>  zsh-syntax-highlighting    <span class="hljs-comment"># 必须最后！</span><br>)<br><br><span class="hljs-comment"># Oh My Zsh 性能优化</span><br>DISABLE_AUTO_UPDATE=<span class="hljs-string">&quot;true&quot;</span><br>DISABLE_MAGIC_FUNCTIONS=<span class="hljs-string">&quot;true&quot;</span><br><br><span class="hljs-built_in">source</span> <span class="hljs-variable">$ZSH</span>/oh-my-zsh.sh<br><br><span class="hljs-comment"># 自动建议配置</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#665c54&quot;</span><br>ZSH_AUTOSUGGEST_USE_ASYNC=1<br><br><span class="hljs-comment"># Starship 初始化（最后）</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(starship init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="13-3-极简方案：无框架-Starship"><a href="#13-3-极简方案：无框架-Starship" class="headerlink" title="13.3 极简方案：无框架 + Starship"></a>13.3 极简方案：无框架 + Starship</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ~/.zshrc  -  极简无框架配置</span><br><br><span class="hljs-comment"># 历史</span><br>HISTSIZE=50000<br>SAVEHIST=50000<br>HISTFILE=~/.zsh_history<br><span class="hljs-built_in">setopt</span> HIST_IGNORE_ALL_DUPS SHARE_HISTORY<br><br><span class="hljs-comment"># 基础行为</span><br><span class="hljs-built_in">setopt</span> AUTO_CD NO_BEEP<br><br><span class="hljs-comment"># 补全</span><br><span class="hljs-built_in">autoload</span> -Uz compinit &amp;&amp; compinit<br><br><span class="hljs-comment"># 手动加载插件</span><br><span class="hljs-built_in">source</span> ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh<br><span class="hljs-built_in">source</span> ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh<br><br><span class="hljs-comment"># 别名</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">ls</span>=<span class="hljs-string">&#x27;eza --icons&#x27;</span><br><span class="hljs-built_in">alias</span> ll=<span class="hljs-string">&#x27;eza -l --icons --git&#x27;</span><br><span class="hljs-built_in">alias</span> <span class="hljs-built_in">cat</span>=<span class="hljs-string">&#x27;bat --paging=never&#x27;</span><br><span class="hljs-built_in">alias</span> ..=<span class="hljs-string">&#x27;cd ..&#x27;</span><br><br><span class="hljs-comment"># zoxide</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(zoxide init zsh)</span>&quot;</span><br><br><span class="hljs-comment"># Starship</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(starship init zsh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="13-4-完整-Starship-配置文件"><a href="#13-4-完整-Starship-配置文件" class="headerlink" title="13.4 完整 Starship 配置文件"></a>13.4 完整 Starship 配置文件</h3><p>配合 13.1 的 .zshrc 使用，提供美观全面的 Prompt 信息：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># ~/.config/starship.toml</span><br><span class="hljs-comment"># Starship Catppuccin Powerline 完整配置</span><br><span class="hljs-comment"># 生成方式：starship preset catppuccin-powerline -o ~/.config/starship.toml</span><br><span class="hljs-comment"># 然后根据需要修改</span><br><br><span class="hljs-comment"># ============ 全局 ============</span><br><span class="hljs-attr">&quot;$schema&quot;</span> = <span class="hljs-string">&#x27;https://starship.rs/config-schema.json&#x27;</span><br><span class="hljs-attr">add_newline</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">command_timeout</span> = <span class="hljs-number">1000</span><br><span class="hljs-attr">palette</span> = <span class="hljs-string">&#x27;catppuccin_mocha&#x27;</span><br><br><span class="hljs-comment"># ============ Catppuccin Mocha 调色板 ============</span><br><span class="hljs-section">[palettes.catppuccin_mocha]</span><br><span class="hljs-attr">rosewater</span> = <span class="hljs-string">&#x27;#f5e0dc&#x27;</span><br><span class="hljs-attr">flamingo</span> = <span class="hljs-string">&#x27;#f2cdcd&#x27;</span><br><span class="hljs-attr">pink</span> = <span class="hljs-string">&#x27;#f5c2e7&#x27;</span><br><span class="hljs-attr">mauve</span> = <span class="hljs-string">&#x27;#cba6f7&#x27;</span><br><span class="hljs-attr">red</span> = <span class="hljs-string">&#x27;#f38ba8&#x27;</span><br><span class="hljs-attr">maroon</span> = <span class="hljs-string">&#x27;#eba0ac&#x27;</span><br><span class="hljs-attr">peach</span> = <span class="hljs-string">&#x27;#fab387&#x27;</span><br><span class="hljs-attr">yellow</span> = <span class="hljs-string">&#x27;#f9e2af&#x27;</span><br><span class="hljs-attr">green</span> = <span class="hljs-string">&#x27;#a6e3a1&#x27;</span><br><span class="hljs-attr">teal</span> = <span class="hljs-string">&#x27;#94e2d5&#x27;</span><br><span class="hljs-attr">sky</span> = <span class="hljs-string">&#x27;#89dceb&#x27;</span><br><span class="hljs-attr">sapphire</span> = <span class="hljs-string">&#x27;#74c7ec&#x27;</span><br><span class="hljs-attr">blue</span> = <span class="hljs-string">&#x27;#89b4fa&#x27;</span><br><span class="hljs-attr">lavender</span> = <span class="hljs-string">&#x27;#b4befe&#x27;</span><br><span class="hljs-attr">text</span> = <span class="hljs-string">&#x27;#cdd6f4&#x27;</span><br><span class="hljs-attr">subtext1</span> = <span class="hljs-string">&#x27;#bac2de&#x27;</span><br><span class="hljs-attr">subtext0</span> = <span class="hljs-string">&#x27;#a6adc8&#x27;</span><br><span class="hljs-attr">overlay2</span> = <span class="hljs-string">&#x27;#9399b2&#x27;</span><br><span class="hljs-attr">overlay1</span> = <span class="hljs-string">&#x27;#7f849c&#x27;</span><br><span class="hljs-attr">overlay0</span> = <span class="hljs-string">&#x27;#6c7086&#x27;</span><br><span class="hljs-attr">surface2</span> = <span class="hljs-string">&#x27;#585b70&#x27;</span><br><span class="hljs-attr">surface1</span> = <span class="hljs-string">&#x27;#45475a&#x27;</span><br><span class="hljs-attr">surface0</span> = <span class="hljs-string">&#x27;#313244&#x27;</span><br><span class="hljs-attr">base</span> = <span class="hljs-string">&#x27;#1e1e2e&#x27;</span><br><span class="hljs-attr">mantle</span> = <span class="hljs-string">&#x27;#181825&#x27;</span><br><span class="hljs-attr">crust</span> = <span class="hljs-string">&#x27;#11111b&#x27;</span><br><br><span class="hljs-comment"># ============ 主布局 ============</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;$directory$git_branch$git_status$fill$cmd_duration$line_break$character&#x27;</span><br><br><span class="hljs-comment"># ============ 字符 ============</span><br><span class="hljs-section">[character]</span><br><span class="hljs-attr">success_symbol</span> = <span class="hljs-string">&#x27;[❯](bold green)&#x27;</span><br><span class="hljs-attr">error_symbol</span> = <span class="hljs-string">&#x27;[❯](bold red)&#x27;</span><br><span class="hljs-attr">vimcmd_symbol</span> = <span class="hljs-string">&#x27;[❮](bold green)&#x27;</span><br><br><span class="hljs-comment"># ============ 目录 ============</span><br><span class="hljs-section">[directory]</span><br><span class="hljs-attr">truncation_length</span> = <span class="hljs-number">5</span><br><span class="hljs-attr">truncate_to_repo</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><br><span class="hljs-comment"># ============ Git ============</span><br><span class="hljs-section">[git_branch]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:mauve bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[$symbol$branch]($style) &#x27;</span><br><br><span class="hljs-section">[git_status]</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:peach bg:surface0&#x27;</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27;[$all_status$ahead_behind]($style) &#x27;</span><br><br><span class="hljs-comment"># ============ 命令耗时 ============</span><br><span class="hljs-section">[cmd_duration]</span><br><span class="hljs-attr">min_time</span> = <span class="hljs-number">2000</span><br><span class="hljs-attr">format</span> = <span class="hljs-string">&#x27; took [$duration](bold yellow)&#x27;</span><br><br><span class="hljs-comment"># ============ 语言环境 ============</span><br><span class="hljs-section">[python]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:blue bg:surface0&#x27;</span><br><br><span class="hljs-section">[nodejs]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:green bg:surface0&#x27;</span><br><br><span class="hljs-section">[rust]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:peach bg:surface0&#x27;</span><br><br><span class="hljs-section">[golang]</span><br><span class="hljs-attr">symbol</span> = <span class="hljs-string">&#x27; &#x27;</span><br><span class="hljs-attr">style</span> = <span class="hljs-string">&#x27;fg:sky bg:surface0&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="14-完整搭建流程（快速上手）"><a href="#14-完整搭建流程（快速上手）" class="headerlink" title="14. 完整搭建流程（快速上手）"></a>14. 完整搭建流程（快速上手）</h2><h3 id="从零开始，5-步完成："><a href="#从零开始，5-步完成：" class="headerlink" title="从零开始，5 步完成："></a>从零开始，5 步完成：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ===== 步骤 1：安装 Zsh =====</span><br><span class="hljs-built_in">sudo</span> pacman -S zsh          <span class="hljs-comment"># Arch</span><br><span class="hljs-comment"># sudo apt install zsh       # Ubuntu/Debian</span><br>chsh -s $(<span class="hljs-built_in">which</span> zsh)<br><span class="hljs-comment"># 注销重新登录</span><br><br><span class="hljs-comment"># ===== 步骤 2：安装 Nerd Font =====</span><br><span class="hljs-built_in">sudo</span> pacman -S ttf-jetbrains-mono-nerd<br><br><span class="hljs-comment"># ===== 步骤 3：安装 Starship =====</span><br><span class="hljs-built_in">sudo</span> pacman -S starship     <span class="hljs-comment"># Arch</span><br><span class="hljs-comment"># brew install starship     # macOS</span><br><span class="hljs-comment"># curl -sS https://starship.rs/install.sh | sh  # 通用</span><br><br><span class="hljs-comment"># ===== 步骤 4：应用 Preset =====</span><br>starship preset catppuccin-powerline -o ~/.config/starship.toml<br><br><span class="hljs-comment"># ===== 步骤 5：编辑 ~/.zshrc，添加 =====</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;eval &quot;$(starship init zsh)&quot;&#x27;</span> &gt;&gt; ~/.zshrc<br><br><span class="hljs-comment"># ===== 完成！重启终端 =====</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="15-常见问题排查"><a href="#15-常见问题排查" class="headerlink" title="15. 常见问题排查"></a>15. 常见问题排查</h2><h3 id="图标显示为方块-乱码"><a href="#图标显示为方块-乱码" class="headerlink" title="图标显示为方块&#x2F;乱码"></a>图标显示为方块&#x2F;乱码</h3><ul>
+<li>确认已安装 Nerd Font</li>
+<li>确认终端模拟器设置中选择了 Nerd Font</li>
+<li>检测：<code>echo &quot;&quot;</code> 应正常显示图标</li>
+</ul>
+<h3 id="True-Color-不工作"><a href="#True-Color-不工作" class="headerlink" title="True Color 不工作"></a>True Color 不工作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 测试 True Color 支持</span><br>awk <span class="hljs-string">&#x27;BEGIN&#123;</span><br><span class="hljs-string">    s=&quot;/\\/\\/\\/\\/\\&quot;; s=s s s s s s s s;</span><br><span class="hljs-string">    for (colnum = 0; colnum&lt;77; colnum++) &#123;</span><br><span class="hljs-string">        r = 255-(colnum*255/76);</span><br><span class="hljs-string">        g = (colnum*510/76);</span><br><span class="hljs-string">        b = (colnum*255/76);</span><br><span class="hljs-string">        if (g&gt;255) g = 510-g;</span><br><span class="hljs-string">        printf &quot;\033[48;2;%d;%d;%dm&quot;, r,g,b;</span><br><span class="hljs-string">        printf &quot;\033[38;2;%d;%d;%dm&quot;, 255-r,255-g,255-b;</span><br><span class="hljs-string">        printf &quot;%s\033[0m&quot;, substr(s,colnum+1,1);</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    printf &quot;\n&quot;;</span><br><span class="hljs-string">&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果颜色不平滑，终端可能不支持 True Color（需要设置 <code>COLORTERM=truecolor</code>）。</p>
+<h3 id="鼠标滚轮切换到历史记录而不是滚动界面"><a href="#鼠标滚轮切换到历史记录而不是滚动界面" class="headerlink" title="鼠标滚轮切换到历史记录而不是滚动界面"></a>鼠标滚轮切换到历史记录而不是滚动界面</h3><p>部分终端模拟器会将鼠标滚轮事件转换为方向键序列（<code>^[[A</code> &#x2F; <code>^[[B</code>），zsh 的默认 <code>up-line-or-history</code> 绑定会将其解释为切换历史记录，导致滚轮不能滚动终端缓冲区。</p>
+<p><strong>解决方法：</strong> 在 <code>~/.zshrc</code> 中添加以下配置，将方向键改为「有输入内容时才搜索历史」的绑定：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 阻止鼠标滚轮切换到历史记录（有输入时才搜索历史）</span><br><span class="hljs-built_in">bindkey</span> <span class="hljs-string">&#x27;^[[A&#x27;</span> history-beginning-search-backward<br><span class="hljs-built_in">bindkey</span> <span class="hljs-string">&#x27;^[[B&#x27;</span> history-beginning-search-forward<br><span class="hljs-built_in">bindkey</span> <span class="hljs-string">&#x27;^[OA&#x27;</span> history-beginning-search-backward<br><span class="hljs-built_in">bindkey</span> <span class="hljs-string">&#x27;^[OB&#x27;</span> history-beginning-search-forward<br></code></pre></td></tr></table></figure>
+
+<p><code>^[[A</code> &#x2F; <code>^[[B</code> 是标准 ANSI 方向键序列，<code>^[OA</code> &#x2F; <code>^[OB</code> 是某些终端使用的替代序列。</p>
+<p><code>history-beginning-search-backward</code> &#x2F; <code>history-beginning-search-forward</code> 仅在当前输入了部分字符时才会搜索匹配的历史记录；如果行为空，则什么都不做。这样空行下滚轮事件被终端捕获并正常滚动缓冲区，只有当你输入部分命令后再按方向键时才搜索历史。</p>
+<p>执行 <code>exec zsh</code> 或重启终端即可生效。</p>
+<h3 id="启动太慢"><a href="#启动太慢" class="headerlink" title="启动太慢"></a>启动太慢</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 测量各组件耗时</span><br><span class="hljs-built_in">zmodload</span> zsh/zprof<br><span class="hljs-comment"># ... 整个 .zshrc 内容 ...</span><br><span class="hljs-built_in">zprof</span><br><br><span class="hljs-comment"># 输出会显示每个函数的耗时，据此优化</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://starship.rs/">Starship 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">Powerlevel10k GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://ohmyz.sh/">Oh My Zsh 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zdharma-continuum/zinit">Zinit GitHub</a></li>
+<li><a target="_blank" rel="noopener" href="https://ghostty.org/">Ghostty 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://wezfurlong.org/wezterm">WezTerm 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://catppuccin.com/">Catppuccin 主题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/catppuccin/starship">Catppuccin for Starship</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nerdfonts.com/">Nerd Fonts</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ajeetdsouza/zoxide">zoxide</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/eza-community/eza">eza</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/atuinsh/atuin">Atuin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/unixorn/awesome-zsh-plugins">awesome-zsh-plugins</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Zsh">Arch Wiki - Zsh</a></li>
+<li><a target="_blank" rel="noopener" href="https://hashir.blog/2025/06/powerlevel10k-is-on-life-support-hello-starship">Powerlevel10k is on Life Support — Hello Starship! (2025&#x2F;06)</a></li>
+<li><a target="_blank" rel="noopener" href="https://bulimov.me/post/2025/05/11/powerlevel10k-to-starship">Moving from Powerlevel10k to Starship (2025&#x2F;05)</a></li>
+<li><a target="_blank" rel="noopener" href="https://bretfisher.com/blog/shell">Sweet Shell 2026 (Bret Fisher)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1jE7rCvByHg">The Perfect Zsh Setup For 2026 (YouTube)</a></li>
+</ul>
+<hr>
+<blockquote>
+<p>🤖 <strong>文档说明</strong>：本文基于 2026 年 6 月的社区动态编写，结合了多个权威来源的综合整理。Zsh 生态变化较快，建议定期关注相关项目的 GitHub Releases 获取最新信息。</p>
+<p><strong>推荐方案</strong>：Ghostty 终端 + Zinit 插件管理器 + Starship Catppuccin Powerline Preset + zsh-autosuggestions + zsh-syntax-highlighting + zoxide + fzf + eza</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/%E7%BB%88%E7%AB%AF/" class="category-chain-item">终端</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Zsh/" class="print-no-link">#Zsh</a>
+      
+        <a href="/tags/Shell/" class="print-no-link">#Shell</a>
+      
+        <a href="/tags/%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96/" class="print-no-link">#终端美化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Zsh 配置与美化完全指南（2026）</div>
+      <div>https://tingfeng347.github.io/2026/02/22/Zsh 配置与美化完全指南（2026）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年2月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/03/09/Tmux%20%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9AResurrect%20%E4%B8%8E%20Continuum%20%E9%85%8D%E7%BD%AE/" title="Tmux 会话持久化：Resurrect 与 Continuum 配置">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Tmux 会话持久化：Resurrect 与 Continuum 配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/02/07/Arch%20Linux%20%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/" title="Arch Linux 软件安装完全指南">
+                        <span class="hidden-mobile">Arch Linux 软件安装完全指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
