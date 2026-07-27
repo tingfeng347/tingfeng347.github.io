@@ -27,9 +27,9 @@
   .side-col:last-child .sidebar.toc-is-visible {
     position: fixed;
     top: 4.5rem;
-    right: 1.5rem;
+    right: 0.5rem;
     display: block;
-    width: 15rem;
+    width: 17rem;
     max-width: calc(100vw - 2rem);
     max-height: calc(65vh + 3rem);
     margin-left: 0 !important;

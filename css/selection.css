@@ -350,8 +350,11 @@
   }
 
   .site-footer a,
-  .site-footer-runtime span {
-    color: #1f84c6;
+  .site-footer-runtime span,
+  .site-footer .statistics,
+  .site-footer .statistics a,
+  .site-footer .statistics span {
+    color: inherit;
   }
 
   .site-footer .statistics {
