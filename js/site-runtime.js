@@ -120,6 +120,43 @@
     }, 100);
   }
 
+  function customScrollTo(targetY, duration) {
+    var startY = window.scrollY;
+    var diffY = targetY - startY;
+    var startTime = null;
+
+    // ease-out 曲线：起步快、末尾减速
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function step(currentTime) {
+      if (!startTime) {
+        startTime = currentTime;
+      }
+      var elapsed = currentTime - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + diffY * easeOutCubic(progress));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  // 全局接管所有 behavior:'smooth' 的 scrollTo 调用
+  (function patchSmoothScroll() {
+    var originalScrollTo = window.scrollTo.bind(window);
+    window.scrollTo = function(options) {
+      if (options && options.behavior === 'smooth' && typeof options.top === 'number') {
+        customScrollTo(options.top, 500);
+      } else {
+        originalScrollTo.apply(window, arguments);
+      }
+    };
+  })();
+
   function bindTocAnchorNavigation() {
     document.addEventListener('click', function(event) {
       var link = event.target.closest('#toc-body a.tocbot-link');
@@ -140,28 +177,107 @@
       var top = window.scrollY + target.getBoundingClientRect().top - navbarHeight - 12;
       tocActiveLockUntil = Date.now() + 900;
       setCustomTocActive(link);
-      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      customScrollTo(Math.max(0, top), 500);
       window.history.replaceState(null, '', '#' + encodeURIComponent(target.id));
     }, true);
   }
 
   function bindTocVisibility() {
-    var sidebar = document.querySelector('.side-col:last-child .sidebar');
+    var tocSidebar = document.querySelector('.side-col:last-child .sidebar');
+    var catSidebar = document.querySelector('.side-col:first-child .sidebar.category-bar');
     var board = document.getElementById('board-ctn');
-    if (!sidebar || !board) {
+    if ((!tocSidebar && !catSidebar) || !board) {
       return;
     }
 
     function updateTocVisibility() {
       var navbar = document.getElementById('navbar');
       var navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
-      var hasReachedArticle = board.getBoundingClientRect().top <= navbarHeight;
-      sidebar.classList.toggle('toc-is-visible', hasReachedArticle);
+      var hasReachedArticle = board.getBoundingClientRect().top <= navbarHeight - 60;
+      if (tocSidebar) {
+        tocSidebar.classList.toggle('toc-is-visible', hasReachedArticle);
+      }
+      if (catSidebar) {
+        catSidebar.classList.toggle('cat-is-visible', hasReachedArticle);
+      }
     }
 
     window.addEventListener('scroll', updateTocVisibility, { passive: true });
     window.addEventListener('resize', updateTocVisibility);
     updateTocVisibility();
+  }
+
+  function bindSidebarToggles() {
+    var catSidebar = document.querySelector('.side-col:first-child .sidebar.category-bar');
+    var tocSidebar = document.querySelector('.side-col:last-child .sidebar');
+
+    if (!catSidebar && !tocSidebar) {
+      return;
+    }
+
+    // 创建按钮组容器
+    var btnGroup = document.createElement('div');
+    btnGroup.id = 'toggle-sidebar-btns';
+    document.body.appendChild(btnGroup);
+
+    var topBtn = document.getElementById('scroll-top-button');
+    var board = document.getElementById('board'); // for visibility check
+
+    // 将回到顶部按钮移入横排按钮组
+    if (topBtn) {
+      btnGroup.appendChild(topBtn);
+    }
+
+    function syncPosition() {
+      btnGroup.style.right = '24px';
+    }
+
+    function syncVisibility() {
+      if (!board) return;
+      var scrollHeight = document.body.scrollTop + document.documentElement.scrollTop;
+      var headerHeight = board.offsetTop;
+      btnGroup.style.opacity = scrollHeight >= headerHeight ? '1' : '0';
+    }
+
+    function createBtn(iconClass, label, sidebarEl, storageKey) {
+      var btn = document.createElement('a');
+      btn.className = 'toggle-btn';
+      btn.setAttribute('role', 'button');
+      btn.setAttribute('aria-label', label);
+      btn.innerHTML = '<i class="iconfont ' + iconClass + '"></i>';
+
+      var isCollapsed = localStorage.getItem(storageKey) === '1';
+      if (isCollapsed && sidebarEl) {
+        sidebarEl.classList.add(storageKey === 'toc-collapsed' ? 'toc-collapsed' : 'cat-collapsed');
+        btn.classList.add('collapsed');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!sidebarEl) return;
+        var cls = storageKey === 'toc-collapsed' ? 'toc-collapsed' : 'cat-collapsed';
+        var collapsed = sidebarEl.classList.toggle(cls);
+        btn.classList.toggle('collapsed', collapsed);
+        localStorage.setItem(storageKey, collapsed ? '1' : '0');
+      });
+
+      return btn;
+    }
+
+    // 横排顺序（从左到右）：分类 | 目录 | 回到顶部
+    if (catSidebar) {
+      btnGroup.appendChild(createBtn('icon-arrowright', '折叠分类导航', catSidebar, 'cat-collapsed'));
+    }
+    if (tocSidebar) {
+      btnGroup.appendChild(createBtn('icon-list', '折叠目录', tocSidebar, 'toc-collapsed'));
+    }
+    // topBtn 已移到末尾
+
+    window.addEventListener('scroll', syncVisibility, { passive: true });
+    window.setTimeout(function() {
+      syncPosition();
+      syncVisibility();
+    }, 300);
   }
 
   function init() {
@@ -171,6 +287,7 @@
     bindTocActiveState();
     disableTocbotAutoSync();
     bindTocVisibility();
+    bindSidebarToggles();
     window.setInterval(updateRuntime, 1000);
   }
 
