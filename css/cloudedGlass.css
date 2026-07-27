@@ -130,6 +130,10 @@
   border-bottom: 0;
 }
 
+#modalSearch .modal-body {
+  overflow-x: hidden;
+}
+
 #modalSearch .md-form {
   margin-bottom: 1.5rem !important;
 }
