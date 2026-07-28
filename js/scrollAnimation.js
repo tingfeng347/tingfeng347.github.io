@@ -1,23 +1,43 @@
-// Homepage full-screen wallpaper: copy banner background to #web_bg for seamless fixed wallpaper
+// Homepage wallpaper: copy banner background to #web_bg and allow users to disable fullscreen mode.
 (function () {
   var cards = document.querySelectorAll('.index-card');
   if (cards.length) {
-    // We're on the homepage - set up the full-screen wallpaper
+    var wallpaperStorageKey = 'homepage-wallpaper-fullscreen';
     var banner = document.getElementById('banner');
     var webBg = document.getElementById('web_bg');
     if (banner && webBg) {
       var bannerBg = banner.style.backgroundImage;
+      var originalBannerStyle = banner.getAttribute('style') || '';
       if (!bannerBg) {
-        // Try to get background from computed style
         var computedBg = window.getComputedStyle(banner).backgroundImage;
         if (computedBg && computedBg !== 'none') {
           bannerBg = computedBg;
         }
       }
+
+      function setFullscreenWallpaper(enabled) {
+        if (enabled && bannerBg && bannerBg !== 'none') {
+          webBg.style.backgroundImage = bannerBg;
+          banner.style.background = 'transparent';
+        } else {
+          webBg.style.backgroundImage = 'none';
+          banner.setAttribute('style', originalBannerStyle);
+        }
+
+        document.documentElement.classList.toggle('homepage-wallpaper-disabled', !enabled);
+        localStorage.setItem(wallpaperStorageKey, enabled ? '1' : '0');
+        return enabled;
+      }
+
+      window.HomepageWallpaper = {
+        isFullscreen: function () {
+          return localStorage.getItem(wallpaperStorageKey) !== '0';
+        },
+        setFullscreen: setFullscreenWallpaper
+      };
+
       if (bannerBg && bannerBg !== 'none') {
-        webBg.style.backgroundImage = bannerBg;
-        // Make banner transparent so web_bg shows through without seams
-        banner.style.background = 'transparent';
+        setFullscreenWallpaper(localStorage.getItem(wallpaperStorageKey) !== '0');
       }
     }
 

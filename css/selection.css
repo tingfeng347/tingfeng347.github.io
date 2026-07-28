@@ -37,12 +37,30 @@
     transition: color 0.2s;
   }
 
+  #toggle-sidebar-btns .wallpaper-toggle-symbol {
+    width: 19px;
+    height: 19px;
+    display: block;
+    box-sizing: border-box;
+    border: 3px solid var(--sec-text-color);
+    border-radius: 2px;
+    transition: border-color 0.2s, opacity 0.2s;
+  }
+
+  #toggle-sidebar-btns .wallpaper-toggle-btn:hover .wallpaper-toggle-symbol {
+    border-color: var(--link-hover-color);
+  }
+
   #toggle-sidebar-btns .toggle-btn:hover i,
   #toggle-sidebar-btns #scroll-top-button:hover i {
     color: var(--link-hover-color);
   }
 
   #toggle-sidebar-btns .toggle-btn.collapsed i {
+    opacity: 0.45;
+  }
+
+  #toggle-sidebar-btns .toggle-btn.collapsed .wallpaper-toggle-symbol {
     opacity: 0.45;
   }
 

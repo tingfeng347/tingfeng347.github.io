@@ -210,8 +210,10 @@
   function bindSidebarToggles() {
     var catSidebar = document.querySelector('.side-col:first-child .sidebar.category-bar');
     var tocSidebar = document.querySelector('.side-col:last-child .sidebar');
+    var topBtn = document.getElementById('scroll-top-button');
+    var hasHomepageWallpaper = Boolean(window.HomepageWallpaper);
 
-    if (!catSidebar && !tocSidebar) {
+    if (!catSidebar && !tocSidebar && !hasHomepageWallpaper) {
       return;
     }
 
@@ -220,12 +222,41 @@
     btnGroup.id = 'toggle-sidebar-btns';
     document.body.appendChild(btnGroup);
 
-    var topBtn = document.getElementById('scroll-top-button');
     var board = document.getElementById('board'); // for visibility check
 
     // 将回到顶部按钮移入横排按钮组
     if (topBtn) {
       btnGroup.appendChild(topBtn);
+    }
+
+    function createWallpaperToggle() {
+      if (!window.HomepageWallpaper) return null;
+
+      var btn = document.createElement('a');
+      btn.className = 'toggle-btn wallpaper-toggle-btn';
+      btn.setAttribute('role', 'button');
+      btn.innerHTML = '<span class="wallpaper-toggle-symbol" aria-hidden="true"></span>';
+
+      function syncWallpaperState() {
+        var enabled = window.HomepageWallpaper.isFullscreen();
+        btn.classList.toggle('collapsed', !enabled);
+        btn.setAttribute('aria-label', enabled ? '关闭首页全屏壁纸' : '开启首页全屏壁纸');
+        btn.setAttribute('title', enabled ? '关闭首页全屏壁纸' : '开启首页全屏壁纸');
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.HomepageWallpaper.setFullscreen(!window.HomepageWallpaper.isFullscreen());
+        syncWallpaperState();
+      });
+
+      syncWallpaperState();
+      return btn;
+    }
+
+    var wallpaperBtn = createWallpaperToggle();
+    if (wallpaperBtn) {
+      btnGroup.appendChild(wallpaperBtn);
     }
 
     function syncVisibility() {
