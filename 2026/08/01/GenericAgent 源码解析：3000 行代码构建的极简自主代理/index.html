@@ -1,0 +1,1605 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="GenericAgent 源码解析：3000 行代码构建的极简自主代理 深入剖析 GenericAgent——一个仅用 3000 行核心代码 + 9 个原子工具 + 100 行 Agent Loop，赋予任意 LLM 对本地计算机的系统级控制能力的自主代理框架  项目简介GenericAgent 是一个极简的、可自我进化的自主代理框架。在 AI Agent 框架越来越复杂的今天（动辄几万行代码、数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GenericAgent 源码解析：3000 行代码构建的极简自主代理">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/08/01/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="GenericAgent 源码解析：3000 行代码构建的极简自主代理 深入剖析 GenericAgent——一个仅用 3000 行核心代码 + 9 个原子工具 + 100 行 Agent Loop，赋予任意 LLM 对本地计算机的系统级控制能力的自主代理框架  项目简介GenericAgent 是一个极简的、可自我进化的自主代理框架。在 AI Agent 框架越来越复杂的今天（动辄几万行代码、数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-01T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-02T02:05:25.388Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="GenericAgent">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="开源">
+<meta property="article:tag" content="极简主义">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>GenericAgent 源码解析：3000 行代码构建的极简自主代理 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="GenericAgent 源码解析：3000 行代码构建的极简自主代理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-01 20:00" pubdate>
+          2026年8月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          162 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="true"
+      >
+        源码解析
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/07/20/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/25/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/28/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/01/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">GenericAgent 源码解析：3000 行代码构建的极简自主代理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="GenericAgent-源码解析：3000-行代码构建的极简自主代理"><a href="#GenericAgent-源码解析：3000-行代码构建的极简自主代理" class="headerlink" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"></a>GenericAgent 源码解析：3000 行代码构建的极简自主代理</h1><blockquote>
+<p>深入剖析 GenericAgent——一个仅用 3000 行核心代码 + 9 个原子工具 + 100 行 Agent Loop，赋予任意 LLM 对本地计算机的系统级控制能力的自主代理框架</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>GenericAgent</strong> 是一个极简的、可自我进化的自主代理框架。在 AI Agent 框架越来越复杂的今天（动辄几万行代码、数十个模块），GenericAgent 反其道而行——<strong>核心代码仅约 3000 行</strong>，却实现了强大的自主代理能力。</p>
+<p><strong>核心理念</strong>：不预装技能，而是<strong>进化技能</strong>。每次完成任务后，自动将执行路径结晶为可复用的 Skill。</p>
+<p><strong>核心能力</strong>：</p>
+<ul>
+<li>🌐 <strong>浏览器控制</strong>：真实浏览器注入，保留登录状态</li>
+<li>💻 <strong>终端执行</strong>：在本地执行任意命令</li>
+<li>📁 <strong>文件系统操作</strong>：读写、搜索、删除文件</li>
+<li>⌨️ <strong>键盘鼠标输入</strong>：模拟用户操作</li>
+<li>👁️ <strong>屏幕视觉</strong>：截屏并理解屏幕内容</li>
+<li>📱 <strong>移动设备控制</strong>：通过 ADB 控制 Android 设备</li>
+</ul>
+<hr>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vim">┌─────────────────────────────────────────────────────────────┐<br>│                      前端层 (Frontends)                      │<br>│  TUI │ GUI │ Web │ CLI │ Desktop │ DingTalk │ Discord │ ... │<br>└────────────────────┬────────────────────────────────────────┘<br>                     │<br>┌────────────────────▼────────────────────────────────────────┐<br>│              Agent 主程序 (agentmain.<span class="hljs-keyword">py</span>)                     │<br>│  ┌──────────────────────────────────────────────────────┐  │<br>│  │  GenericAgent - 代理实例管理                          │  │<br>│  │  - 配置加载、LLM 切换、任务队列                        │  │<br>│  └──────────────────────────────────────────────────────┘  │<br>└────────────────────┬────────────────────────────────────────┘<br>                     │<br>┌────────────────────▼────────────────────────────────────────┐<br>│           Agent 循环引擎 (agent_loop.<span class="hljs-keyword">py</span>)                     │<br>│  ┌──────────────────────────────────────────────────────┐  │<br>│  │  agent_runner_loop - 核心循环                         │  │<br>│  │  - 消息处理、工具调用、流式响应                         │  │<br>│  └──────────────────────────────────────────────────────┘  │<br>└────────────────────┬────────────────────────────────────────┘<br>                     │<br>┌────────────────────▼────────────────────────────────────────┐<br>│           核心处理器 (ga.<span class="hljs-keyword">py</span>)                                 │<br>│  ┌──────────────────────────────────────────────────────┐  │<br>│  │  GenericAgentHandler - 工具执行与状态管理              │  │<br>│  │  - 工具注册、执行、结果处理                             │  │<br>│  │  - 记忆管理、技能进化                                  │  │<br>│  └──────────────────────────────────────────────────────┘  │<br>└────────────────────┬────────────────────────────────────────┘<br>                     │<br>┌────────────────────▼────────────────────────────────────────┐<br>│           LLM 核心抽象层 (llmcore.<span class="hljs-keyword">py</span>)                        │<br>│  ┌──────────────────────────────────────────────────────┐  │<br>│  │  ToolClient / NativeToolClient - LLM 调用抽象         │  │<br>│  │  - 多模型支持（Claude/Gemini/Kimi/MiniMax 等）        │  │<br>│  │  - 流式响应、工具调用协议适配                          │  │<br>│  └──────────────────────────────────────────────────────┘  │<br>└─────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="目录结构总览"><a href="#目录结构总览" class="headerlink" title="目录结构总览"></a>目录结构总览</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs nix">GenericAgent<span class="hljs-symbol">/</span><br>├── ga.py                    <span class="hljs-comment"># Agent 核心处理器</span><br>├── agent_loop.py            <span class="hljs-comment"># Agent 循环引擎</span><br>├── agentmain.py             <span class="hljs-comment"># Agent 主程序</span><br>├── llmcore.py               <span class="hljs-comment"># LLM 核心抽象层</span><br>├── simphtml.py              <span class="hljs-comment"># 简单 HTML 解析器</span><br>├── TMWebDriver.py           <span class="hljs-comment"># 浏览器驱动</span><br>│<br>├── assets<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># 资源文件</span><br>│   ├── tools_schema.json    <span class="hljs-comment"># 工具模式定义</span><br>│   ├── sys_prompt.txt       <span class="hljs-comment"># 系统提示词</span><br>│   └── configure_mykey.py   <span class="hljs-comment"># 配置向导</span><br>│<br>├── frontends<span class="hljs-symbol">/</span>               <span class="hljs-comment"># 前端实现</span><br>│   ├── tui_v3.py           <span class="hljs-comment"># TUI (推荐)</span><br>│   ├── qtapp.py            <span class="hljs-comment"># PyQt5 GUI</span><br>│   ├── stapp.py            <span class="hljs-comment"># Streamlit Web</span><br>│   ├── dcapp.py            <span class="hljs-comment"># Discord</span><br>│   ├── dingtalkapp.py      <span class="hljs-comment"># 钉钉</span><br>│   └── ...<br>│<br>├── memory<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># 记忆存储</span><br>│   ├── global_mem.txt      <span class="hljs-comment"># 全局记忆</span><br>│   └── global_mem_insight.txt<br>│<br>├── plugins<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 插件目录</span><br>├── reflect<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 反思脚本</span><br>├── temp<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># 临时文件</span><br>│   └── model_responses<span class="hljs-symbol">/</span>    <span class="hljs-comment"># 模型响应日志</span><br>│<br>├── mykey_template.py        <span class="hljs-comment"># 配置模板</span><br>├── mykey.py                 <span class="hljs-comment"># 用户配置（不提交到 Git）</span><br>├── pyproject.toml           <span class="hljs-comment"># 项目配置</span><br>└── README.md                <span class="hljs-comment"># 项目说明</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="关键文件说明"><a href="#关键文件说明" class="headerlink" title="关键文件说明"></a>关键文件说明</h3><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>大小</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ga.py</code></td>
+<td>37KB</td>
+<td>Agent 核心处理器，工具执行</td>
+</tr>
+<tr>
+<td><code>agent_loop.py</code></td>
+<td>6.7KB</td>
+<td>Agent 循环引擎，核心循环逻辑</td>
+</tr>
+<tr>
+<td><code>agentmain.py</code></td>
+<td>18KB</td>
+<td>Agent 主程序，配置管理</td>
+</tr>
+<tr>
+<td><code>llmcore.py</code></td>
+<td>68KB</td>
+<td>LLM 核心抽象层，多模型支持</td>
+</tr>
+<tr>
+<td><code>simphtml.py</code></td>
+<td>42KB</td>
+<td>HTML 解析器，网页处理</td>
+</tr>
+<tr>
+<td><code>TMWebDriver.py</code></td>
+<td>15KB</td>
+<td>浏览器驱动，真实浏览器控制</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="核心模块详解"><a href="#核心模块详解" class="headerlink" title="核心模块详解"></a>核心模块详解</h2><h3 id="1-Agent-Loop：100-行代码的”心脏”"><a href="#1-Agent-Loop：100-行代码的”心脏”" class="headerlink" title="1. Agent Loop：100 行代码的”心脏”"></a>1. Agent Loop：100 行代码的”心脏”</h3><p><code>agent_loop.py</code> 是整个系统最精简也最重要的模块——<strong>仅约 100 行核心代码</strong>，却实现了完整的 Agent 循环。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">agent_runner_loop</span>(<span class="hljs-params">agent, task_queue, display_queue</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Agent 主循环</span><br><span class="hljs-string"></span><br><span class="hljs-string">    参数：</span><br><span class="hljs-string">    - agent: GenericAgent 实例</span><br><span class="hljs-string">    - task_queue: 任务队列（输入）</span><br><span class="hljs-string">    - display_queue: 显示队列（输出）</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-comment"># 1. 从任务队列获取输入</span><br>        task = task_queue.get()<br><br>        <span class="hljs-comment"># 2. 构建消息</span><br>        messages = build_messages(agent, task)<br><br>        <span class="hljs-comment"># 3. 调用 LLM</span><br>        response = agent.llmclient.chat(messages, tools=agent.tools)<br><br>        <span class="hljs-comment"># 4. 处理响应（文本/工具调用）</span><br>        <span class="hljs-keyword">if</span> response.has_tool_calls:<br>            <span class="hljs-comment"># 执行工具调用</span><br>            results = execute_tool_calls(agent, response.tool_calls)<br>            <span class="hljs-comment"># 将结果加入历史</span><br>            agent.history.append_tool_results(results)<br>            <span class="hljs-comment"># 继续循环（不获取新任务）</span><br>            <span class="hljs-keyword">continue</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># 纯文本响应，输出给用户</span><br>            display_queue.put(format_response(response))<br>            <span class="hljs-comment"># 等待下一个任务</span><br></code></pre></td></tr></table></figure>
+
+<p>这个循环的精妙之处在于：</p>
+<ul>
+<li><strong>简洁到不能再简洁</strong>：没有复杂的中间件、没有插件系统、没有花哨的编排</li>
+<li><strong>职责清晰</strong>：获取任务 → 构建消息 → 调用 LLM → 处理响应 → 循环</li>
+<li><strong>生产者-消费者模式</strong>：通过 <code>task_queue</code> 和 <code>display_queue</code> 实现前后端解耦</li>
+</ul>
+<h3 id="循环状态机"><a href="#循环状态机" class="headerlink" title="循环状态机"></a>循环状态机</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">┌─────────┐<br>│  空闲   │ ← 等待任务<br>└────┬────┘<br>     │ 获取任务<br>     ▼<br>┌─────────┐<br>│  思考   │ ← 调用 <span class="hljs-keyword">LLM</span><br><span class="hljs-keyword"></span>└────┬────┘<br>     │<br>     ├─→ 工具调用？──┐<br>     │              │<br>     │  是          │  否<br>     ▼              ▼<br>┌─────────┐   ┌─────────┐<br>│  执行   │   │  输出   │<br>└────┬────┘   └────┬────┘<br>     │              │<br>     └──────┬───────┘<br>            │<br>            ▼<br>         继续循环<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键特性</strong>：</p>
+<ol>
+<li><strong>流式处理</strong>：支持流式响应，实时显示思考过程</li>
+<li><strong>多轮对话</strong>：自动维护对话历史</li>
+<li><strong>工具调用链</strong>：支持连续多次工具调用</li>
+<li><strong>中断恢复</strong>：支持用户中断后恢复执行</li>
+<li><strong>错误处理</strong>：工具执行失败时自动重试或降级</li>
+</ol>
+<hr>
+<h3 id="2-GenericAgentHandler：核心处理器"><a href="#2-GenericAgentHandler：核心处理器" class="headerlink" title="2. GenericAgentHandler：核心处理器"></a>2. GenericAgentHandler：核心处理器</h3><p><code>ga.py</code> 中的 <code>GenericAgentHandler</code> 是整个系统的核心处理器，负责：</p>
+<ol>
+<li><p><strong>工具注册与管理</strong></p>
+<ul>
+<li>维护工具模式（TOOLS_SCHEMA）</li>
+<li>工具执行与结果返回</li>
+<li>工具调用日志记录</li>
+</ul>
+</li>
+<li><p><strong>状态管理</strong></p>
+<ul>
+<li>对话历史维护</li>
+<li>工具调用状态追踪</li>
+<li>中断与恢复机制</li>
+</ul>
+</li>
+<li><p><strong>记忆系统</strong></p>
+<ul>
+<li>全局记忆（global_memory）读写</li>
+<li>工作记忆（working_memory）管理</li>
+<li>记忆导入&#x2F;导出</li>
+</ul>
+</li>
+<li><p><strong>技能进化</strong></p>
+<ul>
+<li>任务执行路径结晶</li>
+<li>技能模板生成</li>
+<li>技能库管理</li>
+</ul>
+</li>
+</ol>
+<p><strong>工具执行核心</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">execute_tool</span>(<span class="hljs-params">self, tool_name, tool_args</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;执行单个工具并返回结果&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 智能格式化输出</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">smart_format</span>(<span class="hljs-params">text, mode=<span class="hljs-string">&#x27;auto&#x27;</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;根据上下文智能格式化输出文本&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 全局记忆管理</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_global_memory</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;获取全局记忆内容&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">update_global_memory</span>(<span class="hljs-params">content</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;更新全局记忆&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>工具执行流程</strong>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">用户输入 → 解析工具调用 → 参数验证 → 执行工具 → 格式化结果 → 返回 LLM<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-GenericAgent：主程序"><a href="#3-GenericAgent：主程序" class="headerlink" title="3. GenericAgent：主程序"></a>3. GenericAgent：主程序</h3><p><code>agentmain.py</code> 中的 <code>GenericAgent</code> 是面向用户的代理实例，封装了底层 <code>GenericAgentHandler</code> 的复杂性：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenericAgent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 初始化配置</span><br>        <span class="hljs-variable language_">self</span>.config = load_config()<br><br>        <span class="hljs-comment"># 初始化 LLM 客户端</span><br>        <span class="hljs-variable language_">self</span>.llmclient = ToolClient(<span class="hljs-variable language_">self</span>.config.llm)<br><br>        <span class="hljs-comment"># 初始化工具模式</span><br>        <span class="hljs-variable language_">self</span>.tools = load_tool_schema()<br><br>        <span class="hljs-comment"># 初始化处理器</span><br>        <span class="hljs-variable language_">self</span>.handler = GenericAgentHandler(<span class="hljs-variable language_">self</span>)<br><br>        <span class="hljs-comment"># 任务队列</span><br>        <span class="hljs-variable language_">self</span>.task_queue = Queue()<br>        <span class="hljs-variable language_">self</span>.display_queue = Queue()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;启动代理主循环&quot;&quot;&quot;</span><br>        threading.Thread(<br>            target=agent_runner_loop,<br>            args=(<span class="hljs-variable language_">self</span>, <span class="hljs-variable language_">self</span>.task_queue, <span class="hljs-variable language_">self</span>.display_queue)<br>        ).start()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">submit_task</span>(<span class="hljs-params">self, task</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;提交任务&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.task_queue.put(task)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">abort</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;中断当前任务&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.handler.abort()<br></code></pre></td></tr></table></figure>
+
+<p><strong>启动参数</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">python agentmain.py [选项]<br><br>选项：<br>  --nolog              禁用日志<br>  --llm_no N           指定 LLM 编号<br>  --verbose            详细输出<br>  --task <span class="hljs-string">&quot;任务&quot;</span>         直接执行任务<br>  --<span class="hljs-built_in">history</span> FILE       加载历史记录<br>  --reflect SCRIPT     启用反思模式<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-llmcore-py：LLM-核心抽象层"><a href="#4-llmcore-py：LLM-核心抽象层" class="headerlink" title="4. llmcore.py：LLM 核心抽象层"></a>4. llmcore.py：LLM 核心抽象层</h3><p>这是整个系统中最复杂的模块（约 68KB），负责与各种 LLM API 的交互。</p>
+<h4 id="核心类层次结构"><a href="#核心类层次结构" class="headerlink" title="核心类层次结构"></a>核心类层次结构</h4><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scss">ToolClient (基类)<br>├── NativeToolClient (原生工具调用客户端)<br>│   ├── NativeClaudeSession (Claude 会话)<br>│   ├── NativeOAISession (OpenAI 兼容会话)<br>│   └── NativeGeminiSession (Gemini 会话)<br>└── BaseSession (基础会话类)<br>    ├── ClaudeSession<br>    ├── OAISession<br>    └── GeminiSession<br></code></pre></td></tr></table></figure>
+
+<h4 id="ToolClient：统一接口"><a href="#ToolClient：统一接口" class="headerlink" title="ToolClient：统一接口"></a>ToolClient：统一接口</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ToolClient</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;统一的 LLM 调用接口&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, backend</span>):<br>        <span class="hljs-variable language_">self</span>.backend = backend  <span class="hljs-comment"># 具体的会话实现</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">chat</span>(<span class="hljs-params">self, messages, tools=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        调用 LLM</span><br><span class="hljs-string"></span><br><span class="hljs-string">        参数：</span><br><span class="hljs-string">        - messages: 消息列表 [&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;...&quot;&#125;]</span><br><span class="hljs-string">        - tools: 工具模式列表</span><br><span class="hljs-string"></span><br><span class="hljs-string">        返回：</span><br><span class="hljs-string">        - 响应对象（包含文本和/或工具调用）</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.backend.chat(messages, tools)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">set_system</span>(<span class="hljs-params">self, prompt</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;设置系统提示词&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.backend.system = prompt<br></code></pre></td></tr></table></figure>
+
+<h4 id="NativeToolClient：原生工具调用"><a href="#NativeToolClient：原生工具调用" class="headerlink" title="NativeToolClient：原生工具调用"></a>NativeToolClient：原生工具调用</h4><p>专门处理支持原生工具调用的 LLM（如 Claude、GPT-4）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">NativeToolClient</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, backend</span>):<br>        <span class="hljs-variable language_">self</span>.backend = backend<br>        <span class="hljs-variable language_">self</span>.backend.system = <span class="hljs-variable language_">self</span>._thinking_prompt()<br>        <span class="hljs-variable language_">self</span>._pending_tool_ids = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">chat</span>(<span class="hljs-params">self, messages, tools=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-comment"># 1. 合并消息</span><br>        merged = <span class="hljs-variable language_">self</span>._merge_messages(messages)<br><br>        <span class="hljs-comment"># 2. 调用后端</span><br>        resp = <span class="hljs-variable language_">self</span>.backend.ask(merged)<br><br>        <span class="hljs-comment"># 3. 处理工具调用</span><br>        <span class="hljs-keyword">if</span> resp.tool_calls:<br>            <span class="hljs-variable language_">self</span>._pending_tool_ids = [tc.<span class="hljs-built_in">id</span> <span class="hljs-keyword">for</span> tc <span class="hljs-keyword">in</span> resp.tool_calls]<br><br>        <span class="hljs-keyword">return</span> resp<br></code></pre></td></tr></table></figure>
+
+<h4 id="多模型支持"><a href="#多模型支持" class="headerlink" title="多模型支持"></a>多模型支持</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Claude (Anthropic)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">NativeClaudeSession</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">ask</span>(<span class="hljs-params">self, messages</span>):<br>        response = <span class="hljs-variable language_">self</span>.client.messages.create(<br>            model=<span class="hljs-variable language_">self</span>.model,<br>            messages=messages,<br>            tools=<span class="hljs-variable language_">self</span>.tools,<br>            stream=<span class="hljs-literal">True</span><br>        )<br><br><span class="hljs-comment"># OpenAI 兼容 (GPT-4, Kimi, MiniMax 等)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">NativeOAISession</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">ask</span>(<span class="hljs-params">self, messages</span>):<br>        response = <span class="hljs-variable language_">self</span>.client.chat.completions.create(<br>            model=<span class="hljs-variable language_">self</span>.model,<br>            messages=messages,<br>            tools=<span class="hljs-variable language_">self</span>.tools,<br>            stream=<span class="hljs-literal">True</span><br>        )<br><br><span class="hljs-comment"># Gemini (Google)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">NativeGeminiSession</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">ask</span>(<span class="hljs-params">self, messages</span>):<br>        response = <span class="hljs-variable language_">self</span>.client.generate_content(<br>            contents=messages,<br>            tools=<span class="hljs-variable language_">self</span>.tools,<br>            stream=<span class="hljs-literal">True</span><br>        )<br></code></pre></td></tr></table></figure>
+
+<h4 id="消息格式转换"><a href="#消息格式转换" class="headerlink" title="消息格式转换"></a>消息格式转换</h4><p>不同 LLM 的消息格式不同，<code>llmcore.py</code> 负责统一转换：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 统一格式</span><br>[<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好！有什么可以帮助你的吗？&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;打开浏览器&quot;</span>&#125;<br>]<br><br><span class="hljs-comment"># Claude 格式</span><br>[<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: [&#123;<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;你好&quot;</span>&#125;]&#125;,<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: [&#123;<span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>, <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-string">&quot;你好！&quot;</span>&#125;]&#125;,<br>]<br><br><span class="hljs-comment"># OpenAI 格式</span><br>[<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好&quot;</span>&#125;,<br>    &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好！&quot;</span>&#125;,<br>]<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="工具系统"><a href="#工具系统" class="headerlink" title="工具系统"></a>工具系统</h2><p>GenericAgent 的核心能力来自 <strong>9 个原子工具</strong>，这些工具通过 <code>assets/tools_schema.json</code> 定义。</p>
+<h3 id="9-个原子工具"><a href="#9-个原子工具" class="headerlink" title="9 个原子工具"></a>9 个原子工具</h3><h4 id="1-browser-浏览器控制"><a href="#1-browser-浏览器控制" class="headerlink" title="1. browser - 浏览器控制"></a>1. browser - 浏览器控制</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">browser</span>(<span class="hljs-params">action, url=<span class="hljs-literal">None</span>, selector=<span class="hljs-literal">None</span>, text=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    控制真实浏览器（通过 TMWebDriver）</span><br><span class="hljs-string"></span><br><span class="hljs-string">    action:</span><br><span class="hljs-string">    - open: 打开 URL</span><br><span class="hljs-string">    - click: 点击元素</span><br><span class="hljs-string">    - type: 输入文本</span><br><span class="hljs-string">    - scroll: 滚动页面</span><br><span class="hljs-string">    - screenshot: 截图</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>实现原理</strong>：</p>
+<ul>
+<li>使用 TMWebDriver 注入到真实浏览器进程</li>
+<li>保留浏览器的登录状态和 Cookie</li>
+<li>支持 JavaScript 执行</li>
+</ul>
+<h4 id="2-terminal-终端执行"><a href="#2-terminal-终端执行" class="headerlink" title="2. terminal - 终端执行"></a>2. terminal - 终端执行</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">terminal</span>(<span class="hljs-params">command</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    在终端执行命令</span><br><span class="hljs-string"></span><br><span class="hljs-string">    返回：命令输出（stdout + stderr）</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    result = subprocess.run(<br>        command,<br>        shell=<span class="hljs-literal">True</span>,<br>        capture_output=<span class="hljs-literal">True</span>,<br>        text=<span class="hljs-literal">True</span><br>    )<br>    <span class="hljs-keyword">return</span> result.stdout + result.stderr<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-file-文件操作"><a href="#3-file-文件操作" class="headerlink" title="3. file - 文件操作"></a>3. file - 文件操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">file</span>(<span class="hljs-params">action, path, content=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    文件操作</span><br><span class="hljs-string"></span><br><span class="hljs-string">    action:</span><br><span class="hljs-string">    - read: 读取文件</span><br><span class="hljs-string">    - write: 写入文件</span><br><span class="hljs-string">    - delete: 删除文件</span><br><span class="hljs-string">    - list: 列出目录</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-keyboard-键盘输入"><a href="#4-keyboard-键盘输入" class="headerlink" title="4. keyboard - 键盘输入"></a>4. keyboard - 键盘输入</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">keyboard</span>(<span class="hljs-params">action, key=<span class="hljs-literal">None</span>, text=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    键盘控制</span><br><span class="hljs-string"></span><br><span class="hljs-string">    action:</span><br><span class="hljs-string">    - press: 按键</span><br><span class="hljs-string">    - type: 输入文本</span><br><span class="hljs-string">    - hotkey: 组合键</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="5-mouse-鼠标控制"><a href="#5-mouse-鼠标控制" class="headerlink" title="5. mouse - 鼠标控制"></a>5. mouse - 鼠标控制</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">mouse</span>(<span class="hljs-params">action, x=<span class="hljs-literal">None</span>, y=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    鼠标控制</span><br><span class="hljs-string"></span><br><span class="hljs-string">    action:</span><br><span class="hljs-string">    - move: 移动</span><br><span class="hljs-string">    - click: 点击</span><br><span class="hljs-string">    - drag: 拖拽</span><br><span class="hljs-string">    - scroll: 滚动</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="6-screen-屏幕视觉"><a href="#6-screen-屏幕视觉" class="headerlink" title="6. screen - 屏幕视觉"></a>6. screen - 屏幕视觉</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">screen</span>(<span class="hljs-params">action=<span class="hljs-string">&quot;screenshot&quot;</span>, region=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    屏幕截图</span><br><span class="hljs-string"></span><br><span class="hljs-string">    返回：Base64 编码的图片</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="7-adb-移动设备控制"><a href="#7-adb-移动设备控制" class="headerlink" title="7. adb - 移动设备控制"></a>7. adb - 移动设备控制</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">adb</span>(<span class="hljs-params">command, device=<span class="hljs-literal">None</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    ADB 命令（控制 Android 设备）</span><br><span class="hljs-string"></span><br><span class="hljs-string">    command: ADB 命令字符串</span><br><span class="hljs-string">    device: 设备序列号（可选）</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="8-ask-user-询问用户"><a href="#8-ask-user-询问用户" class="headerlink" title="8. ask_user - 询问用户"></a>8. ask_user - 询问用户</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">ask_user</span>(<span class="hljs-params">question</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    向用户提问（用于需要人类输入的场景）</span><br><span class="hljs-string"></span><br><span class="hljs-string">    返回：用户的回答</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="9-start-long-term-update-长期记忆"><a href="#9-start-long-term-update-长期记忆" class="headerlink" title="9. start_long_term_update - 长期记忆"></a>9. start_long_term_update - 长期记忆</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">start_long_term_update</span>(<span class="hljs-params">content</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    将信息写入长期记忆</span><br><span class="hljs-string"></span><br><span class="hljs-string">    用于持久化重要的上下文信息</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="工具执行流程"><a href="#工具执行流程" class="headerlink" title="工具执行流程"></a>工具执行流程</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">LLM </span>输出工具调用<br>    ↓<br>解析工具名称和参数<br>    ↓<br>验证参数合法性<br>    ↓<br>执行工具函数<br>    ↓<br>格式化结果<br>    ↓<br>返回给 <span class="hljs-keyword">LLM</span><br><span class="hljs-keyword"></span>    ↓<br><span class="hljs-keyword">LLM </span>继续推理<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="前端系统"><a href="#前端系统" class="headerlink" title="前端系统"></a>前端系统</h2><p>GenericAgent 提供了<strong>极其丰富的前端界面</strong>，这是它的一个亮点——一个 Agent 核心，多种接入方式。</p>
+<h3 id="前端目录结构"><a href="#前端目录结构" class="headerlink" title="前端目录结构"></a>前端目录结构</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs nix">frontends<span class="hljs-symbol">/</span><br>├── tuiapp.py           <span class="hljs-comment"># 终端 TUI (Textual)</span><br>├── tuiapp_v2.py        <span class="hljs-comment"># 增强版 TUI</span><br>├── tui_v3.py           <span class="hljs-comment"># 第三代 TUI（推荐）</span><br>├── qtapp.py            <span class="hljs-comment"># PyQt5 桌面 GUI</span><br>├── stapp.py            <span class="hljs-comment"># Streamlit Web UI</span><br>├── dcapp.py            <span class="hljs-comment"># Discord 机器人</span><br>├── dingtalkapp.py      <span class="hljs-comment"># 钉钉机器人</span><br>├── qqapp.py            <span class="hljs-comment"># QQ 机器人</span><br>├── wechatapp.py        <span class="hljs-comment"># 微信机器人</span><br>├── fsapp.py            <span class="hljs-comment"># 飞书机器人</span><br>├── desktop_pet_v2.pyw  <span class="hljs-comment"># 桌面宠物</span><br>├── conductor.py        <span class="hljs-comment"># 多代理管理器</span><br>└── desktop<span class="hljs-symbol">/</span>            <span class="hljs-comment"># Tauri 桌面应用</span><br>    ├── src-tauri<span class="hljs-symbol">/</span><br>    └── src<span class="hljs-operator">/</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="TUI-终端界面"><a href="#TUI-终端界面" class="headerlink" title="TUI (终端界面)"></a>TUI (终端界面)</h3><p>使用 Textual 框架构建的终端图形界面：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenericAgentTUI</span>(<span class="hljs-title class_ inherited__">App</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.agent = GenericAgent()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;构建 UI 组件&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">yield</span> Header()<br>        <span class="hljs-keyword">yield</span> ChatView(<span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;chat&quot;</span>)  <span class="hljs-comment"># 聊天视图</span><br>        <span class="hljs-keyword">yield</span> Input(placeholder=<span class="hljs-string">&quot;输入消息...&quot;</span>)  <span class="hljs-comment"># 输入框</span><br>        <span class="hljs-keyword">yield</span> Footer()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_mount</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;启动代理&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.agent.run()<br>        <span class="hljs-variable language_">self</span>.start_message_listener()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_message_listener</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;监听代理消息&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">def</span> <span class="hljs-title function_">listener</span>():<br>            <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>                msg = <span class="hljs-variable language_">self</span>.agent.display_queue.get()<br>                <span class="hljs-variable language_">self</span>.call_from_thread(<span class="hljs-variable language_">self</span>.update_chat, msg)<br><br>        threading.Thread(target=listener, daemon=<span class="hljs-literal">True</span>).start()<br></code></pre></td></tr></table></figure>
+
+<h3 id="GUI-桌面界面"><a href="#GUI-桌面界面" class="headerlink" title="GUI (桌面界面)"></a>GUI (桌面界面)</h3><p>使用 PyQt5 构建的完整桌面应用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MainWindow</span>(<span class="hljs-title class_ inherited__">QMainWindow</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.agent = GenericAgent()<br><br>        <span class="hljs-comment"># UI 组件</span><br>        <span class="hljs-variable language_">self</span>.chat_display = QTextEdit()  <span class="hljs-comment"># 聊天显示</span><br>        <span class="hljs-variable language_">self</span>.input_box = QLineEdit()     <span class="hljs-comment"># 输入框</span><br>        <span class="hljs-variable language_">self</span>.send_button = QPushButton(<span class="hljs-string">&quot;发送&quot;</span>)<br><br>        <span class="hljs-comment"># 布局</span><br>        layout = QVBoxLayout()<br>        layout.addWidget(<span class="hljs-variable language_">self</span>.chat_display)<br>        layout.addWidget(<span class="hljs-variable language_">self</span>.input_box)<br><br>        <span class="hljs-comment"># 信号槽</span><br>        <span class="hljs-variable language_">self</span>.send_button.clicked.connect(<span class="hljs-variable language_">self</span>.send_message)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">send_message</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;发送消息&quot;&quot;&quot;</span><br>        text = <span class="hljs-variable language_">self</span>.input_box.text()<br>        <span class="hljs-variable language_">self</span>.agent.submit_task(text)<br>        <span class="hljs-variable language_">self</span>.input_box.clear()<br></code></pre></td></tr></table></figure>
+
+<h3 id="Web-UI"><a href="#Web-UI" class="headerlink" title="Web UI"></a>Web UI</h3><p>使用 Streamlit 构建的 Web 界面：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> streamlit <span class="hljs-keyword">as</span> st<br><br><span class="hljs-comment"># 初始化代理</span><br><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;agent&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> st.session_state:<br>    st.session_state.agent = GenericAgent()<br>    st.session_state.agent.run()<br><br><span class="hljs-comment"># 聊天界面</span><br>st.title(<span class="hljs-string">&quot;GenericAgent&quot;</span>)<br><br><span class="hljs-comment"># 消息历史</span><br><span class="hljs-keyword">for</span> msg <span class="hljs-keyword">in</span> st.session_state.messages:<br>    st.chat_message(msg[<span class="hljs-string">&#x27;role&#x27;</span>]).write(msg[<span class="hljs-string">&#x27;content&#x27;</span>])<br><br><span class="hljs-comment"># 输入框</span><br><span class="hljs-keyword">if</span> prompt := st.chat_input(<span class="hljs-string">&quot;输入消息...&quot;</span>):<br>    st.session_state.messages.append(&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;)<br>    st.session_state.agent.submit_task(prompt)<br><br>    <span class="hljs-comment"># 监听响应</span><br>    <span class="hljs-keyword">with</span> st.chat_message(<span class="hljs-string">&quot;assistant&quot;</span>):<br>        response = st.write_stream(response_stream())<br>        st.session_state.messages.append(&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: response&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="聊天机器人集成"><a href="#聊天机器人集成" class="headerlink" title="聊天机器人集成"></a>聊天机器人集成</h3><p>以钉钉机器人为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DingTalkApp</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.agent = GenericAgent()<br>        <span class="hljs-variable language_">self</span>.agent.verbose = <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">on_message</span>(<span class="hljs-params">self, content, sender_id, sender_name</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;处理钉钉消息&quot;&quot;&quot;</span><br>        task = asyncio.create_task(<br>            <span class="hljs-variable language_">self</span>.run_agent(sender_id, content)<br>        )<br><br>    <span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">run_agent</span>(<span class="hljs-params">self, chat_id, content</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;运行代理并返回结果&quot;&quot;&quot;</span><br>        display_queue = Queue()<br><br>        <span class="hljs-comment"># 提交任务</span><br>        <span class="hljs-variable language_">self</span>.agent.submit_task(content)<br><br>        <span class="hljs-comment"># 收集响应</span><br>        response = <span class="hljs-string">&quot;&quot;</span><br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            msg = display_queue.get()<br>            <span class="hljs-keyword">if</span> msg.get(<span class="hljs-string">&#x27;done&#x27;</span>):<br>                <span class="hljs-keyword">break</span><br>            response += msg.get(<span class="hljs-string">&#x27;next&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br><br>        <span class="hljs-comment"># 发送回复</span><br>        <span class="hljs-keyword">await</span> <span class="hljs-variable language_">self</span>.send_text(chat_id, response)<br></code></pre></td></tr></table></figure>
+
+<h3 id="多代理管理器"><a href="#多代理管理器" class="headerlink" title="多代理管理器"></a>多代理管理器</h3><p><code>frontends/conductor.py</code> 管理多个并行的代理实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">SubAgentPool</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, agent</span>):<br>        <span class="hljs-variable language_">self</span>.agent = agent<br>        <span class="hljs-variable language_">self</span>.subagents = &#123;&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create_subagent</span>(<span class="hljs-params">self, task, llm_no=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;创建子代理&quot;&quot;&quot;</span><br>        sid = short_id()<br>        subagent = GenericAgent()<br>        subagent.next_llm(llm_no <span class="hljs-keyword">or</span> <span class="hljs-variable language_">self</span>.agent.llm_no)<br><br>        <span class="hljs-comment"># 启动子代理</span><br>        threading.Thread(<br>            target=subagent.run,<br>            daemon=<span class="hljs-literal">True</span><br>        ).start()<br><br>        <span class="hljs-comment"># 注册到池</span><br>        <span class="hljs-variable language_">self</span>.subagents[sid] = SubAgentInfo(<br>            <span class="hljs-built_in">id</span>=sid,<br>            agent=subagent,<br>            task=task,<br>            status=<span class="hljs-string">&quot;running&quot;</span><br>        )<br><br>        <span class="hljs-keyword">return</span> sid<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">input_subagent</span>(<span class="hljs-params">self, sid, message, llm_no=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-string">&quot;&quot;&quot;向子代理发送消息&quot;&quot;&quot;</span><br>        subagent = <span class="hljs-variable language_">self</span>.subagents[sid]<br>        subagent.agent.submit_task(message)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">abort_subagent</span>(<span class="hljs-params">self, sid</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;中断子代理&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.subagents[sid].agent.abort()<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="记忆系统"><a href="#记忆系统" class="headerlink" title="记忆系统"></a>记忆系统</h2><p>GenericAgent 实现了多层记忆系统，支持短期和长期记忆。</p>
+<h3 id="记忆层次"><a href="#记忆层次" class="headerlink" title="记忆层次"></a>记忆层次</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────┐<br>│         工作记忆 (Working Memory)    │  ← 当前对话上下文<br>├─────────────────────────────────────┤<br>│         短期记忆 (Short-term)        │  ← 近期对话历史<br>├─────────────────────────────────────┤<br>│         长期记忆 (Long-term)         │  ← 持久化的重要信息<br>├─────────────────────────────────────┤<br>│         全局记忆 (Global Memory)     │  ← 跨会话的知识库<br>└─────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="全局记忆"><a href="#全局记忆" class="headerlink" title="全局记忆"></a>全局记忆</h3><p><strong>文件位置</strong>：<code>memory/global_mem.txt</code></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># [Global Memory - L2]</span><br><br><span class="hljs-section">## 用户偏好</span><br><span class="hljs-bullet">-</span> 喜欢使用中文交流<br><span class="hljs-bullet">-</span> 常用的开发工具：VSCode, Git<br><br><span class="hljs-section">## 重要信息</span><br><span class="hljs-bullet">-</span> 项目名称：GenericAgent<br><span class="hljs-bullet">-</span> 创建时间：2024-06-24<br><br><span class="hljs-section">## 技能库</span><br><span class="hljs-bullet">-</span> 网页浏览：已掌握<br><span class="hljs-bullet">-</span> 文件操作：已掌握<br></code></pre></td></tr></table></figure>
+
+<p><strong>读写方式</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 读取全局记忆</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_global_memory</span>():<br>    mem_path = os.path.join(script_dir, <span class="hljs-string">&#x27;memory&#x27;</span>, <span class="hljs-string">&#x27;global_mem.txt&#x27;</span>)<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(mem_path, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">return</span> f.read()<br><br><span class="hljs-comment"># 更新全局记忆</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">update_global_memory</span>(<span class="hljs-params">content</span>):<br>    mem_path = os.path.join(script_dir, <span class="hljs-string">&#x27;memory&#x27;</span>, <span class="hljs-string">&#x27;global_mem.txt&#x27;</span>)<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(mem_path, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(content)<br></code></pre></td></tr></table></figure>
+
+<h3 id="工作记忆"><a href="#工作记忆" class="headerlink" title="工作记忆"></a>工作记忆</h3><p>在每次对话中动态构建，包含：</p>
+<ol>
+<li><strong>系统提示词</strong>：定义代理的身份和能力</li>
+<li><strong>全局记忆</strong>：跨会话的知识库</li>
+<li><strong>对话历史</strong>：当前的对话上下文</li>
+<li><strong>工具调用结果</strong>：最近几次工具调用的结果</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">build_messages</span>(<span class="hljs-params">agent, task</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;构建消息列表&quot;&quot;&quot;</span><br>    messages = []<br><br>    <span class="hljs-comment"># 1. 系统提示词</span><br>    messages.append(&#123;<br>        <span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,<br>        <span class="hljs-string">&quot;content&quot;</span>: get_system_prompt()<br>    &#125;)<br><br>    <span class="hljs-comment"># 2. 全局记忆</span><br>    global_mem = get_global_memory()<br>    <span class="hljs-keyword">if</span> global_mem:<br>        messages.append(&#123;<br>            <span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;system&quot;</span>,<br>            <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">f&quot;### [GLOBAL MEMORY]\n<span class="hljs-subst">&#123;global_mem&#125;</span>&quot;</span><br>        &#125;)<br><br>    <span class="hljs-comment"># 3. 对话历史</span><br>    messages.extend(agent.history)<br><br>    <span class="hljs-comment"># 4. 当前任务</span><br>    messages.append(&#123;<br>        <span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>,<br>        <span class="hljs-string">&quot;content&quot;</span>: task<br>    &#125;)<br><br>    <span class="hljs-keyword">return</span> messages<br></code></pre></td></tr></table></figure>
+
+<h3 id="记忆导入-导出"><a href="#记忆导入-导出" class="headerlink" title="记忆导入&#x2F;导出"></a>记忆导入&#x2F;导出</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_import_memory_from</span>(<span class="hljs-params">source_dir: <span class="hljs-built_in">str</span>, ga_root: <span class="hljs-built_in">str</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    从其他 GA 实例导入记忆</span><br><span class="hljs-string"></span><br><span class="hljs-string">    1. 备份当前 memory/ 目录</span><br><span class="hljs-string">    2. 复制源目录的 memory/ 文件</span><br><span class="hljs-string">    3. 复制 temp/model_responses/ 日志</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    src = Path(source_dir).expanduser().resolve()<br>    dst = Path(ga_root).resolve()<br><br>    <span class="hljs-comment"># 备份</span><br>    backup_dir = dst / <span class="hljs-string">&quot;temp&quot;</span> / <span class="hljs-string">f&quot;memory_import_backup_<span class="hljs-subst">&#123;timestamp&#125;</span>&quot;</span><br>    shutil.copytree(dst / <span class="hljs-string">&quot;memory&quot;</span>, backup_dir / <span class="hljs-string">&quot;memory&quot;</span>)<br><br>    <span class="hljs-comment"># 复制</span><br>    shutil.copytree(src / <span class="hljs-string">&quot;memory&quot;</span>, dst / <span class="hljs-string">&quot;memory&quot;</span>, dirs_exist_ok=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-string">&quot;memoryCopied&quot;</span>: count,<br>        <span class="hljs-string">&quot;backupDir&quot;</span>: <span class="hljs-built_in">str</span>(backup_dir)<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="插件与扩展"><a href="#插件与扩展" class="headerlink" title="插件与扩展"></a>插件与扩展</h2><h3 id="反思模式"><a href="#反思模式" class="headerlink" title="反思模式"></a>反思模式</h3><p><code>reflect/</code> 目录下的脚本允许代理定期执行检查任务：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># reflect/example.py</span><br>INTERVAL = <span class="hljs-number">60</span>  <span class="hljs-comment"># 每 60 秒执行一次</span><br>ONCE = <span class="hljs-literal">False</span>   <span class="hljs-comment"># 是否只执行一次</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">check</span>():<br>    <span class="hljs-string">&quot;&quot;&quot;检查函数&quot;&quot;&quot;</span><br>    result = <span class="hljs-string">&quot;检查结果&quot;</span><br>    <span class="hljs-keyword">return</span> result<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">on_done</span>(<span class="hljs-params">result</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;完成回调&quot;&quot;&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;反思完成：<span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>启动反思模式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">python agentmain.py --reflect example.py<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="完整启动流程"><a href="#完整启动流程" class="headerlink" title="完整启动流程"></a>完整启动流程</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 用户启动前端（如 python frontends/tui<span class="hljs-emphasis">_v3.py）</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">2. 前端初始化 GenericAgent 实例</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">3. GenericAgent 加载配置（mykey.py）</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">4. 创建 LLM 客户端（ToolClient）</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">5. 加载工具模式（tools_</span>schema.json）<br>   ↓<br><span class="hljs-bullet">6.</span> 创建 GenericAgentHandler<br>   ↓<br><span class="hljs-bullet">7.</span> 启动 agent<span class="hljs-emphasis">_runner_</span>loop 线程<br>   ↓<br><span class="hljs-bullet">8.</span> 前端进入消息循环<br>   ↓<br><span class="hljs-bullet">9.</span> 用户输入消息<br>   ↓<br><span class="hljs-bullet">10.</span> 消息进入 task<span class="hljs-emphasis">_queue</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">11. agent_</span>runner<span class="hljs-emphasis">_loop 获取任务</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">12. 构建消息列表</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">13. 调用 LLM</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">14. 处理响应（文本/工具调用）</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">15. 如果是工具调用，执行工具并继续循环</span><br><span class="hljs-emphasis">    ↓</span><br><span class="hljs-emphasis">16. 如果是文本响应，输出到 display_</span>queue<br><span class="hljs-code">    ↓</span><br><span class="hljs-code">17. 前端显示响应</span><br><span class="hljs-code">    ↓</span><br><span class="hljs-code">18. 等待下一个任务</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关键设计模式"><a href="#关键设计模式" class="headerlink" title="关键设计模式"></a>关键设计模式</h2><h3 id="1-生产者-消费者模式"><a href="#1-生产者-消费者模式" class="headerlink" title="1. 生产者-消费者模式"></a>1. 生产者-消费者模式</h3><p>任务队列和显示队列使用经典的生产者-消费者模式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 生产者（前端）</span><br>task_queue.put(task)<br><br><span class="hljs-comment"># 消费者（agent_runner_loop）</span><br>task = task_queue.get()<br><br><span class="hljs-comment"># 生产者（agent_runner_loop）</span><br>display_queue.put(response)<br><br><span class="hljs-comment"># 消费者（前端）</span><br>response = display_queue.get()<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-策略模式"><a href="#2-策略模式" class="headerlink" title="2. 策略模式"></a>2. 策略模式</h3><p>LLM 调用使用策略模式，不同的 LLM 实现相同的接口：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">ToolClient</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, backend: BaseSession</span>):<br>        <span class="hljs-variable language_">self</span>.backend = backend  <span class="hljs-comment"># 策略</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">chat</span>(<span class="hljs-params">self, messages, tools</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.backend.chat(messages, tools)<br><br><span class="hljs-comment"># 不同的策略</span><br>claude_client = ToolClient(NativeClaudeSession())<br>gpt_client = ToolClient(NativeOAISession())<br>gemini_client = ToolClient(NativeGeminiSession())<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-观察者模式"><a href="#3-观察者模式" class="headerlink" title="3. 观察者模式"></a>3. 观察者模式</h3><p>前端通过队列监听代理的消息：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 代理（被观察者）</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenericAgent</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.display_queue = Queue()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">notify</span>(<span class="hljs-params">self, message</span>):<br>        <span class="hljs-variable language_">self</span>.display_queue.put(message)<br><br><span class="hljs-comment"># 前端（观察者）</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TUI</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, agent</span>):<br>        <span class="hljs-variable language_">self</span>.agent = agent<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_listener</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>            msg = <span class="hljs-variable language_">self</span>.agent.display_queue.get()<br>            <span class="hljs-variable language_">self</span>.update_ui(msg)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-工厂模式"><a href="#4-工厂模式" class="headerlink" title="4. 工厂模式"></a>4. 工厂模式</h3><p>LLM 客户端使用工厂模式创建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">resolve_client</span>(<span class="hljs-params">config</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;根据配置创建对应的 LLM 客户端&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> config.<span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;claude&quot;</span>:<br>        <span class="hljs-keyword">return</span> NativeToolClient(NativeClaudeSession(config))<br>    <span class="hljs-keyword">elif</span> config.<span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;openai&quot;</span>:<br>        <span class="hljs-keyword">return</span> NativeToolClient(NativeOAISession(config))<br>    <span class="hljs-keyword">elif</span> config.<span class="hljs-built_in">type</span> == <span class="hljs-string">&quot;gemini&quot;</span>:<br>        <span class="hljs-keyword">return</span> NativeToolClient(NativeGeminiSession(config))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&quot;不支持的 LLM 类型：<span class="hljs-subst">&#123;config.<span class="hljs-built_in">type</span>&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="错误处理机制"><a href="#错误处理机制" class="headerlink" title="错误处理机制"></a>错误处理机制</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">execute_tool_safe</span>(<span class="hljs-params">self, tool_name, tool_args</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;安全执行工具（带错误处理）&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">try</span>:<br>        result = <span class="hljs-variable language_">self</span>.execute_tool(tool_name, tool_args)<br>        <span class="hljs-keyword">return</span> result<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-comment"># 记录错误</span><br>        log_error(<span class="hljs-string">f&quot;工具执行失败：<span class="hljs-subst">&#123;tool_name&#125;</span>: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br><br>        <span class="hljs-comment"># 返回错误信息给 LLM</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;❌ 工具执行失败：<span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="中断与恢复"><a href="#中断与恢复" class="headerlink" title="中断与恢复"></a>中断与恢复</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">GenericAgentHandler</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.aborted = <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">abort</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;中断当前任务&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.aborted = <span class="hljs-literal">True</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">execute_tool</span>(<span class="hljs-params">self, tool_name, tool_args</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;执行工具（检查中断标志）&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.aborted:<br>            <span class="hljs-keyword">raise</span> InterruptedError(<span class="hljs-string">&quot;任务已中断&quot;</span>)<br><br>        <span class="hljs-comment"># 执行工具...</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">reset</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;重置中断标志&quot;&quot;&quot;</span><br>        <span class="hljs-variable language_">self</span>.aborted = <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><p><strong>mykey.py</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># LLM 配置</span><br>LLM_LIST = [<br>    &#123;<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;claude&quot;</span>,<br>        <span class="hljs-string">&quot;model&quot;</span>: <span class="hljs-string">&quot;claude-3-5-sonnet-20241022&quot;</span>,<br>        <span class="hljs-string">&quot;api_key&quot;</span>: <span class="hljs-string">&quot;your-api-key&quot;</span>,<br>        <span class="hljs-string">&quot;base_url&quot;</span>: <span class="hljs-string">&quot;https://api.anthropic.com&quot;</span><br>    &#125;,<br>    &#123;<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;openai&quot;</span>,<br>        <span class="hljs-string">&quot;model&quot;</span>: <span class="hljs-string">&quot;gpt-4-turbo&quot;</span>,<br>        <span class="hljs-string">&quot;api_key&quot;</span>: <span class="hljs-string">&quot;your-api-key&quot;</span>,<br>        <span class="hljs-string">&quot;base_url&quot;</span>: <span class="hljs-string">&quot;https://api.openai.com/v1&quot;</span><br>    &#125;<br>]<br><br><span class="hljs-comment"># 默认 LLM 索引</span><br>DEFAULT_LLM = <span class="hljs-number">0</span><br><br><span class="hljs-comment"># 其他配置</span><br>SYSTEM_PROMPT = <span class="hljs-string">&quot;你是一个有用的助手...&quot;</span><br>MAX_HISTORY = <span class="hljs-number">50</span>  <span class="hljs-comment"># 最大历史记录条数</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>GenericAgent 的核心设计理念是<strong>极简主义</strong>和<strong>自我进化</strong>：</p>
+<ol>
+<li><strong>极简架构</strong>：核心代码仅约 3000 行，Agent Loop 仅约 100 行</li>
+<li><strong>原子工具</strong>：9 个基础工具覆盖所有系统级操作</li>
+<li><strong>多模型支持</strong>：统一的 LLM 抽象层，支持主流大模型</li>
+<li><strong>多前端</strong>：TUI、GUI、Web、聊天机器人等多种界面</li>
+<li><strong>记忆系统</strong>：多层记忆，支持知识积累</li>
+<li><strong>自我进化</strong>：自动将任务结晶为可复用的技能</li>
+</ol>
+<h3 id="与其他框架的对比"><a href="#与其他框架的对比" class="headerlink" title="与其他框架的对比"></a>与其他框架的对比</h3><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>GenericAgent</th>
+<th>Codex CLI</th>
+<th>Hermes Agent</th>
+<th>Pi Agent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>核心代码量</strong></td>
+<td>~3000 行</td>
+<td>~数万行</td>
+<td>~数万行</td>
+<td>~数万行</td>
+</tr>
+<tr>
+<td><strong>语言</strong></td>
+<td>Python</td>
+<td>Rust</td>
+<td>Python</td>
+<td>TypeScript</td>
+</tr>
+<tr>
+<td><strong>Agent Loop</strong></td>
+<td>~100 行</td>
+<td>复杂状态机</td>
+<td>复杂状态机</td>
+<td>复杂状态机</td>
+</tr>
+<tr>
+<td><strong>工具数量</strong></td>
+<td>9 个原子工具</td>
+<td>内置+MCP</td>
+<td>丰富工具集</td>
+<td>内置+扩展</td>
+</tr>
+<tr>
+<td><strong>前端</strong></td>
+<td>10+ 种</td>
+<td>TUI&#x2F;CLI</td>
+<td>CLI&#x2F;TUI&#x2F;Web</td>
+<td>TUI&#x2F;RPC</td>
+</tr>
+<tr>
+<td><strong>记忆系统</strong></td>
+<td>多层记忆</td>
+<td>会话存储</td>
+<td>17 种插件</td>
+<td>JSONL 会话</td>
+</tr>
+<tr>
+<td><strong>设计理念</strong></td>
+<td>极简进化</td>
+<td>工程安全</td>
+<td>全栈平台</td>
+<td>模块解耦</td>
+</tr>
+</tbody></table>
+<p><strong>GenericAgent 适合谁？</strong></p>
+<ul>
+<li>想要<strong>快速理解 AI Agent 核心原理</strong>的学习者</li>
+<li>想要<strong>构建自己 Agent 原型</strong>的开发者</li>
+<li>需要<strong>多前端接入</strong>（钉钉、Discord、微信等）的场景</li>
+<li>追求<strong>极简设计</strong>的工程师</li>
+</ul>
+<p>如果你想快速理解 AI Agent 的核心原理，或者想要一个可以随意魔改的极简 Agent 框架，GenericAgent 是绝佳的学习素材。</p>
+<hr>
+<blockquote>
+<p><strong>项目地址</strong>：GenericAgent（开源项目）<br><strong>核心文件</strong>：ga.py、agent_loop.py、agentmain.py、llmcore.py</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="category-chain-item">源码解析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI-Agent/" class="print-no-link">#AI Agent</a>
+      
+        <a href="/tags/GenericAgent/" class="print-no-link">#GenericAgent</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/%E6%9E%81%E7%AE%80%E4%B8%BB%E4%B9%89/" class="print-no-link">#极简主义</a>
+      
+        <a href="/tags/%E5%BC%80%E6%BA%90/" class="print-no-link">#开源</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>GenericAgent 源码解析：3000 行代码构建的极简自主代理</div>
+      <div>https://tingfeng347.github.io/2026/08/01/GenericAgent 源码解析：3000 行代码构建的极简自主代理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南">
+                        <span class="hidden-mobile">主流 Agent 架构分析指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

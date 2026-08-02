@@ -1,0 +1,1711 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计 深入剖析 Anthropic 官方的 AI 编程助手——Claude Code 的架构设计、核心模块与运行机制  项目简介Claude Code 是 Anthropic 推出的 AI 编程助手 CLI 工具，基于 TypeScript + React (Ink) 构建。它不仅仅是一个简单的命令行聊天工具，而是一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计 深入剖析 Anthropic 官方的 AI 编程助手——Claude Code 的架构设计、核心模块与运行机制  项目简介Claude Code 是 Anthropic 推出的 AI 编程助手 CLI 工具，基于 TypeScript + React (Ink) 构建。它不仅仅是一个简单的命令行聊天工具，而是一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-02T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-02T02:18:25.636Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Anthropic">
+<meta property="article:tag" content="Claude Code">
+<meta property="article:tag" content="React Ink">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-02 10:00" pubdate>
+          2026年8月2日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          18k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          150 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(12)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="true"
+      >
+        源码解析
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/07/20/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/25/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/28/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/01/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Claude-Code-源码解析：Anthropic-官方-AI-编程助手的架构设计"><a href="#Claude-Code-源码解析：Anthropic-官方-AI-编程助手的架构设计" class="headerlink" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"></a>Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</h1><blockquote>
+<p>深入剖析 Anthropic 官方的 AI 编程助手——Claude Code 的架构设计、核心模块与运行机制</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>Claude Code</strong> 是 Anthropic 推出的 AI 编程助手 CLI 工具，基于 TypeScript + React (Ink) 构建。它不仅仅是一个简单的命令行聊天工具，而是一个<strong>功能完备的编程代理系统</strong>。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>🤖 <strong>交互式 REPL 对话</strong>：流畅的终端交互体验</li>
+<li>🔧 <strong>40+ 内置工具</strong>：文件操作、命令执行、搜索、代理等</li>
+<li>📋 <strong>斜杠命令系统</strong>：70+ 命令，覆盖会话、配置、代码操作等</li>
+<li>🔌 <strong>MCP 支持</strong>：Model Context Protocol 标准化工具扩展</li>
+<li>🧩 <strong>插件系统</strong>：第三方工具、命令、技能包扩展</li>
+<li>👥 <strong>多代理协作</strong>：支持创建代理团队、并行执行</li>
+<li>🔒 <strong>多层安全机制</strong>：细粒度权限控制、沙箱隔离</li>
+</ul>
+<p><strong>技术栈</strong>：</p>
+<ul>
+<li><strong>语言</strong>：TypeScript + React (Ink 终端 UI)</li>
+<li><strong>运行时</strong>：Node.js 18+ &#x2F; Bun</li>
+<li><strong>构建</strong>：esbuild</li>
+<li><strong>核心依赖</strong>：<code>@anthropic-ai/sdk</code>、<code>commander</code>、<code>ink</code>、<code>zod</code></li>
+</ul>
+<hr>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs nix">src<span class="hljs-symbol">/</span><br>├── main.tsx                    <span class="hljs-comment"># 主入口文件（803KB）</span><br>├── QueryEngine.ts             <span class="hljs-comment"># 查询引擎核心（46KB）</span><br>├── query.ts                   <span class="hljs-comment"># 查询循环实现（68KB）</span><br>├── tools.ts                   <span class="hljs-comment"># 工具注册与管理（17KB）</span><br>├── commands.ts                <span class="hljs-comment"># 命令注册与路由（25KB）</span><br>├── Tool.ts                    <span class="hljs-comment"># 工具基类定义（29KB）</span><br>├── context.ts                 <span class="hljs-comment"># 上下文管理</span><br>├── history.ts                 <span class="hljs-comment"># 会话历史管理</span><br>├── cost-tracker.ts            <span class="hljs-comment"># 成本追踪</span><br>│<br>├── bootstrap<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 启动引导</span><br>├── cli<span class="hljs-symbol">/</span>                       <span class="hljs-comment"># CLI 处理器</span><br>│   ├── print.ts              <span class="hljs-comment"># 非交互式输出（212KB）</span><br>│   └── structuredIO.ts       <span class="hljs-comment"># 结构化输入输出</span><br>│<br>├── commands<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># 斜杠命令（1774 个文件）</span><br>│   ├── add-dir<span class="hljs-symbol">/</span><br>│   ├── commit<span class="hljs-symbol">/</span><br>│   ├── config<span class="hljs-symbol">/</span><br>│   ├── mcp<span class="hljs-symbol">/</span><br>│   ├── review<span class="hljs-symbol">/</span><br>│   └── ... (<span class="hljs-number">70</span><span class="hljs-operator">+</span> 命令)<br>│<br>├── tools<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># 内置工具（1412 个文件）</span><br>│   ├── AgentTool<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 代理工具</span><br>│   ├── BashTool<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 命令执行</span><br>│   ├── FileEditTool<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 文件编辑</span><br>│   ├── FileReadTool<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 文件读取</span><br>│   ├── FileWriteTool<span class="hljs-symbol">/</span>        <span class="hljs-comment"># 文件写入</span><br>│   ├── GrepTool<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 搜索工具</span><br>│   ├── WebFetchTool<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 网页抓取</span><br>│   └── ... (<span class="hljs-number">40</span><span class="hljs-operator">+</span> 工具)<br>│<br>├── services<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># 服务层</span><br>│   ├── api<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># API 调用封装</span><br>│   ├── mcp<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># MCP 协议实现</span><br>│   ├── analytics<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 遥测与分析</span><br>│   ├── compact<span class="hljs-symbol">/</span>              <span class="hljs-comment"># 上下文压缩</span><br>│   ├── plugins<span class="hljs-symbol">/</span>              <span class="hljs-comment"># 插件管理</span><br>│   └── policyLimits<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 策略限制</span><br>│<br>├── state<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># 状态管理</span><br>│   ├── AppState.tsx<br>│   ├── AppStateStore.ts<br>│   └── store.ts<br>│<br>├── utils<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># 工具函数（9542 个文件）</span><br>│   ├── permissions<span class="hljs-symbol">/</span>          <span class="hljs-comment"># 权限管理</span><br>│   ├── model<span class="hljs-symbol">/</span>                <span class="hljs-comment"># 模型管理</span><br>│   ├── settings<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 配置管理</span><br>│   ├── hooks<span class="hljs-symbol">/</span>                <span class="hljs-comment"># 钩子系统</span><br>│   └── ... (<span class="hljs-number">300</span><span class="hljs-operator">+</span> 工具模块)<br>│<br>├── components<span class="hljs-symbol">/</span>                <span class="hljs-comment"># React 组件（UI）</span><br>├── context<span class="hljs-symbol">/</span>                   <span class="hljs-comment"># React Context</span><br>├── hooks<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># React Hooks</span><br>├── types<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># TypeScript 类型定义</span><br>└── entrypoints<span class="hljs-symbol">/</span>               <span class="hljs-comment"># 入口点</span><br>    ├── cli.tsx               <span class="hljs-comment"># CLI 入口</span><br>    └── init.ts               <span class="hljs-comment"># 初始化逻辑</span><br></code></pre></td></tr></table></figure>
+
+<p>这个规模令人印象深刻——仅 <code>utils/</code> 目录就有 9542 个文件，<code>commands/</code> 有 1774 个文件，<code>tools/</code> 有 1412 个文件。</p>
+<hr>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><h3 id="入口点：src-main-tsx"><a href="#入口点：src-main-tsx" class="headerlink" title="入口点：src/main.tsx"></a>入口点：<code>src/main.tsx</code></h3><p>Claude Code 的启动流程经过精心设计，通过<strong>并行预取</strong>减少启动延迟：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs stylus">┌─────────────────────────────────────────────────────────┐<br>│  <span class="hljs-number">1</span>. 性能追踪启动                                         │<br>│     <span class="hljs-built_in">profileCheckpoint</span>(<span class="hljs-string">&#x27;main_tsx_entry&#x27;</span>)                 │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">2</span>. 并行预取（减少启动延迟）                              │<br>│     - <span class="hljs-built_in">startMdmRawRead</span>() - MDM 配置读取                  │<br>│     - <span class="hljs-built_in">startKeychainPrefetch</span>() - 密钥链预取              │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">3</span>. 加载 <span class="hljs-number">135</span>+ 模块依赖                                   │<br>│     - 命令、工具、服务、工具函数                          │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">4</span>. CLI 参数解析（Commander）                             │<br>│     - 解析命令行参数                                     │<br>│     - 加载配置文件                                       │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">5</span>. 初始化核心服务                                        │<br>│     - GrowthBook（特性开关）                             │<br>│     - 遥测系统                                           │<br>│     - 策略限制                                           │<br>│     - MCP 服务器                                         │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">6</span>. 认证与授权                                           │<br>│     - OAuth / API Key 验证                               │<br>│     - 权限模式初始化                                     │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">7</span>. 启动模式分支                                         │<br>│     ├─ 交互模式 → <span class="hljs-built_in">launchRepl</span>()                          │<br>│     ├─ 非交互模式 → print<span class="hljs-selector-class">.ts</span>                            │<br>│     └─ SDK 模式 → QueryEngine                           │<br>└─────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="启动优化策略"><a href="#启动优化策略" class="headerlink" title="启动优化策略"></a>启动优化策略</h3><p><strong>并行预取机制</strong>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 在模块加载的同时并行执行 I/O 操作</span><br><span class="hljs-title function_">startMdmRawRead</span>();           <span class="hljs-comment">// 启动 MDM 子进程</span><br><span class="hljs-title function_">startKeychainPrefetch</span>();     <span class="hljs-comment">// 预取 macOS 密钥链</span><br><span class="hljs-title function_">prefetchAwsCredentialsAndBedRockInfoIfSafe</span>();<br></code></pre></td></tr></table></figure>
+
+<p><strong>延迟加载</strong>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 使用 feature flag 实现死代码消除</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">SleepTool</span> = <span class="hljs-title function_">feature</span>(<span class="hljs-string">&#x27;PROACTIVE&#x27;</span>) || <span class="hljs-title function_">feature</span>(<span class="hljs-string">&#x27;KAIROS&#x27;</span>)<br>  ? <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./tools/SleepTool/SleepTool.js&#x27;</span>).<span class="hljs-property">SleepTool</span><br>  : <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<p>这种设计非常巧妙——在等待模块加载的同时，并行执行 I&#x2F;O 操作，显著减少启动时间。</p>
+<hr>
+<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌──────────────────────────────────────────────────────────────┐<br>│                        用户界面层                             │<br>│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │<br>│  │  REPL    │  │  CLI     │  │  SDK     │  │  IDE     │   │<br>│  │  (Ink)   │  │  (print) │  │  (API)   │  │  (Ext)   │   │<br>│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │<br>└───────┼──────────────┼──────────────┼──────────────┼────────┘<br>        │              │              │              │<br>        └──────────────┴──────────────┴──────────────┘<br>                       │<br>        ┌──────────────┴──────────────┐<br>        │      QueryEngine            │<br>        │  ┌─────────────────────┐    │<br>        │  │  消息管理            │    │<br>        │  │  工具编排            │    │<br>        │  │  权限控制            │    │<br>        │  │  上下文压缩          │    │<br>        │  └─────────────────────┘    │<br>        └──────────────┬──────────────┘<br>                       │<br>        ┌──────────────┴──────────────┐<br>        │        服务层                │<br>        │  ┌──────┐  ┌──────┐        │<br>        │  │ API  │  │ MCP  │        │<br>        │  └──────┘  └──────┘        │<br>        │  ┌──────┐  ┌──────┐        │<br>        │  │插件  │  │遥测  │        │<br>        │  └──────┘  └──────┘        │<br>        └──────────────┬──────────────┘<br>                       │<br>        ┌──────────────┴──────────────┐<br>        │       工具 &amp; 命令           │<br>        │  ┌──────┐  ┌──────┐        │<br>        │  │工具  │  │命令  │        │<br>        │  │(<span class="hljs-number">40</span>+) │  │(<span class="hljs-number">70</span>+) │        │<br>        │  └──────┘  └──────┘        │<br>        └─────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="QueryEngine：查询引擎核心"><a href="#QueryEngine：查询引擎核心" class="headerlink" title="QueryEngine：查询引擎核心"></a>QueryEngine：查询引擎核心</h2><p><strong>文件</strong>：<code>src/QueryEngine.ts</code> (46KB)</p>
+<p>QueryEngine 是整个系统的”大脑”，负责：</p>
+<ul>
+<li>管理会话状态（消息历史、文件缓存、使用量）</li>
+<li>协调查询生命周期</li>
+<li>处理工具执行和权限检查</li>
+<li>支持多轮对话和上下文压缩</li>
+</ul>
+<h3 id="核心接口"><a href="#核心接口" class="headerlink" title="核心接口"></a>核心接口</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">QueryEngineConfig</span> = &#123;<br>  <span class="hljs-attr">cwd</span>: <span class="hljs-built_in">string</span>                          <span class="hljs-comment">// 工作目录</span><br>  <span class="hljs-attr">tools</span>: <span class="hljs-title class_">Tools</span>                         <span class="hljs-comment">// 可用工具列表</span><br>  <span class="hljs-attr">commands</span>: <span class="hljs-title class_">Command</span>[]                  <span class="hljs-comment">// 可用命令列表</span><br>  <span class="hljs-attr">mcpClients</span>: <span class="hljs-title class_">MCPServerConnection</span>[]    <span class="hljs-comment">// MCP 连接</span><br>  <span class="hljs-attr">agents</span>: <span class="hljs-title class_">AgentDefinition</span>[]            <span class="hljs-comment">// 代理定义</span><br>  <span class="hljs-attr">canUseTool</span>: <span class="hljs-title class_">CanUseToolFn</span>             <span class="hljs-comment">// 权限检查函数</span><br>  <span class="hljs-attr">getAppState</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">AppState</span>          <span class="hljs-comment">// 状态获取</span><br>  <span class="hljs-attr">setAppState</span>: <span class="hljs-function">(<span class="hljs-params">f</span>) =&gt;</span> <span class="hljs-built_in">void</span>             <span class="hljs-comment">// 状态更新</span><br>  <span class="hljs-attr">initialMessages</span>?: <span class="hljs-title class_">Message</span>[]          <span class="hljs-comment">// 初始消息</span><br>  <span class="hljs-attr">readFileCache</span>: <span class="hljs-title class_">FileStateCache</span>        <span class="hljs-comment">// 文件缓存</span><br>  <span class="hljs-attr">userSpecifiedModel</span>?: <span class="hljs-built_in">string</span>          <span class="hljs-comment">// 模型覆盖</span><br>  <span class="hljs-attr">thinkingConfig</span>?: <span class="hljs-title class_">ThinkingConfig</span>      <span class="hljs-comment">// 思考配置</span><br>  <span class="hljs-attr">maxTurns</span>?: <span class="hljs-built_in">number</span>                    <span class="hljs-comment">// 最大轮次</span><br>  <span class="hljs-attr">maxBudgetUsd</span>?: <span class="hljs-built_in">number</span>                <span class="hljs-comment">// 预算限制</span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QueryEngine</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">config</span>: <span class="hljs-title class_">QueryEngineConfig</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">mutableMessages</span>: <span class="hljs-title class_">Message</span>[]<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">abortController</span>: <span class="hljs-title class_">AbortController</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">permissionDenials</span>: <span class="hljs-title class_">SDKPermissionDenial</span>[]<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">totalUsage</span>: <span class="hljs-title class_">NonNullableUsage</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">readFileState</span>: <span class="hljs-title class_">FileStateCache</span><br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">config</span>: <span class="hljs-title class_">QueryEngineConfig</span></span>)<br>  <span class="hljs-title function_">submitMessage</span>(<span class="hljs-attr">userMessage</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">AsyncGenerator</span>&lt;<span class="hljs-title class_">Message</span>&gt;<br>  <span class="hljs-title function_">abort</span>(): <span class="hljs-built_in">void</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="查询循环（Agent-Loop）"><a href="#查询循环（Agent-Loop）" class="headerlink" title="查询循环（Agent Loop）"></a>查询循环（Agent Loop）</h2><p><strong>文件</strong>：<code>src/query.ts</code> (68KB)</p>
+<p>查询循环是整个系统的”心脏”，实现了 LLM 调用与工具执行的交替进行：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs">┌──────────────┐<br>│  初始状态    │<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│ API 调用     │ ← 流式接收响应<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│ 检查工具调用 │<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│ 权限检查     │ → 拒绝 → 返回错误<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│ 执行工具     │<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│ 结果处理     │ → 需要继续 → 回到 API 调用<br>└──────┬───────┘<br>       ↓<br>┌──────────────┐<br>│  结束状态    │<br>└──────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>* <span class="hljs-title function_">queryLoop</span>(<span class="hljs-params">params, consumedCommandUuids</span>) &#123;<br>  <span class="hljs-keyword">let</span> <span class="hljs-attr">state</span>: <span class="hljs-title class_">State</span> = &#123;<br>    <span class="hljs-attr">messages</span>: params.<span class="hljs-property">messages</span>,<br>    <span class="hljs-attr">toolUseContext</span>: params.<span class="hljs-property">toolUseContext</span>,<br>    <span class="hljs-attr">autoCompactTracking</span>: <span class="hljs-literal">undefined</span>,<br>    <span class="hljs-attr">maxOutputTokensRecoveryCount</span>: <span class="hljs-number">0</span>,<br>    <span class="hljs-attr">hasAttemptedReactiveCompact</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">turnCount</span>: <span class="hljs-number">0</span>,<br>  &#125;<br><br>  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-comment">// 1. 检查终止条件</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">shouldTerminate</span>(state)) &#123;<br>      <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">terminal</span>: <span class="hljs-literal">true</span> &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 2. 调用 API</span><br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">yield</span>* <span class="hljs-title function_">callAPI</span>(state)<br><br>    <span class="hljs-comment">// 3. 处理响应</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> event <span class="hljs-keyword">of</span> response) &#123;<br>      <span class="hljs-keyword">yield</span> event  <span class="hljs-comment">// 流式输出</span><br><br>      <span class="hljs-keyword">if</span> (event.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;assistant&#x27;</span>) &#123;<br>        state.<span class="hljs-property">messages</span>.<span class="hljs-title function_">push</span>(event)<br><br>        <span class="hljs-comment">// 4. 检查工具调用</span><br>        <span class="hljs-keyword">const</span> toolUses = <span class="hljs-title function_">extractToolUses</span>(event)<br>        <span class="hljs-keyword">if</span> (toolUses.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;<br>          <span class="hljs-comment">// 5. 执行工具</span><br>          <span class="hljs-keyword">const</span> results = <span class="hljs-keyword">yield</span>* <span class="hljs-title function_">executeTools</span>(toolUses, state)<br>          state.<span class="hljs-property">messages</span>.<span class="hljs-title function_">push</span>(...results)<br>        &#125;<br>      &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 6. 自动压缩检查</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">shouldCompact</span>(state)) &#123;<br>      state = <span class="hljs-keyword">yield</span>* <span class="hljs-title function_">compactContext</span>(state)<br>    &#125;<br><br>    state.<span class="hljs-property">turnCount</span>++<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键特性</strong>：</p>
+<ul>
+<li><strong>自动压缩</strong>：检测上下文过长时自动压缩</li>
+<li><strong>错误恢复</strong>：处理 API 错误和重试</li>
+<li><strong>工具编排</strong>：支持并发工具执行</li>
+<li><strong>令牌预算</strong>：跟踪和控制 token 使用</li>
+</ul>
+<hr>
+<h2 id="工具系统"><a href="#工具系统" class="headerlink" title="工具系统"></a>工具系统</h2><h3 id="工具基类"><a href="#工具基类" class="headerlink" title="工具基类"></a>工具基类</h3><p><strong>文件</strong>：<code>src/Tool.ts</code> (29KB)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Tool</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">inputSchema</span>: <span class="hljs-title class_">ToolInputJSONSchema</span><br><br>  <span class="hljs-comment">// 核心方法</span><br>  <span class="hljs-title function_">isEnabled</span>(): <span class="hljs-built_in">boolean</span><br>  <span class="hljs-title function_">call</span>(<span class="hljs-attr">input</span>: <span class="hljs-built_in">any</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">ToolUseContext</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ToolResult</span>&gt;<br><br>  <span class="hljs-comment">// 可选方法</span><br>  validate?(<span class="hljs-attr">input</span>: <span class="hljs-built_in">any</span>): <span class="hljs-title class_">ValidationResult</span><br>  getPromptAddendum?(): <span class="hljs-built_in">string</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="工具上下文"><a href="#工具上下文" class="headerlink" title="工具上下文"></a>工具上下文</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">ToolUseContext</span> = &#123;<br>  <span class="hljs-attr">cwd</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">readFileState</span>: <span class="hljs-title class_">FileStateCache</span><br>  <span class="hljs-attr">messages</span>: <span class="hljs-title class_">Message</span>[]<br>  <span class="hljs-attr">toolPermissionContext</span>: <span class="hljs-title class_">ToolPermissionContext</span><br>  <span class="hljs-attr">canUseTool</span>: <span class="hljs-title class_">CanUseToolFn</span><br>  <span class="hljs-attr">setToolJSX</span>?: <span class="hljs-title class_">SetToolJSXFn</span><br>  <span class="hljs-attr">addNotification</span>?: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">notif</span>: <span class="hljs-title class_">Notification</span></span>) =&gt;</span> <span class="hljs-built_in">void</span><br>  <span class="hljs-attr">agentId</span>?: <span class="hljs-title class_">AgentId</span><br>  <span class="hljs-attr">agentType</span>?: <span class="hljs-built_in">string</span><br>  <span class="hljs-comment">// ... 更多上下文</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="工具分类"><a href="#工具分类" class="headerlink" title="工具分类"></a>工具分类</h3><h4 id="文件操作工具"><a href="#文件操作工具" class="headerlink" title="文件操作工具"></a>文件操作工具</h4><table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能</th>
+<th>权限要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>FileReadTool</code></td>
+<td>读取文件内容</td>
+<td>读取权限</td>
+</tr>
+<tr>
+<td><code>FileEditTool</code></td>
+<td>编辑文件（精确替换）</td>
+<td>写入权限</td>
+</tr>
+<tr>
+<td><code>FileWriteTool</code></td>
+<td>写入&#x2F;创建文件</td>
+<td>写入权限</td>
+</tr>
+<tr>
+<td><code>NotebookEditTool</code></td>
+<td>编辑 Jupyter Notebook</td>
+<td>写入权限</td>
+</tr>
+</tbody></table>
+<h4 id="命令执行工具"><a href="#命令执行工具" class="headerlink" title="命令执行工具"></a>命令执行工具</h4><table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能</th>
+<th>权限要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BashTool</code></td>
+<td>执行 Bash 命令</td>
+<td>命令权限</td>
+</tr>
+<tr>
+<td><code>PowerShellTool</code></td>
+<td>执行 PowerShell（Windows）</td>
+<td>命令权限</td>
+</tr>
+</tbody></table>
+<h4 id="搜索工具"><a href="#搜索工具" class="headerlink" title="搜索工具"></a>搜索工具</h4><table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能</th>
+<th>实现方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>GrepTool</code></td>
+<td>内容搜索</td>
+<td>ripgrep</td>
+</tr>
+<tr>
+<td><code>GlobTool</code></td>
+<td>文件名搜索</td>
+<td>glob 模式</td>
+</tr>
+<tr>
+<td><code>WebSearchTool</code></td>
+<td>网络搜索</td>
+<td>Tavily API</td>
+</tr>
+<tr>
+<td><code>WebFetchTool</code></td>
+<td>网页抓取</td>
+<td>HTTP 请求</td>
+</tr>
+</tbody></table>
+<h4 id="代理工具"><a href="#代理工具" class="headerlink" title="代理工具"></a>代理工具</h4><table>
+<thead>
+<tr>
+<th>工具名</th>
+<th>功能</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>AgentTool</code></td>
+<td>创建子代理</td>
+<td>支持并行执行</td>
+</tr>
+<tr>
+<td><code>SendMessageTool</code></td>
+<td>代理间通信</td>
+<td>消息传递</td>
+</tr>
+<tr>
+<td><code>TeamCreateTool</code></td>
+<td>创建代理团队</td>
+<td>多代理协作</td>
+</tr>
+</tbody></table>
+<h3 id="工具执行流程"><a href="#工具执行流程" class="headerlink" title="工具执行流程"></a>工具执行流程</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">1.</span> Claude 返回 tool_use 块              │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">2.</span> 查找工具实现                         │<br>│     findToolByName(<span class="hljs-type">name</span>)                 │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">3.</span> 输入验证                             │<br>│     tool.<span class="hljs-keyword">validate</span>(<span class="hljs-keyword">input</span>)                 │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">4.</span> 权限检查                             │<br>│     canUseTool(tool, <span class="hljs-keyword">input</span>)              │<br>│     ├─ 允许 → 继续                      │<br>│     ├─ 拒绝 → 返回拒绝结果              │<br>│     └─ 询问 → 显示权限对话框            │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">5.</span> 执行工具                             │<br>│     tool.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">input</span>, context)            │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">6.</span> 处理结果                             │<br>│     - 添加 tool_result 消息              │<br>│     - 更新状态                           │<br>│     - 应用上下文修改                     │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="并发工具执行"><a href="#并发工具执行" class="headerlink" title="并发工具执行"></a>并发工具执行</h3><p><strong>文件</strong>：<code>src/services/tools/StreamingToolExecutor.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">StreamingToolExecutor</span> &#123;<br>  <span class="hljs-comment">// 并发执行多个工具调用</span><br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">executeTools</span>(<span class="hljs-attr">toolUses</span>: <span class="hljs-title class_">ToolUseBlock</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ToolResult</span>[]&gt; &#123;<br>    <span class="hljs-comment">// 检查工具是否支持并发</span><br>    <span class="hljs-comment">// 分组执行并发安全的工具</span><br>    <span class="hljs-comment">// 按顺序执行有依赖的工具</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>并发策略</strong>：</p>
+<ul>
+<li>读写操作互斥</li>
+<li>多个读操作可以并发</li>
+<li>命令执行默认串行</li>
+</ul>
+<hr>
+<h2 id="命令系统"><a href="#命令系统" class="headerlink" title="命令系统"></a>命令系统</h2><h3 id="命令注册"><a href="#命令注册" class="headerlink" title="命令注册"></a>命令注册</h3><p><strong>文件</strong>：<code>src/commands.ts</code> (25KB)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Command</span> = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;local&#x27;</span> | <span class="hljs-string">&#x27;prompt&#x27;</span> | <span class="hljs-string">&#x27;jsx&#x27;</span><br><br>  <span class="hljs-comment">// 本地命令（不发送给 AI）</span><br>  callLocal?(<span class="hljs-attr">args</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CommandContext</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;<br><br>  <span class="hljs-comment">// 提示命令（生成 AI 提示）</span><br>  getPromptForCommand?(<span class="hljs-attr">args</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CommandContext</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;<br><br>  <span class="hljs-comment">// JSX 命令（显示 UI）</span><br>  getJSXForCommand?(<span class="hljs-attr">args</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">context</span>: <span class="hljs-title class_">CommandContext</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">React</span>.<span class="hljs-property">ReactNode</span>&gt;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="命令分类"><a href="#命令分类" class="headerlink" title="命令分类"></a>命令分类</h3><h4 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/clear</code></td>
+<td>清除对话历史</td>
+</tr>
+<tr>
+<td><code>/compact</code></td>
+<td>压缩上下文</td>
+</tr>
+<tr>
+<td><code>/resume</code></td>
+<td>恢复会话</td>
+</tr>
+<tr>
+<td><code>/session</code></td>
+<td>会话信息</td>
+</tr>
+<tr>
+<td><code>/exit</code></td>
+<td>退出程序</td>
+</tr>
+</tbody></table>
+<h4 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/config</code></td>
+<td>配置设置</td>
+</tr>
+<tr>
+<td><code>/model</code></td>
+<td>切换模型</td>
+</tr>
+<tr>
+<td><code>/effort</code></td>
+<td>设置努力程度</td>
+</tr>
+<tr>
+<td><code>/fast</code></td>
+<td>快速模式</td>
+</tr>
+<tr>
+<td><code>/theme</code></td>
+<td>主题设置</td>
+</tr>
+</tbody></table>
+<h4 id="代码操作"><a href="#代码操作" class="headerlink" title="代码操作"></a>代码操作</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/commit</code></td>
+<td>提交更改</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>代码审查</td>
+</tr>
+<tr>
+<td><code>/security-review</code></td>
+<td>安全审查</td>
+</tr>
+<tr>
+<td><code>/diff</code></td>
+<td>查看差异</td>
+</tr>
+</tbody></table>
+<h4 id="工具集成"><a href="#工具集成" class="headerlink" title="工具集成"></a>工具集成</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/mcp</code></td>
+<td>MCP 服务器管理</td>
+</tr>
+<tr>
+<td><code>/plugin</code></td>
+<td>插件管理</td>
+</tr>
+<tr>
+<td><code>/skills</code></td>
+<td>技能管理</td>
+</tr>
+<tr>
+<td><code>/hooks</code></td>
+<td>钩子管理</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h2><h3 id="AppState-架构"><a href="#AppState-架构" class="headerlink" title="AppState 架构"></a>AppState 架构</h3><p><strong>文件</strong>：<code>src/state/AppState.tsx</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">AppState</span> = &#123;<br>  <span class="hljs-comment">// 会话状态</span><br>  <span class="hljs-attr">messages</span>: <span class="hljs-title class_">Message</span>[]<br>  <span class="hljs-attr">sessionId</span>: <span class="hljs-variable constant_">UUID</span><br>  <span class="hljs-attr">conversationId</span>: <span class="hljs-variable constant_">UUID</span><br><br>  <span class="hljs-comment">// 模型配置</span><br>  <span class="hljs-attr">mainLoopModel</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">thinkingConfig</span>: <span class="hljs-title class_">ThinkingConfig</span><br>  <span class="hljs-attr">effort</span>: <span class="hljs-string">&#x27;low&#x27;</span> | <span class="hljs-string">&#x27;medium&#x27;</span> | <span class="hljs-string">&#x27;high&#x27;</span><br><br>  <span class="hljs-comment">// 权限状态</span><br>  <span class="hljs-attr">toolPermissionContext</span>: <span class="hljs-title class_">ToolPermissionContext</span><br>  <span class="hljs-attr">permissionDenials</span>: <span class="hljs-title class_">SDKPermissionDenial</span>[]<br><br>  <span class="hljs-comment">// UI 状态</span><br>  <span class="hljs-attr">verbose</span>: <span class="hljs-built_in">boolean</span><br>  <span class="hljs-attr">spinnerMode</span>: <span class="hljs-title class_">SpinnerMode</span><br>  <span class="hljs-attr">hasInterruptibleToolInProgress</span>: <span class="hljs-built_in">boolean</span><br><br>  <span class="hljs-comment">// 文件状态</span><br>  <span class="hljs-attr">readFileState</span>: <span class="hljs-title class_">FileStateCache</span><br>  <span class="hljs-attr">fileHistoryState</span>: <span class="hljs-title class_">FileHistoryState</span><br><br>  <span class="hljs-comment">// 工具状态</span><br>  <span class="hljs-attr">inProgressToolUseIDs</span>: <span class="hljs-title class_">Set</span>&lt;<span class="hljs-built_in">string</span>&gt;<br>  <span class="hljs-attr">toolDecisions</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">ToolDecision</span>&gt;<br><br>  <span class="hljs-comment">// 成本追踪</span><br>  <span class="hljs-attr">totalUsage</span>: <span class="hljs-title class_">Usage</span><br>  <span class="hljs-attr">totalCost</span>: <span class="hljs-built_in">number</span><br><br>  <span class="hljs-comment">// 代理状态</span><br>  <span class="hljs-attr">currentAgentId</span>?: <span class="hljs-title class_">AgentId</span><br>  <span class="hljs-attr">agentType</span>?: <span class="hljs-built_in">string</span><br><br>  <span class="hljs-comment">// 推测执行</span><br>  <span class="hljs-attr">speculationState</span>: <span class="hljs-title class_">SpeculationState</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="状态存储"><a href="#状态存储" class="headerlink" title="状态存储"></a>状态存储</h3><p><strong>文件</strong>：<code>src/state/store.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">createStore</span>(<span class="hljs-params"><span class="hljs-attr">initialState</span>: <span class="hljs-title class_">AppState</span>, <span class="hljs-attr">onChange</span>?: <span class="hljs-title class_">OnChange</span></span>) &#123;<br>  <span class="hljs-keyword">let</span> state = initialState<br>  <span class="hljs-keyword">const</span> listeners = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>&lt;<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span>&gt;()<br><br>  <span class="hljs-keyword">return</span> &#123;<br>    <span class="hljs-attr">getState</span>: <span class="hljs-function">() =&gt;</span> state,<br><br>    <span class="hljs-attr">setState</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">updater</span>: (prev: AppState) =&gt; <span class="hljs-title class_">AppState</span></span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">const</span> oldState = state<br>      state = <span class="hljs-title function_">updater</span>(state)<br><br>      <span class="hljs-comment">// 通知订阅者</span><br>      listeners.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">l</span> =&gt;</span> <span class="hljs-title function_">l</span>())<br><br>      <span class="hljs-comment">// 调用 onChange 回调</span><br>      onChange?.(&#123; <span class="hljs-attr">newState</span>: state, oldState &#125;)<br>    &#125;,<br><br>    <span class="hljs-attr">subscribe</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">listener</span>: () =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> &#123;<br>      listeners.<span class="hljs-title function_">add</span>(listener)<br>      <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> listeners.<span class="hljs-title function_">delete</span>(listener)<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="React-集成"><a href="#React-集成" class="headerlink" title="React 集成"></a>React 集成</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// Context Provider</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">AppStateProvider</span>(<span class="hljs-params">&#123; children, initialState &#125;</span>) &#123;<br>  <span class="hljs-keyword">const</span> [store] = <span class="hljs-title function_">useState</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">createStore</span>(initialState))<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">AppStoreContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;store&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MailboxProvider</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">VoiceProvider</span>&gt;</span></span><br><span class="language-xml">          &#123;children&#125;</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">VoiceProvider</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">MailboxProvider</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">AppStoreContext.Provider</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-comment">// 状态选择 Hook</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> useAppState&lt;T&gt;(<span class="hljs-attr">selector</span>: <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">state</span>: <span class="hljs-title class_">AppState</span></span>) =&gt;</span> T): T &#123;<br>  <span class="hljs-keyword">const</span> store = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">AppStoreContext</span>)<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">useSyncExternalStore</span>(<br>    store.<span class="hljs-property">subscribe</span>,<br>    <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">selector</span>(store.<span class="hljs-title function_">getState</span>())<br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="权限与安全机制"><a href="#权限与安全机制" class="headerlink" title="权限与安全机制"></a>权限与安全机制</h2><h3 id="权限模式"><a href="#权限模式" class="headerlink" title="权限模式"></a>权限模式</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">PermissionMode</span> =<br>  | <span class="hljs-string">&#x27;default&#x27;</span>      <span class="hljs-comment">// 默认模式（询问）</span><br>  | <span class="hljs-string">&#x27;auto&#x27;</span>         <span class="hljs-comment">// 自动模式（AI 决定）</span><br>  | <span class="hljs-string">&#x27;bypass&#x27;</span>       <span class="hljs-comment">// 绕过模式（全部允许）</span><br>  | <span class="hljs-string">&#x27;plan&#x27;</span>         <span class="hljs-comment">// 计划模式（只读）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="权限规则"><a href="#权限规则" class="headerlink" title="权限规则"></a>权限规则</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">ToolPermissionContext</span> = &#123;<br>  <span class="hljs-attr">mode</span>: <span class="hljs-title class_">PermissionMode</span><br>  <span class="hljs-attr">additionalWorkingDirectories</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">AdditionalWorkingDirectory</span>&gt;<br>  <span class="hljs-attr">alwaysAllowRules</span>: <span class="hljs-title class_">ToolPermissionRulesBySource</span><br>  <span class="hljs-attr">alwaysDenyRules</span>: <span class="hljs-title class_">ToolPermissionRulesBySource</span><br>  <span class="hljs-attr">alwaysAskRules</span>: <span class="hljs-title class_">ToolPermissionRulesBySource</span><br>  <span class="hljs-attr">isBypassPermissionsModeAvailable</span>: <span class="hljs-built_in">boolean</span><br>  <span class="hljs-attr">isAutoModeAvailable</span>?: <span class="hljs-built_in">boolean</span><br>&#125;<br><br><span class="hljs-comment">// 权限规则来源</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">ToolPermissionRulesBySource</span> = &#123;<br>  <span class="hljs-attr">global</span>?: <span class="hljs-title class_">PermissionRule</span>[]      <span class="hljs-comment">// 全局配置</span><br>  <span class="hljs-attr">project</span>?: <span class="hljs-title class_">PermissionRule</span>[]     <span class="hljs-comment">// 项目配置</span><br>  <span class="hljs-attr">session</span>?: <span class="hljs-title class_">PermissionRule</span>[]     <span class="hljs-comment">// 会话配置</span><br>&#125;<br><br><span class="hljs-comment">// 权限规则</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">PermissionRule</span> = &#123;<br>  <span class="hljs-attr">toolName</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">rule</span>: <span class="hljs-string">&#x27;allow&#x27;</span> | <span class="hljs-string">&#x27;deny&#x27;</span> | <span class="hljs-string">&#x27;ask&#x27;</span><br>  <span class="hljs-attr">condition</span>?: &#123;<br>    <span class="hljs-attr">path</span>?: <span class="hljs-built_in">string</span>               <span class="hljs-comment">// 文件路径匹配</span><br>    <span class="hljs-attr">command</span>?: <span class="hljs-built_in">string</span>            <span class="hljs-comment">// 命令匹配</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="权限检查流程"><a href="#权限检查流程" class="headerlink" title="权限检查流程"></a>权限检查流程</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">┌─────────────────────────────────────────┐<br>│  工具调用请求                            │<br>│  tool.call(input, context)              │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">1.</span> 检查权限模式                         │<br>│     <span class="hljs-keyword">if</span> (mode === <span class="hljs-string">&#x27;bypass&#x27;</span>) <span class="hljs-keyword">return</span> allow │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">2.</span> 检查 alwaysAllow 规则               │<br>│     <span class="hljs-keyword">if</span> (matchesAllowRule(tool, input))  │<br>│       <span class="hljs-keyword">return</span> allow                      │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">3.</span> 检查 alwaysDeny 规则                │<br>│     <span class="hljs-keyword">if</span> (matchesDenyRule(tool, input))   │<br>│       <span class="hljs-keyword">return</span> deny                       │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">4.</span> 检查 auto 模式安全工具              │<br>│     <span class="hljs-keyword">if</span> (mode === <span class="hljs-string">&#x27;auto&#x27;</span> &amp;&amp;              │<br>│         safeTools.includes(tool))       │<br>│       <span class="hljs-keyword">return</span> allow                      │<br>└──────────────┬──────────────────────────┘<br>               ↓<br>┌─────────────────────────────────────────┐<br>│  <span class="hljs-number">5.</span> 显示权限对话框                       │<br>│     await showPermissionDialog(tool)    │<br>│     ├─ 允许 → <span class="hljs-keyword">return</span> allow              │<br>│     ├─ 拒绝 → <span class="hljs-keyword">return</span> deny               │<br>│     └─ 记住 → 添加规则 + <span class="hljs-keyword">return</span>         │<br>└─────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="安全检查"><a href="#安全检查" class="headerlink" title="安全检查"></a>安全检查</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 危险命令检测</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">isDangerousCommand</span>(<span class="hljs-params"><span class="hljs-attr">command</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">boolean</span> &#123;<br>  <span class="hljs-keyword">const</span> dangerousPatterns = [<br>    <span class="hljs-regexp">/rm\s+-rf/i</span>,<br>    <span class="hljs-regexp">/mkfs\./i</span>,<br>    <span class="hljs-regexp">/dd\s+if=/i</span>,<br>    <span class="hljs-regexp">/&gt;\s*\/dev\/[sh]d/i</span>,<br>    <span class="hljs-regexp">/chmod\s+-R\s+777/i</span>,<br>    <span class="hljs-regexp">/curl.*\|\s*sh/i</span>,<br>  ]<br><br>  <span class="hljs-keyword">return</span> dangerousPatterns.<span class="hljs-title function_">some</span>(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.<span class="hljs-title function_">test</span>(command))<br>&#125;<br><br><span class="hljs-comment">// 文件路径验证</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">validateFilePath</span>(<span class="hljs-params"><span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-title class_">ValidationResult</span> &#123;<br>  <span class="hljs-comment">// 1. 检查路径遍历</span><br>  <span class="hljs-keyword">if</span> (path.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;..&#x27;</span>)) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">result</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;路径遍历不允许&#x27;</span> &#125;<br>  &#125;<br><br>  <span class="hljs-comment">// 2. 检查工作目录</span><br>  <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isWithinWorkingDir</span>(path)) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">result</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;路径超出工作目录&#x27;</span> &#125;<br>  &#125;<br><br>  <span class="hljs-comment">// 3. 检查符号链接</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isSymlink</span>(path)) &#123;<br>    <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">result</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;符号链接不允许&#x27;</span> &#125;<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">result</span>: <span class="hljs-literal">true</span> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="服务层架构"><a href="#服务层架构" class="headerlink" title="服务层架构"></a>服务层架构</h2><h3 id="API-服务"><a href="#API-服务" class="headerlink" title="API 服务"></a>API 服务</h3><p><strong>目录</strong>：<code>src/services/api/</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">services<span class="hljs-regexp">/api/</span><br>├── claude.ts              <span class="hljs-comment"># Claude API 封装</span><br>├── bootstrap.ts           <span class="hljs-comment"># 启动数据获取</span><br>├── errors.ts              <span class="hljs-comment"># 错误分类</span><br>├── withRetry.ts           <span class="hljs-comment"># 重试逻辑</span><br>└── logging.ts             <span class="hljs-comment"># 使用量记录</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>重试策略</strong>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 重试策略</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">categorizeRetryableAPIError</span>(<span class="hljs-params"><span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span></span>): <span class="hljs-title class_">RetryStrategy</span> &#123;<br>  <span class="hljs-comment">// 网络错误 → 立即重试</span><br>  <span class="hljs-comment">// 速率限制 → 延迟重试</span><br>  <span class="hljs-comment">// 服务器错误 → 指数退避</span><br>  <span class="hljs-comment">// 客户端错误 → 不重试</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="MCP-服务"><a href="#MCP-服务" class="headerlink" title="MCP 服务"></a>MCP 服务</h3><p><strong>目录</strong>：<code>src/services/mcp/</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// MCP 服务器连接</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">MCPServerConnection</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">config</span>: <span class="hljs-title class_">McpServerConfig</span><br>  <span class="hljs-attr">client</span>: <span class="hljs-title class_">MCPClient</span><br><br>  <span class="hljs-comment">// 工具发现</span><br>  <span class="hljs-title function_">listTools</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Tool</span>[]&gt;<br><br>  <span class="hljs-comment">// 资源访问</span><br>  <span class="hljs-title function_">listResources</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Resource</span>[]&gt;<br>  <span class="hljs-title function_">readResource</span>(<span class="hljs-attr">uri</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Content</span>&gt;<br><br>  <span class="hljs-comment">// 提示模板</span><br>  <span class="hljs-title function_">listPrompts</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Prompt</span>[]&gt;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="插件服务"><a href="#插件服务" class="headerlink" title="插件服务"></a>插件服务</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 插件定义</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Plugin</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">version</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">commands</span>: <span class="hljs-title class_">Command</span>[]<br>  <span class="hljs-attr">tools</span>?: <span class="hljs-title class_">Tool</span>[]<br>  <span class="hljs-attr">skills</span>?: <span class="hljs-title class_">Skill</span>[]<br>&#125;<br><br><span class="hljs-comment">// 插件加载</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">loadPlugins</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Plugin</span>[]&gt; &#123;<br>  <span class="hljs-comment">// 1. 扫描插件目录</span><br>  <span class="hljs-comment">// 2. 验证插件签名</span><br>  <span class="hljs-comment">// 3. 加载插件模块</span><br>  <span class="hljs-comment">// 4. 注册命令和工具</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关键运行机制"><a href="#关键运行机制" class="headerlink" title="关键运行机制"></a>关键运行机制</h2><h3 id="上下文压缩"><a href="#上下文压缩" class="headerlink" title="上下文压缩"></a>上下文压缩</h3><p><strong>文件</strong>：<code>src/services/compact/autoCompact.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 压缩触发条件</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">shouldCompact</span>(<span class="hljs-params"><span class="hljs-attr">state</span>: <span class="hljs-title class_">State</span></span>): <span class="hljs-built_in">boolean</span> &#123;<br>  <span class="hljs-keyword">const</span> tokenCount = <span class="hljs-title function_">countTokens</span>(state.<span class="hljs-property">messages</span>)<br>  <span class="hljs-keyword">const</span> contextWindow = <span class="hljs-title function_">getContextWindowForModel</span>(model)<br><br>  <span class="hljs-comment">// 超过 80% 上下文窗口时触发</span><br>  <span class="hljs-keyword">return</span> tokenCount &gt; contextWindow * <span class="hljs-number">0.8</span><br>&#125;<br><br><span class="hljs-comment">// 压缩策略</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">compactContext</span>(<span class="hljs-params"><span class="hljs-attr">state</span>: <span class="hljs-title class_">State</span></span>) &#123;<br>  <span class="hljs-comment">// 1. 保留最近的消息</span><br>  <span class="hljs-comment">// 2. 压缩历史消息为摘要</span><br>  <span class="hljs-comment">// 3. 保留关键工具调用结果</span><br>  <span class="hljs-comment">// 4. 更新消息列表</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="文件状态缓存"><a href="#文件状态缓存" class="headerlink" title="文件状态缓存"></a>文件状态缓存</h3><p><strong>文件</strong>：<code>src/utils/fileStateCache.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileStateCache</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">cache</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">FileState</span>&gt;<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">maxSize</span>: <span class="hljs-built_in">number</span><br><br>  <span class="hljs-comment">// LRU 缓存</span><br>  <span class="hljs-title function_">get</span>(<span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">FileState</span> | <span class="hljs-literal">undefined</span><br>  <span class="hljs-title function_">set</span>(<span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">state</span>: <span class="hljs-title class_">FileState</span>): <span class="hljs-built_in">void</span><br>  <span class="hljs-title function_">invalidate</span>(<span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span><br><br>  <span class="hljs-comment">// 批量操作</span><br>  <span class="hljs-title function_">getMany</span>(<span class="hljs-attr">paths</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">FileState</span>&gt;<br>  <span class="hljs-title function_">clear</span>(): <span class="hljs-built_in">void</span><br>&#125;<br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">FileState</span> = &#123;<br>  <span class="hljs-attr">content</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">lastModified</span>: <span class="hljs-built_in">number</span><br>  <span class="hljs-attr">hash</span>: <span class="hljs-built_in">string</span><br>  <span class="hljs-attr">size</span>: <span class="hljs-built_in">number</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="钩子系统"><a href="#钩子系统" class="headerlink" title="钩子系统"></a>钩子系统</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 钩子类型</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">HookEvent</span> =<br>  | <span class="hljs-string">&#x27;pre_tool_use&#x27;</span>       <span class="hljs-comment">// 工具调用前</span><br>  | <span class="hljs-string">&#x27;post_tool_use&#x27;</span>      <span class="hljs-comment">// 工具调用后</span><br>  | <span class="hljs-string">&#x27;pre_api_call&#x27;</span>       <span class="hljs-comment">// API 调用前</span><br>  | <span class="hljs-string">&#x27;post_api_call&#x27;</span>      <span class="hljs-comment">// API 调用后</span><br>  | <span class="hljs-string">&#x27;on_error&#x27;</span>           <span class="hljs-comment">// 错误发生</span><br>  | <span class="hljs-string">&#x27;on_stop&#x27;</span>            <span class="hljs-comment">// 停止时</span><br><br><span class="hljs-comment">// 钩子注册</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">registerHook</span>(<span class="hljs-params"><span class="hljs-attr">event</span>: <span class="hljs-title class_">HookEvent</span>, <span class="hljs-attr">handler</span>: <span class="hljs-title class_">HookHandler</span></span>): <span class="hljs-built_in">void</span><br><br><span class="hljs-comment">// 钩子执行</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">executeHooks</span>(<span class="hljs-params"><span class="hljs-attr">event</span>: <span class="hljs-title class_">HookEvent</span>, <span class="hljs-attr">context</span>: <span class="hljs-built_in">any</span></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; &#123;<br>  <span class="hljs-keyword">const</span> hooks = <span class="hljs-title function_">getHooks</span>(event)<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> hook <span class="hljs-keyword">of</span> hooks) &#123;<br>    <span class="hljs-keyword">await</span> hook.<span class="hljs-title function_">handler</span>(context)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="推测执行"><a href="#推测执行" class="headerlink" title="推测执行"></a>推测执行</h3><p><strong>文件</strong>：<code>src/state/AppStateStore.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">SpeculationState</span> = &#123;<br>  <span class="hljs-attr">enabled</span>: <span class="hljs-built_in">boolean</span><br>  <span class="hljs-attr">pendingSpeculation</span>?: &#123;<br>    <span class="hljs-attr">toolUseId</span>: <span class="hljs-built_in">string</span><br>    <span class="hljs-attr">predictedResult</span>: <span class="hljs-built_in">string</span><br>    <span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">number</span><br>  &#125;<br>  <span class="hljs-attr">speculationResults</span>: <span class="hljs-title class_">Map</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">SpeculationResult</span>&gt;<br>&#125;<br><br><span class="hljs-comment">// 推测执行流程</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">speculateToolExecution</span>(<span class="hljs-params"><span class="hljs-attr">toolUse</span>: <span class="hljs-title class_">ToolUse</span></span>): <span class="hljs-built_in">void</span> &#123;<br>  <span class="hljs-comment">// 1. 预测工具执行结果</span><br>  <span class="hljs-comment">// 2. 提前准备后续操作</span><br>  <span class="hljs-comment">// 3. 实际执行后验证预测</span><br>  <span class="hljs-comment">// 4. 如果预测正确，加速响应</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>推测执行是一个很有创意的设计——提前预测工具执行结果并预加载后续操作，如果预测正确就能显著减少响应延迟。</p>
+<h3 id="成本控制"><a href="#成本控制" class="headerlink" title="成本控制"></a>成本控制</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 成本追踪</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">Usage</span> = &#123;<br>  <span class="hljs-attr">inputTokens</span>: <span class="hljs-built_in">number</span><br>  <span class="hljs-attr">outputTokens</span>: <span class="hljs-built_in">number</span><br>  <span class="hljs-attr">cacheCreationInputTokens</span>: <span class="hljs-built_in">number</span><br>  <span class="hljs-attr">cacheReadInputTokens</span>: <span class="hljs-built_in">number</span><br>&#125;<br><br><span class="hljs-comment">// 成本计算</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">calculateCost</span>(<span class="hljs-params"><span class="hljs-attr">usage</span>: <span class="hljs-title class_">Usage</span>, <span class="hljs-attr">model</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">number</span> &#123;<br>  <span class="hljs-keyword">const</span> pricing = <span class="hljs-title function_">getModelPricing</span>(model)<br><br>  <span class="hljs-keyword">return</span> (<br>    usage.<span class="hljs-property">inputTokens</span> * pricing.<span class="hljs-property">input</span> +<br>    usage.<span class="hljs-property">outputTokens</span> * pricing.<span class="hljs-property">output</span> +<br>    usage.<span class="hljs-property">cacheCreationInputTokens</span> * pricing.<span class="hljs-property">cacheCreation</span> +<br>    usage.<span class="hljs-property">cacheReadInputTokens</span> * pricing.<span class="hljs-property">cacheRead</span><br>  )<br>&#125;<br><br><span class="hljs-comment">// 预算检查</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">checkBudget</span>(<span class="hljs-params"><span class="hljs-attr">usage</span>: <span class="hljs-title class_">Usage</span>, <span class="hljs-attr">budget</span>: <span class="hljs-built_in">number</span></span>): <span class="hljs-built_in">boolean</span> &#123;<br>  <span class="hljs-keyword">const</span> cost = <span class="hljs-title function_">calculateCost</span>(usage, currentModel)<br>  <span class="hljs-keyword">return</span> cost &lt;= budget<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关键文件索引"><a href="#关键文件索引" class="headerlink" title="关键文件索引"></a>关键文件索引</h2><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>大小</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>main.tsx</code></td>
+<td>803KB</td>
+<td>主入口、CLI 解析、初始化</td>
+</tr>
+<tr>
+<td><code>query.ts</code></td>
+<td>68KB</td>
+<td>查询循环、工具执行</td>
+</tr>
+<tr>
+<td><code>QueryEngine.ts</code></td>
+<td>46KB</td>
+<td>查询引擎、会话管理</td>
+</tr>
+<tr>
+<td><code>commands.ts</code></td>
+<td>25KB</td>
+<td>命令注册、路由</td>
+</tr>
+<tr>
+<td><code>Tool.ts</code></td>
+<td>29KB</td>
+<td>工具基类、类型定义</td>
+</tr>
+<tr>
+<td><code>tools.ts</code></td>
+<td>17KB</td>
+<td>工具注册表</td>
+</tr>
+<tr>
+<td><code>cli/print.ts</code></td>
+<td>212KB</td>
+<td>非交互式输出</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="架构设计亮点"><a href="#架构设计亮点" class="headerlink" title="架构设计亮点"></a>架构设计亮点</h2><h3 id="1-模块化设计"><a href="#1-模块化设计" class="headerlink" title="1. 模块化设计"></a>1. 模块化设计</h3><p>清晰的分层架构：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────┐<br>│  UI 层 (React/Ink)                  │<br>│  - 组件、Hooks、Context             │<br>├─────────────────────────────────────┤<br>│  应用层 (Commands, Tools)           │<br>│  - 业务逻辑、工具实现               │<br>├─────────────────────────────────────┤<br>│  服务层 (Services)                  │<br>│  - API、MCP、插件、遥测             │<br>├─────────────────────────────────────┤<br>│  核心层 (QueryEngine, State)        │<br>│  - 查询引擎、状态管理               │<br>├─────────────────────────────────────┤<br>│  基础设施层 (Utils)                 │<br>│  - 工具函数、配置、权限             │<br>└─────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-可扩展性"><a href="#2-可扩展性" class="headerlink" title="2. 可扩展性"></a>2. 可扩展性</h3><ul>
+<li><strong>插件系统</strong>：第三方工具扩展、自定义命令、技能包、主题和样式</li>
+<li><strong>MCP 协议</strong>：标准化工具接口、跨平台兼容、动态工具发现</li>
+</ul>
+<h3 id="3-性能优化"><a href="#3-性能优化" class="headerlink" title="3. 性能优化"></a>3. 性能优化</h3><p><strong>启动优化</strong>：</p>
+<ul>
+<li>并行预取（MDM、密钥链、凭证）</li>
+<li>延迟加载（feature flag 死代码消除）</li>
+<li>模块缓存</li>
+</ul>
+<p><strong>运行时优化</strong>：</p>
+<ul>
+<li>文件状态缓存（LRU）</li>
+<li>工具并发执行</li>
+<li>流式响应处理</li>
+<li>上下文压缩</li>
+<li>推测执行</li>
+</ul>
+<h3 id="4-安全设计"><a href="#4-安全设计" class="headerlink" title="4. 安全设计"></a>4. 安全设计</h3><p><strong>多层防护</strong>：</p>
+<ol>
+<li><strong>权限系统</strong>：细粒度的工具权限控制</li>
+<li><strong>沙箱隔离</strong>：命令执行安全检查</li>
+<li><strong>路径验证</strong>：防止路径遍历攻击</li>
+<li><strong>输入验证</strong>：Zod schema 校验</li>
+<li><strong>审计日志</strong>：完整的操作记录</li>
+</ol>
+<h3 id="5-用户体验"><a href="#5-用户体验" class="headerlink" title="5. 用户体验"></a>5. 用户体验</h3><ul>
+<li><strong>渐进式披露</strong>：简单的默认配置，高级选项可配置</li>
+<li><strong>反馈机制</strong>：实时进度显示、成本透明展示、错误恢复建议</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Claude Code 是一个<strong>设计精良、架构清晰、功能完备</strong>的 AI 编程助手，几个亮点：</p>
+<ol>
+<li><strong>模块化架构</strong>：清晰的分层设计，易于扩展和维护</li>
+<li><strong>强大的工具系统</strong>：40+ 内置工具，支持 MCP 和插件扩展</li>
+<li><strong>灵活的状态管理</strong>：基于 React 的状态管理，支持多种运行模式</li>
+<li><strong>完善的安全机制</strong>：多层权限控制，细粒度的安全检查</li>
+<li><strong>优秀的性能</strong>：并行预取、缓存优化、流式处理、推测执行</li>
+<li><strong>良好的用户体验</strong>：渐进式披露、实时反馈、错误恢复</li>
+<li><strong>成本控制</strong>：透明的成本追踪和预算管理</li>
+</ol>
+<p>Claude Code 的源码规模令人印象深刻——仅 <code>main.tsx</code> 就有 803KB，<code>utils/</code> 目录有 9542 个文件。这反映了 Anthropic 在工程化上的投入。</p>
+<p>对于想要构建<strong>生产级 AI 编程工具</strong>的开发者来说，Claude Code 的源码是一个极好的学习素材——尤其是它的权限系统、查询引擎、工具编排和状态管理设计。</p>
+<hr>
+<blockquote>
+<p><strong>项目地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/anthropics/claude-code">https://github.com/anthropics/claude-code</a><br><strong>版本</strong>：v2.1.88<br><strong>文档</strong>：<a target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/claude-code">https://docs.anthropic.com/en/docs/claude-code</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="category-chain-item">源码解析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Claude-Code/" class="print-no-link">#Claude Code</a>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+        <a href="/tags/AI-Agent/" class="print-no-link">#AI Agent</a>
+      
+        <a href="/tags/Anthropic/" class="print-no-link">#Anthropic</a>
+      
+        <a href="/tags/React-Ink/" class="print-no-link">#React Ink</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</div>
+      <div>https://tingfeng347.github.io/2026/08/02/Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/01/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理">
+                        <span class="hidden-mobile">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
