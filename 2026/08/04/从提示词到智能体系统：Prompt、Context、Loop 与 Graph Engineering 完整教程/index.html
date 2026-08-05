@@ -19,19 +19,20 @@
   <meta name="author" content="Tingfeng">
   <meta name="keywords" content="听风347">
   
-    <meta name="description" content="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决四层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？ 这篇文章要讲的就是四个概念：Prompt Engineer">
+    <meta name="description" content="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决五层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？这一整套循环由哪个运行时承载、权限怎么收口？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程">
+<meta property="og:title" content="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程">
 <meta property="og:url" content="https://tingfeng347.github.io/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="听风347">
-<meta property="og:description" content="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决四层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？ 这篇文章要讲的就是四个概念：Prompt Engineer">
+<meta property="og:description" content="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决五层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？这一整套循环由哪个运行时承载、权限怎么收口？">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-08-04T02:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-04T16:28:50.378Z">
+<meta property="article:modified_time" content="2026-08-05T14:51:20.082Z">
 <meta property="article:author" content="Tingfeng">
 <meta property="article:tag" content="AI Agent">
 <meta property="article:tag" content="Context Engineering">
 <meta property="article:tag" content="GraphRAG">
+<meta property="article:tag" content="Harness Engineering">
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="Prompt Engineering">
 <meta name="twitter:card" content="summary_large_image">
@@ -40,7 +41,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程 - 听风347</title>
+  <title>从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程 - 听风347</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -466,7 +467,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程"></span>
+            <span id="subtitle" data-typed-text="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"></span>
           
         </div>
 
@@ -489,7 +490,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.2k 字
+          12k 字
         
       </span>
     
@@ -500,7 +501,7 @@
         
         
         
-          69 分钟
+          102 分钟
         
       </span>
     
@@ -702,10 +703,10 @@
     
       
       
-        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程"
+        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程</span>
+          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
         </a>
       
     
@@ -804,15 +805,15 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程</h1>
+            <h1 id="seo-header">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="从提示词到智能体系统：Prompt、Context、Loop-与-Graph-Engineering-完整教程"><a href="#从提示词到智能体系统：Prompt、Context、Loop-与-Graph-Engineering-完整教程" class="headerlink" title="从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程"></a>从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程</h1><p>LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决四层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？</p>
-<p>这篇文章要讲的就是四个概念：<strong>Prompt Engineering（提示词工程）</strong>、<strong>Context Engineering（上下文工程）</strong>、**Loop Engineering（循环工程）**和 <strong>Graph Engineering（图工程）</strong>。它们不是互斥的技术栈，而是从”单次回答”走向”长期运行的智能体系统”逐层扩展的四个设计焦点。</p>
-<p>先把术语边界说清楚：Prompt Engineering 已是成熟的实践名称；Context Engineering 有 Anthropic 等厂商的系统化定义；Loop Engineering 和 Graph Engineering 在 AI Agent 语境里还是新兴的社区用语，没有唯一、权威的行业标准。文中后两者分别指”设计反馈控制循环”和”以显式状态图编排工作流”，并各自以官方 Agent&#x2F;工作流框架作为可落地的参照。</p>
-<h2 id="一张图先看懂：四者解决的不是同一个问题"><a href="#一张图先看懂：四者解决的不是同一个问题" class="headerlink" title="一张图先看懂：四者解决的不是同一个问题"></a>一张图先看懂：四者解决的不是同一个问题</h2><table>
+                <h1 id="从提示词到智能体系统：Prompt、Context、Loop、Harness-与-Graph-Engineering-完整教程"><a href="#从提示词到智能体系统：Prompt、Context、Loop、Harness-与-Graph-Engineering-完整教程" class="headerlink" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"></a>从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</h1><p>LLM 应用一旦不稳定，多数团队的第一反应是回去改提示词。这一招经常管用，但它只能解决五层问题里的第一层。真正走到生产环境，你还会遇到别的问题：模型每次到底看见了哪些信息？做错了怎么拿到反馈再来一次？复杂流程由谁、在什么时候执行？这一整套循环由哪个运行时承载、权限怎么收口？</p>
+<p>这篇文章要讲的就是五个概念：<strong>Prompt Engineering（提示词工程）</strong>、<strong>Context Engineering（上下文工程）</strong>、<strong>Loop Engineering（循环工程）</strong>、**Graph Engineering（图工程）**和 <strong>Harness Engineering（主控工程）</strong>。它们不是互斥的技术栈，而是从”单次回答”走向”长期运行的智能体系统”逐层扩展的五个设计焦点。</p>
+<p>先把术语边界说清楚：Prompt Engineering 已是成熟的实践名称；Context Engineering 有 Anthropic 等厂商的系统化定义；Loop Engineering、Graph Engineering 和 Harness Engineering 在 AI Agent 语境里还是新兴的社区用语，没有唯一、权威的行业标准。文中它们分别指”设计反馈控制循环””以显式状态图编排工作流”和”设计承载整个智能体的运行时骨架——工具执行、权限门禁、上下文打包与可观测性”，并各自以官方 Agent&#x2F;工作流框架作为可落地的参照。</p>
+<h2 id="一张图先看懂：五者解决的不是同一个问题"><a href="#一张图先看懂：五者解决的不是同一个问题" class="headerlink" title="一张图先看懂：五者解决的不是同一个问题"></a>一张图先看懂：五者解决的不是同一个问题</h2><table>
 <thead>
 <tr>
 <th>层次</th>
@@ -850,11 +851,19 @@
 <td>状态机&#x2F;DAG、条件边、检查点、人审节点</td>
 <td>多工具、多角色、可恢复流程</td>
 </tr>
+<tr>
+<td>Harness</td>
+<td>“谁在背后执行、收口并守护这一切？”</td>
+<td>运行时骨架：工具执行、权限门禁、上下文打包、钩子、观察面</td>
+<td>agent loop、hooks、权限&#x2F;沙箱、缓存策略、MCP 客户端</td>
+<td>需要工具、权限与执行环境的真实生产智能体</td>
+</tr>
 </tbody></table>
-<p>四层之间的关系可以写成这样：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">Prompt（写好一条指令）<br>  └─ Context（为一次推理装配正确的信息）<br>       └─ Loop（用真实反馈反复推进任务）<br>            └─ Graph（把分支、并行、回路和状态变成可检查的结构）<br></code></pre></td></tr></table></figure>
+<p>五层之间的关系可以写成这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">Prompt（写好一条指令）<br>  └─ Context（为一次推理装配正确的信息）<br>       └─ Loop（用真实反馈反复推进任务）<br>            └─ Graph（把分支、并行、回路和状态变成可检查的结构）<br>                 └─ Harness（提供执行环境、权限门禁与运行回路，让上面的层真正跑起来）<br></code></pre></td></tr></table></figure>
 
 <p>别把这条链理解成”必须全上”。一个格式稳定的抽取接口，通常 Prompt 加结构化输出就够了；只有那种跨文档、多轮、还有写操作权限的智能体，才需要把后面的层一层层加上去。</p>
+<p>再强调一点：这个顺序是<strong>设计复杂度与依赖关系</strong>，不是概念提出的时间顺序。承载 agent 循环的 harness 概念其实比显式的图编排出现得更早，图是后来为了”可检查、可恢复”才把循环显式化的；各层何时被命名、叫什么名字，不影响它们各自承担的职责。</p>
 <hr>
 <h2 id="一、Prompt-Engineering：把模型能力变成可重复的单次行为"><a href="#一、Prompt-Engineering：把模型能力变成可重复的单次行为" class="headerlink" title="一、Prompt Engineering：把模型能力变成可重复的单次行为"></a>一、Prompt Engineering：把模型能力变成可重复的单次行为</h2><h3 id="它管的是”这一次怎么说”"><a href="#它管的是”这一次怎么说”" class="headerlink" title="它管的是”这一次怎么说”"></a>它管的是”这一次怎么说”</h3><p>Prompt Engineering 是通过编写和组织指令、示例与输出约束，让模型在一次或少量调用中更稳定地产生目标结果的实践。OpenAI 的官方指南把它概括为用提示策略提升结果；Anthropic 的文档则建议先定义成功标准、建立可测试的样例，再选用清晰直接的指令、示例、XML 标签等技术。<a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/prompt-engineering">OpenAI 指南</a> <a target="_blank" rel="noopener" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Anthropic 概览</a></p>
 <p>它优化的是模型这一次如何理解任务、如何生成输出。至于数据从哪里来、做错了怎么办，那是后面几层的事。</p>
@@ -1040,16 +1049,71 @@
 </tbody></table>
 <p>拿”供应商合规审查”来说，工作流图负责 <code>收集材料 → 事实抽取 → 风险评分 → 人审 → 归档</code>；知识图负责查出供应商、母公司、合同、制裁记录之间的关系。前者管<strong>行动</strong>，后者管<strong>依据</strong>。</p>
 <hr>
-<h2 id="五、四者如何协同：从一个客服问答演进"><a href="#五、四者如何协同：从一个客服问答演进" class="headerlink" title="五、四者如何协同：从一个客服问答演进"></a>五、四者如何协同：从一个客服问答演进</h2><p>假设你在做一个”查询订单和退款规则”的客服助手。</p>
+<h2 id="五、Harness-Engineering：把前面几层变成能安全、可观测地跑起来的运行时"><a href="#五、Harness-Engineering：把前面几层变成能安全、可观测地跑起来的运行时" class="headerlink" title="五、Harness Engineering：把前面几层变成能安全、可观测地跑起来的运行时"></a>五、Harness Engineering：把前面几层变成能安全、可观测地跑起来的运行时</h2><h3 id="它是什么-1"><a href="#它是什么-1" class="headerlink" title="它是什么"></a>它是什么</h3><p>Harness（主控骨架）是围绕模型的一层软件脚手架：工具执行、上下文管理、权限门禁、运行回路和观察面，把模型的原生能力变成能交付给用户的智能体。Anthropic 的 Claude Code 文档正是这样定义它的——Claude Code 就是 Claude 的 harness：模型在 harness 里获得文件访问、命令执行、权限拦截、记忆加载，以及把一个个动作串起来的循环。<a target="_blank" rel="noopener" href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a> <a target="_blank" rel="noopener" href="https://code.claude.com/docs/en/glossary#agentic-harness">agentic harness 术语</a></p>
+<p>Anthropic 的博客进一步把它概括为：harness 是模型周围的脚手架，包括循环、工具、上下文管理与 guardrails，把原始智能变成能工作的 agent；Harness Engineering 就是决定什么该放进这层脚手架——以及模型变强之后什么可以拿走。<a target="_blank" rel="noopener" href="https://claude.com/blog/harnessing-claudes-intelligence">Agent Harness Design：3 Patterns for Harnessing Claude’s Intelligence</a></p>
+<p>OpenAI 的实践指南不叫这个名字，却给出了同一个落点：agent &#x3D; model + tools + instructions，而所有编排都依赖一个 <code>run</code>——通常实现为 while 循环，一直跑到命中结束条件（工具调用、结构化输出、错误、达到最大轮数）。这个 <code>run</code> 的归属，正是 harness。<a target="_blank" rel="noopener" href="https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf">A practical guide to building agents</a></p>
+<p>如果说 Loop 层设计的是”循环逻辑该长什么样”（观察 → 行动 → 验证），Harness 层决定的是”这个循环由谁执行、工具怎么被调用、边界在哪、坏了从哪看”。前几层是设计图纸，harness 是承载图纸、真正把动作落地的运行时。</p>
+<h3 id="一个-harness-必须回答的六个问题"><a href="#一个-harness-必须回答的六个问题" class="headerlink" title="一个 harness 必须回答的六个问题"></a>一个 harness 必须回答的六个问题</h3><ol>
+<li><strong>运行回路</strong>：谁在循环里？结束条件是什么？中断后如何恢复？</li>
+<li><strong>工具执行</strong>：模型如何发出调用？结果如何回传与过滤？失败如何重试和降级？</li>
+<li><strong>权限门禁</strong>：哪些动作自动执行、哪些要人确认、哪些禁止？沙箱边界在哪里？</li>
+<li><strong>上下文打包</strong>：system prompt、工具描述、历史如何按序组装，以最大化 prompt 缓存命中？</li>
+<li><strong>可观测性</strong>：每一步的动作、参数、结果、token 成本是否可追溯、可回放？</li>
+<li><strong>安全边界</strong>：哪些输入按不可信数据对待？不可逆操作如何设防？</li>
+</ol>
+<h3 id="两条来自官方的主设计原则"><a href="#两条来自官方的主设计原则" class="headerlink" title="两条来自官方的主设计原则"></a>两条来自官方的主设计原则</h3><p><strong>原则一：能用模型解决的，就别硬塞给 harness。</strong> 每个 harness 组件都编码了一条”模型自己做不了”的假设，而这些假设会随模型变强而过时，需要反复检验。Anthropic 的长期任务 harness 文章里有个典型例子：为应对旧模型临近上下文上限时的”上下文焦虑”（提前收工），团队给 harness 加了 context reset；更强的模型不再有这个问题后，这套补偿就变成了死重，应该拆掉。<a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Harness design for long-running application development</a></p>
+<p><strong>原则二：用结构化工具表达安全、UX 与可观测性边界。</strong> 模型只会发出调用，边界必须由 harness 收口。一个 <code>bash</code> 工具给模型强大的行动力，但 harness 只拿到一串命令；把它提升为带类型参数的专用工具（如 <code>edit</code>、<code>approve_refund</code>），harness 才能拦截、门禁、渲染给用户、记录审计。<a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/harness-design-long-running-apps">同上</a></p>
+<h3 id="最小-harness-示例（伪代码）"><a href="#最小-harness-示例（伪代码）" class="headerlink" title="最小 harness 示例（伪代码）"></a>最小 harness 示例（伪代码）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">AgentHarness</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model, tools, max_turns=<span class="hljs-number">8</span></span>):<br>        <span class="hljs-variable language_">self</span>.model, <span class="hljs-variable language_">self</span>.tools = model, tools<br>        <span class="hljs-variable language_">self</span>.max_turns = max_turns<br>        <span class="hljs-variable language_">self</span>.sandbox = default_sandbox()   <span class="hljs-comment"># 沙箱：执行环境边界</span><br>        <span class="hljs-variable language_">self</span>.trace = []                    <span class="hljs-comment"># 可观测性：每一步都留痕</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self, system_prompt, messages</span>):<br>        <span class="hljs-keyword">for</span> turn <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-variable language_">self</span>.max_turns):<br>            response = <span class="hljs-variable language_">self</span>.model.generate(<br>                fit_token_budget(system_prompt, tool_schemas(<span class="hljs-variable language_">self</span>.tools), messages)<br>            )<br>            <span class="hljs-variable language_">self</span>.trace.append((<span class="hljs-string">&quot;assistant&quot;</span>, response))<br><br>            <span class="hljs-keyword">if</span> response.is_final_output:   <span class="hljs-comment"># 结构化输出 = 结束条件</span><br>                <span class="hljs-keyword">return</span> response<br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> response.tool_calls:    <span class="hljs-comment"># 没有工具调用 = 结束条件</span><br>                <span class="hljs-keyword">return</span> response<br><br>            <span class="hljs-keyword">for</span> call <span class="hljs-keyword">in</span> response.tool_calls:<br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-variable language_">self</span>.permit(call):  <span class="hljs-comment"># 权限门禁：默认拒绝</span><br>                    <span class="hljs-keyword">return</span> escalate_to_human(call)<br>                result = execute_tool(call, sandbox=<span class="hljs-variable language_">self</span>.sandbox)<br>                <span class="hljs-variable language_">self</span>.trace.append((<span class="hljs-string">&quot;tool&quot;</span>, call, result))<br>                messages.append(result)<br></code></pre></td></tr></table></figure>
+
+<p>这个例子里有三个抽象不能省：<code>permit</code>（默认拒绝的权限门禁）、<code>fit_token_budget</code>（上下文打包）、<code>trace</code>（可观测性）。缺了任何一个，”能跑”和”敢跑”之间就差一次线上事故。</p>
+<h3 id="动态-harness：让模型自己写脚手架"><a href="#动态-harness：让模型自己写脚手架" class="headerlink" title="动态 harness：让模型自己写脚手架"></a>动态 harness：让模型自己写脚手架</h3><p>当任务复杂到单个上下文窗口扛不住时，可以在 harness 之上再叠一层：让模型按任务临时编写并协调多 agent 的 harness。Anthropic 的 Claude Code 动态 workflow 就是这种思路——默认 harness 面向编程任务，而 classify-and-act、fan-out-and-synthesize、adversarial verification、tournament 等模式，本质上是把同一任务拆进多个互相隔离的上下文窗口并行解决，用来对抗单窗口长时间运行下的三种退化：<strong>agentic laziness</strong>（做一半就宣布完成）、<strong>self-preferential bias</strong>（偏爱自己的产出）、<strong>goal drift</strong>（目标随上下文压缩而漂移）。<a target="_blank" rel="noopener" href="https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code">A harness for every task：dynamic workflows in Claude Code</a></p>
+<p>注意这里的成本纪律：动态 harness 会显著增加 token 消耗，Anthropic 明确建议只在复杂、高价值任务上使用，普通任务先问一句”它真的需要更多算力吗”。</p>
+<h3 id="常见反模式-1"><a href="#常见反模式-1" class="headerlink" title="常见反模式"></a>常见反模式</h3><table>
+<thead>
+<tr>
+<th>反模式</th>
+<th>后果</th>
+<th>修复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>run</code> 没有显式结束条件</td>
+<td>成本失控、无法停止</td>
+<td>结构化输出&#x2F;无工具调用&#x2F;错误&#x2F;最大轮数作为出口</td>
+</tr>
+<tr>
+<td>工具结果全部流回上下文</td>
+<td>token 膨胀、重点被稀释</td>
+<td>让模型用代码过滤或管道化，只回传必要结果</td>
+</tr>
+<tr>
+<td>权限对一切工具放行</td>
+<td>注入与误操作造成真实损失</td>
+<td>默认拒绝、最小权限、沙箱、人审门禁</td>
+</tr>
+<tr>
+<td>上下文打包顺序随意</td>
+<td>缓存命中率低、成本翻倍</td>
+<td>静态优先、动态靠后、缓存断点、少切换模型</td>
+</tr>
+<tr>
+<td>只为旧模型设计的组件不清理</td>
+<td>变成死重拖慢流程</td>
+<td>模型升级后逐个重估组件是否还负载</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、五层如何协同：从一个客服问答演进"><a href="#六、五层如何协同：从一个客服问答演进" class="headerlink" title="六、五层如何协同：从一个客服问答演进"></a>六、五层如何协同：从一个客服问答演进</h2><p>假设你在做一个”查询订单和退款规则”的客服助手。</p>
 <ol>
 <li><strong>Prompt 层</strong>：规定语气、回答结构、未知时不编造；输出 <code>answer + cited_policy_ids</code>。</li>
 <li><strong>Context 层</strong>：按租户和订单号检索当前订单、最新政策、最近对话摘要；只暴露必要工具。</li>
 <li><strong>Loop 层</strong>：若订单查询失败，识别可重试错误；若退款金额与规则冲突，调用规则验证；超过两次或需要例外审批则升级人工。</li>
 <li><strong>Graph 层</strong>：将 <code>身份验证 → 订单查询 → 政策检索 → 生成 → 金额校验 → 发送/人审</code> 建模为带检查点的条件图。</li>
+<li><strong>Harness 层</strong>：提供 <code>run</code> 循环与结束条件、<code>approve_refund</code> 等结构化工具、默认拒绝的权限门禁、缓存友好的上下文打包，以及每一步的 trace。</li>
 </ol>
-<p>这也解释了一个常见误区：给第一层写 3,000 字提示词，替代不了后面三层的身份、数据、验证与审批设计。</p>
+<p>这也解释了一个常见误区：给第一层写 3,000 字提示词，替代不了后面四层的身份、数据、验证、审批与运行环境设计。</p>
 <hr>
-<h2 id="六、选型速查：什么时候该升级一层"><a href="#六、选型速查：什么时候该升级一层" class="headerlink" title="六、选型速查：什么时候该升级一层"></a>六、选型速查：什么时候该升级一层</h2><table>
+<h2 id="七、选型速查：什么时候该升级一层"><a href="#七、选型速查：什么时候该升级一层" class="headerlink" title="七、选型速查：什么时候该升级一层"></a>七、选型速查：什么时候该升级一层</h2><table>
 <thead>
 <tr>
 <th>你遇到的现象</th>
@@ -1075,12 +1139,17 @@
 <tr>
 <td>分支多、要并行、可中断恢复、有人审</td>
 <td>Graph：显式状态机和检查点</td>
-<td>结合四层持续评测</td>
+<td>结合五层持续评测</td>
+</tr>
+<tr>
+<td>行为正确但工具、权限、成本与复盘失控</td>
+<td>Harness：运行回路、权限门禁、上下文打包、可观测性</td>
+<td>结合五层持续评测</td>
 </tr>
 </tbody></table>
 <p>最稳妥的路线是先建立评测，再用最小复杂度解决当前的失败模式。不要为一个简单问答引入多 Agent 图，也不要因为任务复杂就寄希望于更长的提示词。</p>
 <hr>
-<h2 id="七、上线前检查清单"><a href="#七、上线前检查清单" class="headerlink" title="七、上线前检查清单"></a>七、上线前检查清单</h2><ul>
+<h2 id="八、上线前检查清单"><a href="#八、上线前检查清单" class="headerlink" title="八、上线前检查清单"></a>八、上线前检查清单</h2><ul>
 <li><input disabled="" type="checkbox"> 是否有明确的成功标准与回归样例，而不是凭感觉改 prompt？</li>
 <li><input disabled="" type="checkbox"> 输出是否有可机器校验的契约？</li>
 <li><input disabled="" type="checkbox"> 上下文是否带来源、权限边界和 token 预算？</li>
@@ -1090,6 +1159,11 @@
 <li><input disabled="" type="checkbox"> 重试次数、时间和成本是否有上限？</li>
 <li><input disabled="" type="checkbox"> 是否为高风险动作设置人工门禁与可恢复检查点？</li>
 <li><input disabled="" type="checkbox"> 是否记录模型&#x2F;提示版本、检索证据、工具调用、评分与失败原因？</li>
+<li><input disabled="" type="checkbox"> 是否存在明确的 <code>run</code> 结束条件与轮数&#x2F;预算上限？</li>
+<li><input disabled="" type="checkbox"> 工具调用是否有默认拒绝的权限门禁与沙箱边界？</li>
+<li><input disabled="" type="checkbox"> 上下文是否按”静态在前、动态在后”打包以最大化缓存命中？</li>
+<li><input disabled="" type="checkbox"> 每一步的动作、参数、结果与成本是否可追溯、可回放？</li>
+<li><input disabled="" type="checkbox"> 模型升级后，是否重新评估了 harness 中每个组件的必要性？</li>
 </ul>
 <h2 id="延伸学习路线与权威资料"><a href="#延伸学习路线与权威资料" class="headerlink" title="延伸学习路线与权威资料"></a>延伸学习路线与权威资料</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/prompt-engineering">OpenAI Prompt engineering guide</a>：从结构化提示、模型行为和调优开始。</li>
@@ -1098,9 +1172,12 @@
 <li><a target="_blank" rel="noopener" href="https://developers.openai.com/api/docs/guides/agents">OpenAI Agents guide</a>：学习 Agent 编排、状态、guardrails 和评估的官方入口。</li>
 <li><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/graph-api">LangGraph Graph API overview</a>：学习用 State、Node、Edge 显式构建可循环工作流。</li>
 <li><a target="_blank" rel="noopener" href="https://microsoft.github.io/graphrag/query/overview/">Microsoft GraphRAG Query Engine</a>：对比 Local、Global、DRIFT 与基础向量检索，判断何时需要知识图谱检索。</li>
+<li><a target="_blank" rel="noopener" href="https://claude.com/blog/harnessing-claudes-intelligence">Anthropic：Agent Harness Design——3 Patterns for Harnessing Claude’s Intelligence</a>：harness 的定义与”模型变强后拆掉脚手架”的核心原则。</li>
+<li><a target="_blank" rel="noopener" href="https://www.anthropic.com/engineering/harness-design-long-running-apps">Anthropic：Harness design for long-running application development</a>：planner&#x2F;generator&#x2F;evaluator 多 agent harness 的真实落地与成本对照。</li>
+<li><a target="_blank" rel="noopener" href="https://code.claude.com/docs/en/how-claude-code-works">Claude Code：How Claude Code works</a>：看一个生产级 agentic harness（agentic loop、工具、上下文管理）实际长什么样。</li>
 </ol>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Prompt Engineering 让模型”听懂”，Context Engineering 让模型”看对”，Loop Engineering 让系统”会从反馈中继续”，Graph Engineering 让复杂系统”可视、可控、可恢复”。</p>
-<p>真正可靠的 LLM 产品，不是找到一条永远正确的提示词，而是把输入、证据、状态、验证和人类决策设计成一个能持续被评估和改进的系统。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Prompt Engineering 让模型”听懂”，Context Engineering 让模型”看对”，Loop Engineering 让系统”会从反馈中继续”，Graph Engineering 让复杂系统”可视、可控、可恢复”，Harness Engineering 让整个系统”跑得起来、跑得安全、跑得被看见”。</p>
+<p>真正可靠的 LLM 产品，不是找到一条永远正确的提示词，而是把输入、证据、状态、验证、运行环境和人类决策设计成一个能持续被评估和改进的系统。</p>
 
                 
               </div>
@@ -1149,6 +1226,8 @@
       
         <a href="/tags/Context-Engineering/" class="print-no-link">#Context Engineering</a>
       
+        <a href="/tags/Harness-Engineering/" class="print-no-link">#Harness Engineering</a>
+      
         <a href="/tags/GraphRAG/" class="print-no-link">#GraphRAG</a>
       
     </div>
@@ -1161,7 +1240,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程</div>
+      <div>从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</div>
       <div>https://tingfeng347.github.io/2026/08/04/从提示词到智能体系统：Prompt、Context、Loop 与 Graph Engineering 完整教程/</div>
     </div>
     <div class="license-meta">
