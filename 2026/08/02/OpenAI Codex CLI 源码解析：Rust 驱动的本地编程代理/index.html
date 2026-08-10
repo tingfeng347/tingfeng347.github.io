@@ -1,0 +1,1575 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理 深入剖析 OpenAI 开源的本地编程代理工具——Codex CLI 的架构设计与核心实现  项目简介Codex CLI 是 OpenAI 推出的一款本地编程代理工具，使用 Rust 编写核心逻辑，提供命令行界面让 AI 助手能够直接在用户的计算机上执行代码任务。 核心特点：  🔒 本地执行：在用户本机运行，无需云端依赖，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/08/02/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理 深入剖析 OpenAI 开源的本地编程代理工具——Codex CLI 的架构设计与核心实现  项目简介Codex CLI 是 OpenAI 推出的一款本地编程代理工具，使用 Rust 编写核心逻辑，提供命令行界面让 AI 助手能够直接在用户的计算机上执行代码任务。 核心特点：  🔒 本地执行：在用户本机运行，无需云端依赖，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-02T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-02T02:21:58.521Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="开源">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-02 09:00" pubdate>
+          2026年8月2日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" title="LangGraph 源码地图与运行机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LangGraph 源码地图与运行机制</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="true"
+      >
+        源码解析
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/02/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="OpenAI-Codex-CLI-源码解析：Rust-驱动的本地编程代理"><a href="#OpenAI-Codex-CLI-源码解析：Rust-驱动的本地编程代理" class="headerlink" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"></a>OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</h1><blockquote>
+<p>深入剖析 OpenAI 开源的本地编程代理工具——Codex CLI 的架构设计与核心实现</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>Codex CLI</strong> 是 OpenAI 推出的一款本地编程代理工具，使用 <strong>Rust</strong> 编写核心逻辑，提供命令行界面让 AI 助手能够直接在用户的计算机上执行代码任务。</p>
+<p><strong>核心特点</strong>：</p>
+<ul>
+<li>🔒 <strong>本地执行</strong>：在用户本机运行，无需云端依赖，代码不离开本地</li>
+<li>🖥️ <strong>多模式支持</strong>：交互式 TUI、命令执行（exec）、审查模式（review）</li>
+<li>🛡️ <strong>沙箱安全</strong>：Linux&#x2F;macOS&#x2F;Windows 多平台沙箱隔离</li>
+<li>🔌 <strong>MCP 集成</strong>：支持 Model Context Protocol 扩展工具</li>
+<li>🤖 <strong>多模型提供商</strong>：OpenAI、Ollama、LM Studio 等</li>
+<li>📦 <strong>多层级配置</strong>：用户&#x2F;项目&#x2F;会话三级配置合并</li>
+</ul>
+<p><strong>技术栈</strong>：Rust（核心） + TypeScript（部分工具），构建系统为 Bazel。</p>
+<hr>
+<h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p>Codex CLI 采用清晰的<strong>三层架构</strong>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────────────────────────┐<br>│                    用户界面层                              │<br>│  ┌──────────┐  ┌──────────┐  ┌──────────────────┐      │<br>│  │  TUI     │  │  Exec    │  │  App Server      │      │<br>│  │ (交互式) │  │ (命令行) │  │  (IDE 集成)      │      │<br>│  └────┬─────┘  └────┬─────┘  └────────┬─────────┘      │<br>└───────┼──────────────┼─────────────────┼────────────────┘<br>        │              │                 │<br>        └──────────────┴─────────────────┘<br>                       │<br>┌──────────────────────┼────────────────────────────────┐<br>│                 核心业务层                               │<br>│  ┌───────────────────┴────────────────────────┐       │<br>│  │         Session Manager                    │       │<br>│  │    (会话管理、状态机、消息路由)             │       │<br>│  └───────────────────┬────────────────────────┘       │<br>│                      │                                 │<br>│  ┌───────────────────┼────────────────────────┐       │<br>│  │              Core Services                 │       │<br>│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐  │       │<br>│  │  │ Agent    │ │ Tools    │ │ Guardian │  │       │<br>│  │  │ Manager  │ │ Executor │ │ (审查)   │  │       │<br>│  │  └──────────┘ └──────────┘ └──────────┘  │       │<br>│  └───────────────────────────────────────────┘       │<br>└──────────────────────┼────────────────────────────────┘<br>                       │<br>┌──────────────────────┼────────────────────────────────┐<br>│                 基础设施层                               │<br>│  ┌──────────┐  ┌──────────┐  ┌──────────┐            │<br>│  │ Config   │  │   MCP    │  │  State   │            │<br>│  │ Manager  │  │  Client  │  │ Storage  │            │<br>│  └──────────┘  └──────────┘  └──────────┘            │<br>│  ┌──────────┐  ┌──────────┐  ┌──────────┐            │<br>│  │ Sandbox  │  │  Model   │  │  Hooks   │            │<br>│  │ Manager  │  │ Provider │  │  Engine  │            │<br>│  └──────────┘  └──────────┘  └──────────┘            │<br>└───────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs nix">codex<span class="hljs-symbol">/</span><br>├── codex-rs<span class="hljs-symbol">/</span>              <span class="hljs-comment"># Rust 核心实现</span><br>│   ├── cli<span class="hljs-symbol">/</span>              <span class="hljs-comment"># CLI 入口和命令解析</span><br>│   ├── core<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 核心会话和业务逻辑</span><br>│   ├── tui<span class="hljs-symbol">/</span>              <span class="hljs-comment"># 终端用户界面</span><br>│   ├── config<span class="hljs-symbol">/</span>           <span class="hljs-comment"># 配置管理系统</span><br>│   ├── exec<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 代码执行引擎</span><br>│   ├── tools<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 工具定义和调度</span><br>│   ├── protocol<span class="hljs-symbol">/</span>         <span class="hljs-comment"># 通信协议定义</span><br>│   ├── app-server<span class="hljs-symbol">/</span>       <span class="hljs-comment"># 应用服务器</span><br>│   ├── state<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 状态管理</span><br>│   └── codex-mcp<span class="hljs-symbol">/</span>        <span class="hljs-comment"># MCP 客户端实现</span><br>├── codex-cli<span class="hljs-symbol">/</span>            <span class="hljs-comment"># TypeScript 工具集</span><br>├── sdk<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># SDK 实现</span><br>│   ├── python<span class="hljs-symbol">/</span>          <span class="hljs-comment"># Python SDK</span><br>│   └── typescript<span class="hljs-symbol">/</span>      <span class="hljs-comment"># TypeScript SDK</span><br>└── docs<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 文档</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="核心模块详解"><a href="#核心模块详解" class="headerlink" title="核心模块详解"></a>核心模块详解</h2><h3 id="1-CLI-模块：程序入口"><a href="#1-CLI-模块：程序入口" class="headerlink" title="1. CLI 模块：程序入口"></a>1. CLI 模块：程序入口</h3><p>CLI 模块是整个程序的起点，负责命令解析和子命令路由。</p>
+<p><strong>核心文件</strong>：</p>
+<ul>
+<li><code>main.rs</code>：程序主入口，包含 <code>main()</code>、<code>arg0_dispatch_or_else()</code>、<code>cli_main()</code></li>
+<li><code>lib.rs</code>：CLI 库定义，包含 <code>MultitoolCli</code> 和 <code>Subcommand</code> 枚举</li>
+</ul>
+<p><strong>支持的子命令</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Subcommand</span> &#123;<br>    <span class="hljs-title function_ invoke__">Exec</span>(ExecCli),           <span class="hljs-comment">// 执行单个命令</span><br>    <span class="hljs-title function_ invoke__">Review</span>(ReviewCommand),   <span class="hljs-comment">// 代码审查</span><br>    McpServer,              <span class="hljs-comment">// MCP 服务器模式</span><br>    Mcp,                    <span class="hljs-comment">// MCP 客户端命令</span><br>    Plugin,                 <span class="hljs-comment">// 插件管理</span><br>    AppServer,              <span class="hljs-comment">// 应用服务器</span><br>    RemoteControl,          <span class="hljs-comment">// 远程控制</span><br>    App,                    <span class="hljs-comment">// 桌面应用</span><br>    Resume,                 <span class="hljs-comment">// 恢复会话</span><br>    Archive,                <span class="hljs-comment">// 归档会话</span><br>    Delete,                 <span class="hljs-comment">// 删除会话</span><br>    Fork,                   <span class="hljs-comment">// 分叉会话</span><br>    Login,                  <span class="hljs-comment">// 登录</span><br>    Logout,                 <span class="hljs-comment">// 登出</span><br>    Completion,             <span class="hljs-comment">// Shell 补全</span><br>    Update,                 <span class="hljs-comment">// 更新</span><br>    Doctor,                 <span class="hljs-comment">// 诊断</span><br>    Cloud,                  <span class="hljs-comment">// 云端任务</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>启动流程</strong>：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-tag">main</span>()<br>  ├─&gt; <span class="hljs-built_in">arg0_dispatch_or_else</span>()<br>  │     ├─&gt; <span class="hljs-built_in">arg0_dispatch</span>()  <span class="hljs-comment">// 检查是否为 IDE 启动</span><br>  │     └─&gt; <span class="hljs-built_in">cli_main</span>()       <span class="hljs-comment">// 标准 CLI 启动</span><br>  │<br>  └─&gt; <span class="hljs-built_in">cli_main</span>()<br>        ├─&gt; MultitoolCli::<span class="hljs-built_in">parse</span>()  // 解析命令行参数<br>        ├─&gt; 配置合并 (feature toggles, config overrides)<br>        └─&gt; match subcommand<br>              ├─&gt; None: <span class="hljs-built_in">run_interactive_tui</span>()  // 交互式模式<br>              ├─&gt; Exec: codex_exec::<span class="hljs-built_in">run_main</span>()<br>              ├─&gt; Review: codex_exec::<span class="hljs-built_in">run_main</span>()<br>              └─&gt; ...<br></code></pre></td></tr></table></figure>
+
+<p>一个有意思的细节：<code>arg0_dispatch_or_else()</code> 会检查 <code>argv[0]</code>，这意味着 IDE 可以通过创建一个指向 codex 的符号链接（如 <code>codex-ide</code>）来触发特殊的 IDE 集成模式。</p>
+<h3 id="2-Core-模块：核心业务逻辑"><a href="#2-Core-模块：核心业务逻辑" class="headerlink" title="2. Core 模块：核心业务逻辑"></a>2. Core 模块：核心业务逻辑</h3><p>Core 模块是整个系统的”大脑”，负责会话管理、Agent 协调和消息路由。</p>
+<h4 id="Session（会话）"><a href="#Session（会话）" class="headerlink" title="Session（会话）"></a>Session（会话）</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Session</span> &#123;<br>    <span class="hljs-keyword">pub</span> session_id: SessionId,<br>    <span class="hljs-keyword">pub</span> services: SessionServices,<br>    state: Mutex&lt;SessionState&gt;,<br>    event_sender: EventSender,<br>    mcp_manager: Arc&lt;McpConnectionManager&gt;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键方法</strong>：</p>
+<ul>
+<li><code>new()</code>：创建新会话</li>
+<li><code>user_input_or_turn()</code>：处理用户输入</li>
+<li><code>interrupt()</code>：中断当前任务</li>
+<li><code>send_event()</code>：发送事件到 UI</li>
+</ul>
+<h4 id="SessionServices（服务容器）"><a href="#SessionServices（服务容器）" class="headerlink" title="SessionServices（服务容器）"></a>SessionServices（服务容器）</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">SessionServices</span> &#123;<br>    <span class="hljs-keyword">pub</span> runtime_handle: RuntimeHandle,<br>    <span class="hljs-keyword">pub</span> guardian_rejection_circuit_breaker: Arc&lt;Mutex&lt;...&gt;&gt;,<br>    <span class="hljs-keyword">pub</span> model_provider: Arc&lt;<span class="hljs-keyword">dyn</span> ModelProvider&gt;,<br>    <span class="hljs-keyword">pub</span> tool_executor: Arc&lt;ToolExecutor&gt;,<br>    <span class="hljs-keyword">pub</span> config: Arc&lt;Config&gt;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里使用了<strong>依赖注入</strong>模式——所有服务通过 <code>SessionServices</code> 容器注入到 <code>Session</code> 中，方便测试和解耦。</p>
+<h4 id="Guardian-审查系统"><a href="#Guardian-审查系统" class="headerlink" title="Guardian 审查系统"></a>Guardian 审查系统</h4><p>Guardian 是 Codex CLI 的自动审查系统，负责评估工具调用请求的风险：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">review_approval_request</span>(<br>    session: &amp;Arc&lt;Session&gt;,<br>    turn: &amp;Arc&lt;TurnContext&gt;,<br>    review_id: <span class="hljs-type">String</span>,<br>    request: GuardianApprovalRequest,<br>) <span class="hljs-punctuation">-&gt;</span> ReviewDecision<br></code></pre></td></tr></table></figure>
+
+<p><strong>审查维度</strong>：</p>
+<ul>
+<li>文件写入操作</li>
+<li>命令执行（特别是危险命令）</li>
+<li>网络访问请求</li>
+<li>基于规则和风险级别的决策</li>
+</ul>
+<p>Guardian 还实现了<strong>断路器模式</strong>——如果短时间内被拒绝太多次，会自动熔断，避免频繁打扰用户。</p>
+<h3 id="3-TUI-模块：终端界面"><a href="#3-TUI-模块：终端界面" class="headerlink" title="3. TUI 模块：终端界面"></a>3. TUI 模块：终端界面</h3><p>TUI 模块使用 Rust 构建了流畅的终端交互体验。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nix">tui<span class="hljs-symbol">/</span><br>├── app.rs                 <span class="hljs-comment"># 应用主循环</span><br>├── chatwidget.rs          <span class="hljs-comment"># 聊天界面组件</span><br>├── app_event.rs           <span class="hljs-comment"># 事件系统</span><br>├── bottom_pane<span class="hljs-symbol">/</span>           <span class="hljs-comment"># 底部面板</span><br>│   ├── input.rs          <span class="hljs-comment"># 输入框</span><br>│   └── status.rs         <span class="hljs-comment"># 状态栏</span><br>└── custom_terminal.rs     <span class="hljs-comment"># 自定义终端渲染</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>事件处理流程</strong>：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">事件循环<br>  ├─&gt; 用户输入事件<br>  │     └─&gt; 解析命令/消息 → 发送到 <span class="hljs-keyword">Session</span><br>  │<br>  ├─&gt; <span class="hljs-keyword">Session</span> 事件<br>  │     ├─&gt; 消息更新<br>  │     ├─&gt; 工具调用请求<br>  │     ├─&gt; 进度更新<br>  │     └─&gt; 完成通知<br>  │<br>  └─&gt; 渲染更新<br>        ├─&gt; 重绘聊天窗口<br>        ├─&gt; 更新状态栏<br>        └─&gt; 刷新终端<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-Config-模块：多层级配置"><a href="#4-Config-模块：多层级配置" class="headerlink" title="4. Config 模块：多层级配置"></a>4. Config 模块：多层级配置</h3><p>Codex CLI 的配置系统采用了<strong>层叠合并</strong>策略，优先级从高到低：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 命令行参数 (--config key=value)<br>   ↓<br><span class="hljs-bullet">2.</span> 会话标志 (SessionFlags)<br>   ↓<br><span class="hljs-bullet">3.</span> 项目配置 (.codex/config.toml)<br>   ↓<br><span class="hljs-bullet">4.</span> 用户配置 (~/.codex/config.toml)<br>   ↓<br><span class="hljs-bullet">5.</span> 系统配置 (/etc/codex/config.toml)<br>   ↓<br><span class="hljs-bullet">6.</span> 默认值<br></code></pre></td></tr></table></figure>
+
+<p><strong>核心类型</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ConfigLayerStack</span> &#123;<br>    layers: <span class="hljs-type">Vec</span>&lt;ConfigLayer&gt;,<br>&#125;<br><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ConfigLayer</span> &#123;<br>    <span class="hljs-keyword">pub</span> name: ConfigLayerSource,<br>    <span class="hljs-keyword">pub</span> config: TomlTable,<br>    <span class="hljs-keyword">pub</span> enabled: <span class="hljs-type">bool</span>,<br>&#125;<br><br><span class="hljs-keyword">pub</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ConfigLayerSource</span> &#123;<br>    User &#123; path: PathBuf &#125;,<br>    Project &#123; path: PathBuf &#125;,<br>    SessionFlags,<br>    Cloud &#123; id: <span class="hljs-type">String</span> &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>项目配置</strong>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">ProjectConfig</span> &#123;<br>    <span class="hljs-keyword">pub</span> trust_level: <span class="hljs-type">Option</span>&lt;TrustLevel&gt;,<br>    <span class="hljs-keyword">pub</span> model_providers: HashMap&lt;<span class="hljs-type">String</span>, ModelProviderInfo&gt;,<br>    <span class="hljs-keyword">pub</span> sandbox: SandboxConfig,<br>    <span class="hljs-keyword">pub</span> tools: ToolsConfig,<br>    <span class="hljs-keyword">pub</span> skills: SkillsConfig,<br>    <span class="hljs-keyword">pub</span> mcp_servers: <span class="hljs-type">Vec</span>&lt;McpServerConfig&gt;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>trust_level</code> 是一个有趣的设计——项目可以标记为 <code>Trusted</code>（完全信任）或 <code>Untrusted</code>（不信任），这决定了工具调用是否需要额外的审批。</p>
+<hr>
+<h2 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h2><h3 id="对话循环"><a href="#对话循环" class="headerlink" title="对话循环"></a>对话循环</h3><p>对话循环是 Codex CLI 的”心脏”：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">用户输入<br>  ↓<br>解析消息<br>  ├─&gt; 检查是否为命令 (/help, /clear, etc.)<br>  └─&gt; 普通消息<br>  ↓<br>发送到 LLM<br>  ├─&gt; 构建上下文<br>  │     ├─&gt; 系统提示<br>  │     ├─&gt; 历史消息<br>  │     ├─&gt; 工具定义<br>  │     └─&gt; 当前输入<br>  └─&gt; 调用 API（流式响应）<br>  ↓<br>处理响应<br>  ├─&gt; 文本消息 → 显示给用户<br>  ├─&gt; 工具调用<br>  │     ├─&gt; Guardian 审查<br>  │     ├─&gt; 执行工具<br>  │     ├─&gt; 返回结果<br>  │     └─&gt; 继续循环<br>  └─&gt; 完成 → 等待下一次输入<br></code></pre></td></tr></table></figure>
+
+<h3 id="工具调用流程"><a href="#工具调用流程" class="headerlink" title="工具调用流程"></a>工具调用流程</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs nix">LLM 请求工具调用<br>  ↓<br>解析工具调用（名称 <span class="hljs-operator">+</span> 参数 JSON）<br>  ↓<br>查找工具定义<br>  ├─<span class="hljs-operator">&gt;</span> 内置工具<span class="hljs-operator">?</span><br>  ├─<span class="hljs-operator">&gt;</span> MCP 工具<span class="hljs-operator">?</span><br>  └─<span class="hljs-operator">&gt;</span> 动态工具<span class="hljs-operator">?</span><br>  ↓<br>Guardian 审查<br>  ├─<span class="hljs-operator">&gt;</span> 评估风险<br>  ├─<span class="hljs-operator">&gt;</span> 检查用户权限<br>  └─<span class="hljs-operator">&gt;</span> 决策: Allow <span class="hljs-symbol">/</span> Deny <span class="hljs-symbol">/</span> AskUser<br>  ↓<br>执行工具 → 捕获输出 → 格式化结果<br>  ↓<br>返回结果给 LLM → 继续推理<br></code></pre></td></tr></table></figure>
+
+<h3 id="沙箱安全机制"><a href="#沙箱安全机制" class="headerlink" title="沙箱安全机制"></a>沙箱安全机制</h3><p>沙箱是 Codex CLI 安全的核心，支持三种平台：</p>
+<h4 id="Linux-沙箱（Bubblewrap）"><a href="#Linux-沙箱（Bubblewrap）" class="headerlink" title="Linux 沙箱（Bubblewrap）"></a>Linux 沙箱（Bubblewrap）</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">sandbox</span> = LinuxSandbox::<span class="hljs-title function_ invoke__">new</span>(SandboxPolicy &#123;<br>    network_access: <span class="hljs-literal">false</span>,<br>    file_system_access: FileSystemAccess::ReadOnly,<br>    allowed_executables: <span class="hljs-built_in">vec!</span>[<span class="hljs-string">&quot;/usr/bin/git&quot;</span>.<span class="hljs-title function_ invoke__">into</span>()],<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>隔离内容包括：文件系统（只读挂载或临时文件系统）、网络（可选禁用）、进程（命名空间隔离）、用户（非特权用户）。</p>
+<h4 id="macOS-沙箱（Seatbelt）"><a href="#macOS-沙箱（Seatbelt）" class="headerlink" title="macOS 沙箱（Seatbelt）"></a>macOS 沙箱（Seatbelt）</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">profile</span> = <span class="hljs-string">r#&quot;</span><br><span class="hljs-string">(version 1)</span><br><span class="hljs-string">(deny default)</span><br><span class="hljs-string">(allow file-read* (subpath &quot;/path/to/project&quot;))</span><br><span class="hljs-string">(allow process-exec (regex #&quot;/usr/bin/.*&quot;))</span><br><span class="hljs-string">&quot;#</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="Windows-沙箱"><a href="#Windows-沙箱" class="headerlink" title="Windows 沙箱"></a>Windows 沙箱</h4><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = WindowsSandboxConfig &#123;<br>    vgpu: <span class="hljs-literal">true</span>,<br>    memory_in_mb: <span class="hljs-number">4096</span>,<br>    mapped_folders: <span class="hljs-built_in">vec!</span>[MappedFolder &#123;<br>        host_path: <span class="hljs-string">&quot;C:\\project&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),<br>        sandbox_path: <span class="hljs-string">&quot;C:\\project&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),<br>        read_only: <span class="hljs-literal">true</span>,<br>    &#125;],<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关键设计模式"><a href="#关键设计模式" class="headerlink" title="关键设计模式"></a>关键设计模式</h2><h3 id="1-分层架构"><a href="#1-分层架构" class="headerlink" title="1. 分层架构"></a>1. 分层架构</h3><ul>
+<li><strong>表现层</strong>：TUI、CLI、App Server</li>
+<li><strong>业务层</strong>：Core、Session、Agent</li>
+<li><strong>基础层</strong>：Config、State、Tools、MCP</li>
+</ul>
+<h3 id="2-依赖注入"><a href="#2-依赖注入" class="headerlink" title="2. 依赖注入"></a>2. 依赖注入</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Session</span> &#123;<br>    services: SessionServices,  <span class="hljs-comment">// 服务容器</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-事件驱动"><a href="#3-事件驱动" class="headerlink" title="3. 事件驱动"></a>3. 事件驱动</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">EventBus</span> &#123;<br>    senders: <span class="hljs-type">Vec</span>&lt;EventSender&gt;,<br>&#125;<br><br>session.<span class="hljs-title function_ invoke__">subscribe</span>(|event| &#123;<br>    <span class="hljs-keyword">match</span> event &#123;<br>        Event::<span class="hljs-title function_ invoke__">MessageAdded</span>(msg) =&gt; &#123; <span class="hljs-comment">/* 处理 */</span> &#125;,<br>        Event::<span class="hljs-title function_ invoke__">ToolCallStarted</span>(call) =&gt; &#123; <span class="hljs-comment">/* 处理 */</span> &#125;,<br>        _ =&gt; &#123;&#125;<br>    &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-异步并发（Tokio）"><a href="#4-异步并发（Tokio）" class="headerlink" title="4. 异步并发（Tokio）"></a>4. 异步并发（Tokio）</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[tokio::main]</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() &#123;<br>    tokio::<span class="hljs-built_in">select!</span> &#123;<br>        event = session.<span class="hljs-title function_ invoke__">next_event</span>() =&gt; &#123; <span class="hljs-comment">/* 处理 */</span> &#125;,<br>        input = <span class="hljs-title function_ invoke__">user_input</span>() =&gt; &#123; <span class="hljs-comment">/* 处理 */</span> &#125;,<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-策略模式（沙箱）"><a href="#5-策略模式（沙箱）" class="headerlink" title="5. 策略模式（沙箱）"></a>5. 策略模式（沙箱）</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">trait</span> <span class="hljs-title class_">SandboxStrategy</span> &#123;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">setup</span>(&amp;<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;()&gt;;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">run_command</span>(&amp;<span class="hljs-keyword">self</span>, cmd: &amp;<span class="hljs-type">str</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;Output&gt;;<br>    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">cleanup</span>(&amp;<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;()&gt;;<br>&#125;<br><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">LinuxSandbox</span>;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MacOsSandbox</span>;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">WindowsSandbox</span>;<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-状态机"><a href="#6-状态机" class="headerlink" title="6. 状态机"></a>6. 状态机</h3><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">SessionState</span> &#123;<br>    Idle,<br>    Processing,<br>    WaitingForApproval,<br>    ExecutingTool,<br>    Error,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>状态转换有严格的验证逻辑，非法转换会直接 panic。</p>
+<hr>
+<h2 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h2><h3 id="消息流转"><a href="#消息流转" class="headerlink" title="消息流转"></a>消息流转</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">用户输入 → TUI (app.rs)<br>  → <span class="hljs-keyword">Session</span> (<span class="hljs-keyword">session</span>.rs) → ModelProvider<br>  → ResponseProcessor → EventHandler<br>  → TUI 渲染 → 等待下一次输入<br></code></pre></td></tr></table></figure>
+
+<h3 id="配置数据流"><a href="#配置数据流" class="headerlink" title="配置数据流"></a>配置数据流</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">配置文件</span><br><span class="hljs-attribute">  → ConfigLoader（加载各层配置，解析 TOML）</span><br><span class="hljs-attribute">  → ConfigMerger（按优先级合并，验证配置）</span><br><span class="hljs-attribute">  → ConfigConsumer</span><br><span class="hljs-attribute">      ├─&gt; Session</span><span class="hljs-punctuation">:</span> <span class="hljs-string">获取模型、工具配置</span><br>      <span class="hljs-attribute">├─&gt; Sandbox</span><span class="hljs-punctuation">:</span> <span class="hljs-string">获取安全策略</span><br>      <span class="hljs-attribute">├─&gt; MCP</span><span class="hljs-punctuation">:</span> <span class="hljs-string">获取服务器配置</span><br>      <span class="hljs-attribute">└─&gt; Tools</span><span class="hljs-punctuation">:</span> <span class="hljs-string">获取工具权限</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="事件数据流"><a href="#事件数据流" class="headerlink" title="事件数据流"></a>事件数据流</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">Session 事件 → EventBus</span><br><span class="hljs-attribute">  ├─&gt; TUI</span><span class="hljs-punctuation">:</span> <span class="hljs-string">更新界面</span><br>  <span class="hljs-attribute">├─&gt; State</span><span class="hljs-punctuation">:</span> <span class="hljs-string">持久化</span><br>  <span class="hljs-attribute">├─&gt; Analytics</span><span class="hljs-punctuation">:</span> <span class="hljs-string">统计</span><br>  <span class="hljs-attribute">└─&gt; Hooks</span><span class="hljs-punctuation">:</span> <span class="hljs-string">触发自定义逻辑</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="MCP-集成机制"><a href="#MCP-集成机制" class="headerlink" title="MCP 集成机制"></a>MCP 集成机制</h2><p>MCP（Model Context Protocol）是 Codex CLI 的扩展能力核心：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> 启动时加载 MCP 配置<br>   └─&gt; 读取 config.toml 中的 mcp<span class="hljs-emphasis">_servers</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">2. 初始化 MCP 客户端</span><br><span class="hljs-emphasis">   ├─&gt; 为每个服务器创建 RmcpClient</span><br><span class="hljs-emphasis">   ├─&gt; 建立连接（Stdio/HTTP/OAuth）</span><br><span class="hljs-emphasis">   └─&gt; 发送 initialize 请求</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">3. 发现工具</span><br><span class="hljs-emphasis">   └─&gt; 调用 list_</span>tools() → 注册到工具集<br>   ↓<br><span class="hljs-bullet">4.</span> 工具调用<br>   ├─&gt; LLM 请求 MCP 工具<br>   ├─&gt; 路由到对应的 RmcpClient<br>   └─&gt; 发送 call<span class="hljs-emphasis">_tool 请求 → 返回结果</span><br><span class="hljs-emphasis">   ↓</span><br><span class="hljs-emphasis">5. 会话管理</span><br><span class="hljs-emphasis">   ├─&gt; OAuth token 刷新</span><br><span class="hljs-emphasis">   ├─&gt; 连接重连</span><br><span class="hljs-emphasis">   └─&gt; 错误处理</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启用详细日志</span><br>RUST_LOG=debug codex<br><br><span class="hljs-comment"># 启用追踪</span><br>RUST_LOG=trace codex<br><br><span class="hljs-comment"># 沙箱调试</span><br>CODEX_DEBUG_SANDBOX=1 codex<br><br><span class="hljs-comment"># MCP 调试</span><br>CODEX_DEBUG_MCP=1 codex<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Codex CLI 是一个工程质量极高的开源项目，几个值得学习的设计：</p>
+<ol>
+<li><strong>Rust 类型安全</strong>：利用 Rust 的类型系统，让很多运行时错误变成编译时错误</li>
+<li><strong>三层架构清晰分离</strong>：UI、业务、基础设施各司其职</li>
+<li><strong>沙箱安全多平台适配</strong>：Linux&#x2F;macOS&#x2F;Windows 各有专属的沙箱实现</li>
+<li><strong>Guardian 断路器模式</strong>：既保证安全又不频繁打扰用户</li>
+<li><strong>层叠配置系统</strong>：灵活的多级配置合并策略</li>
+<li><strong>MCP 协议扩展</strong>：通过标准协议扩展工具能力</li>
+</ol>
+<p>对于想要开发 AI Agent 工具的开发者来说，Codex CLI 的源码非常值得一读——尤其是它的会话管理、工具执行和沙箱安全机制的设计。</p>
+<hr>
+<blockquote>
+<p><strong>项目地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/openai/codex">https://github.com/openai/codex</a><br><strong>文档</strong>：<a target="_blank" rel="noopener" href="https://developers.openai.com/codex">https://developers.openai.com/codex</a><br><strong>许可证</strong>：Apache-2.0</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="category-chain-item">源码解析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/AI-Agent/" class="print-no-link">#AI Agent</a>
+      
+        <a href="/tags/%E5%BC%80%E6%BA%90/" class="print-no-link">#开源</a>
+      
+        <a href="/tags/Codex/" class="print-no-link">#Codex</a>
+      
+        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</div>
+      <div>https://tingfeng347.github.io/2026/08/02/OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/08/02/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南">
+                        <span class="hidden-mobile">主流 Agent 架构分析指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

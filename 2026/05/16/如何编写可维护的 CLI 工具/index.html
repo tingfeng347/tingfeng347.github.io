@@ -1,0 +1,1401 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="如何编写类似 shorin 的 CLI 工具本文档详细介绍如何创建一个支持多子命令的命令行工具，以 shorin 为参考。  目录 架构概述 目录结构 主调度器详解 子命令脚本编写 完整示例：创建 mytool 进阶功能 安装与部署 调试技巧   架构概述shorin 采用 主调度器 + 子命令脚本 的架构： 用户输入: shorin check-battery           ↓">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何编写可维护的 CLI 工具">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/05/16/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%20CLI%20%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="如何编写类似 shorin 的 CLI 工具本文档详细介绍如何创建一个支持多子命令的命令行工具，以 shorin 为参考。  目录 架构概述 目录结构 主调度器详解 子命令脚本编写 完整示例：创建 mytool 进阶功能 安装与部署 调试技巧   架构概述shorin 采用 主调度器 + 子命令脚本 的架构： 用户输入: shorin check-battery           ↓">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-16T05:25:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.609Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="Bash">
+<meta property="article:tag" content="CLI">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>如何编写可维护的 CLI 工具 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="如何编写可维护的 CLI 工具"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-05-16 13:25" pubdate>
+          2026年5月16日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          96 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程工具"
+        id="heading-f15e4e37c36df88955c8dedf8c688620" role="tab" data-toggle="collapse" href="#collapse-f15e4e37c36df88955c8dedf8c688620"
+        aria-expanded="true"
+      >
+        编程工具
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f15e4e37c36df88955c8dedf8c688620"
+           role="tabpanel" aria-labelledby="heading-f15e4e37c36df88955c8dedf8c688620">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="true"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/05/16/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%20CLI%20%E5%B7%A5%E5%85%B7/" title="如何编写可维护的 CLI 工具"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">如何编写可维护的 CLI 工具</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">如何编写可维护的 CLI 工具</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="如何编写类似-shorin-的-CLI-工具"><a href="#如何编写类似-shorin-的-CLI-工具" class="headerlink" title="如何编写类似 shorin 的 CLI 工具"></a>如何编写类似 shorin 的 CLI 工具</h1><p>本文档详细介绍如何创建一个支持多子命令的命令行工具，以 <code>shorin</code> 为参考。</p>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0">架构概述</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">目录结构</a></li>
+<li><a href="#%E4%B8%BB%E8%B0%83%E5%BA%A6%E5%99%A8%E8%AF%A6%E8%A7%A3">主调度器详解</a></li>
+<li><a href="#%E5%AD%90%E5%91%BD%E4%BB%A4%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99">子命令脚本编写</a></li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B%E5%88%9B%E5%BB%BA-mytool">完整示例：创建 mytool</a></li>
+<li><a href="#%E8%BF%9B%E9%98%B6%E5%8A%9F%E8%83%BD">进阶功能</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E9%83%A8%E7%BD%B2">安装与部署</a></li>
+<li><a href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7">调试技巧</a></li>
+</ol>
+<hr>
+<h2 id="架构概述"><a href="#架构概述" class="headerlink" title="架构概述"></a>架构概述</h2><p><code>shorin</code> 采用 <strong>主调度器 + 子命令脚本</strong> 的架构：</p>
+<pre><code class="hljs">用户输入: shorin check-battery
+          ↓
+      主调度器 (shorin)
+          ↓
+      查找子命令脚本
+          ↓
+      执行 /usr/lib/shorin-contrib/check-battery
+</code></pre>
+<p><strong>优点：</strong></p>
+<ul>
+<li>每个子命令独立，易于维护</li>
+<li>新增子命令只需添加脚本文件，无需修改主程序</li>
+<li>支持动态生成帮助信息</li>
+</ul>
+<hr>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre><code class="hljs">~/.local/
+├── bin/
+│   └── mytool                    # 主调度器（可执行）
+└── lib/
+    └── mytool/                   # 子命令目录
+        ├── check-battery         # 子命令1
+        ├── clean                 # 子命令2
+        ├── compressvideos        # 子命令3
+        └── ...
+</code></pre>
+<p>或者系统级安装：</p>
+<pre><code class="hljs">/usr/
+├── bin/
+│   └── mytool
+└── lib/
+    └── mytool/
+        └── ...
+</code></pre>
+<hr>
+<h2 id="主调度器详解"><a href="#主调度器详解" class="headerlink" title="主调度器详解"></a>主调度器详解</h2><h3 id="基础版本"><a href="#基础版本" class="headerlink" title="基础版本"></a>基础版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br><span class="hljs-comment"># =============================================================================</span><br><span class="hljs-comment"># 功能: 主调度器，负责解析子命令并调用对应脚本</span><br><span class="hljs-comment"># =============================================================================</span><br><br><span class="hljs-comment"># 子命令存放目录</span><br>LIB_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/lib/mytool&quot;</span><br><br><span class="hljs-comment"># 颜色定义（可选）</span><br>BLUE=<span class="hljs-string">&#x27;\033[0;34m&#x27;</span><br>RED=<span class="hljs-string">&#x27;\033[0;31m&#x27;</span><br>NC=<span class="hljs-string">&#x27;\033[0m&#x27;</span><br><br><span class="hljs-comment"># ===================== 无参数时显示帮助 =====================</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$#</span> -eq 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;用法: <span class="hljs-variable">$&#123;BLUE&#125;</span>mytool<span class="hljs-variable">$&#123;NC&#125;</span> &lt;子命令&gt; [选项]&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;可用子命令:&quot;</span><br>    <br>    <span class="hljs-comment"># 遍历子命令目录，提取描述</span><br>    <span class="hljs-keyword">for</span> script <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>&quot;</span>/*; <span class="hljs-keyword">do</span><br>        <span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>            name=$(<span class="hljs-built_in">basename</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span>)<br>            <span class="hljs-comment"># 从脚本第 2 行提取描述（去掉 &quot;# 描述：&quot; 前缀）</span><br>            desc=$(sed -n <span class="hljs-string">&#x27;2p&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> | sed -E <span class="hljs-string">&#x27;s/^#[[:space:]]*描述：[[:space:]]*//&#x27;</span>)<br>            [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span> ] &amp;&amp; desc=<span class="hljs-string">&quot;-&quot;</span><br>            <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;  <span class="hljs-variable">$&#123;BLUE&#125;</span>%-20s<span class="hljs-variable">$&#123;NC&#125;</span> %s\n&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$name</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span><br>        <span class="hljs-keyword">fi</span><br>    <span class="hljs-keyword">done</span> | <span class="hljs-built_in">sort</span><br>    <br>    <span class="hljs-built_in">exit</span> 0<br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># ===================== 解析并执行子命令 =====================</span><br>COMMAND=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br><span class="hljs-built_in">shift</span><br><br><span class="hljs-comment"># 构建子命令路径</span><br>TARGET_SCRIPT=<span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>/<span class="hljs-variable">$COMMAND</span>&quot;</span><br><br><span class="hljs-comment"># 检查子命令是否存在且可执行</span><br><span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># 使用 exec 替换当前进程，传递剩余参数</span><br>    <span class="hljs-built_in">exec</span> <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;RED&#125;</span>错误: 未知子命令 &#x27;<span class="hljs-variable">$COMMAND</span>&#x27;<span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span> &gt;&amp;2<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;运行 &#x27;mytool&#x27; 查看可用子命令&quot;</span> &gt;&amp;2<br>    <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="进阶版本（支持中英文）"><a href="#进阶版本（支持中英文）" class="headerlink" title="进阶版本（支持中英文）"></a>进阶版本（支持中英文）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br>LIB_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/lib/mytool&quot;</span><br><br><span class="hljs-comment"># ===================== 语言检测 =====================</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;LANG:-&#125;</span>&quot;</span> == zh_CN* ]]; <span class="hljs-keyword">then</span><br>    IS_CN=<span class="hljs-literal">true</span><br><span class="hljs-keyword">else</span><br>    IS_CN=<span class="hljs-literal">false</span><br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># ===================== 双语字符串 =====================</span><br><span class="hljs-keyword">if</span> <span class="hljs-variable">$IS_CN</span>; <span class="hljs-keyword">then</span><br>    USAGE_STR=<span class="hljs-string">&quot;用法:&quot;</span><br>    AVAIL_STR=<span class="hljs-string">&quot;可用子命令:&quot;</span><br>    UNKNOWN_CMD=<span class="hljs-string">&quot;未知子命令&quot;</span><br><span class="hljs-keyword">else</span><br>    USAGE_STR=<span class="hljs-string">&quot;Usage:&quot;</span><br>    AVAIL_STR=<span class="hljs-string">&quot;Available subcommands:&quot;</span><br>    UNKNOWN_CMD=<span class="hljs-string">&quot;unknown subcommand&quot;</span><br><span class="hljs-keyword">fi</span><br><br>BLUE=<span class="hljs-string">&#x27;\033[0;34m&#x27;</span><br>NC=<span class="hljs-string">&#x27;\033[0m&#x27;</span><br><br><span class="hljs-comment"># ===================== 显示帮助 =====================</span><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$#</span> -eq 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;USAGE_STR&#125;</span> <span class="hljs-variable">$&#123;BLUE&#125;</span>mytool<span class="hljs-variable">$&#123;NC&#125;</span> &lt;子命令&gt; [选项]&quot;</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\n<span class="hljs-variable">$&#123;AVAIL_STR&#125;</span>&quot;</span><br>    <br>    <span class="hljs-keyword">for</span> script <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>&quot;</span>/*; <span class="hljs-keyword">do</span><br>        <span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>            name=$(<span class="hljs-built_in">basename</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span>)<br>            <span class="hljs-keyword">if</span> <span class="hljs-variable">$IS_CN</span>; <span class="hljs-keyword">then</span><br>                <span class="hljs-comment"># 中文：提取第 2 行</span><br>                desc=$(sed -n <span class="hljs-string">&#x27;2p&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> | sed -E <span class="hljs-string">&#x27;s/^#[[:space:]]*描述：[[:space:]]*//&#x27;</span>)<br>            <span class="hljs-keyword">else</span><br>                <span class="hljs-comment"># 英文：提取第 3 行</span><br>                desc=$(sed -n <span class="hljs-string">&#x27;3p&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> | sed -E <span class="hljs-string">&#x27;s/^#[[:space:]]*Description:[[:space:]]*//&#x27;</span>)<br>            <span class="hljs-keyword">fi</span><br>            [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span> ] &amp;&amp; desc=<span class="hljs-string">&quot;-&quot;</span><br>            <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;  <span class="hljs-variable">$&#123;BLUE&#125;</span>%-20s<span class="hljs-variable">$&#123;NC&#125;</span> %s\n&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$name</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span><br>        <span class="hljs-keyword">fi</span><br>    <span class="hljs-keyword">done</span> | <span class="hljs-built_in">sort</span><br>    <br>    <span class="hljs-built_in">exit</span> 0<br><span class="hljs-keyword">fi</span><br><br>COMMAND=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br><span class="hljs-built_in">shift</span><br><br>TARGET_SCRIPT=<span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>/<span class="hljs-variable">$COMMAND</span>&quot;</span><br><span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">exec</span> <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;mytool: <span class="hljs-variable">$&#123;UNKNOWN_CMD&#125;</span> &#x27;<span class="hljs-variable">$COMMAND</span>&#x27;&quot;</span> &gt;&amp;2<br>    <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="子命令脚本编写"><a href="#子命令脚本编写" class="headerlink" title="子命令脚本编写"></a>子命令脚本编写</h2><h3 id="基本模板"><a href="#基本模板" class="headerlink" title="基本模板"></a>基本模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 描述：这里写中文描述（会显示在帮助中）</span><br><span class="hljs-comment"># Description: English description here</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br><span class="hljs-comment"># =============================================================================</span><br><span class="hljs-comment"># 子命令: check-battery</span><br><span class="hljs-comment"># 功能: 显示电池信息</span><br><span class="hljs-comment"># =============================================================================</span><br><br><span class="hljs-comment"># 颜色定义</span><br>BOLD=<span class="hljs-string">&#x27;\033[1m&#x27;</span><br>RED=<span class="hljs-string">&#x27;\033[1;31m&#x27;</span><br>GREEN=<span class="hljs-string">&#x27;\033[1;32m&#x27;</span><br>YELLOW=<span class="hljs-string">&#x27;\033[1;33m&#x27;</span><br>BLUE=<span class="hljs-string">&#x27;\033[1;34m&#x27;</span><br>CYAN=<span class="hljs-string">&#x27;\033[1;36m&#x27;</span><br>NC=<span class="hljs-string">&#x27;\033[0m&#x27;</span><br><br><span class="hljs-comment"># ===================== 函数定义 =====================</span><br><span class="hljs-function"><span class="hljs-title">show_help</span></span>() &#123;<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;用法: mytool check-battery [选项]&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;选项:&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;  -h, --help    显示此帮助&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;  -v, --verbose 显示详细信息&quot;</span><br>&#125;<br><br><span class="hljs-comment"># ===================== 参数解析 =====================</span><br>VERBOSE=<span class="hljs-literal">false</span><br><br><span class="hljs-keyword">while</span> [[ <span class="hljs-variable">$#</span> -gt 0 ]]; <span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>        -h|--<span class="hljs-built_in">help</span>)<br>            show_help<br>            <span class="hljs-built_in">exit</span> 0<br>            ;;<br>        -v|--verbose)<br>            VERBOSE=<span class="hljs-literal">true</span><br>            <span class="hljs-built_in">shift</span><br>            ;;<br>        *)<br>            <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;RED&#125;</span>错误: 未知选项 &#x27;<span class="hljs-variable">$1</span>&#x27;<span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span> &gt;&amp;2<br>            show_help<br>            <span class="hljs-built_in">exit</span> 1<br>            ;;<br>    <span class="hljs-keyword">esac</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-comment"># ===================== 主逻辑 =====================</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BOLD&#125;</span>电池信息<span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;----------------------------------------&quot;</span><br><br><span class="hljs-comment"># 你的实际逻辑</span><br>BAT_PATH=$(upower -e | grep battery | <span class="hljs-built_in">head</span> -n 1)<br><br><span class="hljs-keyword">if</span> [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$BAT_PATH</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;RED&#125;</span>未检测到电池设备<span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br>    <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br><br>INFO=$(upower -i <span class="hljs-string">&quot;<span class="hljs-variable">$BAT_PATH</span>&quot;</span>)<br>PERCENT=$(<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INFO</span>&quot;</span> | grep <span class="hljs-string">&quot;percentage&quot;</span> | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span>)<br>STATUS=$(<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$INFO</span>&quot;</span> | grep <span class="hljs-string">&quot;state&quot;</span> | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span>)<br><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;电量: <span class="hljs-variable">$&#123;GREEN&#125;</span><span class="hljs-variable">$&#123;PERCENT&#125;</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;状态: <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-variable">$&#123;STATUS&#125;</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="子命令脚本规范"><a href="#子命令脚本规范" class="headerlink" title="子命令脚本规范"></a>子命令脚本规范</h3><ol>
+<li><strong>第 1 行</strong>: Shebang (<code>#!/bin/bash</code>)</li>
+<li><strong>第 2 行</strong>: 中文描述 (<code># 描述：xxx</code>)</li>
+<li><strong>第 3 行</strong>: 英文描述 (<code># Description: xxx</code>)</li>
+<li><strong>第 4 行起</strong>: 实际代码</li>
+</ol>
+<hr>
+<h2 id="完整示例：创建-mytool"><a href="#完整示例：创建-mytool" class="headerlink" title="完整示例：创建 mytool"></a>完整示例：创建 mytool</h2><h3 id="步骤-1：创建目录结构"><a href="#步骤-1：创建目录结构" class="headerlink" title="步骤 1：创建目录结构"></a>步骤 1：创建目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p ~/.local/lib/mytool<br><span class="hljs-built_in">mkdir</span> -p ~/.local/bin<br></code></pre></td></tr></table></figure>
+
+<h3 id="步骤-2：创建主调度器"><a href="#步骤-2：创建主调度器" class="headerlink" title="步骤 2：创建主调度器"></a>步骤 2：创建主调度器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; ~/.local/bin/mytool &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br>LIB_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/lib/mytool&quot;</span><br>BLUE=<span class="hljs-string">&#x27;\033[0;34m&#x27;</span><br>NC=<span class="hljs-string">&#x27;\033[0m&#x27;</span><br><br><span class="hljs-keyword">if</span> [ <span class="hljs-variable">$#</span> -eq 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;用法: <span class="hljs-variable">$&#123;BLUE&#125;</span>mytool<span class="hljs-variable">$&#123;NC&#125;</span> &lt;子命令&gt; [选项]&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;可用子命令:&quot;</span><br>    <span class="hljs-keyword">for</span> script <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>&quot;</span>/*; <span class="hljs-keyword">do</span><br>        <span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>            name=$(<span class="hljs-built_in">basename</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span>)<br>            desc=$(sed -n <span class="hljs-string">&#x27;2p&#x27;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> | sed -E <span class="hljs-string">&#x27;s/^#[[:space:]]*描述：[[:space:]]*//&#x27;</span>)<br>            [ -z <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span> ] &amp;&amp; desc=<span class="hljs-string">&quot;-&quot;</span><br>            <span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;  <span class="hljs-variable">$&#123;BLUE&#125;</span>%-20s<span class="hljs-variable">$&#123;NC&#125;</span> %s\n&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$name</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$desc</span>&quot;</span><br>        <span class="hljs-keyword">fi</span><br>    <span class="hljs-keyword">done</span> | <span class="hljs-built_in">sort</span><br>    <span class="hljs-built_in">exit</span> 0<br><span class="hljs-keyword">fi</span><br><br>COMMAND=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br><span class="hljs-built_in">shift</span><br>TARGET_SCRIPT=<span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>/<span class="hljs-variable">$COMMAND</span>&quot;</span><br><br><span class="hljs-keyword">if</span> [ -x <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">exec</span> <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;mytool: 未知子命令 &#x27;<span class="hljs-variable">$COMMAND</span>&#x27;&quot;</span> &gt;&amp;2<br>    <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br>EOF<br><br><span class="hljs-built_in">chmod</span> +x ~/.local/bin/mytool<br></code></pre></td></tr></table></figure>
+
+<h3 id="步骤-3：创建子命令示例"><a href="#步骤-3：创建子命令示例" class="headerlink" title="步骤 3：创建子命令示例"></a>步骤 3：创建子命令示例</h3><p><strong>示例 1：hello 子命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; ~/.local/lib/mytool/hello &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-comment"># 描述：打招呼示例</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br>NAME=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;1:-World&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;你好, <span class="hljs-variable">$NAME</span>!&quot;</span><br>EOF<br><br><span class="hljs-built_in">chmod</span> +x ~/.local/lib/mytool/hello<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 2：sysinfo 子命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; ~/.local/lib/mytool/sysinfo &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-comment"># 描述：显示系统信息</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br>BOLD=<span class="hljs-string">&#x27;\033[1m&#x27;</span><br>CYAN=<span class="hljs-string">&#x27;\033[1;36m&#x27;</span><br>NC=<span class="hljs-string">&#x27;\033[0m&#x27;</span><br><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;BOLD&#125;</span>=== 系统信息 ===<span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;主机名: <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-subst">$(hostname)</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;内核:   <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-subst">$(uname -r)</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;系统:   <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-subst">$(uname -o)</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;架构:   <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-subst">$(uname -m)</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;运行时间: <span class="hljs-variable">$&#123;CYAN&#125;</span><span class="hljs-subst">$(uptime -p)</span><span class="hljs-variable">$&#123;NC&#125;</span>&quot;</span><br>EOF<br><br><span class="hljs-built_in">chmod</span> +x ~/.local/lib/mytool/sysinfo<br></code></pre></td></tr></table></figure>
+
+<p><strong>示例 3：count 子命令（带参数解析）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> &gt; ~/.local/lib/mytool/count &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-comment"># 描述：计数工具</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br><span class="hljs-function"><span class="hljs-title">show_help</span></span>() &#123;<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;用法: mytool count [选项]&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;选项:&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;  -n NUM    计数到 NUM（默认 10）&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;  -s STEP   步长（默认 1）&quot;</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;  -h        显示帮助&quot;</span><br>&#125;<br><br>N=10<br>STEP=1<br><br><span class="hljs-keyword">while</span> [[ <span class="hljs-variable">$#</span> -gt 0 ]]; <span class="hljs-keyword">do</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>        -n) N=<span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span>; <span class="hljs-built_in">shift</span> 2 ;;<br>        -s) STEP=<span class="hljs-string">&quot;<span class="hljs-variable">$2</span>&quot;</span>; <span class="hljs-built_in">shift</span> 2 ;;<br>        -h|--<span class="hljs-built_in">help</span>) show_help; <span class="hljs-built_in">exit</span> 0 ;;<br>        *) <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;未知选项: <span class="hljs-variable">$1</span>&quot;</span> &gt;&amp;2; <span class="hljs-built_in">exit</span> 1 ;;<br>    <span class="hljs-keyword">esac</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-keyword">for</span> ((i=<span class="hljs-number">1</span>; i&lt;=N; i+=STEP)); <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$i</span>&quot;</span><br><span class="hljs-keyword">done</span><br>EOF<br><br><span class="hljs-built_in">chmod</span> +x ~/.local/lib/mytool/count<br></code></pre></td></tr></table></figure>
+
+<h3 id="步骤-4：添加到-PATH"><a href="#步骤-4：添加到-PATH" class="headerlink" title="步骤 4：添加到 PATH"></a>步骤 4：添加到 PATH</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 确保 ~/.local/bin 在 PATH 中</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc<br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<h3 id="步骤-5：测试"><a href="#步骤-5：测试" class="headerlink" title="步骤 5：测试"></a>步骤 5：测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看帮助</span><br>mytool<br><br><span class="hljs-comment"># 测试子命令</span><br>mytool hello<br>mytool hello 张三<br>mytool sysinfo<br>mytool count -n 5<br>mytool count -n 20 -s 2<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="进阶功能"><a href="#进阶功能" class="headerlink" title="进阶功能"></a>进阶功能</h2><h3 id="1-自动补全"><a href="#1-自动补全" class="headerlink" title="1. 自动补全"></a>1. 自动补全</h3><p>创建补全脚本 <code>~/.local/share/bash-completion/completions/mytool</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-function"><span class="hljs-title">_mytool_completions</span></span>() &#123;<br>    <span class="hljs-built_in">local</span> cur prev commands<br>    cur=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;COMP_WORDS[COMP_CWORD]&#125;</span>&quot;</span><br>    prev=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;COMP_WORDS[COMP_CWORD-1]&#125;</span>&quot;</span><br>    <br>    <span class="hljs-comment"># 如果是第一个参数，补全子命令</span><br>    <span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$COMP_CWORD</span>&quot;</span> -eq 1 ]; <span class="hljs-keyword">then</span><br>        commands=$(<span class="hljs-built_in">ls</span> <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/lib/mytool/&quot;</span> 2&gt;/dev/null | xargs -n1 <span class="hljs-built_in">basename</span>)<br>        COMPREPLY=($(compgen -W <span class="hljs-string">&quot;<span class="hljs-variable">$commands</span>&quot;</span> -- <span class="hljs-string">&quot;<span class="hljs-variable">$cur</span>&quot;</span>))<br>        <span class="hljs-built_in">return</span> 0<br>    <span class="hljs-keyword">fi</span><br>    <br>    <span class="hljs-comment"># 根据子命令补全选项</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$prev</span>&quot;</span> <span class="hljs-keyword">in</span><br>        count)<br>            COMPREPLY=($(compgen -W <span class="hljs-string">&quot;-n -s -h&quot;</span> -- <span class="hljs-string">&quot;<span class="hljs-variable">$cur</span>&quot;</span>))<br>            ;;<br>        *)<br>            ;;<br>    <span class="hljs-keyword">esac</span><br>&#125;<br><br>complete -F _mytool_completions mytool<br></code></pre></td></tr></table></figure>
+
+<p>加载补全：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.local/share/bash-completion/completions/mytool<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-子命令分组"><a href="#2-子命令分组" class="headerlink" title="2. 子命令分组"></a>2. 子命令分组</h3><p>在主调度器中添加分组逻辑：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 定义分组</span><br><span class="hljs-built_in">declare</span> -A GROUPS=(<br>    [<span class="hljs-string">&quot;系统管理&quot;</span>]=<span class="hljs-string">&quot;sysinfo clean update&quot;</span><br>    [<span class="hljs-string">&quot;开发工具&quot;</span>]=<span class="hljs-string">&quot;build test deploy&quot;</span><br>    [<span class="hljs-string">&quot;实用工具&quot;</span>]=<span class="hljs-string">&quot;hello count&quot;</span><br>)<br><br><span class="hljs-comment"># 显示分组帮助</span><br><span class="hljs-keyword">for</span> group <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;!GROUPS[@]&#125;</span>&quot;</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;\n<span class="hljs-variable">$&#123;group&#125;</span>:&quot;</span><br>    <span class="hljs-keyword">for</span> cmd <span class="hljs-keyword">in</span> <span class="hljs-variable">$&#123;GROUPS[$group]&#125;</span>; <span class="hljs-keyword">do</span><br>        <span class="hljs-comment"># 显示每个命令的描述</span><br>        ...<br>    <span class="hljs-keyword">done</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-配置文件支持"><a href="#3-配置文件支持" class="headerlink" title="3. 配置文件支持"></a>3. 配置文件支持</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在主调度器中加载配置</span><br>CONFIG_FILE=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.config/mytool/config&quot;</span><br><br><span class="hljs-keyword">if</span> [ -f <span class="hljs-string">&quot;<span class="hljs-variable">$CONFIG_FILE</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">source</span> <span class="hljs-string">&quot;<span class="hljs-variable">$CONFIG_FILE</span>&quot;</span><br><span class="hljs-keyword">fi</span><br><br><span class="hljs-comment"># 子命令中使用配置</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;默认编辑器: <span class="hljs-variable">$&#123;EDITOR:-vim&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-日志功能"><a href="#4-日志功能" class="headerlink" title="4. 日志功能"></a>4. 日志功能</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建日志函数</span><br>LOG_FILE=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/log/mytool.log&quot;</span><br><br><span class="hljs-function"><span class="hljs-title">log</span></span>() &#123;<br>    <span class="hljs-built_in">local</span> level=<span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span><br>    <span class="hljs-built_in">shift</span><br>    <span class="hljs-built_in">local</span> msg=<span class="hljs-string">&quot;$*&quot;</span><br>    <span class="hljs-built_in">local</span> timestamp=$(<span class="hljs-built_in">date</span> <span class="hljs-string">&#x27;+%Y-%m-%d %H:%M:%S&#x27;</span>)<br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;[<span class="hljs-variable">$timestamp</span>] [<span class="hljs-variable">$level</span>] <span class="hljs-variable">$msg</span>&quot;</span> &gt;&gt; <span class="hljs-string">&quot;<span class="hljs-variable">$LOG_FILE</span>&quot;</span><br>&#125;<br><br><span class="hljs-comment"># 使用</span><br><span class="hljs-built_in">log</span> <span class="hljs-string">&quot;INFO&quot;</span> <span class="hljs-string">&quot;执行子命令: <span class="hljs-variable">$COMMAND</span>&quot;</span><br><span class="hljs-built_in">log</span> <span class="hljs-string">&quot;ERROR&quot;</span> <span class="hljs-string">&quot;发生错误: $?&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-版本管理"><a href="#5-版本管理" class="headerlink" title="5. 版本管理"></a>5. 版本管理</h3><p>在主调度器中添加版本信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">VERSION=<span class="hljs-string">&quot;1.0.0&quot;</span><br><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> <span class="hljs-keyword">in</span><br>    -v|--version)<br>        <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;mytool <span class="hljs-variable">$VERSION</span>&quot;</span><br>        <span class="hljs-built_in">exit</span> 0<br>        ;;<br>    ...<br><span class="hljs-keyword">esac</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="安装与部署"><a href="#安装与部署" class="headerlink" title="安装与部署"></a>安装与部署</h2><h3 id="用户级安装（推荐）"><a href="#用户级安装（推荐）" class="headerlink" title="用户级安装（推荐）"></a>用户级安装（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建目录</span><br><span class="hljs-built_in">mkdir</span> -p ~/.local/bin ~/.local/lib/mytool<br><br><span class="hljs-comment"># 复制主调度器</span><br><span class="hljs-built_in">cp</span> mytool ~/.local/bin/<br><span class="hljs-built_in">chmod</span> +x ~/.local/bin/mytool<br><br><span class="hljs-comment"># 复制子命令</span><br><span class="hljs-built_in">cp</span> subcommands/* ~/.local/lib/mytool/<br><span class="hljs-built_in">chmod</span> +x ~/.local/lib/mytool/*<br><br><span class="hljs-comment"># 确保 PATH 包含 ~/.local/bin</span><br><span class="hljs-keyword">if</span> ! <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$PATH</span>&quot;</span> | grep -q <span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/bin&quot;</span>; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="系统级安装"><a href="#系统级安装" class="headerlink" title="系统级安装"></a>系统级安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 需要 root 权限</span><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cp</span> mytool /usr/bin/<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /usr/lib/mytool<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cp</span> subcommands/* /usr/lib/mytool/<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">chmod</span> +x /usr/bin/mytool /usr/lib/mytool/*<br></code></pre></td></tr></table></figure>
+
+<h3 id="创建安装脚本"><a href="#创建安装脚本" class="headerlink" title="创建安装脚本"></a>创建安装脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># install.sh</span><br><br><span class="hljs-built_in">set</span> -euo pipefail<br><br>INSTALL_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$&#123;1:-<span class="hljs-variable">$HOME</span>/.local&#125;</span>&quot;</span><br>LIB_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$INSTALL_DIR</span>/lib/mytool&quot;</span><br>BIN_DIR=<span class="hljs-string">&quot;<span class="hljs-variable">$INSTALL_DIR</span>/bin&quot;</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;安装 mytool 到 <span class="hljs-variable">$INSTALL_DIR</span> ...&quot;</span><br><br><span class="hljs-built_in">mkdir</span> -p <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$BIN_DIR</span>&quot;</span><br><br><span class="hljs-comment"># 安装主调度器</span><br><span class="hljs-built_in">cp</span> mytool <span class="hljs-string">&quot;<span class="hljs-variable">$BIN_DIR</span>/&quot;</span><br><span class="hljs-built_in">chmod</span> +x <span class="hljs-string">&quot;<span class="hljs-variable">$BIN_DIR</span>/mytool&quot;</span><br><br><span class="hljs-comment"># 安装子命令</span><br><span class="hljs-keyword">for</span> script <span class="hljs-keyword">in</span> subcommands/*; <span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">cp</span> <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>/&quot;</span><br>    <span class="hljs-built_in">chmod</span> +x <span class="hljs-string">&quot;<span class="hljs-variable">$LIB_DIR</span>/<span class="hljs-subst">$(basename <span class="hljs-string">&quot;<span class="hljs-variable">$script</span>&quot;</span>)</span>&quot;</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;安装完成!&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;确保 <span class="hljs-variable">$BIN_DIR</span> 在你的 PATH 中&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h2><h3 id="1-启用调试模式"><a href="#1-启用调试模式" class="headerlink" title="1. 启用调试模式"></a>1. 启用调试模式</h3><p>在脚本开头添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 调试模式</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;DEBUG:-0&#125;</span>&quot;</span> == <span class="hljs-string">&quot;1&quot;</span> ]]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">set</span> -x  <span class="hljs-comment"># 打印每条执行的命令</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">DEBUG=1 mytool hello<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-检查脚本语法"><a href="#2-检查脚本语法" class="headerlink" title="2. 检查脚本语法"></a>2. 检查脚本语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">bash -n mytool        <span class="hljs-comment"># 语法检查</span><br>shellcheck mytool     <span class="hljs-comment"># 更详细的检查（需要安装 shellcheck）</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-常见问题"><a href="#3-常见问题" class="headerlink" title="3. 常见问题"></a>3. 常见问题</h3><p><strong>问题：找不到子命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查目录权限</span><br><span class="hljs-built_in">ls</span> -la ~/.local/lib/mytool/<br><br><span class="hljs-comment"># 检查文件是否可执行</span><br><span class="hljs-built_in">chmod</span> +x ~/.local/lib/mytool/*<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题：PATH 中没有 mytool</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查 PATH</span><br><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 临时添加</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;<span class="hljs-variable">$HOME</span>/.local/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br><br><span class="hljs-comment"># 永久添加</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题：描述不显示</strong></p>
+<p>确保子命令脚本第 2 行格式正确：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 描述：这里是描述</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell.html">Bash 脚本教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.shellcheck.net/">ShellCheck - 脚本检查工具</a></li>
+<li><a href="/usr/sbin/shorin">shorin 源码</a></li>
+<li><a href="/usr/lib/shorin-contrib/">shorin 子命令示例</a></li>
+</ul>
+<hr>
+<h2 id="快速参考"><a href="#快速参考" class="headerlink" title="快速参考"></a>快速参考</h2><h3 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h3><pre><code class="hljs">~/.local/bin/mytool           # 主调度器
+~/.local/lib/mytool/*         # 子命令脚本
+</code></pre>
+<h3 id="子命令模板"><a href="#子命令模板" class="headerlink" title="子命令模板"></a>子命令模板</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-comment"># 描述：功能描述</span><br><span class="hljs-built_in">set</span> -euo pipefail<br><br><span class="hljs-comment"># 你的代码</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="主调度器关键代码"><a href="#主调度器关键代码" class="headerlink" title="主调度器关键代码"></a>主调度器关键代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 执行子命令</span><br><span class="hljs-built_in">exec</span> <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_SCRIPT</span>&quot;</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/" class="category-chain-item">编程工具</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Shell/" class="print-no-link">#Shell</a>
+      
+        <a href="/tags/CLI/" class="print-no-link">#CLI</a>
+      
+        <a href="/tags/Bash/" class="print-no-link">#Bash</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>如何编写可维护的 CLI 工具</div>
+      <div>https://tingfeng347.github.io/2026/05/16/如何编写可维护的 CLI 工具/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/29/Tmux%20%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="Tmux 会话恢复常见问题排查">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Tmux 会话恢复常见问题排查</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/28/%E4%BD%BF%E7%94%A8%20uv%20%E6%9E%84%E5%BB%BA%E5%B9%B6%E5%8F%91%E5%B8%83%20Python%20%E5%8C%85%E5%88%B0%20PyPI/" title="使用 uv 构建并发布 Python 包到 PyPI">
+                        <span class="hidden-mobile">使用 uv 构建并发布 Python 包到 PyPI</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1347 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="课本代码中文注释版 4-23 读取usermsg数据 1234567891011121314151617181920212223242526&#x2F;&#x2F; 导入Elasticsearch Spark SQL包import org.elasticsearch.spark.sql._&#x2F;&#x2F; 定义Elasticsearch查询条件，查询phone_no字段值为5143217的记录val defaultQuery:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据开发期末代码">
+<meta property="og:url" content="https://tingfeng347.github.io/2025/06/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E6%9C%9F%E6%9C%AB%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="课本代码中文注释版 4-23 读取usermsg数据 1234567891011121314151617181920212223242526&#x2F;&#x2F; 导入Elasticsearch Spark SQL包import org.elasticsearch.spark.sql._&#x2F;&#x2F; 定义Elasticsearch查询条件，查询phone_no字段值为5143217的记录val defaultQuery:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-12T13:33:22.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.606Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>大数据开发期末代码 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="大数据开发期末代码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-12 21:33" pubdate>
+          2025年6月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          112 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大数据"
+        id="heading-2c657e7dce6effaecbb458deb45e800a" role="tab" data-toggle="collapse" href="#collapse-2c657e7dce6effaecbb458deb45e800a"
+        aria-expanded="true"
+      >
+        大数据
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2c657e7dce6effaecbb458deb45e800a"
+           role="tabpanel" aria-labelledby="heading-2c657e7dce6effaecbb458deb45e800a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Java"
+        id="heading-d52387880e1ea22817a72d3759213819" role="tab" data-toggle="collapse" href="#collapse-d52387880e1ea22817a72d3759213819"
+        aria-expanded="true"
+      >
+        Java
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-d52387880e1ea22817a72d3759213819"
+           role="tabpanel" aria-labelledby="heading-d52387880e1ea22817a72d3759213819">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/12/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E6%8A%80%E6%9C%AF%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" title="大数据开发技术课程设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大数据开发技术课程设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/06/12/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E6%9C%9F%E6%9C%AB%E4%BB%A3%E7%A0%81/" title="大数据开发期末代码"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">大数据开发期末代码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/10/09/%E5%86%9C%E4%BA%A7%E5%93%81%E7%94%9F%E4%BA%A7%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9C%9F%E8%B4%A7%E8%A1%8C%E6%83%85%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/" title="农产品生产管理与期货行情监控系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">农产品生产管理与期货行情监控系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/10/04/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98%E4%BB%A3%E7%A0%81/" title="Python数据挖掘实战代码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python数据挖掘实战代码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/12/%E4%BD%9C%E7%89%A9%E9%A2%84%E6%B5%8B%E7%B3%BB%E7%BB%9F/" title="作物预测系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">作物预测系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">大数据开发期末代码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="%E8%AF%BE%E6%9C%AC%E4%BB%A3%E7%A0%81%E4%B8%AD%E6%96%87%E6%B3%A8%E9%87%8A%E7%89%88" tabindex="-1">课本代码中文注释版</h1>
+<h2 id="4-23-%E8%AF%BB%E5%8F%96usermsg%E6%95%B0%E6%8D%AE" tabindex="-1">4-23 读取usermsg数据</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入Elasticsearch Spark SQL包</span><br><span class="hljs-keyword">import</span> org.elasticsearch.spark.sql._<br><br><span class="hljs-comment">// 定义Elasticsearch查询条件，查询phone_no字段值为5143217的记录</span><br>val defaultQuery: String = <span class="hljs-string">&quot;?q=phone_no:5143217&quot;</span><br><br><span class="hljs-comment">// 指定要查询的Elasticsearch表名</span><br>val esTable=<span class="hljs-string">&quot;usermsg&quot;</span><br><br><span class="hljs-comment">// 配置Elasticsearch连接参数</span><br><span class="hljs-type">val</span> <span class="hljs-variable">options</span> <span class="hljs-operator">=</span>Map(<br>  (<span class="hljs-string">&quot;es.nodes&quot;</span>,<span class="hljs-string">&quot;hadoop5&quot;</span>),                                    <span class="hljs-comment">// ES集群节点地址</span><br>  (<span class="hljs-string">&quot;es.port&quot;</span>,<span class="hljs-string">&quot;9200&quot;</span>),                                        <span class="hljs-comment">// ES端口号</span><br>  (<span class="hljs-string">&quot;es.read.metadata&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),                              <span class="hljs-comment">// 不读取元数据</span><br>  (<span class="hljs-string">&quot;es.mapping.date.rich&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),                          <span class="hljs-comment">// 禁用富日期映射</span><br>  (<span class="hljs-string">&quot;es.net.http.auth.user&quot;</span>,<span class="hljs-string">&quot;elastic&quot;</span>),                       <span class="hljs-comment">// ES认证用户名</span><br>  (<span class="hljs-string">&quot;es.net.http.auth.pass&quot;</span>,<span class="hljs-string">&quot;&lt;已移除敏感信息&gt;&quot;</span>),         <span class="hljs-comment">// ES认证密码</span><br>  (<span class="hljs-string">&quot;es.nodes.wan.only&quot;</span>,<span class="hljs-string">&quot;true&quot;</span>)                               <span class="hljs-comment">// 仅使用WAN节点</span><br>)<br><br><span class="hljs-comment">// 使用Spark从Elasticsearch读取数据并创建DataFrame</span><br>val esDf=spark.esDF(esTable, defaultQuery, options)<br><br><span class="hljs-comment">// 显示指定字段的查询结果</span><br>esDf.select(<span class="hljs-string">&quot;phone_no&quot;</span>,<span class="hljs-string">&quot;owner_name&quot;</span>,<span class="hljs-string">&quot;owner_code&quot;</span>,<span class="hljs-string">&quot;run_name&quot;</span>,<span class="hljs-string">&quot;run_time&quot;</span>).show()<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-24-%E8%AF%BB%E5%8F%96usermsg%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE" tabindex="-1">4-24 读取usermsg所有数据</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义查询所有数据的ES查询条件</span><br>val defaultQuery: String = <span class="hljs-string">&quot;?q=*:*&quot;</span><br><br><span class="hljs-comment">// 指定要查询的Elasticsearch表名</span><br>val esTable=<span class="hljs-string">&quot;usermsg&quot;</span><br><br><span class="hljs-comment">// 配置Elasticsearch连接参数（同上）</span><br><span class="hljs-type">val</span> <span class="hljs-variable">options</span> <span class="hljs-operator">=</span>Map(<br>  (<span class="hljs-string">&quot;es.nodes&quot;</span>,<span class="hljs-string">&quot;hadoop5&quot;</span>),<br>  (<span class="hljs-string">&quot;es.port&quot;</span>,<span class="hljs-string">&quot;9200&quot;</span>),<br>  (<span class="hljs-string">&quot;es.read.metadata&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),<br>  (<span class="hljs-string">&quot;es.mapping.date.rich&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),<br>  (<span class="hljs-string">&quot;es.net.http.auth.user&quot;</span>,<span class="hljs-string">&quot;elastic&quot;</span>),<br>  (<span class="hljs-string">&quot;es.net.http.auth.pass&quot;</span>,<span class="hljs-string">&quot;&lt;已移除敏感信息&gt;&quot;</span>),<br>  (<span class="hljs-string">&quot;es.nodes.wan.only&quot;</span>,<span class="hljs-string">&quot;true&quot;</span>)<br>)<br><br><span class="hljs-comment">// 从Elasticsearch读取所有数据</span><br>val esDf=spark.esDF(esTable, defaultQuery, options)<br><br><span class="hljs-comment">// 生成临时表名，使用当前时间戳确保唯一性</span><br>val sparkTable: String = <span class="hljs-string">&quot;tmp&quot;</span> + System.currentTimeMillis()<br><br><span class="hljs-comment">// 将DataFrame注册为临时表，便于使用SQL查询</span><br>esDf.registerTempTable(sparkTable)<br><br><span class="hljs-comment">// 使用SQL查询临时表，显示前10条记录</span><br>spark.sql(<span class="hljs-string">&quot;select * from tmp1742539402423 limit 10&quot;</span>).show()<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-25-%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E6%97%B6%E9%97%B4%E4%B9%8B%E5%89%8D%E7%9A%84%E6%95%B0%E6%8D%AE" tabindex="-1">4-25 获取某个时间之前的数据</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入日期处理相关的类</span><br><span class="hljs-keyword">import</span> java.text.SimpleDateFormat<br><span class="hljs-keyword">import</span> java.util.&#123;Calendar, Date, Properties&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取指定时间之前某个时间点的Date对象</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timePattern 时间格式模式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangeValue 时间范围数值</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangePattern 时间范围单位（Y/M/D）</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> startTime 起始时间字符串</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 计算后的Date对象</span><br><span class="hljs-comment"> */</span><br>def <span class="hljs-title function_">getBeforeTime</span><span class="hljs-params">(</span><br><span class="hljs-params">    timePattern: String,</span><br><span class="hljs-params">    timeRangeValue: Int,</span><br><span class="hljs-params">    timeRangePattern: String,</span><br><span class="hljs-params">    startTime: String</span><br><span class="hljs-params">)</span>: Date = &#123;<br>  <span class="hljs-comment">// 创建日期格式化对象</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">dateFormat</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(timePattern)<br>  <br>  <span class="hljs-comment">// 创建Calendar实例用于日期计算</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">cal</span> <span class="hljs-operator">=</span> Calendar.getInstance()<br>  <br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// 解析起始时间字符串并设置到Calendar中</span><br>    cal.setTime(dateFormat.parse(startTime))<br>  &#125; <span class="hljs-keyword">catch</span> &#123;<br>    <span class="hljs-comment">// 捕获时间解析异常并抛出运行时异常</span><br>    <span class="hljs-keyword">case</span> e: Exception =&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(s<span class="hljs-string">&quot;时间解析失败: $&#123;e.getMessage&#125;&quot;</span>)<br>  &#125;<br>  <br>  <span class="hljs-comment">// 根据时间单位进行时间计算</span><br>  timeRangePattern match &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Y&quot;</span> =&gt; cal.add(Calendar.YEAR, -timeRangeValue)           <span class="hljs-comment">// 减去指定年数</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;M&quot;</span> =&gt; cal.add(Calendar.MONTH, -timeRangeValue)          <span class="hljs-comment">// 减去指定月数</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;D&quot;</span> =&gt; cal.add(Calendar.DAY_OF_MONTH, -timeRangeValue)   <span class="hljs-comment">// 减去指定天数</span><br>    <span class="hljs-type">case</span> <span class="hljs-variable">_</span> <span class="hljs-operator">=</span>&gt; <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(s<span class="hljs-string">&quot;无效的时间单位: $timeRangePattern&quot;</span>)<br>  &#125;<br>  <br>  <span class="hljs-comment">// 返回计算后的Date对象</span><br>  cal.getTime<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取指定时间之前某个时间点的字符串表示</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timePattern 时间格式模式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangeValue 时间范围数值</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangePattern 时间范围单位</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> startTime 起始时间字符串</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 格式化后的时间字符串</span><br><span class="hljs-comment"> */</span><br>def <span class="hljs-title function_">getBeforeTimeStr</span><span class="hljs-params">(timePattern: String, timeRangeValue: Int, timeRangePattern: String, startTime: String)</span>: String = &#123;<br>  <span class="hljs-comment">// 创建日期格式化对象</span><br>  val dateFormat: SimpleDateFormat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(timePattern)<br>  <br>  <span class="hljs-comment">// 格式化并返回计算后的时间字符串</span><br>  dateFormat.format(getBeforeTime(timePattern, timeRangeValue,timeRangePattern, startTime))<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取当前日期的字符串表示</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timePattern 时间格式模式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 当前时间的字符串表示</span><br><span class="hljs-comment"> */</span><br>def <span class="hljs-title function_">getNowDate</span><span class="hljs-params">(timePattern: String )</span>: String= &#123;<br>  <span class="hljs-comment">// 获取当前时间</span><br>  val now: Date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()<br>  <br>  <span class="hljs-comment">// 创建日期格式化对象</span><br>  val dateFormat: SimpleDateFormat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(timePattern)<br>  <br>  <span class="hljs-comment">// 格式化当前时间</span><br>  <span class="hljs-type">val</span>  <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> dateFormat.format(now)<br>  <br>  <span class="hljs-comment">// 返回格式化后的时间字符串</span><br>  <span class="hljs-keyword">return</span> date<br>&#125;<br><br><span class="hljs-comment">// 调用函数获取3个月前的时间字符串</span><br>getBeforeTimeStr(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>,<span class="hljs-number">3</span>,<span class="hljs-string">&quot;M&quot;</span>,getNowDate(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>))<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-26-%E9%80%89%E6%8B%A9%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E5%88%B0hive%E4%B8%AD" tabindex="-1">4-26 选择数据保存到Hive中</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义目标Hive表名</span><br>val hiveTable=<span class="hljs-string">&quot;zxh.usermsg111&quot;</span><br><br><span class="hljs-comment">// 定义要选择的字段列表</span><br>val selectedCols=<span class="hljs-string">&quot;addressoj,estate_name,force,open_time,owner_code,owner_name,phone_no,run_name,run_time,sm_code,sm_name,terminal_no&quot;</span><br><br><span class="hljs-comment">// 定义时间字段名，用于时间过滤</span><br>val timeColName=<span class="hljs-string">&quot;run_time&quot;</span><br><br><span class="hljs-comment">// 构建CREATE TABLE AS SELECT SQL语句</span><br><span class="hljs-comment">// 选择指定字段并过滤50年前到现在的数据</span><br><span class="hljs-type">val</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;CREATE TABLE &quot;</span> +hiveTable + <span class="hljs-string">&quot; as select &quot;</span> + selectedCols +<span class="hljs-string">&quot; from &quot;</span> + sparkTable+ <span class="hljs-string">&quot; where &quot;</span> + timeColName + <span class="hljs-string">&quot; &gt;&#x27; &quot;</span> +getBeforeTimeStr(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>,<span class="hljs-number">50</span>,<span class="hljs-string">&quot;Y&quot;</span>,getNowDate(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>)) + <span class="hljs-string">&quot;&#x27;&quot;</span><br><br><span class="hljs-comment">// 执行SQL语句创建Hive表</span><br>spark.sql(sql)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-27-%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E8%A1%A8%E5%90%8D%E5%88%97%E8%A1%A8" tabindex="-1">4-27 获取时间范围内的表名列表</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入集合和日期处理相关的类</span><br><span class="hljs-keyword">import</span> scala.collection.mutable.ArrayBuffer<br><span class="hljs-keyword">import</span> java.text.SimpleDateFormat<br><span class="hljs-keyword">import</span> java.util.&#123;Calendar, Date, Properties&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取两个日期之间的所有日期数组</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> start 开始日期</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> end 结束日期</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 日期数组</span><br><span class="hljs-comment"> */</span><br>def <span class="hljs-title function_">getRangeDays</span><span class="hljs-params">(start: Date, end: Date)</span>: Array[Date] = &#123;<br>     <span class="hljs-comment">// 创建开始日期的Calendar对象</span><br>     <span class="hljs-type">val</span> <span class="hljs-variable">calBegin</span> <span class="hljs-operator">=</span> Calendar.getInstance()<br>     calBegin.setTime(start);<br>     <br>     <span class="hljs-comment">// 创建结束日期的Calendar对象</span><br>     <span class="hljs-type">val</span> <span class="hljs-variable">calEnd</span> <span class="hljs-operator">=</span> Calendar.getInstance()<br>     calEnd.setTime(end)<br>     <br>     <span class="hljs-comment">// 创建可变数组存储日期</span><br>     <span class="hljs-type">val</span> <span class="hljs-variable">arr</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayBuffer</span>[Date]()<br>     <br>     <span class="hljs-comment">// 循环添加每一天的日期，直到达到结束日期</span><br>     <span class="hljs-keyword">while</span> (end.after(calBegin.getTime())) &#123;<br>       arr.append(calBegin.getTime)        <span class="hljs-comment">// 添加当前日期</span><br>       calBegin.add(Calendar.DATE, <span class="hljs-number">1</span>)      <span class="hljs-comment">// 日期加1天</span><br>     &#125;<br>     <br>     <span class="hljs-comment">// 转换为不可变数组并返回</span><br>     arr.toArray<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取指定时间范围内的ES表名列表</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timePattern 时间格式模式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangeValue 时间范围数值</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> timeRangePattern 时间范围单位</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> esIndexPre ES索引前缀</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> esIndexType ES索引时间格式</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> esType ES类型</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> startTime 起始时间</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> ES表名列表</span><br><span class="hljs-comment"> */</span><br>def <span class="hljs-title function_">getBeforeTimeTableNames</span><span class="hljs-params">(</span><br><span class="hljs-params">    timePattern: String,</span><br><span class="hljs-params">    timeRangeValue: Int,</span><br><span class="hljs-params">    timeRangePattern: String,</span><br><span class="hljs-params">    esIndexPre: String,</span><br><span class="hljs-params">    esIndexType: String,</span><br><span class="hljs-params">    esType: String,</span><br><span class="hljs-params">    startTime: String</span><br><span class="hljs-params">)</span>: List[String] = &#123;<br>  <span class="hljs-comment">// 计算开始时间</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">start</span> <span class="hljs-operator">=</span> getBeforeTime(timePattern, timeRangeValue, timeRangePattern, startTime)<br>  <br>  <span class="hljs-comment">// 创建日期格式化对象</span><br>  val df: SimpleDateFormat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(timePattern)<br>  <br>  <span class="hljs-comment">// 解析结束时间</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">end</span> <span class="hljs-operator">=</span> df.parse(startTime)<br>  <br>  <span class="hljs-comment">// 创建ES索引日期格式化对象</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">dateFormat</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleDateFormat</span>(esIndexType)<br>  <br>  <span class="hljs-comment">// 获取时间范围内的所有日期并格式化为ES索引格式</span><br>  <span class="hljs-type">val</span> <span class="hljs-variable">days</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">for</span> (d &lt;- getRangeDays(start, end)) <span class="hljs-keyword">yield</span> dateFormat.format(d)<br>  <br>  <span class="hljs-comment">// 去重并构建完整的ES表名（索引/类型格式）</span><br>  days.toSet.map ((x: String) =&gt; esIndexPre + x + <span class="hljs-string">&quot;/&quot;</span>+esType).toList<br>&#125;<br><br><span class="hljs-comment">// 调用函数获取10天内的media_index表名列表</span><br>getBeforeTimeTableNames(<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>,<span class="hljs-number">10</span>,<span class="hljs-string">&quot;D&quot;</span>,<span class="hljs-string">&quot;media_index&quot;</span>,<span class="hljs-string">&quot;yyyyww&quot;</span>,<span class="hljs-string">&quot;meida&quot;</span>,<span class="hljs-string">&quot;2018-08-01 00:00:00&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-28-%E5%88%A4%E6%96%ADindex%2Ftype%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Eelasticsearch%E6%95%B0%E6%8D%AE%E4%B8%AD" tabindex="-1">4-28 判断index/type是否存在于Elasticsearch数据中</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入Elasticsearch相关的类</span><br><span class="hljs-keyword">import</span> org.elasticsearch.hadoop.rest.RestClient<br><span class="hljs-keyword">import</span> org.elasticsearch.spark.cfg.SparkSettingsManager<br><span class="hljs-keyword">import</span> org.elasticsearch.spark.sql._<br><span class="hljs-keyword">import</span> scala.collection.JavaConverters._<br><br><span class="hljs-comment">// ES连接配置参数</span><br><span class="hljs-type">val</span> <span class="hljs-variable">options</span> <span class="hljs-operator">=</span>Map(<br>  (<span class="hljs-string">&quot;es.nodes&quot;</span>,<span class="hljs-string">&quot;hadoop5&quot;</span>),<br>  (<span class="hljs-string">&quot;es.port&quot;</span>,<span class="hljs-string">&quot;9200&quot;</span>),<br>  (<span class="hljs-string">&quot;es.read.metadata&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),<br>  (<span class="hljs-string">&quot;es.mapping.date.rich&quot;</span>,<span class="hljs-string">&quot;false&quot;</span>),<br>  (<span class="hljs-string">&quot;es.net.http.auth.user&quot;</span>,<span class="hljs-string">&quot;elastic&quot;</span>),<br>  (<span class="hljs-string">&quot;es.net.http.auth.pass&quot;</span>,<span class="hljs-string">&quot;&lt;已移除敏感信息&gt;&quot;</span>),<br>  (<span class="hljs-string">&quot;es.nodes.wan.only&quot;</span>,<span class="hljs-string">&quot;true&quot;</span>)<br>)<br><br><span class="hljs-comment">// 创建Spark设置管理器并加载配置</span><br><span class="hljs-type">val</span> <span class="hljs-variable">settings</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SparkSettingsManager</span>().load(spark.sparkContext.getConf).merge(options.asJava)<br><br><span class="hljs-comment">// 创建ES REST客户端</span><br><span class="hljs-type">val</span> <span class="hljs-variable">client</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestClient</span>(settings)<br><br><span class="hljs-comment">// 导入HTTP请求相关的类</span><br><span class="hljs-keyword">import</span> java.net.&#123;HttpURLConnection, URL&#125;<br><span class="hljs-keyword">import</span> java.util.Base64<br><span class="hljs-keyword">import</span> scala.io.Source<br><span class="hljs-keyword">import</span> scala.util.parsing.json.JSON<br><br><span class="hljs-comment">// 构造获取ES索引列表的HTTP请求URL</span><br><span class="hljs-type">val</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">URL</span>(<span class="hljs-string">&quot;http://hadoop5:9200/_cat/indices?format=json&quot;</span>)<br><br><span class="hljs-comment">// 打开HTTP连接</span><br><span class="hljs-type">val</span> <span class="hljs-variable">conn</span> <span class="hljs-operator">=</span> url.openConnection().asInstanceOf[HttpURLConnection]<br><br><span class="hljs-comment">// 构建Basic认证字符串</span><br><span class="hljs-type">val</span> <span class="hljs-variable">userPass</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;elastic:igeWFd7crobzLnp*=EA-&quot;</span><br><span class="hljs-type">val</span> <span class="hljs-variable">basicAuth</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Basic &quot;</span> + Base64.getEncoder.encodeToString(userPass.getBytes())<br><br><span class="hljs-comment">// 设置请求头和请求方法</span><br>conn.setRequestProperty(<span class="hljs-string">&quot;Authorization&quot;</span>, basicAuth)<br>conn.setRequestMethod(<span class="hljs-string">&quot;GET&quot;</span>)<br><br><span class="hljs-comment">// 读取响应内容</span><br><span class="hljs-type">val</span> <span class="hljs-variable">indicesJson</span> <span class="hljs-operator">=</span> Source.fromInputStream(conn.getInputStream).mkString<br><br><span class="hljs-comment">// 关闭连接</span><br>conn.disconnect()<br><br><span class="hljs-comment">// 解析JSON响应并提取索引名称</span><br><span class="hljs-type">val</span> <span class="hljs-variable">allTables</span> <span class="hljs-operator">=</span> JSON.parseFull(indicesJson) match &#123;<br>  <span class="hljs-keyword">case</span> <span class="hljs-title function_">Some</span><span class="hljs-params">(list: List[Map[String, Any]] <span class="hljs-meta">@unchecked</span>)</span> =&gt;<br>    list.map(_(<span class="hljs-string">&quot;index&quot;</span>).toString)  <span class="hljs-comment">// 提取index字段值作为表名</span><br>  <span class="hljs-type">case</span> <span class="hljs-variable">_</span> <span class="hljs-operator">=</span>&gt;<br>    println(<span class="hljs-string">&quot;解析失败&quot;</span>); List()    <span class="hljs-comment">// 解析失败时返回空列表</span><br>&#125;<br><br><span class="hljs-comment">// 过滤出以&quot;media_index&quot;开头的索引，并验证是否可以正常加载</span><br><span class="hljs-type">val</span> <span class="hljs-variable">allExistTables</span> <span class="hljs-operator">=</span> allTables.filter(_.startsWith(<span class="hljs-string">&quot;media_index&quot;</span>)).filter &#123; index =&gt;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-comment">// 尝试读取索引数据作为DataFrame</span><br>    <span class="hljs-type">val</span> <span class="hljs-variable">df</span> <span class="hljs-operator">=</span> spark.read.format(<span class="hljs-string">&quot;org.elasticsearch.spark.sql&quot;</span>).options(options).load(index)<br>    df.columns.nonEmpty  <span class="hljs-comment">// 检查是否有字段，有字段说明索引可用</span><br>  &#125; <span class="hljs-keyword">catch</span> &#123;<br>    <span class="hljs-keyword">case</span> e: Exception =&gt;<br>      <span class="hljs-comment">// 捕获加载异常并输出错误信息</span><br>      println(s<span class="hljs-string">&quot;$index 加载失败: $&#123;e.getMessage&#125;&quot;</span>)<br>      <span class="hljs-literal">false</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 关闭ES客户端</span><br>client.close()<br><br><span class="hljs-comment">// 输出所有存在且可用的表名</span><br>println(<span class="hljs-string">&quot;allExistTables: &quot;</span> + allExistTables)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-29-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89index%2Ftype%E6%95%B0%E6%8D%AE%E4%B8%BAdataframe" tabindex="-1">4-29 获取所有index/type数据为DataFrame</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义要选择的字段列表（注释掉的是原始字段列表）</span><br><span class="hljs-comment">//val selectedCols= &quot;audio_lang,category_name,duration,end_time,first_show_time,origin_time,owner_code,owner_name,phone_no,program_title,region,res_name,res_type,resolution,sm_name,station_name,terminal_no,vod_cat_tags,vod_title&quot;</span><br>val selectedCols= <span class="hljs-string">&quot;audio_lang,category_name,duration,end_time,first_show_time,origin_time,owner_code,owner_name,phone_no,program_title,region,res_name,res_type,resolution,sm_name,station_name,terminal_no,vod_cat_tags,vod_title&quot;</span><br><br><span class="hljs-comment">// 将字段字符串分割为数组</span><br><span class="hljs-type">val</span> <span class="hljs-variable">selectedColsArr</span> <span class="hljs-operator">=</span> selectedCols.split(<span class="hljs-string">&quot;,&quot;</span>)<br><br><span class="hljs-comment">// 获取第一个字段（用于select操作）</span><br><span class="hljs-type">val</span> <span class="hljs-variable">firstCol</span> <span class="hljs-operator">=</span> selectedColsArr(<span class="hljs-number">0</span>).trim<br><br><span class="hljs-comment">// 获取其余字段（用于select操作的可变参数）</span><br><span class="hljs-type">val</span> <span class="hljs-variable">tailCols</span> <span class="hljs-operator">=</span> selectedColsArr.slice(<span class="hljs-number">1</span>, selectedColsArr.length).map(_.trim)<br><br><span class="hljs-comment">// 遍历所有存在的表，读取数据并合并为一个DataFrame</span><br><span class="hljs-type">val</span> <span class="hljs-variable">esDf</span> <span class="hljs-operator">=</span> allExistTables.map &#123; x =&gt;<br>  <span class="hljs-type">val</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> x.split(<span class="hljs-string">&quot;/&quot;</span>)(<span class="hljs-number">0</span>)  <span class="hljs-comment">// 提取索引名称（去掉type部分）</span><br>  spark.esDF(index, defaultQuery, options)  <span class="hljs-comment">// 从ES读取数据</span><br>&#125;.reduce((x1, x2) =&gt; <br>  <span class="hljs-comment">// 选择指定字段并将多个DataFrame合并</span><br>  x1.select(firstCol, tailCols: _*).union(x2.select(firstCol, tailCols: _*))<br>)<br><br><span class="hljs-comment">// 查看DataFrame的结构信息</span><br>esDf.printSchema()<br><br><span class="hljs-comment">// 统计总记录数</span><br>esDf.count()<br><br><span class="hljs-comment">// 显示前10条记录的指定字段，不截断内容</span><br>esDf.select(<span class="hljs-string">&quot;terminal_no&quot;</span>, <span class="hljs-string">&quot;phone_no&quot;</span>).show(<span class="hljs-number">10</span>, <span class="hljs-literal">false</span>)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-36-%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE%E8%A1%A8user_label" tabindex="-1">4-36 创建标签表user_label</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 创建用户画像数据库，设置字符集为utf8mb4</span><br><span class="hljs-keyword">CREATE</span> DATABASE user_profile  <span class="hljs-keyword">CHARACTER SET</span> <span class="hljs-operator">=</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> <span class="hljs-operator">=</span> utf8mb4_unicode_ci;<br><br><span class="hljs-comment">-- 切换到用户画像数据库</span><br>use user_profile;<br><br><span class="hljs-comment">-- 创建用户标签表</span><br><span class="hljs-keyword">CREATE TABLE</span> `user_label` (<br>    `phone_no` text,        <span class="hljs-comment">-- 用户手机号</span><br>    `label` text,           <span class="hljs-comment">-- 用户标签</span><br>    `parent_label` text <span class="hljs-keyword">NOT NULL</span>  <span class="hljs-comment">-- 父级标签分类</span><br>) ENGINE<span class="hljs-operator">=</span>MyISAM <span class="hljs-keyword">DEFAULT</span> CHARSET <span class="hljs-operator">=</span> utf8mb4  <span class="hljs-comment">-- 使用MyISAM存储引擎</span><br><span class="hljs-keyword">COLLATE</span> <span class="hljs-operator">=</span> utf8mb4_unicode_ci;              <span class="hljs-comment">-- 设置排序规则</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="4-37-spark-sql%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E6%A0%87%E7%AD%BE" tabindex="-1">4-37 Spark SQL查询用户标签</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入SparkSession</span><br><span class="hljs-keyword">import</span> org.apache.spark.sql.SparkSession<br><br><span class="hljs-comment">// 创建SparkSession实例，启用Hive支持</span><br><span class="hljs-type">val</span> <span class="hljs-variable">spark</span> <span class="hljs-operator">=</span> SparkSession.builder().appName(<span class="hljs-string">&quot;UserLabelExample&quot;</span>).enableHiveSupport().getOrCreate()<br><br><span class="hljs-comment">// 执行SQL查询，根据用户电视入网时长进行用户分类</span><br><span class="hljs-type">val</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> spark.sql(<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">  SELECT </span><br><span class="hljs-string">    t1.phone_no,                    -- 用户手机号</span><br><span class="hljs-string">    CASE </span><br><span class="hljs-string">      WHEN T &gt; 8 THEN &#x27;老用户&#x27;      -- 入网超过8年的为老用户</span><br><span class="hljs-string">      WHEN T &gt; 4 AND T &lt;= 8 THEN &#x27;中等用户&#x27;  -- 入网4-8年的为中等用户</span><br><span class="hljs-string">      ELSE &#x27;新用户&#x27;                  -- 入网不足4年的为新用户</span><br><span class="hljs-string">    END AS label,                   -- 用户标签</span><br><span class="hljs-string">    &#x27;电视入网程度&#x27; AS parent_label    -- 父级标签分类</span><br><span class="hljs-string">  FROM (</span><br><span class="hljs-string">    SELECT </span><br><span class="hljs-string">      phone_no,                     -- 用户手机号</span><br><span class="hljs-string">      -- 计算用户最早入网距今的年数</span><br><span class="hljs-string">      MAX(datediff(current_date(), open_time) / 365) AS T </span><br><span class="hljs-string">    FROM zxh.mediamatch_usermsg_process   -- 从处理后的用户消息表查询</span><br><span class="hljs-string">    WHERE sm_name LIKE &#x27;%电视%&#x27;           -- 过滤电视相关业务</span><br><span class="hljs-string">      AND open_time IS NOT NULL          -- 入网时间不为空</span><br><span class="hljs-string">    GROUP BY phone_no                     -- 按手机号分组</span><br><span class="hljs-string">  ) t1</span><br><span class="hljs-string">&quot;&quot;&quot;</span>)<br><br><span class="hljs-comment">// 显示查询结果的前5条记录</span><br>data.show(<span class="hljs-number">5</span>)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-38-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5mysql" tabindex="-1">4-38 将数据写入MySQL</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 导入Properties类用于数据库连接配置</span><br><span class="hljs-keyword">import</span> java.util.Properties  <br><br><span class="hljs-comment">// 设置数据写入模式为追加</span><br><span class="hljs-type">val</span> <span class="hljs-variable">saveMode</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;append&quot;</span><br><br><span class="hljs-comment">// 设置目标表名</span><br><span class="hljs-type">val</span> <span class="hljs-variable">outputTable</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;user_label&quot;</span><br><br><span class="hljs-comment">// 设置MySQL数据库连接URL</span><br><span class="hljs-type">val</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;jdbc:mysql://hadoop1:3306/user_profile?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8&quot;</span><br><br><span class="hljs-comment">// 创建数据库连接属性对象</span><br><span class="hljs-type">val</span> <span class="hljs-variable">connectionProperties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Properties</span>()<br>connectionProperties.setProperty(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>)                    <span class="hljs-comment">// 数据库用户名</span><br>connectionProperties.setProperty(<span class="hljs-string">&quot;password&quot;</span>, <span class="hljs-string">&quot;&lt;已移除敏感信息&gt;&quot;</span>)           <span class="hljs-comment">// 数据库密码</span><br>connectionProperties.setProperty(<span class="hljs-string">&quot;driver&quot;</span>, <span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>) <span class="hljs-comment">// JDBC驱动类</span><br><br><span class="hljs-comment">// 将DataFrame数据写入MySQL表</span><br>data.write.mode(saveMode).jdbc(url, outputTable, connectionProperties)<br><br></code></pre></td></tr></table></figure>
+<h2 id="4-41-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%92%8C%E6%8F%90%E4%BA%A4%E4%BD%9C%E4%B8%9A" tabindex="-1">4-41 数据处理和提交作业</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 读取原始用户消息表数据</span><br><span class="hljs-type">val</span> <span class="hljs-variable">originUsermsg</span> <span class="hljs-operator">=</span> spark.sql(<span class="hljs-string">&quot;select * from zxh.mediamatch_usermsg&quot;</span>)<br><br><span class="hljs-comment">// 读取处理后的用户消息表数据</span><br><span class="hljs-type">val</span> <span class="hljs-variable">processedUsermsg</span> <span class="hljs-operator">=</span> spark.sql(<span class="hljs-string">&quot;select * from zxh.mediamatch_usermsg_process&quot;</span>)<br><br><span class="hljs-comment">// 统计处理后表的记录数</span><br>processedUsermsg.count<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用spark-submit提交数据处理作业</span><br>spark-submit \<br>--class com.tipdm.scala.chapter_3_6_processing.DataProcess \  <span class="hljs-comment"># 指定主类</span><br>--master yarn \                                               <span class="hljs-comment"># 使用YARN作为集群管理器</span><br>--deploy-mode cluster \                                       <span class="hljs-comment"># 使用集群部署模式</span><br>--executor-memory 2G \                                        <span class="hljs-comment"># 设置executor内存为2G</span><br>--num-executors 2 \                                          <span class="hljs-comment"># 设置executor数量为2个</span><br>data-process.jar \                                           <span class="hljs-comment"># 应用程序JAR包</span><br>zxh.media_index_3m \                                         <span class="hljs-comment"># 输入表1：3个月媒体索引表</span><br>zxh.media_index_3m_process \                                 <span class="hljs-comment"># 输出表1：处理后的3个月媒体索引表</span><br>zxh.mediamatch_userevent \                                   <span class="hljs-comment"># 输入表2：用户事件表</span><br>zxh.mediamatch_userevent_process \                           <span class="hljs-comment"># 输出表2：处理后的用户事件表</span><br>zxh.mediamatch_usermsg \                                     <span class="hljs-comment"># 输入表3：用户消息表</span><br>zxh.mediamatch_usermsg_process \                             <span class="hljs-comment"># 输出表3：处理后的用户消息表</span><br>zxh.mmconsume_billevents \                                   <span class="hljs-comment"># 输入表4：计费事件表</span><br>zxh.mmconsume_billevent_process \                            <span class="hljs-comment"># 输出表4：处理后的计费事件表</span><br>zxh.order_index_v3 \                                         <span class="hljs-comment"># 输入表5：订单索引表v3</span><br>zxh.order_index_process                                      <span class="hljs-comment"># 输出表5：处理后的订单索引表</span><br><br><span class="hljs-comment"># 另一种spark-submit命令格式</span><br>spark-submit \<br>--class DataProcess \                                        <span class="hljs-comment"># 指定主类</span><br>--master yarn \                                             <span class="hljs-comment"># 使用YARN作为集群管理器</span><br>--deploy-mode cluster \                                     <span class="hljs-comment"># 使用集群部署模式</span><br>--name DataProcess \                                        <span class="hljs-comment"># 设置应用程序名称</span><br>/root/bigdata/4/elasticsearch-spark-20_2.11-8.17.3.jar \   <span class="hljs-comment"># Elasticsearch Spark连接器JAR包</span><br>/root/chapter4.1-1.0-SNAPSHOT.jar \                        <span class="hljs-comment"># 应用程序JAR包</span><br>zxh.media_index_3m \                                        <span class="hljs-comment"># 参数1：输入表</span><br>zxh.media_index_3m_process \                                <span class="hljs-comment"># 参数2：输出表</span><br>zxh.mediamatch_userevent \                                  <span class="hljs-comment"># 参数3：输入表</span><br>zxh.mediamatch_userevent_process \                          <span class="hljs-comment"># 参数4：输出表</span><br>zxh.mediamatch_usermsg \                                    <span class="hljs-comment"># 参数5：输入表</span><br>user_profile.mediamatch_usermsg_process \                   <span class="hljs-comment"># 参数6：输出表（用户画像库）</span><br>user_profile.mmconsume_billevents \                         <span class="hljs-comment"># 参数7：输入表（用户画像库）</span><br>user_profile.mmconsume_billevent_process \                  <span class="hljs-comment"># 参数8：输出表（用户画像库）</span><br>user_profile.order_index_v3 \                               <span class="hljs-comment"># 参数9：输入表（用户画像库）</span><br>user_profile.order_index_process                            <span class="hljs-comment"># 参数10：输出表（用户画像库）</span><br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="category-chain-item">大数据</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/Java/" class="category-chain-item">Java</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spark/" class="print-no-link">#spark</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>大数据开发期末代码</div>
+      <div>https://tingfeng347.github.io/2025/06/12/大数据开发期末代码/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年6月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/10/09/%E5%86%9C%E4%BA%A7%E5%93%81%E7%94%9F%E4%BA%A7%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9C%9F%E8%B4%A7%E8%A1%8C%E6%83%85%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F/" title="农产品生产管理与期货行情监控系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">农产品生产管理与期货行情监控系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/28/Cursor%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="Cursor使用教程">
+                        <span class="hidden-mobile">Cursor使用教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

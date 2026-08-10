@@ -1,0 +1,2528 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="LazyVim 使用教程与快捷键指南 一份面向初学者的 LazyVim 教程与快捷键速查手册。 基于 LazyVim 16.x 默认配置编写；运行时：Neovim 0.12+、LazyVim 16.x。  先记住这四件事 &lt;leader&gt; 就是空格键。下文的 &lt;leader&gt;ff 要按作「空格、f、f」。\ 是 &lt;localleader&gt;。 不必背完。普通模式按">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LazyVim 使用教程与快捷键指南">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/07/31/LazyVim%20%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B%E4%B8%8E%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="LazyVim 使用教程与快捷键指南 一份面向初学者的 LazyVim 教程与快捷键速查手册。 基于 LazyVim 16.x 默认配置编写；运行时：Neovim 0.12+、LazyVim 16.x。  先记住这四件事 &lt;leader&gt; 就是空格键。下文的 &lt;leader&gt;ff 要按作「空格、f、f」。\ 是 &lt;localleader&gt;。 不必背完。普通模式按">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-07-31T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.626Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="LazyVim">
+<meta property="article:tag" content="Neovim">
+<meta property="article:tag" content="Vim">
+<meta property="article:tag" content="快捷键">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>LazyVim 使用教程与快捷键指南 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LazyVim 使用教程与快捷键指南"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-07-31 10:00" pubdate>
+          2026年7月31日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          99 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="开发工具"
+        id="heading-2c509530bf439a36168a86e21c160c06" role="tab" data-toggle="collapse" href="#collapse-2c509530bf439a36168a86e21c160c06"
+        aria-expanded="true"
+      >
+        开发工具
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2c509530bf439a36168a86e21c160c06"
+           role="tabpanel" aria-labelledby="heading-2c509530bf439a36168a86e21c160c06">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="true"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/07/31/LazyVim%20%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B%E4%B8%8E%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%8C%87%E5%8D%97/" title="LazyVim 使用教程与快捷键指南"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">LazyVim 使用教程与快捷键指南</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">LazyVim 使用教程与快捷键指南</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="LazyVim-使用教程与快捷键指南"><a href="#LazyVim-使用教程与快捷键指南" class="headerlink" title="LazyVim 使用教程与快捷键指南"></a>LazyVim 使用教程与快捷键指南</h1><blockquote>
+<p>一份面向初学者的 LazyVim 教程与快捷键速查手册。</p>
+<p>基于 LazyVim 16.x 默认配置编写；运行时：Neovim 0.12+、LazyVim 16.x。</p>
+</blockquote>
+<h2 id="先记住这四件事"><a href="#先记住这四件事" class="headerlink" title="先记住这四件事"></a>先记住这四件事</h2><ol>
+<li><strong><code>&lt;leader&gt;</code> 就是空格键</strong>。下文的 <code>&lt;leader&gt;ff</code> 要按作「空格、f、f」。<code>\</code> 是 <code>&lt;localleader&gt;</code>。</li>
+<li>不必背完。普通模式按一次 <code>Space</code>，等待 which-key 弹出可继续按的菜单；<code>Space ?</code> 只看当前缓冲区可用的按键。</li>
+<li><code>:Tutor</code> 是最好的 Vim 基础交互教程；完成它后，优先练「找文件、全文搜索、跳转定义、诊断、Git」。</li>
+<li><code>&lt;Esc&gt;</code> 不只退出模式：它也会清除当前搜索高亮。<code>&lt;C-s&gt;</code> 在普通、插入和可视模式都保存。</li>
+</ol>
+<p>按键记号：<code>&lt;C-x&gt;</code> &#x3D; Ctrl+x，<code>&lt;S-x&gt;</code> &#x3D; Shift+x，<code>&lt;A-x&gt;</code> &#x3D; Alt+x；<code>n/i/x/v/t</code> 分别表示普通&#x2F;插入&#x2F;操作符等待&#x2F;可视&#x2F;终端模式。</p>
+<h2 id="LazyVim-简介"><a href="#LazyVim-简介" class="headerlink" title="LazyVim 简介"></a>LazyVim 简介</h2><p>LazyVim 是一套基于 <a target="_blank" rel="noopener" href="https://github.com/folke/lazy.nvim">lazy.nvim</a> 插件管理器的 Neovim 配置框架。它在 Neovim 原生的基础上集成了一整套开箱即用的工作流，覆盖文件检索、代码补全、LSP 智能提示、格式化、Git 集成、终端等日常高频操作。</p>
+<p>核心工作流包括：</p>
+<ul>
+<li><strong>Snacks</strong>：文件检索（Picker）、文件浏览器（Explorer）、终端、通知</li>
+<li><strong>blink.cmp</strong>：代码补全引擎</li>
+<li><strong>LSP&#x2F;Mason</strong>：语言服务器管理与智能提示</li>
+<li><strong>Conform</strong>：代码格式化</li>
+<li><strong>Gitsigns</strong>：行内 Git 变更标记</li>
+<li><strong>Trouble</strong>：诊断与问题集中面板</li>
+<li><strong>Flash</strong>：快速跳转</li>
+<li><strong>which-key</strong>：按键提示菜单</li>
+<li><strong>render-markdown</strong> 与 <strong>markdown-preview</strong>：Markdown 渲染与预览</li>
+</ul>
+<p>LazyVim 通过 <strong>Extras</strong> 机制按需启用语言和工具支持。常用 Extras 包括各编程语言（Python、Rust、Go 等）、AI 辅助（Copilot、Claude Code 等）、Markdown、JSON 等。启用 Extra 只需在 <code>lazyvim.json</code> 中添加对应条目，然后重启 Neovim。</p>
+<h2 id="推荐的学习路线（约-7-天）"><a href="#推荐的学习路线（约-7-天）" class="headerlink" title="推荐的学习路线（约 7 天）"></a>推荐的学习路线（约 7 天）</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>练习目标</th>
+<th>必练按键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第 1 天</td>
+<td>先会移动、编辑、保存、撤销</td>
+<td><code>h j k l</code>、<code>w b e</code>、<code>i a o</code>、<code>u</code>、<code>&lt;C-r&gt;</code>、<code>&lt;C-s&gt;</code></td>
+</tr>
+<tr>
+<td>第 2 天</td>
+<td>把文件与缓冲区当工作台</td>
+<td><code>Space ff</code>、<code>Space fF</code>、<code>Space fb</code>、<code>Space e</code>、<code>[b</code>&#x2F;<code>]b</code></td>
+</tr>
+<tr>
+<td>第 3 天</td>
+<td>用搜索代替手动翻目录</td>
+<td><code>Space sg</code>、<code>Space sG</code>、<code>Space sw</code>、<code>Space sr</code>、<code>s</code></td>
+</tr>
+<tr>
+<td>第 4 天</td>
+<td>在代码里跳转和修复</td>
+<td><code>gd</code>、<code>gr</code>、<code>K</code>、<code>Space ca</code>、<code>Space cr</code>、<code>Space cf</code></td>
+</tr>
+<tr>
+<td>第 5 天</td>
+<td>看懂问题、格式化、做 Git 操作</td>
+<td><code>]d</code>&#x2F;<code>[d</code>、<code>Space xx</code>、<code>Space gg</code>、<code>Space gh*</code></td>
+</tr>
+<tr>
+<td>第 6 天</td>
+<td>多窗口、终端、会话</td>
+<td><code>&lt;C-h/j/k/l&gt;</code>、&#96;Space</td>
+</tr>
+<tr>
+<td>第 7 天</td>
+<td>Markdown、代码项目与 AI 辅助工作流</td>
+<td><code>Space cp</code>、<code>Space um</code>、<code>gd</code>、<code>&lt;C-y&gt;</code>，并理解下方冲突说明</td>
+</tr>
+</tbody></table>
+<h2 id="每天都用得上的核心按键"><a href="#每天都用得上的核心按键" class="headerlink" title="每天都用得上的核心按键"></a>每天都用得上的核心按键</h2><h3 id="编辑、移动与窗口"><a href="#编辑、移动与窗口" class="headerlink" title="编辑、移动与窗口"></a>编辑、移动与窗口</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>h j k l</code></td>
+<td>左、下、上、右移动；<code>j/k</code> 会顺着屏幕换行移动</td>
+<td>从 <code>:Tutor</code> 开始练，不用方向键</td>
+</tr>
+<tr>
+<td><code>w</code> &#x2F; <code>b</code> &#x2F; <code>e</code></td>
+<td>下个词开头 &#x2F; 上个词开头 &#x2F; 当前或下个词结尾</td>
+<td>配合 <code>d</code>、<code>c</code>、<code>v</code> 是 Vim 的高收益组合</td>
+</tr>
+<tr>
+<td><code>0</code> &#x2F; <code>^</code> &#x2F; <code>$</code></td>
+<td>行首 &#x2F; 首个非空字符 &#x2F; 行尾</td>
+<td>行内定位首选</td>
+</tr>
+<tr>
+<td><code>gg</code> &#x2F; <code>G</code></td>
+<td>文件开头 &#x2F; 结尾</td>
+<td>可加数字，如 <code>42G</code></td>
+</tr>
+<tr>
+<td><code>f{字符}</code> &#x2F; <code>t{字符}</code></td>
+<td>跳到字符 &#x2F; 停在字符前</td>
+<td><code>;</code> 重复，<code>,</code> 反向重复</td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>Flash：屏幕出现标签后按标签直达</td>
+<td>这是跨行定位的最快方式之一</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>按语法树选择目标</td>
+<td>适合函数、调用、代码块</td>
+</tr>
+<tr>
+<td><code>u</code> &#x2F; <code>&lt;C-r&gt;</code></td>
+<td>撤销 &#x2F; 重做</td>
+<td>不要害怕试改</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>重复上一次修改</td>
+<td>例如一次 <code>ciw</code> 后可对下个词按 <code>.</code></td>
+</tr>
+<tr>
+<td><code>gcc</code></td>
+<td>注释&#x2F;取消注释当前行</td>
+<td>选择多行后按 <code>gc</code></td>
+</tr>
+<tr>
+<td><code>gco</code> &#x2F; <code>gcO</code></td>
+<td>在下方&#x2F;上方新增一条注释</td>
+<td>比手动插入再注释快</td>
+</tr>
+<tr>
+<td><code>&lt;A-j&gt;</code> &#x2F; <code>&lt;A-k&gt;</code></td>
+<td>当前行或选中块下移&#x2F;上移</td>
+<td>普通、插入、可视模式都可用</td>
+</tr>
+<tr>
+<td><code>&lt;C-h/j/k/l&gt;</code></td>
+<td>切到左&#x2F;下&#x2F;上&#x2F;右窗口</td>
+<td>多分屏最常用</td>
+</tr>
+<tr>
+<td><code>&lt;C-箭头&gt;</code></td>
+<td>调整窗口高宽</td>
+<td>精细调布局</td>
+</tr>
+<tr>
+<td>&#96;Space</td>
+<td><code>/</code>Space -&#96;</td>
+<td>右侧垂直分屏 &#x2F; 下方水平分屏</td>
+</tr>
+<tr>
+<td><code>Space wm</code> 或 <code>Space uZ</code></td>
+<td>放大&#x2F;还原当前窗口</td>
+<td>专注某个文件时用</td>
+</tr>
+<tr>
+<td><code>Space uz</code></td>
+<td>Zen 专注模式</td>
+<td>写作或阅读时用</td>
+</tr>
+</tbody></table>
+<h3 id="缓冲区、标签页、保存与退出"><a href="#缓冲区、标签页、保存与退出" class="headerlink" title="缓冲区、标签页、保存与退出"></a>缓冲区、标签页、保存与退出</h3><p>缓冲区（buffer）是已打开文件，不等于操作系统窗口。关闭缓冲区通常不会破坏其他分屏布局。</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;C-s&gt;</code></td>
+<td>保存当前文件（插入&#x2F;普通&#x2F;可视模式均可）</td>
+</tr>
+<tr>
+<td><code>&lt;S-h&gt;</code> &#x2F; <code>&lt;S-l&gt;</code>，或 <code>[b</code> &#x2F; <code>]b</code></td>
+<td>上一个&#x2F;下一个缓冲区</td>
+</tr>
+<tr>
+<td><code>Space fb</code> &#x2F; <code>Space fB</code></td>
+<td>选择缓冲区 &#x2F; 选择全部缓冲区</td>
+</tr>
+<tr>
+<td><code>Space bb</code> 或 <code>Space ` </code></td>
+<td>返回上一个缓冲区</td>
+</tr>
+<tr>
+<td><code>Space bd</code></td>
+<td>安全关闭当前缓冲区（保留窗口）</td>
+</tr>
+<tr>
+<td><code>Space bo</code> &#x2F; <code>Space bi</code></td>
+<td>关闭其他缓冲区 &#x2F; 不可见缓冲区</td>
+</tr>
+<tr>
+<td><code>Space bD</code></td>
+<td>关闭缓冲区和窗口</td>
+</tr>
+<tr>
+<td><code>Space &lt;Tab&gt; &lt;Tab&gt;</code></td>
+<td>新建标签页</td>
+</tr>
+<tr>
+<td><code>Space &lt;Tab&gt; [</code> &#x2F; <code>]</code></td>
+<td>前一个&#x2F;后一个标签页</td>
+</tr>
+<tr>
+<td><code>Space &lt;Tab&gt; d</code> &#x2F; <code>o</code></td>
+<td>关闭当前标签页 &#x2F; 仅保留当前标签页</td>
+</tr>
+<tr>
+<td><code>Space qq</code></td>
+<td>退出全部 Neovim 窗口</td>
+</tr>
+</tbody></table>
+<h2 id="Vim-本体：先学会”操作符-范围”"><a href="#Vim-本体：先学会”操作符-范围”" class="headerlink" title="Vim 本体：先学会”操作符 + 范围”"></a>Vim 本体：先学会”操作符 + 范围”</h2><p>Vim 的高效不在于记住很多独立快捷键，而在于把命令像一句短语一样组合：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">[次数] + 操作符 + 移动范围<br>[次数] + 操作符 + 文本对象<br></code></pre></td></tr></table></figure>
+
+<p>例如，<code>d</code> 是删除，<code>c</code> 是修改，<code>y</code> 是复制；<code>w</code> 是移动到下一个词，<code>$</code> 是移动到行尾，<code>iw</code> 是”当前词内部”。因此：</p>
+<ul>
+<li><code>dw</code>：删除到下一个词；<code>3dw</code>：连续删除三个词。</li>
+<li><code>d$</code>：删除到行尾；也可用等价短命令 <code>D</code>。</li>
+<li><code>ciw</code>：改写当前词；<code>ci&quot;</code>：改写双引号里面的内容。</li>
+<li><code>yap</code>：复制整个段落；<code>=ap</code>：重新缩进整个段落。</li>
+</ul>
+<p>操作符重复一次通常表示”整行”：<code>dd</code> 删除行、<code>cc</code> 修改行、<code>yy</code> 复制行、<code>&gt;&gt;</code> &#x2F; <code>&lt;&lt;</code> 增加&#x2F;减少缩进、<code>==</code> 自动缩进当前行。掌握这个语法后，新动作通常不需要再死记。</p>
+<h3 id="进入插入模式与基础修改"><a href="#进入插入模式与基础修改" class="headerlink" title="进入插入模式与基础修改"></a>进入插入模式与基础修改</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>Vim 原生含义</th>
+<th>示例或区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>i</code> &#x2F; <code>a</code></td>
+<td>在光标前 &#x2F; 后插入</td>
+<td><code>a</code> 适合从当前字符后继续写</td>
+</tr>
+<tr>
+<td><code>I</code> &#x2F; <code>A</code></td>
+<td>在本行首个非空字符 &#x2F; 行尾插入</td>
+<td>追加行尾内容优先用 <code>A</code></td>
+</tr>
+<tr>
+<td><code>o</code> &#x2F; <code>O</code></td>
+<td>在下方 &#x2F; 上方新建一行并插入</td>
+<td>不必先移动到行尾</td>
+</tr>
+<tr>
+<td><code>x</code> &#x2F; <code>X</code></td>
+<td>删除光标下 &#x2F; 前一个字符</td>
+<td><code>4x</code> 删除四个字符</td>
+</tr>
+<tr>
+<td><code>r{字符}</code></td>
+<td>用一个字符替换光标下字符</td>
+<td><code>r,</code> 把当前字符改为逗号</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>进入连续替换模式</td>
+<td>普通模式的 <code>R</code> 是 Vim 原生行为</td>
+</tr>
+<tr>
+<td><code>J</code></td>
+<td>把下一行接到当前行</td>
+<td>默认会整理连接处的空格</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>切换当前字符大小写</td>
+<td><code>gUiw</code> &#x2F; <code>guiw</code> 可转换整个词</td>
+</tr>
+<tr>
+<td><code>u</code> &#x2F; <code>&lt;C-r&gt;</code></td>
+<td>撤销 &#x2F; 重做</td>
+<td><code>U</code> 不是重做，不要混淆</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>重复最近一次修改</td>
+<td>先 <code>ciw</code> 改词，再到别处按 <code>.</code></td>
+</tr>
+<tr>
+<td><code>&lt;Esc&gt;</code></td>
+<td>回到普通模式</td>
+<td>LazyVim 中还会顺便清除搜索高亮</td>
+</tr>
+</tbody></table>
+<h3 id="更完整的移动范围"><a href="#更完整的移动范围" class="headerlink" title="更完整的移动范围"></a>更完整的移动范围</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+<th>适合组合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>w</code> &#x2F; <code>W</code></td>
+<td>下一个词 &#x2F; 下一个以空白分隔的大词开头</td>
+<td><code>dw</code>、<code>cW</code></td>
+</tr>
+<tr>
+<td><code>b</code> &#x2F; <code>B</code></td>
+<td>上一个词 &#x2F; 大词开头</td>
+<td><code>db</code>、<code>yB</code></td>
+</tr>
+<tr>
+<td><code>e</code> &#x2F; <code>E</code> &#x2F; <code>ge</code></td>
+<td>词尾 &#x2F; 大词词尾 &#x2F; 上一个词尾</td>
+<td><code>de</code>、<code>cge</code></td>
+</tr>
+<tr>
+<td><code>0</code> &#x2F; <code>^</code> &#x2F; <code>$</code></td>
+<td>第 0 列 &#x2F; 首个非空字符 &#x2F; 行尾</td>
+<td><code>d^</code>、<code>y$</code></td>
+</tr>
+<tr>
+<td><code>gg</code> &#x2F; <code>G</code> &#x2F; <code>{数字}G</code></td>
+<td>文件首 &#x2F; 文件尾 &#x2F; 指定行</td>
+<td><code>100G</code> 到第 100 行</td>
+</tr>
+<tr>
+<td><code>{</code> &#x2F; <code>}</code></td>
+<td>上一个 &#x2F; 下一个空行分隔的段落</td>
+<td><code>dap</code> 也可直接操作段落</td>
+</tr>
+<tr>
+<td><code>(</code> &#x2F; <code>)</code></td>
+<td>上一个 &#x2F; 下一个句子</td>
+<td>写 Markdown 或长文本时有用</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>在匹配的括号、方括号、花括号间跳转</td>
+<td><code>d%</code> 删除成对括号间范围</td>
+</tr>
+<tr>
+<td><code>&lt;C-d&gt;</code> &#x2F; <code>&lt;C-u&gt;</code></td>
+<td>向下 &#x2F; 向上滚半屏</td>
+<td>长文件中比反复按 <code>j/k</code> 快</td>
+</tr>
+<tr>
+<td><code>&lt;C-f&gt;</code> &#x2F; <code>&lt;C-b&gt;</code></td>
+<td>向下 &#x2F; 向上滚一屏</td>
+<td>Noice 浮窗可滚动时会优先滚浮窗</td>
+</tr>
+<tr>
+<td><code>zz</code> &#x2F; <code>zt</code> &#x2F; <code>zb</code></td>
+<td>把当前行放到屏幕中间 &#x2F; 顶部 &#x2F; 底部</td>
+<td>跳转后用 <code>zz</code> 恢复视野</td>
+</tr>
+<tr>
+<td><code>;</code> &#x2F; <code>,</code></td>
+<td>重复 &#x2F; 反向重复最近的 <code>f</code>、<code>t</code> 查找</td>
+<td>例如 <code>fa;;;</code></td>
+</tr>
+</tbody></table>
+<h3 id="文本对象：在结构内部精准修改"><a href="#文本对象：在结构内部精准修改" class="headerlink" title="文本对象：在结构内部精准修改"></a>文本对象：在结构内部精准修改</h3><p><code>i</code> 表示 inner（不含边界），<code>a</code> 表示 around（包含边界，单词对象通常还包含相邻空白）。文本对象要放在操作符或可视模式之后使用，不能单独移动光标。</p>
+<table>
+<thead>
+<tr>
+<th>文本对象</th>
+<th>范围</th>
+<th>常用组合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>iw</code> &#x2F; <code>aw</code></td>
+<td>当前词内部 &#x2F; 整个词</td>
+<td><code>ciw</code> 改词，<code>daw</code> 连同空白删除词</td>
+</tr>
+<tr>
+<td><code>iW</code> &#x2F; <code>aW</code></td>
+<td>当前”大词”内部 &#x2F; 整体</td>
+<td>路径、URL、带标点标识符更好用</td>
+</tr>
+<tr>
+<td><code>i&quot;</code> &#x2F; <code>a&quot;</code></td>
+<td>双引号内部 &#x2F; 连同双引号</td>
+<td><code>ci&quot;</code>、<code>ya&quot;</code></td>
+</tr>
+<tr>
+<td><code>i&#39;</code> &#x2F; <code>a&#39;</code>，<code>i`</code> &#x2F; <code>a`</code></td>
+<td>单引号或反引号内部 &#x2F; 连同边界</td>
+<td>代码字符串与 Markdown 行内代码</td>
+</tr>
+<tr>
+<td><code>i)</code> &#x2F; <code>a)</code>，<code>i]</code> &#x2F; <code>a]</code>，<code>i}</code> &#x2F; <code>a}</code></td>
+<td>括号内部 &#x2F; 连同括号</td>
+<td><code>ci)</code> 改参数，<code>da}</code> 删代码块</td>
+</tr>
+<tr>
+<td><code>it</code> &#x2F; <code>at</code></td>
+<td>HTML&#x2F;XML 标签内部 &#x2F; 连同标签</td>
+<td><code>cit</code> 修改标签内容</td>
+</tr>
+<tr>
+<td><code>is</code> &#x2F; <code>as</code></td>
+<td>句子内部 &#x2F; 整个句子</td>
+<td>文本编辑</td>
+</tr>
+<tr>
+<td><code>ip</code> &#x2F; <code>ap</code></td>
+<td>段落内部 &#x2F; 整个段落</td>
+<td><code>yip</code>、<code>=ap</code></td>
+</tr>
+</tbody></table>
+<h3 id="复制、粘贴、寄存器与剪贴板"><a href="#复制、粘贴、寄存器与剪贴板" class="headerlink" title="复制、粘贴、寄存器与剪贴板"></a>复制、粘贴、寄存器与剪贴板</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>yy</code></td>
+<td>复制当前行</td>
+<td>可加次数，如 <code>3yy</code>；LazyVim 中 <code>Y</code> 是复制到行尾，等价于 <code>y$</code></td>
+</tr>
+<tr>
+<td><code>y{范围}</code></td>
+<td>复制指定范围</td>
+<td><code>yiw</code>、<code>y$</code>、<code>yap</code></td>
+</tr>
+<tr>
+<td><code>p</code> &#x2F; <code>P</code></td>
+<td>在光标后 &#x2F; 前粘贴</td>
+<td>行复制后对应粘到下 &#x2F; 上方</td>
+</tr>
+<tr>
+<td><code>gp</code> &#x2F; <code>gP</code></td>
+<td>像 <code>p</code> &#x2F; <code>P</code> 一样粘贴，但把光标留在新文本之后</td>
+<td>连续处理时更顺手</td>
+</tr>
+<tr>
+<td><code>&quot;0p</code></td>
+<td>粘贴最近一次”复制”的内容</td>
+<td>删除操作污染默认寄存器后很好用</td>
+</tr>
+<tr>
+<td><code>&quot;_d{范围}</code></td>
+<td>删除但丢进黑洞寄存器</td>
+<td>如 <code>&quot;_diw</code>，不会覆盖准备粘贴的内容</td>
+</tr>
+<tr>
+<td><code>&quot;+y{范围}</code> &#x2F; <code>&quot;+p</code></td>
+<td>与系统剪贴板复制 &#x2F; 粘贴</td>
+<td>例如可视选择后按 <code>&quot;+y</code></td>
+</tr>
+<tr>
+<td><code>:reg</code></td>
+<td>查看寄存器</td>
+<td><code>Space s&quot;</code> 也可用 Picker 查看</td>
+</tr>
+</tbody></table>
+<p>在可视模式中，直接按 <code>p</code> 会用寄存器内容替换选择区，而被替换内容通常会进入默认寄存器。若想反复粘贴同一内容，可用 <code>&quot;0p</code>，或使用黑洞寄存器避免覆盖。</p>
+<h3 id="可视选择、缩进与大小写"><a href="#可视选择、缩进与大小写" class="headerlink" title="可视选择、缩进与大小写"></a>可视选择、缩进与大小写</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>v</code> &#x2F; <code>V</code> &#x2F; <code>&lt;C-v&gt;</code></td>
+<td>字符选择 &#x2F; 整行选择 &#x2F; 矩形块选择</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>在可视选择的两端之间切换光标</td>
+</tr>
+<tr>
+<td><code>gv</code></td>
+<td>重新选择上一次可视区域</td>
+</tr>
+<tr>
+<td><code>&gt;</code> &#x2F; <code>&lt;</code></td>
+<td>增加 &#x2F; 减少选中内容缩进；可用 <code>gv</code> 再选</td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td>自动缩进选中内容</td>
+</tr>
+<tr>
+<td><code>gU</code> &#x2F; <code>gu</code> &#x2F; <code>~</code></td>
+<td>选中内容转大写 &#x2F; 小写 &#x2F; 反转大小写</td>
+</tr>
+<tr>
+<td>矩形选择后 <code>I</code> &#x2F; <code>A</code></td>
+<td>在多行块的左侧 &#x2F; 右侧同时插入；输入后按 <code>&lt;Esc&gt;</code> 应用</td>
+</tr>
+</tbody></table>
+<h3 id="搜索、替换、标记、跳转与宏"><a href="#搜索、替换、标记、跳转与宏" class="headerlink" title="搜索、替换、标记、跳转与宏"></a>搜索、替换、标记、跳转与宏</h3><table>
+<thead>
+<tr>
+<th>按键或命令</th>
+<th>做什么</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/文本</code> &#x2F; <code>?文本</code></td>
+<td>向下 &#x2F; 向上搜索</td>
+<td>回车确认，<code>n</code> &#x2F; <code>N</code> 继续</td>
+</tr>
+<tr>
+<td><code>*</code> &#x2F; <code>#</code></td>
+<td>向下 &#x2F; 向上搜索光标下完整单词</td>
+<td>查同名变量很方便</td>
+</tr>
+<tr>
+<td><code>:%s/旧/新/gc</code></td>
+<td>全文件逐项确认替换</td>
+<td><code>g</code> 表示每行全部，<code>c</code> 表示确认</td>
+</tr>
+<tr>
+<td><code>:&#39;&lt;,&#39;&gt;s/旧/新/g</code></td>
+<td>仅替换可视选区</td>
+<td>选中后输入 <code>:</code> 会自动带出范围</td>
+</tr>
+<tr>
+<td><code>m{小写字母}</code></td>
+<td>在当前文件设置标记</td>
+<td><code>ma</code> 设置标记 a</td>
+</tr>
+<tr>
+<td><code>`{字母}</code> &#x2F; <code>&#39;{字母}</code></td>
+<td>精确回到标记 &#x2F; 回到标记所在行</td>
+<td><code>`a</code> 比 <code>&#39;a</code> 更精确</td>
+</tr>
+<tr>
+<td><code>&lt;C-o&gt;</code> &#x2F; <code>&lt;C-i&gt;</code></td>
+<td>跳转列表后退 &#x2F; 前进</td>
+<td><code>gd</code>、搜索、文件跳转后非常重要</td>
+</tr>
+<tr>
+<td><code>g;</code> &#x2F; <code>g,</code></td>
+<td>上一个 &#x2F; 下一个修改位置</td>
+<td>找回刚才改过的地方</td>
+</tr>
+<tr>
+<td><code>qa</code> … <code>q</code></td>
+<td>把一串操作录到寄存器 a</td>
+<td>状态栏会显示正在录制</td>
+</tr>
+<tr>
+<td><code>@a</code> &#x2F; <code>@@</code> &#x2F; <code>10@a</code></td>
+<td>执行宏 a &#x2F; 重复最近宏 &#x2F; 执行十次</td>
+<td>先在一行录好，再批量应用</td>
+</tr>
+</tbody></table>
+<p>执行全文件替换和宏前可先保存；结果不对就按 <code>u</code> 撤销。宏最稳的写法是让每轮从可预测的位置开始，并用 <code>j</code>、搜索或 <code>n</code> 明确移动到下一处。</p>
+<h2 id="Vim-原生键与-LazyVim-默认映射的冲突"><a href="#Vim-原生键与-LazyVim-默认映射的冲突" class="headerlink" title="Vim 原生键与 LazyVim 默认映射的冲突"></a>Vim 原生键与 LazyVim 默认映射的冲突</h2><p>这里的”冲突”是指 LazyVim 给一些 Vim 原生按键赋予了新动作。官方快捷键页是 <strong>LazyVim 核心 + 所有可选 Extras&#x2F;插件</strong> 的总索引，不代表表中每项都在你的环境中启用。是否生效取决于已启用的 Extra、插件加载顺序、当前模式和 LSP 是否附着；忘记时用 <code>Space sk</code> 或 <code>:verbose nmap {按键}</code> 查运行时结果。</p>
+<h3 id="LazyVim-默认的直接覆盖"><a href="#LazyVim-默认的直接覆盖" class="headerlink" title="LazyVim 默认的直接覆盖"></a>LazyVim 默认的直接覆盖</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>Vim &#x2F; Neovim 原生行为</th>
+<th>LazyVim 默认行为</th>
+<th>想用原生动作怎么办</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>j</code> &#x2F; <code>k</code></td>
+<td>按实际文件行向下 &#x2F; 向上</td>
+<td>没有数字前缀时按屏幕显示行移动，长行换行后也逐屏幕行走</td>
+<td><code>gj</code> &#x2F; <code>gk</code> 明确走屏幕行；要走实际行可用 <code>1j</code> &#x2F; <code>1k</code></td>
+</tr>
+<tr>
+<td><code>H</code> &#x2F; <code>L</code></td>
+<td>跳到屏幕顶部 &#x2F; 底部附近</td>
+<td>上一个 &#x2F; 下一个缓冲区</td>
+<td>用 <code>zt</code> &#x2F; <code>zb</code> 调整视野；必须执行原生命令可输入 <code>:normal! H</code> &#x2F; <code>:normal! L</code></td>
+</tr>
+<tr>
+<td><code>s</code></td>
+<td>删除当前字符并进入插入，等价于 <code>cl</code></td>
+<td>Flash 快速跳转</td>
+<td>用 <code>cl</code></td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>修改整行，等价于 <code>cc</code></td>
+<td>Flash Treesitter 结构选择</td>
+<td>用 <code>cc</code></td>
+</tr>
+<tr>
+<td><code>&lt;C-h/j/k/l&gt;</code></td>
+<td>左移、换行式下移、少用&#x2F;重绘等原生动作</td>
+<td>切换到左 &#x2F; 下 &#x2F; 上 &#x2F; 右窗口</td>
+<td>左右和上下移动用 <code>h/j/k/l</code>；重绘与清搜索用 <code>Space ur</code></td>
+</tr>
+<tr>
+<td><code>&lt;C-s&gt;</code></td>
+<td>Vim 普通编辑中没有常用修改动作；某些终端会把它当流控</td>
+<td>普通、插入、可视模式保存文件</td>
+<td>原生命令行保存仍可用 <code>:w</code></td>
+</tr>
+<tr>
+<td><code>&lt;C-Space&gt;</code></td>
+<td>终端通常把它编码为 <code>&lt;C-@&gt;</code>；普通模式原生未使用</td>
+<td>Treesitter 增量选择</td>
+<td>没有丢失常用的 Vim 原生动作</td>
+</tr>
+<tr>
+<td>可视模式 <code>R</code></td>
+<td>用输入内容替换选区</td>
+<td>Flash Treesitter Search</td>
+<td>选中后用 <code>c</code> 修改</td>
+</tr>
+</tbody></table>
+<h3 id="行为被增强，但核心语义仍保留"><a href="#行为被增强，但核心语义仍保留" class="headerlink" title="行为被增强，但核心语义仍保留"></a>行为被增强，但核心语义仍保留</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>LazyVim 的变化</th>
+<th>实际影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;Esc&gt;</code></td>
+<td>退出模式之外还清除搜索高亮</td>
+<td>原来的退出行为仍保留</td>
+</tr>
+<tr>
+<td><code>n</code> &#x2F; <code>N</code></td>
+<td>保持”下一项 &#x2F; 上一项”的直觉，并在需要时展开折叠</td>
+<td>搜索结果仍按相同按键继续</td>
+</tr>
+<tr>
+<td><code>&lt;A-j&gt;</code> &#x2F; <code>&lt;A-k&gt;</code></td>
+<td>移动当前行或选中块</td>
+<td>Vim 原生通常没有这组通用编辑动作</td>
+</tr>
+<tr>
+<td><code>gcc</code> &#x2F; <code>gc{范围}</code></td>
+<td>切换行注释 &#x2F; 范围注释</td>
+<td>属于 Neovim&#x2F;LazyVim 的注释工作流，可与动作范围组合</td>
+</tr>
+</tbody></table>
+<h3 id="只在-LSP-附着时覆盖的-Vim-键"><a href="#只在-LSP-附着时覆盖的-Vim-键" class="headerlink" title="只在 LSP 附着时覆盖的 Vim 键"></a>只在 LSP 附着时覆盖的 Vim 键</h3><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>Vim 原生含义</th>
+<th>LSP 附着后的 LazyVim 行为</th>
+<th>原生替代入口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>K</code></td>
+<td>对光标词运行 <code>keywordprg</code></td>
+<td>显示 LSP 悬浮文档</td>
+<td><code>Space K</code></td>
+</tr>
+<tr>
+<td><code>gd</code> &#x2F; <code>gD</code></td>
+<td>查找局部 &#x2F; 全局声明</td>
+<td>LSP 定义 &#x2F; 声明</td>
+<td>需要精确判断时用 <code>:verbose nmap gd</code></td>
+</tr>
+<tr>
+<td><code>gr</code>、<code>gI</code>、<code>gy</code></td>
+<td>原生或默认映射可能因 Neovim 版本而异</td>
+<td>LSP 引用、实现、类型定义</td>
+<td>这些键在代码缓冲区应按 LSP 语义理解</td>
+</tr>
+<tr>
+<td>插入模式 <code>&lt;C-k&gt;</code></td>
+<td>输入 digraph（二字符特殊字符）</td>
+<td>LSP 函数签名帮助</td>
+<td>可查看 <code>:digraphs</code>，或用其他 Unicode 输入方式</td>
+</tr>
+</tbody></table>
+<p>这类映射是缓冲区局部的：普通文本文件没有 LSP 时，不能据此判断某个键”坏了”。先用 <code>:LspInfo</code> &#x2F; <code>Space cl</code> 看当前缓冲区是否有服务器附着。</p>
+<h2 id="文件、项目、检索：最值得肌肉记忆的一组"><a href="#文件、项目、检索：最值得肌肉记忆的一组" class="headerlink" title="文件、项目、检索：最值得肌肉记忆的一组"></a>文件、项目、检索：最值得肌肉记忆的一组</h2><p>LazyVim 会以项目根目录（通常是含 <code>.git</code> 的目录）和当前工作目录两种范围工作。快捷键名称中的 <strong>Root Dir</strong> 是项目根目录，<strong>cwd</strong> 是当前目录；在子目录工作、或项目根识别不符合预期时，优先选 <code>cwd</code> 版本。</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Space ff</code></td>
+<td>在项目根目录找文件</td>
+</tr>
+<tr>
+<td><code>Space fF</code></td>
+<td>在当前工作目录找文件</td>
+</tr>
+<tr>
+<td><code>Space fg</code></td>
+<td>按 Git 已跟踪文件找文件（通常更干净）</td>
+</tr>
+<tr>
+<td><code>Space fr</code> &#x2F; <code>Space fR</code></td>
+<td>最近文件（根目录范围 &#x2F; cwd 范围）</td>
+</tr>
+<tr>
+<td><code>Space fp</code></td>
+<td>切换项目</td>
+</tr>
+<tr>
+<td><code>Space fc</code></td>
+<td>找 LazyVim 配置文件</td>
+</tr>
+<tr>
+<td><code>Space fn</code></td>
+<td>新建空文件</td>
+</tr>
+<tr>
+<td><code>Space e</code> 或 <code>Space fe</code></td>
+<td>打开 Snacks Explorer（项目根目录）</td>
+</tr>
+<tr>
+<td><code>Space E</code> 或 <code>Space fE</code></td>
+<td>打开 Snacks Explorer（cwd）</td>
+</tr>
+<tr>
+<td><code>Space sg</code></td>
+<td>在项目根目录全文 Grep</td>
+</tr>
+<tr>
+<td><code>Space sG</code></td>
+<td>在 cwd 全文 Grep</td>
+</tr>
+<tr>
+<td><code>Space sw</code></td>
+<td>搜索光标下单词或可视选区（项目根）</td>
+</tr>
+<tr>
+<td><code>Space sW</code></td>
+<td>搜索光标下单词或可视选区（cwd）</td>
+</tr>
+<tr>
+<td><code>Space sb</code></td>
+<td>当前缓冲区内搜索行</td>
+</tr>
+<tr>
+<td><code>Space sB</code></td>
+<td>在已打开缓冲区中搜索</td>
+</tr>
+<tr>
+<td><code>Space sR</code></td>
+<td>恢复最近一次 Picker 搜索</td>
+</tr>
+<tr>
+<td><code>Space sr</code></td>
+<td>多文件搜索与替换（Grug Far）</td>
+</tr>
+<tr>
+<td><code>Space /</code></td>
+<td>直接在项目根目录全文搜索</td>
+</tr>
+<tr>
+<td><code>Space ,</code></td>
+<td>快速选择缓冲区</td>
+</tr>
+</tbody></table>
+<h3 id="Snacks-Picker-小抄"><a href="#Snacks-Picker-小抄" class="headerlink" title="Snacks Picker 小抄"></a>Snacks Picker 小抄</h3><p>以上大多数 <code>f*</code> &#x2F; <code>s*</code> 会打开 Snacks Picker。输入后是模糊匹配：输入 <code>abc</code> 即可匹配中间有间隔的候选；大写会触发大小写敏感匹配。</p>
+<table>
+<thead>
+<tr>
+<th>Picker 内按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入文字</td>
+<td>过滤；在 Grep 中实时搜内容</td>
+</tr>
+<tr>
+<td><code>&lt;Down&gt;</code> &#x2F; <code>&lt;Up&gt;</code></td>
+<td>选择下一&#x2F;上一条</td>
+</tr>
+<tr>
+<td><code>&lt;CR&gt;</code></td>
+<td>打开当前项</td>
+</tr>
+<tr>
+<td><code>&lt;S-CR&gt;</code></td>
+<td>选择窗口后跳转打开</td>
+</tr>
+<tr>
+<td><code>&lt;Tab&gt;</code> &#x2F; <code>&lt;S-Tab&gt;</code></td>
+<td>多选下一项&#x2F;上一项</td>
+</tr>
+<tr>
+<td><code>&lt;Esc&gt;</code> 或 <code>&lt;C-c&gt;</code></td>
+<td>取消并关闭</td>
+</tr>
+<tr>
+<td><code>&lt;C-d&gt;</code></td>
+<td>结果列表下滚一屏</td>
+</tr>
+<tr>
+<td><code>&lt;C-b&gt;</code> &#x2F; <code>&lt;C-f&gt;</code></td>
+<td>预览上滚&#x2F;下滚</td>
+</tr>
+<tr>
+<td><code>&lt;A-p&gt;</code></td>
+<td>开关预览</td>
+</tr>
+<tr>
+<td><code>&lt;A-m&gt;</code></td>
+<td>最大化&#x2F;还原 Picker</td>
+</tr>
+<tr>
+<td><code>&lt;A-h&gt;</code> &#x2F; <code>&lt;A-i&gt;</code></td>
+<td>显示&#x2F;隐藏隐藏文件、忽略文件</td>
+</tr>
+<tr>
+<td><code>&lt;A-r&gt;</code></td>
+<td>正则过滤开关</td>
+</tr>
+<tr>
+<td><code>&lt;A-w&gt;</code></td>
+<td>在输入、结果、预览窗口间循环</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>在输入框与列表之间切换焦点</td>
+</tr>
+</tbody></table>
+<h2 id="代码导航、LSP、诊断与格式化"><a href="#代码导航、LSP、诊断与格式化" class="headerlink" title="代码导航、LSP、诊断与格式化"></a>代码导航、LSP、诊断与格式化</h2><p>LSP 映射仅在当前文件已有语言服务器附着时生效。工具实际是否已安装可在 <code>:Mason</code> 查看。</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gd</code></td>
+<td>跳到定义（definition）</td>
+</tr>
+<tr>
+<td><code>gD</code></td>
+<td>跳到声明（declaration）</td>
+</tr>
+<tr>
+<td><code>gr</code></td>
+<td>找引用（references）</td>
+</tr>
+<tr>
+<td><code>gI</code></td>
+<td>跳到实现（implementation）</td>
+</tr>
+<tr>
+<td><code>gy</code></td>
+<td>跳到类型定义</td>
+</tr>
+<tr>
+<td><code>K</code></td>
+<td>悬浮说明（hover）</td>
+</tr>
+<tr>
+<td><code>gK</code></td>
+<td>函数签名帮助（有能力的 LSP 时）</td>
+</tr>
+<tr>
+<td>插入模式 <code>&lt;C-k&gt;</code></td>
+<td>函数签名帮助（有能力的 LSP 时）</td>
+</tr>
+<tr>
+<td><code>Space ca</code></td>
+<td>代码操作：修复、导入、重构等</td>
+</tr>
+<tr>
+<td><code>Space cr</code></td>
+<td>重命名符号</td>
+</tr>
+<tr>
+<td><code>Space co</code></td>
+<td>整理 import（服务器提供时）</td>
+</tr>
+<tr>
+<td><code>Space cA</code></td>
+<td>Source 类代码操作</td>
+</tr>
+<tr>
+<td><code>Space cl</code></td>
+<td>查看当前 LSP 配置&#x2F;状态</td>
+</tr>
+<tr>
+<td><code>Space cf</code></td>
+<td>格式化当前文件或可视选区</td>
+</tr>
+<tr>
+<td><code>Space cF</code></td>
+<td>只格式化注入语言（如 Markdown 代码块）</td>
+</tr>
+<tr>
+<td><code>]d</code> &#x2F; <code>[d</code></td>
+<td>下一&#x2F;上一条诊断，并显示浮窗</td>
+</tr>
+<tr>
+<td><code>]e</code> &#x2F; <code>[e</code></td>
+<td>下一&#x2F;上一条错误</td>
+</tr>
+<tr>
+<td><code>]w</code> &#x2F; <code>[w</code></td>
+<td>下一&#x2F;上一条警告</td>
+</tr>
+<tr>
+<td><code>Space cd</code></td>
+<td>显示光标所在位置诊断</td>
+</tr>
+<tr>
+<td><code>Space xx</code> &#x2F; <code>Space xX</code></td>
+<td>Trouble：全部诊断 &#x2F; 当前缓冲区诊断</td>
+</tr>
+<tr>
+<td><code>Space cs</code> &#x2F; <code>Space cS</code></td>
+<td>Trouble 符号 &#x2F; LSP 位置列表</td>
+</tr>
+<tr>
+<td><code>Space sd</code> &#x2F; <code>Space sD</code></td>
+<td>Picker：全部诊断 &#x2F; 当前缓冲区诊断</td>
+</tr>
+<tr>
+<td><code>Space uh</code></td>
+<td>开关 LSP Inlay Hints</td>
+</tr>
+<tr>
+<td><code>Space uf</code> &#x2F; <code>Space uF</code></td>
+<td>全局&#x2F;当前缓冲区自动格式化开关</td>
+</tr>
+</tbody></table>
+<p>补全使用 blink.cmp。插入模式中用 <code>&lt;C-n&gt;</code> &#x2F; <code>&lt;C-p&gt;</code> 或方向键选择候选，<code>&lt;C-y&gt;</code> 接受当前候选（未选择时接受第一项），选中候选后也可按 <code>&lt;CR&gt;</code> 接受。<code>&lt;Tab&gt;</code> &#x2F; <code>&lt;S-Tab&gt;</code> 主要在活动 snippet 中前进&#x2F;后退，否则回退为原按键。</p>
+<h2 id="Git、Todo、通知与问题列表"><a href="#Git、Todo、通知与问题列表" class="headerlink" title="Git、Todo、通知与问题列表"></a>Git、Todo、通知与问题列表</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Space gg</code> &#x2F; <code>Space gG</code></td>
+<td>在项目根 &#x2F; cwd 打开 Lazygit（系统有 <code>lazygit</code> 时）</td>
+</tr>
+<tr>
+<td><code>Space gl</code> &#x2F; <code>Space gL</code></td>
+<td>项目根 &#x2F; cwd 的 Git 日志</td>
+</tr>
+<tr>
+<td><code>Space gf</code></td>
+<td>当前文件 Git 历史</td>
+</tr>
+<tr>
+<td><code>Space gb</code></td>
+<td>当前行 Blame&#x2F;历史</td>
+</tr>
+<tr>
+<td><code>Space gd</code></td>
+<td>Git diff hunk Picker</td>
+</tr>
+<tr>
+<td><code>Space gD</code></td>
+<td>与 <code>origin</code> 的 Git diff</td>
+</tr>
+<tr>
+<td><code>Space gs</code></td>
+<td>Git 状态</td>
+</tr>
+<tr>
+<td><code>Space gS</code></td>
+<td>Git stash</td>
+</tr>
+<tr>
+<td><code>Space gB</code> &#x2F; <code>Space gY</code></td>
+<td>浏览当前 Git URL &#x2F; 将 URL 复制到剪贴板</td>
+</tr>
+<tr>
+<td><code>]t</code> &#x2F; <code>[t</code></td>
+<td>下一个&#x2F;上一个 TODO、FIX、FIXME 注释</td>
+</tr>
+<tr>
+<td><code>Space st</code> &#x2F; <code>Space sT</code></td>
+<td>搜索 TODO &#x2F; TODO、FIX、FIXME</td>
+</tr>
+<tr>
+<td><code>Space xt</code> &#x2F; <code>Space xT</code></td>
+<td>Trouble 中显示 TODO &#x2F; TODO、FIX、FIXME</td>
+</tr>
+<tr>
+<td><code>Space n</code></td>
+<td>通知历史</td>
+</tr>
+<tr>
+<td><code>Space un</code></td>
+<td>清除所有通知</td>
+</tr>
+<tr>
+<td><code>Space snh</code> &#x2F; <code>Space snl</code></td>
+<td>Noice 历史 &#x2F; 最后一条消息</td>
+</tr>
+<tr>
+<td><code>Space sna</code></td>
+<td>Noice 全部消息</td>
+</tr>
+<tr>
+<td><code>Space snd</code></td>
+<td>关闭 Noice 消息</td>
+</tr>
+</tbody></table>
+<h2 id="Markdown、JSON-等常用文件类型的专用能力"><a href="#Markdown、JSON-等常用文件类型的专用能力" class="headerlink" title="Markdown、JSON 等常用文件类型的专用能力"></a>Markdown、JSON 等常用文件类型的专用能力</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>按键&#x2F;命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Markdown 浏览器预览</td>
+<td><code>Space cp</code></td>
+<td>切换 <code>markdown-preview.nvim</code>；仅 Markdown 缓冲区可用</td>
+</tr>
+<tr>
+<td>Markdown 渲染</td>
+<td><code>Space um</code></td>
+<td>开关 <code>render-markdown.nvim</code> 的编辑器内渲染</td>
+</tr>
+<tr>
+<td>Markdown 标题与代码块</td>
+<td>打开 <code>.md</code> 文件</td>
+<td>标题显示层级图标而非 <code>#</code>；代码围栏、表格等由 render-markdown 在编辑器内渲染</td>
+</tr>
+<tr>
+<td>Markdown 目录</td>
+<td>在文件中放 <code>&lt;!-- toc --&gt;</code> 后 <code>Space cf</code></td>
+<td>可使用 markdown-toc 自动更新目录</td>
+</tr>
+<tr>
+<td>Markdown 格式化</td>
+<td><code>Space cf</code></td>
+<td>可用的格式化工具取决于 Mason 中已安装的工具</td>
+</tr>
+<tr>
+<td>JSON 校验&#x2F;补全</td>
+<td>打开 JSON 后使用 <code>gd</code>、<code>K</code>、<code>Space ca</code></td>
+<td><code>jsonls</code> 会加载 SchemaStore schema；也可 <code>Space cf</code> 格式化</td>
+</tr>
+<tr>
+<td>语言服务器安装</td>
+<td><code>:Mason</code> 或 <code>Space cm</code></td>
+<td>安装&#x2F;更新 LSP、formatter、linter</td>
+</tr>
+</tbody></table>
+<h2 id="AI-辅助功能"><a href="#AI-辅助功能" class="headerlink" title="AI 辅助功能"></a>AI 辅助功能</h2><p>LazyVim 提供了多个 AI 相关的 Extras，可根据需要启用：</p>
+<table>
+<thead>
+<tr>
+<th>Extra</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Copilot</strong></td>
+<td>GitHub Copilot 代码补全，可与 blink.cmp 集成</td>
+</tr>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>Anthropic Claude Code 集成</td>
+</tr>
+<tr>
+<td><strong>Avante</strong></td>
+<td>基于 AI 的对话式代码辅助</td>
+</tr>
+<tr>
+<td><strong>Supermaven</strong></td>
+<td>高速代码补全</td>
+</tr>
+</tbody></table>
+<p>启用 AI Extra 的方式：在 <code>lazyvim.json</code> 的 <code>extras</code> 数组中添加对应条目（如 <code>&quot;lazyvim.plugins.extras.ai.copilot&quot;</code>），重启 Neovim 后生效。</p>
+<p>启用 Copilot 后，补全候选会与 LSP、路径、snippet、buffer 候选一起出现在 blink.cmp 菜单中。常用操作：</p>
+<table>
+<thead>
+<tr>
+<th>按键&#x2F;命令</th>
+<th>行为</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;C-Space&gt;</code></td>
+<td>手动打开补全菜单或切换补全文档</td>
+<td>Copilot 候选与其他来源一起显示</td>
+</tr>
+<tr>
+<td><code>&lt;C-n&gt;</code> &#x2F; <code>&lt;Down&gt;</code></td>
+<td>选择下一个候选</td>
+<td>Copilot 项带 Copilot 图标</td>
+</tr>
+<tr>
+<td><code>&lt;C-p&gt;</code> &#x2F; <code>&lt;Up&gt;</code></td>
+<td>选择上一个候选</td>
+<td>可在不同来源候选间移动</td>
+</tr>
+<tr>
+<td><code>&lt;C-y&gt;</code></td>
+<td>选择并接受当前候选；未选择时接受第一项</td>
+<td>最推荐的接受键</td>
+</tr>
+<tr>
+<td><code>&lt;CR&gt;</code></td>
+<td>接受已经选中的候选，否则正常换行</td>
+<td>避免误接受未选中的建议</td>
+</tr>
+<tr>
+<td><code>&lt;C-e&gt;</code></td>
+<td>取消补全菜单</td>
+<td>放弃当前建议</td>
+</tr>
+<tr>
+<td><code>:Copilot status</code></td>
+<td>查看登录、授权和在线状态</td>
+<td>Free 月度额度应在 GitHub Copilot 账户页面查看</td>
+</tr>
+<tr>
+<td><code>:Copilot auth</code></td>
+<td>重新进行 GitHub Copilot 登录授权</td>
+<td>登录异常时使用</td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：不同 AI Extra 之间可能存在键位重叠。只启用实际需要的 Extra，并以 <code>Space sk</code> 和 <code>:verbose nmap</code> 确认运行时映射，而不是仅凭官方总表判断。</p>
+<h2 id="其他高价值菜单"><a href="#其他高价值菜单" class="headerlink" title="其他高价值菜单"></a>其他高价值菜单</h2><table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Space s</code></td>
+<td>搜索：命令 <code>sC</code>、帮助 <code>sh</code>、按键 <code>sk</code>、符号 <code>ss</code>、跳转 <code>sj</code>、寄存器 <code>s&quot;</code>、标记 <code>sm</code></td>
+</tr>
+<tr>
+<td><code>Space u</code></td>
+<td>UI 开关：拼写 <code>us</code>、换行 <code>uw</code>、相对行号 <code>uL</code>、行号 <code>ul</code>、诊断 <code>ud</code>、Treesitter <code>uT</code>、缩进线 <code>ug</code>、Git 标记 <code>uG</code>、缓冲区标签栏 <code>uA</code>、深色背景 <code>ub</code></td>
+</tr>
+<tr>
+<td><code>Space x</code></td>
+<td>Trouble&#x2F;quickfix：诊断 <code>xx</code>、快速修复 <code>xq</code>、位置列表 <code>xl</code></td>
+</tr>
+<tr>
+<td><code>Space q</code></td>
+<td>会话：恢复 <code>qs</code>、选择 <code>qS</code>、恢复最近 <code>ql</code>、停止保存 <code>qd</code></td>
+</tr>
+<tr>
+<td><code>Space &lt;Tab&gt;</code></td>
+<td>标签页管理</td>
+</tr>
+<tr>
+<td><code>Space w</code></td>
+<td>窗口管理；也可按 <code>&lt;C-w&gt;&lt;Space&gt;</code> 进入窗口 Hydra 菜单</td>
+</tr>
+<tr>
+<td><code>Space t</code></td>
+<td>测试相关（需启用测试 Extra）</td>
+</tr>
+<tr>
+<td><code>Space l</code></td>
+<td>打开 lazy.nvim 插件管理界面</td>
+</tr>
+<tr>
+<td><code>Space cm</code></td>
+<td>打开 Mason，安装&#x2F;更新 LSP、formatter、linter</td>
+</tr>
+<tr>
+<td><code>Space L</code></td>
+<td>查看 LazyVim 更新日志</td>
+</tr>
+<tr>
+<td><code>Space sk</code></td>
+<td>用 Picker 搜索所有快捷键；忘记键时优先用它</td>
+</tr>
+</tbody></table>
+<h2 id="终端、会话、工具与界面"><a href="#终端、会话、工具与界面" class="headerlink" title="终端、会话、工具与界面"></a>终端、会话、工具与界面</h2><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Space ft</code> &#x2F; <code>Space fT</code></td>
+<td>项目根 &#x2F; cwd 的浮动终端</td>
+</tr>
+<tr>
+<td><code>&lt;C-/&gt;</code></td>
+<td>聚焦或切换项目根浮动终端（普通、终端模式）</td>
+</tr>
+<tr>
+<td><code>Space .</code> &#x2F; <code>Space S</code></td>
+<td>切换 &#x2F; 选择 Scratch Buffer</td>
+</tr>
+<tr>
+<td><code>Space qs</code> &#x2F; <code>Space qS</code> &#x2F; <code>Space ql</code></td>
+<td>恢复当前会话 &#x2F; 选择会话 &#x2F; 恢复最近会话</td>
+</tr>
+<tr>
+<td><code>Space uc</code></td>
+<td>开关 conceal（Markdown 链接等可能显示为简化形式）</td>
+</tr>
+<tr>
+<td><code>Space uA</code></td>
+<td>开关缓冲区标签栏</td>
+</tr>
+<tr>
+<td><code>Space uD</code> &#x2F; <code>Space ua</code> &#x2F; <code>Space uS</code></td>
+<td>开关调暗、动画、平滑滚动</td>
+</tr>
+<tr>
+<td><code>Space uC</code></td>
+<td>选择颜色主题</td>
+</tr>
+<tr>
+<td><code>Space ui</code> &#x2F; <code>Space uI</code></td>
+<td>检查光标位置语法信息 &#x2F; Treesitter 语法树</td>
+</tr>
+<tr>
+<td><code>Space K</code></td>
+<td>对光标词运行 <code>keywordprg</code>；可作为查询帮助入口</td>
+</tr>
+</tbody></table>
+<h2 id="最小实战流程：打开一个代码项目后怎么做"><a href="#最小实战流程：打开一个代码项目后怎么做" class="headerlink" title="最小实战流程：打开一个代码项目后怎么做"></a>最小实战流程：打开一个代码项目后怎么做</h2><ol>
+<li>在项目目录执行 <code>nvim .</code>，或先用 <code>Space fp</code> 选项目。</li>
+<li><code>Space ff</code> 找文件；不知道文件名时直接 <code>Space sg</code> 搜内容。</li>
+<li>在符号上按 <code>gd</code> 看定义、<code>K</code> 看说明、<code>gr</code> 看调用处。</li>
+<li>发现问题时按 <code>]d</code> 在诊断之间跳转；需要集中处理就用 <code>Space xx</code>。</li>
+<li>修改后 <code>Space ca</code> 看可自动修复项，<code>Space cf</code> 格式化，<code>&lt;C-s&gt;</code> 保存。</li>
+<li><code>Space gs</code> 看改动，<code>Space gf</code> 追文件历史；需完整 Git 交互再用 <code>Space gg</code>。</li>
+<li>临时运行命令按 <code>Space ft</code>，而不是离开编辑器开另一个终端。</li>
+</ol>
+<h2 id="遇到”按键没反应”时的检查顺序"><a href="#遇到”按键没反应”时的检查顺序" class="headerlink" title="遇到”按键没反应”时的检查顺序"></a>遇到”按键没反应”时的检查顺序</h2><ol>
+<li>确认处于普通模式：先按 <code>&lt;Esc&gt;</code>。</li>
+<li>按 <code>Space</code> 看 which-key 是否显示该前缀；或 <code>Space sk</code> 搜按键描述。</li>
+<li>LSP、Markdown 预览、AI 等按键有文件类型、服务、登录或插件加载条件，检查状态栏和 <code>:Lazy</code> &#x2F; <code>:Mason</code>。</li>
+<li>对普通映射执行 <code>:verbose nmap &lt;按键&gt;</code>，例如 <code>:verbose nmap s</code>，可看到最后是谁定义了映射。blink.cmp 会在内部处理部分插入模式按键，因此 <code>:verbose imap &lt;C-y&gt;</code> 显示为空不代表 <code>&lt;C-y&gt;</code> 无效。</li>
+<li>用 <code>:checkhealth</code> 做总检查；只检查 LazyVim 可用 <code>:checkhealth lazyvim</code>。</li>
+<li>不要在不了解影响时直接覆盖 <code>&lt;C-y&gt;</code>、<code>&lt;Tab&gt;</code>、<code>&lt;CR&gt;</code>、<code>&lt;C-n&gt;</code>、<code>&lt;C-p&gt;</code> 等按键，它们会影响整个补全菜单。</li>
+</ol>
+<h2 id="权威资料与继续学习"><a href="#权威资料与继续学习" class="headerlink" title="权威资料与继续学习"></a>权威资料与继续学习</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.lazyvim.org/keymaps">LazyVim 快捷键总表</a>：官方默认映射的完整索引。</li>
+<li><a target="_blank" rel="noopener" href="https://www.lazyvim.org/configuration">LazyVim 配置说明</a>：理解 <code>lua/config</code>、<code>lua/plugins</code> 与 Extra 的加载方式。</li>
+<li><a target="_blank" rel="noopener" href="https://www.lazyvim.org/extras">LazyVim Extras 列表</a>：浏览所有可用的语言和工具 Extra。</li>
+<li><a target="_blank" rel="noopener" href="https://neovim.io/doc/user/usr_02.html">Neovim 用户手册第 2 章</a>：Vim 模式、移动、编辑的官方入门；编辑器内直接运行 <code>:Tutor</code> 更适合练习。</li>
+<li><a target="_blank" rel="noopener" href="https://neovim.io/doc/user/usr_04.html">Neovim 用户手册第 4 章</a>：操作符、移动、文本对象、复制粘贴等 Vim 基础的官方说明。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/folke/which-key.nvim">which-key.nvim</a>：理解为什么按前缀会出现提示菜单。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/folke/snacks.nvim/blob/main/docs/picker.md">Snacks Picker 文档</a>：深入 Picker 的多选、预览、过滤和布局。</li>
+</ul>
+<hr>
+<p>配置或插件升级后，按键可能变化。最可靠的即时查询仍是：<code>Space</code>、<code>Space ?</code>、<code>Space sk</code> 和 <code>:verbose {n,i,x}map</code>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="category-chain-item">开发工具</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="print-no-link">#快捷键</a>
+      
+        <a href="/tags/LazyVim/" class="print-no-link">#LazyVim</a>
+      
+        <a href="/tags/Neovim/" class="print-no-link">#Neovim</a>
+      
+        <a href="/tags/Vim/" class="print-no-link">#Vim</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LazyVim 使用教程与快捷键指南</div>
+      <div>https://tingfeng347.github.io/2026/07/31/LazyVim 使用教程与快捷键指南/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年7月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">主流 Agent 架构分析指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/07/27/Linux%20%E4%B8%8E%20Windows%20%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%8C%87%E5%8D%97/" title="Linux 与 Windows 双系统时间同步指南">
+                        <span class="hidden-mobile">Linux 与 Windows 双系统时间同步指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

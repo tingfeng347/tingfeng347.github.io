@@ -1,0 +1,1940 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="转载:https:&#x2F;&#x2F;www.cnblogs.com&#x2F;itzixueba&#x2F;p&#x2F;18410587  使用YOLO进行目标检测训练之后，会在runs\detect\train下生成一些训练过程和结论文件：  那些名字里带batch的图片，是不同批次的图像预测结果。它们可视化了模型在训练过程中对数据的处理情况。这点在上一篇中已经讲过了。今天重点说说有关结论性的东西。 看到上面的一堆图表和曲线，很多人有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yolo训练指标详解">
+<meta property="og:url" content="https://tingfeng347.github.io/2025/04/22/yolo%E8%AE%AD%E7%BB%83%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="转载:https:&#x2F;&#x2F;www.cnblogs.com&#x2F;itzixueba&#x2F;p&#x2F;18410587  使用YOLO进行目标检测训练之后，会在runs\detect\train下生成一些训练过程和结论文件：  那些名字里带batch的图片，是不同批次的图像预测结果。它们可视化了模型在训练过程中对数据的处理情况。这点在上一篇中已经讲过了。今天重点说说有关结论性的东西。 看到上面的一堆图表和曲线，很多人有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165422310-2056790074.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165422793-1913770068.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165423228-1084159282.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165423754-1789488529.gif">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424185-817702202.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424548-1213880052.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424968-810624734.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425262-1984495090.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425637-267580414.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425948-1543344564.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426275-1869876973.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426616-1183685516.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426968-771717442.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165427316-336582436.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165427697-1994488730.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165428039-1495915834.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165428362-313448629.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165431029-802172125.gif">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165431773-771932517.png">
+<meta property="og:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165432087-872466438.png">
+<meta property="article:published_time" content="2025-04-22T00:57:52.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.632Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI模型">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="yolo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165422310-2056790074.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>yolo训练指标详解 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="yolo训练指标详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-22 08:57" pubdate>
+          2025年4月22日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          49 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="true"
+      >
+        Python
+        <span class="list-group-count">(23)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/08/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%9C%9F%E6%9C%AB%E6%80%BB%E7%BB%93/" title="数据采集期末总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集期末总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/04/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E8%AE%AD/" title="数据采集实训"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集实训</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/12/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="数据可视化学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/23/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%80%BB%E7%BB%93/" title="数据采集总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/10/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E7%BB%93/" title="数据可视化总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/06/21/%E6%97%A0%E4%BA%BA%E5%BA%97%E5%94%AE%E8%B4%A7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="无人店售货管理系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无人店售货管理系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/11/%E7%94%A8python%E5%86%99%E4%B8%80%E4%B8%AA%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95%E7%A8%8B%E5%BA%8F/" title="用python写一个校园网登录程序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用python写一个校园网登录程序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/16/%E4%BD%9C%E7%89%A9%E4%BA%A7%E9%87%8F%E9%A2%84%E6%B5%8B%E4%B8%8E%E7%97%85%E8%99%AB%E5%AE%B3%E8%AF%86%E5%88%AB/" title="作物产量预测与病虫害识别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">作物产量预测与病虫害识别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/12/%E6%A0%A1%E5%9B%AD%E9%97%A8%E7%A6%81%E7%B3%BB%E7%BB%9F/" title="校园门禁系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">校园门禁系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="图像处理大作业"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">图像处理大作业</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/yolo%E8%AE%AD%E7%BB%83%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="yolo训练指标详解"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">yolo训练指标详解</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/01/%E8%AF%AD%E9%9F%B3%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="语音大模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">语音大模型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="全栈"
+        id="heading-bd1529711cb25e6a1fb797f502d39132" role="tab" data-toggle="collapse" href="#collapse-bd1529711cb25e6a1fb797f502d39132"
+        aria-expanded="false"
+      >
+        全栈
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bd1529711cb25e6a1fb797f502d39132"
+           role="tabpanel" aria-labelledby="heading-bd1529711cb25e6a1fb797f502d39132">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/25/Django5+Vue3+Docker%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9AOA%E7%B3%BB%E7%BB%9F/" title="Django5+Vue3+Docker打造企业OA系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Django5+Vue3+Docker打造企业OA系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/19/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88pytorch%E3%80%81yoloV5%E3%80%81Flask%EF%BC%89%E7%9A%84%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F/" title="基于深度学习（pytorch、yoloV5、Flask）的目标检测系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于深度学习（pytorch、yoloV5、Flask）的目标检测系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/23/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E5%8D%9A%E5%AE%A2%E5%B9%B3%E5%8F%B0/" title="知了传课博客平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课博客平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/" title="知了传课问答平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课问答平台</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/18/%E5%BE%AE%E5%8D%9A%E8%88%86%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="微博舆论数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">微博舆论数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大数据"
+        id="heading-2c657e7dce6effaecbb458deb45e800a" role="tab" data-toggle="collapse" href="#collapse-2c657e7dce6effaecbb458deb45e800a"
+        aria-expanded="false"
+      >
+        大数据
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2c657e7dce6effaecbb458deb45e800a"
+           role="tabpanel" aria-labelledby="heading-2c657e7dce6effaecbb458deb45e800a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/09/03/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/" title="Python数据挖掘实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python数据挖掘实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/28/%E4%BD%BF%E7%94%A8%20uv%20%E6%9E%84%E5%BB%BA%E5%B9%B6%E5%8F%91%E5%B8%83%20Python%20%E5%8C%85%E5%88%B0%20PyPI/" title="使用 uv 构建并发布 Python 包到 PyPI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用 uv 构建并发布 Python 包到 PyPI</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="环境配置"
+        id="heading-a69f6882042ddb9e04b8ba73f37404dc" role="tab" data-toggle="collapse" href="#collapse-a69f6882042ddb9e04b8ba73f37404dc"
+        aria-expanded="false"
+      >
+        环境配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a69f6882042ddb9e04b8ba73f37404dc"
+           role="tabpanel" aria-labelledby="heading-a69f6882042ddb9e04b8ba73f37404dc">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/01/21/conda%20%E5%88%9B%E5%BB%BA_%E5%88%A0%E9%99%A4_%E5%A4%8D%E5%88%B6%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E3%80%81%E5%AE%89%E8%A3%85_%E5%88%A0%E9%99%A4%E5%8C%85/" title="conda创建/删除/复制虚拟环境、安装/删除包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">conda创建/删除/复制虚拟环境、安装/删除包</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程语言"
+        id="heading-3bf8a523aea21a3a0f6c53b0f43429bb" role="tab" data-toggle="collapse" href="#collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+        aria-expanded="false"
+      >
+        编程语言
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+           role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/30/python%E6%80%BB%E7%BB%93/" title="python总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">python总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="配置"
+        id="heading-224e2ccda861c2514faa683b3683c361" role="tab" data-toggle="collapse" href="#collapse-224e2ccda861c2514faa683b3683c361"
+        aria-expanded="false"
+      >
+        配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-224e2ccda861c2514faa683b3683c361"
+           role="tabpanel" aria-labelledby="heading-224e2ccda861c2514faa683b3683c361">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/02/29/Jupyter%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="Jupyter的配置与使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jupyter的配置与使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目"
+        id="heading-31ecc0e65b4cd3e6b12577382bb56d6a" role="tab" data-toggle="collapse" href="#collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+        aria-expanded="false"
+      >
+        项目
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+           role="tabpanel" aria-labelledby="heading-31ecc0e65b4cd3e6b12577382bb56d6a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/Python%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="Python豆瓣电影数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python豆瓣电影数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">yolo训练指标详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p><strong>转载:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/itzixueba/p/18410587" title="点击跳转">https://www.cnblogs.com/itzixueba/p/18410587</a></strong></p>
+</blockquote>
+<p>使用YOLO进行目标检测训练之后，会在runs\detect\train下生成一些训练过程和结论文件：</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165422310-2056790074.png" srcset="/img/loading.gif" lazyload alt="image-20240912115246253"></p>
+<p>那些名字里带batch的图片，是不同批次的图像预测结果。它们可视化了模型在训练过程中对数据的处理情况。这点在上一篇中已经讲过了。今天重点说说有关结论性的东西。</p>
+<p>看到上面的一堆图表和曲线，很多人有点懵。这很像我们去医院体检后，医院给了一堆血常规、尿常规的检查单。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165422793-1913770068.png" srcset="/img/loading.gif" lazyload alt="image-20240912115851718"></p>
+<p>看着这些单子，我们居然不知道身体到底哪里出了问题。这时，我们需要去找医生“翻译”一下。其实，每个行业都是这样的。就像是上面开头的那些图表和曲线，也需要算法程序员解释后，大家才能明白。</p>
+<p>我不得不说算法的评价指标设计巧妙，十分周详。通过了解下面的内容，不仅可以获得算法相关认识，对于普遍事物的评价规则和考核体系也会有启发意义。</p>
+<p>下面我们就来逐一说明。</p>
+<h1 id="weights文件夹：最终的仙丹"><a href="#weights文件夹：最终的仙丹" class="headerlink" title="weights文件夹：最终的仙丹"></a>weights文件夹：最终的仙丹</h1><p>这里面是模型权重文件，也就是最终炼丹炉里训练出来的仙丹。里面有俩文件 <code>best.pt</code>和 <code>last.pt</code>。</p>
+<ul>
+<li><code>best.pt</code>是整个训练过程中，性能最好的模型权重文件。最终我们要的就是这个文件。我们可以拿它进行实际业务的AI预测或继续微调。</li>
+<li><code>last.pt</code>是最后一次训练的模型权重文件。一般来说，训练越久效果也越好。但有时它也会和 <code>best.pt</code>不一致。这意味着最后一次训练的结果，并不是最好的。从这俩文件生成的时间差异，可以看出一些端倪。这是最简单的诊断参考。</li>
+</ul>
+<h1 id="results-png：训练总图要略"><a href="#results-png：训练总图要略" class="headerlink" title="results.png：训练总图要略"></a>results.png：训练总图要略</h1><p>这张图片包含训练过程中的各种评估指标，比如损失函数、精度、召回率、mAP等的图表绘制。这个图表可以直观地看到模型训练过程中性能的变化情况。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165423228-1084159282.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>来来来，不用担惊，莫要受怕，咱们一一道来。</p>
+<h1 id="loss系列：打明牌的能力"><a href="#loss系列：打明牌的能力" class="headerlink" title="loss系列：打明牌的能力"></a>loss系列：打明牌的能力</h1><p>我们先看前3列:</p>
+<ul>
+<li><code>train/box_loss</code>和 <code>val/box_loss</code></li>
+<li><code>train/cls_loss</code>和 <code>val/cls_loss</code></li>
+<li><code>train/dfl_loss</code>和 <code>val/dfl_loss</code></li>
+</ul>
+<p>这几组前面的 <code>train</code>表示训练集，<code>val</code>是验证集。训练集是用于训练学习的，相当于书本的例题。而验证集则用于考试，相当于试卷的试题。学得好不一定就考得好，主要还得看考题是不是有关联性。不过他们更重要的相同点，好像在于都有 <code>loss</code>。</p>
+<p><code>loss</code>是算法中一个常见的概念。翻译成“损失”这个词，其实很形象。生活中，对于能量转化，我们常常用到损失。我们说100单位的电能转化为80单位的动能，能量损失了20%。如果实现了百分百转化，那么损失就是0。</p>
+<p>应用到算法中也一样。在有监督训练中，我们是先标记再训练。其实这就是打明牌，本身就知道问题和答案。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165423754-1789488529.gif" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>对于训练集和验证集，AI本身是知道这个区域标的是什么，位置在哪儿。因此，它会先猜测结论，然后跟正确答案做对比。它的猜测行为称为“推理”或者“预测”。它自己的推理结果和人工标记的答案之间的差异，称为“损失”。那么，损失越小越好，损失为0则说明AI的推理和正确答案之间没有差异，即预测100%命中。</p>
+<p>我们看下图，这次训练过程也是如此。这几个train系列的loss都是降低的，X轴表示训练轮次，Y轴表示损失的值。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424185-817702202.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>我们看到 <code>loss</code>的值都是降低，这说明很好。但是第一个 <code>box_loss</code>好像还有下降的趋势。但是中间的 <code>cls_loss</code>在50轮时就已经趋于稳定了，而 <code>dfl_loss</code>好像在75轮附近才慢慢稳定。</p>
+<p>这些指标都代表什么？有什么意义呢？</p>
+<h2 id="box-loss-边界框损失：衡量画框"><a href="#box-loss-边界框损失：衡量画框" class="headerlink" title="box_loss 边界框损失：衡量画框"></a>box_loss 边界框损失：衡量画框</h2><p><code>box_loss</code>全称是bounding box loss，表示边界框损失。它表明AI通过训练和学习之后，对于边界框的预测和标准答案之间的损失。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424548-1213880052.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>正常情况下，随着训练的进行，损失是越降越低的。如果它是长期忽高忽低，或者一直不明显收敛，那说明训练存在问题。如果 <code>box_loss</code>的损失不断降低，而后持续稳定，则说明训练没有问题，也没有必要再投入资源训练了。</p>
+<p>但是 <code>box_loss</code>表现优秀，仅仅说明它对物体区域（画框）的识别情况。就算这一项100分，整体效果也不一定就好。因为光会画框意义不大，我们还要知道框里的物体是什么。</p>
+<p>于是就引入另一个 <code>cls_loss</code>指标。</p>
+<h2 id="cls-loss-分类损失：判断框里的物体"><a href="#cls-loss-分类损失：判断框里的物体" class="headerlink" title="cls_loss 分类损失：判断框里的物体"></a>cls_loss 分类损失：判断框里的物体</h2><p>它叫分类损失，全称为classification loss。它衡量的是预测类别和真实类别之间的差异。</p>
+<p>我们看下面的图，它不但框出了物体。而且标注出了这个框里是人，那个框里是车，哪个是细菌，哪个是垃圾。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165424968-810624734.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>对于框里物体是什么的评价，就用到了 <code>cls_loss</code>指标。从这里可以看出，其实目标检测技术，已经包含了图片分类的技术。图片分类很基础，它的损失收敛得最快，仅仅训练几十次就稳定了。</p>
+<p>如果你认为它仅凭哪个区域、什么物体两项指标就结束了，那么确实是小看YOLO算法了。它还有第三项细化指标 <code>dfl_loss</code>。</p>
+<h2 id="dfl-loss-分布式焦点损失：精益求精"><a href="#dfl-loss-分布式焦点损失：精益求精" class="headerlink" title="dfl_loss 分布式焦点损失：精益求精"></a>dfl_loss 分布式焦点损失：精益求精</h2><p><code>dfl_loss</code>全称是Distribution Focal Loss，中文名称为“分布式焦点损失”。 它辅助 <code>box_loss</code>，提供额外的信息，通过对边界框位置的概率分布进行优化，进一步提高模型对边界框位置的细化和准确度。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425262-1984495090.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>如上图所示，AI模型成功预测出了①的位置。但是红、蓝、绿3个框中的①，好像哪个都没错。因此 <code>dfl_loss</code>提供了一个可信度，表明哪一个焦点跟标准答案相比，会更加精确。</p>
+<h1 id="验证集：学得好，不一定考得好"><a href="#验证集：学得好，不一定考得好" class="headerlink" title="验证集：学得好，不一定考得好"></a>验证集：学得好，不一定考得好</h1><p>上面是训练集的 <code>loss</code>。下面说说验证集的 <code>loss</code>。</p>
+<p>从规范上讲，验证集和训练集是永远不见面的。这么做是为了验证AI是否真正学到了数据的特征和精髓，而非是靠死记硬背所见过的数据。</p>
+<p>也就是说模型在经过几番训练集数据的学习之后，将面对从来没有见过的验证集数据。它将给出预测答案，然后再去对照标准答案。两个答案的差异，就是验证集的损失。</p>
+<p>看下面这个验证集曲线的趋势。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425637-267580414.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>相比训练集的平滑趋势，验证集似乎是有些反复。</p>
+<p>其实，这是一种常见现象。只要验证集损失没有显著上升，整体趋势在变好，且与训练集损失的差距不是特别大，这一般是正常的。</p>
+<p>不过，要留意以下细节：</p>
+<ul>
+<li>样本数据的变异：验证集可能包含一些与训练集不同风格的样本，这会导致损失不稳定。好比你拿着泰迪狗做识别训练，最后让模型去认识哈士奇狗，模型有点迷糊，拿不准。</li>
+<li>模型的过拟合：如果验证集的样本数据正常。模型在训练集上的损失表现很好，但是验证集表现不稳定。那么可能是模型记住了训练集的细节，也就是过于死记硬背，只抓住形没有抓住神。这叫过拟合。</li>
+</ul>
+<p>如果遇到比较严重的问题，或者你感觉有问题，该怎么办呢？</p>
+<p>可以调整超参数，比如调小学习率，或者使用提前停止策略来防止过拟合。也可以调整 <code>batch</code>大小，增加一个批次数量，让它见多识广。</p>
+<p>同时，增加训练数据量或使用数据增强技术，可以使模型更好地泛化，减少验证损失的波动。</p>
+<p>大家不要小看验证集的指标，这是衡量模型效果的第一道关卡。因为训练集的结果指标顶多算是自娱自乐，这有点像学校内部的月考、期末考试。而验证集则更像是高考。因此，对于验证集的检测，还有更多指标。</p>
+<h1 id="精度和召回率：又准又全的考量"><a href="#精度和召回率：又准又全的考量" class="headerlink" title="精度和召回率：又准又全的考量"></a>精度和召回率：又准又全的考量</h1><p><code>results.png</code>的后两列是同一类指标，咱们一块说说</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165425948-1543344564.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>之所以说他们是同一类，看表头就知道，他们的名字前面带 <code>metrics</code>，后面带 <code>(B)</code>。</p>
+<p><code>metrics</code>表示模型是在验证集上的评估指标。<code>(B)</code>呢，在目标检测任务中表示 <code>Bounding Box</code>，即边界框的检测结果。</p>
+<p>首先看左上角的第一个 <code>precision</code>。<code>precision</code>是精度，或者称为“精确率”。请注意，是精确率，不是准确率。准确率有专门的名词 <code>accuracy</code>。两者不一样。</p>
+<p>准确率表示预测正确的占比。比如1000件产品中，900件合格。我的AI模型全都找出来了，这时准确率是100%。</p>
+<p>准确率存在一个问题，尤其对于少数个体而言不公平。比如预测绝症，100个人预测对了90个人是健康的，预测错了10个病危的人。虽然准确率是90%，但这属于严重事故。于是，精确率的可以解决这个问题。</p>
+<p>精确率会从100个里随便抽出10条数据，如果预测错了5个，那么精确率就是50%。高准确率保证的是多数都正确，而高精确率是保证每一个都不出错。</p>
+<p>我们看到第一个精确率的图表，大约30轮左右趋于稳定了，而且向1（100%）靠拢。这说明效果不错。</p>
+<p>精确率就没有问题吗？也有问题！</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426275-1869876973.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>精确率考核的是出错率，只要不出错，哪怕只干好一件事，也是100%。如果精确率指标它挑活干，那么就完犊子了。工作、生活中也有这类情况，就是拣着好做的工作去做，结果干得很漂亮。</p>
+<p>因此，这时又引入了另一个指标，也就是第二幅图中的召回率 <code>recall</code>。召回率的口号是：“宁可做错一千，绝不漏掉一个”。鼓励大家抢着做，谁眼里没活就打低分。这样就解决了那些少干活、拣活干的情况。</p>
+<p>其实召回率 <code>recall</code>和精确率 <code>precision</code>是矛盾的。两者的值很难都高。因为既要脏活、累活、杂活都揽下，还要不允许出错。这对于机器或者人类都是很大的挑战。</p>
+<p>但是，考核指标就是要这样的。就要想尽一切办法堵住漏洞。我们看第二幅图中召回率也是在提高的，这说明检测范围在不断扩大，大约在0.8处浮动。因此从前两张图我们可以说，这次训练 <code>precision</code>精度是0.9，召回率 <code>recall</code>为0.8。</p>
+<p>关于P（precision）和R（recall）之间的数据趋势，这里面也有具体的图示。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426616-1183685516.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>runs\detect\train下面有 <code>P_curve.png</code>，这是每项精度的曲线。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165426968-771717442.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>我这里面是检测从0到14，共15项物体。这类曲线可以看出每一项物体的具体表现。我们可以从单个表现来了解哪一类检测效果好，哪一类检测效果差。从图中看，粉色的线条，对应分类为6的目标，效果比较差。</p>
+<p><code>R_curve.png</code>这是每项召回率的曲线。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165427316-336582436.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>而 <code>PR_curve.png</code>则是两者互相妥协的曲线。这个PR图怎么看呢？越接近正方形效果越好。都接近正方形，说明整体效果又准又全。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165427697-1994488730.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>看上图，蓝色总线接近正方形。但是具体到分类为8的目标，有些拖后腿。</p>
+<p><code>results.png</code>系列还剩两张图片，那就是 <code>mAP50</code>与 <code>mAP50-95</code>。这俩是一类（也是看名称很像）。</p>
+<p><code>mAP50</code>要拆开看，拆成 <code>mAP-50</code>，<code>mAP</code>表示mean Average Precision，称为平均精度。<code>50</code>则是在 <code>IoU</code>阈值为 <code>50%</code>的情况下的值。</p>
+<p>额……我好像又得讲讲什么是 <code>IoU</code>了。它不是I Love You的意思，其实是Intersection over Union，是目标检测中用于衡量预测边界框与真实边界框重叠程度的指标。</p>
+<p>如果你熟悉YOLO，那么肯定知道它的特点就是You Only Look Once（你仅需看一遍）。这项优势也导致它出现很多备选框。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165428039-1495915834.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这些个预测出的框框儿，可能是物体的全部，也可能只是中心部分，还或许仅仅是物体的一个角。不管如何，这都是算法通过学习特征计算出来的。谁是谁非，看你怎么选择。</p>
+<p>如果预测出的面积（蓝框）能占到实际区域（红框）的50%以上，那么我们就说 <code>IoU</code>为50。重合度能到50%，其实能说明AI大体猜中了。因为 <code>IoU</code>为100就是完全重合。</p>
+<p><code>mAP50</code>是重合度以50%为界限的平均精度。而 <code>mAP50-95</code>则是 <code>IoU</code>阈值从50%到95%范围内的平均值。这个更加严格一些。因此，我们看到图里面 <code>mAP50-95</code>的值确实也低一些。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165428362-313448629.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>从这里能看出啥信息呢？</p>
+<p><code>mAP50</code>这个指标相对宽松，能够展示模型在较低严格度下的整体性能。它更适用于那些对定位要求不是特别严格的应用场景。</p>
+<p><code>mAP50-95</code>则意味着在严格的IoU条件下也能准确检测和定位目标。它适用于那些对定位要求较高的应用场景，如自动驾驶、医疗影像分析等。</p>
+<p>因此，完全看你的需求。如果觉得现在的模型识别效果不好，对精度要求又不高能大体定位就行，其实可以调低IoU的值。反正，各类表现都告诉你了。</p>
+<h1 id="results-csv：图表里的数据明细"><a href="#results-csv：图表里的数据明细" class="headerlink" title="results.csv：图表里的数据明细"></a>results.csv：图表里的数据明细</h1><p>runs\detect\train下有一个 <code>results.csv</code>表格文件。其实这是上面刚刚讲的很多图表的数字版本。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165431029-802172125.gif" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>如果你想查询某次训练某项指标的具体值，可以从这个表格中查找。</p>
+<p><strong>如果results.png图不小心删除了，可以通过这个csv再生成，下面是代码:</strong></p>
+<p><strong>viewresults.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> utils.plots <span class="hljs-keyword">import</span> plot_results<br>plot_results(file=<span class="hljs-string">&#x27;C:/Yolo/project_chip_detection/yolov5/runs/train/exp6/results.csv&#x27;</span>,<span class="hljs-built_in">dir</span>=<span class="hljs-string">&#x27;&#x27;</span>) <span class="hljs-comment"># 这里改成自己的results.csv目录即可</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="labels系列：分类标签的分布"><a href="#labels系列：分类标签的分布" class="headerlink" title="labels系列：分类标签的分布"></a>labels系列：分类标签的分布</h1><p>上面说了，我这里面是从0到14，共检测15项物体。那么关于这15项物体的分布情况，我们可以从 <code>labels.jpg</code>查看。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165431773-771932517.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>看上图第一项，很明显有一个问题。那就是第13分类的样本数太少。这也导致比如上面的 <code>P曲线</code>、<code>R曲线</code>没有第13分类的信息（没注意可以滑上去再看看）。这是因为样本过少，被淹没、忽略了。</p>
+<p>下面是是混淆矩阵的归一化版本，对应的图片是 <code>confusion_matrix_normalized.png</code>。这里可以更清晰地展示模型在各类别上的性能表现。我们也可以看到第13类别数据为空。</p>
+<p><img src="https://tingfeng-1320726713.cos.ap-beijing.myqcloud.com/myxm/assets/1315485-20240912165432087-872466438.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>好了。就讲这么多吧。这已经可以反映出90%的问题了。至于其他的文件和结果，那就更加专业了，一般用不到。能关注的一般都是业内的人，不用我讲。不了解的人，就算我费功夫说一番也很难理解。还不如不知道。</p>
+<p>最后，我想解释一下，为什么医疗、算法、建筑等行业都会用一些指标作为评测结果。就比如本文开头所说的去医院看病，用血常规作为某项健康指标，而不是医生直接说这个人健康或者不健康。算法也是这样，这么多精度、召回率等指标，为什么不直接说模型好用还是不好用呢？</p>
+<p>首先，不同的人，他的关注点不同。大家需要通过多个指标进行自己的个性化评估。老板关注模型准不准，但是算法工程师更关注为什么不准。因此，只能给出指标，让不同人自己去整理关注的结论。</p>
+<p>其次，理工科要基于实验的客观数据。你的结论需要有科学依据，使用具体指标是实验验证的基础。这种方法是基于数据的客观评价，而不是主观判断。</p>
+<p>最后，方便进行量化分析。差，差到什么程度。好，好到什么水平。指标可以进行统计分析、趋势分析和比较研究，提供科学的依据和支持。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python/" class="print-no-link">#python</a>
+      
+        <a href="/tags/yolo/" class="print-no-link">#yolo</a>
+      
+        <a href="/tags/AI%E6%A8%A1%E5%9E%8B/" class="print-no-link">#AI模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>yolo训练指标详解</div>
+      <div>https://tingfeng347.github.io/2025/04/22/yolo训练指标详解/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/28/Cursor%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="Cursor使用教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Cursor使用教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/22/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="图像处理大作业">
+                        <span class="hidden-mobile">图像处理大作业</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

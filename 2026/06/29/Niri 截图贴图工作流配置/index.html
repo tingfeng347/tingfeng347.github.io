@@ -1,0 +1,1578 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="Niri 贴图（截图浮动置顶）配置记录需求在 niri 下实现截图 + 贴图（截图后图片浮动置顶显示，用于参考对照）。 环境 Compositor: niri 截图工具: grim + slurp 图片查看: Pineapple Pictures (ppic)  方案探索已排除方案   方案 问题    niri 内置 screenshot action 自带交互界面（Space&#x2F;P 快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Niri 截图贴图工作流配置">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/06/29/Niri%20%E6%88%AA%E5%9B%BE%E8%B4%B4%E5%9B%BE%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="Niri 贴图（截图浮动置顶）配置记录需求在 niri 下实现截图 + 贴图（截图后图片浮动置顶显示，用于参考对照）。 环境 Compositor: niri 截图工具: grim + slurp 图片查看: Pineapple Pictures (ppic)  方案探索已排除方案   方案 问题    niri 内置 screenshot action 自带交互界面（Space&#x2F;P 快">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-29T10:30:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.627Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="Niri">
+<meta property="article:tag" content="Wayland">
+<meta property="article:tag" content="截图">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Niri 截图贴图工作流配置 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Niri 截图贴图工作流配置"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-06-29 18:30" pubdate>
+          2026年6月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Linux"
+        id="heading-edc9f0a5a5d57797bf68e37364743831" role="tab" data-toggle="collapse" href="#collapse-edc9f0a5a5d57797bf68e37364743831"
+        aria-expanded="true"
+      >
+        Linux
+        <span class="list-group-count">(13)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-edc9f0a5a5d57797bf68e37364743831"
+           role="tabpanel" aria-labelledby="heading-edc9f0a5a5d57797bf68e37364743831">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Windows"
+        id="heading-aea23489ce3aa9b6406ebb28e0cda430" role="tab" data-toggle="collapse" href="#collapse-aea23489ce3aa9b6406ebb28e0cda430"
+        aria-expanded="false"
+      >
+        Windows
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aea23489ce3aa9b6406ebb28e0cda430"
+           role="tabpanel" aria-labelledby="heading-aea23489ce3aa9b6406ebb28e0cda430">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/07/27/Linux%20%E4%B8%8E%20Windows%20%E5%8F%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%8C%87%E5%8D%97/" title="Linux 与 Windows 双系统时间同步指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux 与 Windows 双系统时间同步指南</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习"
+        id="heading-4ef520d6cd20ba4a727af08e17e4939e" role="tab" data-toggle="collapse" href="#collapse-4ef520d6cd20ba4a727af08e17e4939e"
+        aria-expanded="false"
+      >
+        学习
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4ef520d6cd20ba4a727af08e17e4939e"
+           role="tabpanel" aria-labelledby="heading-4ef520d6cd20ba4a727af08e17e4939e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/30/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="linux常用命令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">linux常用命令</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="效率工具"
+        id="heading-cc8732388d57a0224528fdedfa40162b" role="tab" data-toggle="collapse" href="#collapse-cc8732388d57a0224528fdedfa40162b"
+        aria-expanded="true"
+      >
+        效率工具
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-cc8732388d57a0224528fdedfa40162b"
+           role="tabpanel" aria-labelledby="heading-cc8732388d57a0224528fdedfa40162b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/03/26/Rime%20%E9%9B%BE%E5%87%87%E6%8B%BC%E9%9F%B3%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/" title="Rime 雾凇拼音配置记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Rime 雾凇拼音配置记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/10/Yazi%20%E9%A2%84%E8%A7%88%E4%B8%8E%E9%BB%98%E8%AE%A4%E6%89%93%E5%BC%80%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/" title="Yazi 预览与默认打开配置记录"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Yazi 预览与默认打开配置记录</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/04/19/%E4%B8%87%E8%B1%A1%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%9B%BE%E5%87%87%E6%8B%BC%E9%9F%B3%20Rime%20%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/" title="万象大模型与雾凇拼音 Rime 配置指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">万象大模型与雾凇拼音 Rime 配置指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/18/Niri%20%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%82%E8%80%83%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%B7%A5%E4%BD%9C%E6%B5%81/" title="Niri 快捷键参考与常用工作流"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Niri 快捷键参考与常用工作流</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/06/29/Niri%20%E6%88%AA%E5%9B%BE%E8%B4%B4%E5%9B%BE%E5%B7%A5%E4%BD%9C%E6%B5%81%E9%85%8D%E7%BD%AE/" title="Niri 截图贴图工作流配置"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Niri 截图贴图工作流配置</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/02/07/Arch%20Linux%20%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/" title="Arch Linux 软件安装完全指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Arch Linux 软件安装完全指南</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="终端"
+        id="heading-4722bc0c56958f4a819276b296f678e9" role="tab" data-toggle="collapse" href="#collapse-4722bc0c56958f4a819276b296f678e9"
+        aria-expanded="false"
+      >
+        终端
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4722bc0c56958f4a819276b296f678e9"
+           role="tabpanel" aria-labelledby="heading-4722bc0c56958f4a819276b296f678e9">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/02/14/Fish%E3%80%81Kitty%20%E4%B8%8E%20Starship%20%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96%E6%8C%87%E5%8D%97/" title="Fish、Kitty 与 Starship 终端美化指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Fish、Kitty 与 Starship 终端美化指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/02/22/Zsh%20%E9%85%8D%E7%BD%AE%E4%B8%8E%E7%BE%8E%E5%8C%96%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97%EF%BC%882026%EF%BC%89/" title="Zsh 配置与美化完全指南（2026）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Zsh 配置与美化完全指南（2026）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/09/Tmux%20%E4%BC%9A%E8%AF%9D%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%9AResurrect%20%E4%B8%8E%20Continuum%20%E9%85%8D%E7%BD%AE/" title="Tmux 会话持久化：Resurrect 与 Continuum 配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Tmux 会话持久化：Resurrect 与 Continuum 配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/03/17/%E4%BB%8E%20Fish%20%E8%BF%81%E7%A7%BB%E5%88%B0%20Zsh%EF%BC%9A%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E8%BD%AC%E6%8D%A2/" title="从 Fish 迁移到 Zsh：配置与函数转换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从 Fish 迁移到 Zsh：配置与函数转换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/05/29/Tmux%20%E4%BC%9A%E8%AF%9D%E6%81%A2%E5%A4%8D%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/" title="Tmux 会话恢复常见问题排查"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Tmux 会话恢复常见问题排查</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Niri 截图贴图工作流配置</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Niri-贴图（截图浮动置顶）配置记录"><a href="#Niri-贴图（截图浮动置顶）配置记录" class="headerlink" title="Niri 贴图（截图浮动置顶）配置记录"></a>Niri 贴图（截图浮动置顶）配置记录</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>在 niri 下实现截图 + 贴图（截图后图片浮动置顶显示，用于参考对照）。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Compositor: niri</li>
+<li>截图工具: grim + slurp</li>
+<li>图片查看: Pineapple Pictures (ppic)</li>
+</ul>
+<h2 id="方案探索"><a href="#方案探索" class="headerlink" title="方案探索"></a>方案探索</h2><h3 id="已排除方案"><a href="#已排除方案" class="headerlink" title="已排除方案"></a>已排除方案</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>niri 内置 <code>screenshot</code> action</td>
+<td>自带交互界面（Space&#x2F;P 快捷键），与其他快捷键冲突，不适合自动化流程</td>
+</tr>
+<tr>
+<td>mpv <code>--ontop</code></td>
+<td>resize 时卡顿严重；滚轮会调节音量；显示 OSC 控件，体验差</td>
+</tr>
+<tr>
+<td>Flameshot</td>
+<td>Wayland 支持不稳定，贴图功能不可靠</td>
+</tr>
+<tr>
+<td>wlsnap</td>
+<td>新项目，贴图功能还在路线图中未实现</td>
+</tr>
+</tbody></table>
+<h3 id="最终方案"><a href="#最终方案" class="headerlink" title="最终方案"></a>最终方案</h3><p><code>grim + slurp</code> 选区截图 → Pineapple Pictures 浮动打开 → 手动右键 Stay on Top</p>
+<p><strong>为什么还能手动操作 Stay on Top？</strong></p>
+<ul>
+<li>mpv 性能差、界面杂，体验不好</li>
+<li>Pineapple Pictures 暂不支持命令行设置 Stay on Top，只能手动开启</li>
+</ul>
+<h2 id="关键配置"><a href="#关键配置" class="headerlink" title="关键配置"></a>关键配置</h2><h3 id="1-截图脚本"><a href="#1-截图脚本" class="headerlink" title="1. 截图脚本"></a>1. 截图脚本</h3><p><code>~/.config/niri/scripts/ppic-screenshot.sh</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-meta">#!/bin/sh</span><br>geometry=$(slurp) || <span class="hljs-built_in">exit</span> 0<br>grim -g <span class="hljs-string">&quot;<span class="hljs-variable">$geometry</span>&quot;</span> /tmp/niri-pin-screenshot.png &amp;&amp; ppic /tmp/niri-pin-screenshot.png<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>更新 (2026-06-30)</strong>：添加了 slurp 取消时的错误处理（<code>|| exit 0</code>），以及 grim 成功后才启动 ppic 的条件判断（<code>&amp;&amp;</code>），避免截图失败时弹出空窗口。</p>
+</blockquote>
+<blockquote>
+<p>注意：二进制名为 <code>ppic</code>，不是 <code>pineapple-pictures</code>，后者在 <code>spawn-sh</code> 中无法找到。</p>
+</blockquote>
+<h3 id="2-快捷键"><a href="#2-快捷键" class="headerlink" title="2. 快捷键"></a>2. 快捷键</h3><p><code>~/.config/niri/binds.kdl</code></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">Ctrl+<span class="hljs-number">1</span>  hotkey-overlay-title=<span class="hljs-string">&quot;截图后用 Pineapple Pictures 打开并浮动 for pinning&quot;</span> &#123; spawn-<span class="hljs-keyword">sh </span><span class="hljs-string">&quot;~/.config/niri/scripts/ppic-screenshot.sh&quot;</span><span class="hljs-comment">;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-浮动窗口规则"><a href="#3-浮动窗口规则" class="headerlink" title="3. 浮动窗口规则"></a>3. 浮动窗口规则</h3><p><code>~/.config/niri/rule.kdl</code></p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs fsharp">window<span class="hljs-operator">-</span><span class="hljs-keyword">rule</span> &#123;<br>    <span class="hljs-comment">// ... 其他浮动规则 ...</span><br>    <span class="hljs-keyword">match</span> app<span class="hljs-operator">-</span><span class="hljs-built_in">id</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;ppic&quot;</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-keyword">open</span><span class="hljs-operator">-</span>floating <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Pineapple Pictures 的 app-id 为 <code>ppic</code>。</p>
+</blockquote>
+<h3 id="4-其他截图快捷键（参考）"><a href="#4-其他截图快捷键（参考）" class="headerlink" title="4. 其他截图快捷键（参考）"></a>4. 其他截图快捷键（参考）</h3><p><code>~/.config/niri/binds.kdl</code></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">Print        &#123;spawn-<span class="hljs-keyword">sh </span><span class="hljs-string">&quot;niri msg action screenshot --show-pointer false &amp;&amp; pkill -f -USR1 screenshot-sound.sh&quot;</span><span class="hljs-comment">;&#125;</span><br>Ctrl+Print   &#123;spawn-<span class="hljs-keyword">sh </span><span class="hljs-string">&quot;niri msg action screenshot-window --show-pointer false &amp;&amp; pkill -f -USR1 screenshot-sound.sh&quot;</span><span class="hljs-comment">;&#125;</span><br><span class="hljs-keyword">Shift+Print </span> &#123;spawn-<span class="hljs-keyword">sh </span><span class="hljs-string">&quot;niri msg action screenshot-screen --show-pointer false &amp;&amp; pkill -f -USR1 screenshot-sound.sh&quot;</span><span class="hljs-comment">;&#125;</span><br>Mod+<span class="hljs-keyword">Shift+S </span> &#123;spawn-<span class="hljs-keyword">sh </span><span class="hljs-string">&quot;wl-paste | satty -f -&quot;</span><span class="hljs-comment">;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> pacman -S grim slurp<br>yay -S pineapple-pictures<br></code></pre></td></tr></table></figure>
+
+<h2 id="生效方式"><a href="#生效方式" class="headerlink" title="生效方式"></a>生效方式</h2><p>热重载 niri 配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">niri msg action load-config-file<br></code></pre></td></tr></table></figure>
+
+<p>或重新登录 niri 会话。</p>
+<h2 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h2><ol>
+<li>按 <code>Ctrl+1</code></li>
+<li>鼠标拖选截图区域</li>
+<li>Pineapple Pictures 自动浮动打开</li>
+<li>在 Pineapple Pictures 窗口中<strong>右键 → Stay on Top</strong> 完成贴图</li>
+<li>关闭贴图：聚焦窗口按 <code>q</code> 或 <code>Esc</code></li>
+</ol>
+<h3 id="移动贴图窗口"><a href="#移动贴图窗口" class="headerlink" title="移动贴图窗口"></a>移动贴图窗口</h3><p>Pineapple Pictures 内部会吞掉鼠标拖拽用于缩放&#x2F;平移图片，直接拖拽无法移动窗口。需要 <strong>按住 Mod 键 + 左键拖动</strong> 来移动浮动窗口位置。</p>
+<h3 id="缩放贴图窗口"><a href="#缩放贴图窗口" class="headerlink" title="缩放贴图窗口"></a>缩放贴图窗口</h3><p>同样需要在 Pineapple Pictures 内先调小图片（Ctrl + 滚轮或菜单），再用 <strong>Mod + 右键拖动</strong> 调整窗口大小。</p>
+<h2 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h2><h3 id="1-ppic-启动时段错误-segfault"><a href="#1-ppic-启动时段错误-segfault" class="headerlink" title="1. ppic 启动时段错误 (segfault)"></a>1. ppic 启动时段错误 (segfault)</h3><p><strong>症状</strong>：<code>Ctrl+1</code> 截图后 ppic 没有出现，终端报 <code>段错误（核心已转储）</code>。</p>
+<p><strong>原因</strong>：Pineapple Pictures 1.4.1 在 Wayland 下调用 <code>qApp-&gt;screenAt(QCursor::pos())</code> 时可能返回空指针，导致空指针解引用崩溃。两个位置受影响：</p>
+<ul>
+<li><code>MainWindow::centerWindow()</code> — 构造时居中窗口</li>
+<li><code>MainWindow::adjustWindowSizeBySceneRect()</code> — 打开图片时调整窗口大小</li>
+</ul>
+<p><strong>解决</strong>：已通过 patch 修复，在 <code>screenAt()</code> 返回 null 时回退到 <code>primaryScreen()</code>。patch 位置：</p>
+<pre><code class="hljs">~/.cache/yay/pineapple-pictures/fix-centerWindow-nullptr.patch
+</code></pre>
+<h3 id="2-Wayland-下大量-“window-opacity”-警告"><a href="#2-Wayland-下大量-“window-opacity”-警告" class="headerlink" title="2. Wayland 下大量 “window opacity” 警告"></a>2. Wayland 下大量 “window opacity” 警告</h3><p><strong>症状</strong>：启动 ppic 后终端输出大量 <code>This plugin does not support setting window opacity</code>。</p>
+<p><strong>原因</strong>：ppic 使用了 <code>Qt::WA_TranslucentBackground</code> 和 <code>windowOpacity</code> 动画，Wayland 不支持。</p>
+<p><strong>解决</strong>：已通过同一 patch 修复，Wayland 下自动跳过透明背景和窗口淡出动画。</p>
+<h3 id="3-slurp-取消时弹出空-ppic-窗口"><a href="#3-slurp-取消时弹出空-ppic-窗口" class="headerlink" title="3. slurp 取消时弹出空 ppic 窗口"></a>3. slurp 取消时弹出空 ppic 窗口</h3><p><strong>原因</strong>：原脚本没有处理用户按 Esc 取消 slurp 选区的情况。</p>
+<p><strong>解决</strong>：脚本已更新，slurp 取消后 <code>exit 0</code> 不再继续执行。</p>
+<h2 id="Niri-截图目录"><a href="#Niri-截图目录" class="headerlink" title="Niri 截图目录"></a>Niri 截图目录</h2><p>截图文件保存路径（niri 内置截图）：</p>
+<pre><code class="hljs">~/Pictures/Screenshots/Niri-screenshots/
+</code></pre>
+<p>配置在 <code>~/.config/niri/config.kdl</code> 中：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs perl">screenshot-path <span class="hljs-string">&quot;~/Pictures/Screenshots/Niri-screenshots/<span class="hljs-variable">%Y</span>-<span class="hljs-variable">%m</span>-<span class="hljs-variable">%d</span> <span class="hljs-variable">%H</span>-<span class="hljs-variable">%M</span>-<span class="hljs-variable">%S</span>.png&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h2><p>2026-06-30</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" class="category-chain-item">效率工具</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Niri/" class="print-no-link">#Niri</a>
+      
+        <a href="/tags/Wayland/" class="print-no-link">#Wayland</a>
+      
+        <a href="/tags/%E6%88%AA%E5%9B%BE/" class="print-no-link">#截图</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Niri 截图贴图工作流配置</div>
+      <div>https://tingfeng347.github.io/2026/06/29/Niri 截图贴图工作流配置/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年6月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/07/24/Gnirehtet%EF%BC%9A%E9%80%9A%E8%BF%87%20USB%20%E4%B8%BA%20Android%20%E8%AE%BE%E5%A4%87%E5%8F%8D%E5%90%91%E5%85%B1%E4%BA%AB%E7%94%B5%E8%84%91%E7%BD%91%E7%BB%9C/" title="Gnirehtet：通过 USB 为 Android 设备反向共享电脑网络">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Gnirehtet：通过 USB 为 Android 设备反向共享电脑网络</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/06/18/Niri%20%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%82%E8%80%83%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%B7%A5%E4%BD%9C%E6%B5%81/" title="Niri 快捷键参考与常用工作流">
+                        <span class="hidden-mobile">Niri 快捷键参考与常用工作流</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

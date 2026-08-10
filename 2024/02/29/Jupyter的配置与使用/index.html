@@ -1,0 +1,2378 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="一文弄懂Jupyter的配置与使用(呕心沥血版) Jupyter 是一个基于 Web 的交互式计算平台，使用户能够创建和共享文档，这些文档包含实时代码、方程式、可视化图表和解释文字。Jupyter 在数据分析领域被广泛应用，它提供了一个直观、交互式的操作界面，使得用户能够更容易地探索数据、可视化数据以及进行数据处理和建模的实验。 Jupyter 不仅能够对 Python 代码进行展示和格式化，还能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jupyter的配置与使用">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/02/29/Jupyter%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="一文弄懂Jupyter的配置与使用(呕心沥血版) Jupyter 是一个基于 Web 的交互式计算平台，使用户能够创建和共享文档，这些文档包含实时代码、方程式、可视化图表和解释文字。Jupyter 在数据分析领域被广泛应用，它提供了一个直观、交互式的操作界面，使得用户能够更容易地探索数据、可视化数据以及进行数据处理和建模的实验。 Jupyter 不仅能够对 Python 代码进行展示和格式化，还能">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11ad39f345e8d03a29ea7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11b429f345e8d03a385c0.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11b599f345e8d03a3a36c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11b8d9f345e8d03a3dd1f.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11ba59f345e8d03a3f810.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e18a9f9f345e8d03ae1981.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e18a9e9f345e8d03ae18ec.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11bc49f345e8d03a41bb8.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11bcf9f345e8d03a427fb.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11be89f345e8d03a44564.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11bf79f345e8d03a4595f.webp">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c049f345e8d03a46af8.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11b219f345e8d03a35be5.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c1a9f345e8d03a48669.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c3a9f345e8d03a4ad34.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c479f345e8d03a4bd7f.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c559f345e8d03a4cd66.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c5f9f345e8d03a4d800.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c809f345e8d03a50187.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c919f345e8d03a515dc.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11cf79f345e8d03a58f64.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11c9c9f345e8d03a52317.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11d059f345e8d03a59f81.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11d499f345e8d03a5fc7b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11d5a9f345e8d03a61095.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11d669f345e8d03a61f81.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11da19f345e8d03a668c5.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11db09f345e8d03a67a8b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11dc49f345e8d03a695ed.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11dd59f345e8d03a6adf4.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11de89f345e8d03a6c6d9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/65e11df79f345e8d03a6d8fc.png">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/9349655?type=image/png">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/9349682?type=image/png">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/9349707?type=image/png">
+<meta property="article:published_time" content="2024-02-29T05:44:03.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.625Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="jupyter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/65e11ad39f345e8d03a29ea7.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Jupyter的配置与使用 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Jupyter的配置与使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-29 13:44" pubdate>
+          2024年2月29日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          155 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="true"
+      >
+        Python
+        <span class="list-group-count">(23)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/08/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%9C%9F%E6%9C%AB%E6%80%BB%E7%BB%93/" title="数据采集期末总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集期末总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/04/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E8%AE%AD/" title="数据采集实训"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集实训</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/12/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="数据可视化学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/23/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%80%BB%E7%BB%93/" title="数据采集总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/10/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E7%BB%93/" title="数据可视化总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/06/21/%E6%97%A0%E4%BA%BA%E5%BA%97%E5%94%AE%E8%B4%A7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="无人店售货管理系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无人店售货管理系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/11/%E7%94%A8python%E5%86%99%E4%B8%80%E4%B8%AA%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95%E7%A8%8B%E5%BA%8F/" title="用python写一个校园网登录程序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用python写一个校园网登录程序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/16/%E4%BD%9C%E7%89%A9%E4%BA%A7%E9%87%8F%E9%A2%84%E6%B5%8B%E4%B8%8E%E7%97%85%E8%99%AB%E5%AE%B3%E8%AF%86%E5%88%AB/" title="作物产量预测与病虫害识别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">作物产量预测与病虫害识别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/12/%E6%A0%A1%E5%9B%AD%E9%97%A8%E7%A6%81%E7%B3%BB%E7%BB%9F/" title="校园门禁系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">校园门禁系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="图像处理大作业"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">图像处理大作业</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/yolo%E8%AE%AD%E7%BB%83%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="yolo训练指标详解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">yolo训练指标详解</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/01/%E8%AF%AD%E9%9F%B3%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="语音大模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">语音大模型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="全栈"
+        id="heading-bd1529711cb25e6a1fb797f502d39132" role="tab" data-toggle="collapse" href="#collapse-bd1529711cb25e6a1fb797f502d39132"
+        aria-expanded="false"
+      >
+        全栈
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bd1529711cb25e6a1fb797f502d39132"
+           role="tabpanel" aria-labelledby="heading-bd1529711cb25e6a1fb797f502d39132">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/25/Django5+Vue3+Docker%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9AOA%E7%B3%BB%E7%BB%9F/" title="Django5+Vue3+Docker打造企业OA系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Django5+Vue3+Docker打造企业OA系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/19/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88pytorch%E3%80%81yoloV5%E3%80%81Flask%EF%BC%89%E7%9A%84%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F/" title="基于深度学习（pytorch、yoloV5、Flask）的目标检测系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于深度学习（pytorch、yoloV5、Flask）的目标检测系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/23/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E5%8D%9A%E5%AE%A2%E5%B9%B3%E5%8F%B0/" title="知了传课博客平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课博客平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/" title="知了传课问答平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课问答平台</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/18/%E5%BE%AE%E5%8D%9A%E8%88%86%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="微博舆论数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">微博舆论数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大数据"
+        id="heading-2c657e7dce6effaecbb458deb45e800a" role="tab" data-toggle="collapse" href="#collapse-2c657e7dce6effaecbb458deb45e800a"
+        aria-expanded="false"
+      >
+        大数据
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2c657e7dce6effaecbb458deb45e800a"
+           role="tabpanel" aria-labelledby="heading-2c657e7dce6effaecbb458deb45e800a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/09/03/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/" title="Python数据挖掘实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python数据挖掘实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/28/%E4%BD%BF%E7%94%A8%20uv%20%E6%9E%84%E5%BB%BA%E5%B9%B6%E5%8F%91%E5%B8%83%20Python%20%E5%8C%85%E5%88%B0%20PyPI/" title="使用 uv 构建并发布 Python 包到 PyPI"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用 uv 构建并发布 Python 包到 PyPI</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="环境配置"
+        id="heading-a69f6882042ddb9e04b8ba73f37404dc" role="tab" data-toggle="collapse" href="#collapse-a69f6882042ddb9e04b8ba73f37404dc"
+        aria-expanded="false"
+      >
+        环境配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a69f6882042ddb9e04b8ba73f37404dc"
+           role="tabpanel" aria-labelledby="heading-a69f6882042ddb9e04b8ba73f37404dc">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/01/21/conda%20%E5%88%9B%E5%BB%BA_%E5%88%A0%E9%99%A4_%E5%A4%8D%E5%88%B6%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E3%80%81%E5%AE%89%E8%A3%85_%E5%88%A0%E9%99%A4%E5%8C%85/" title="conda创建/删除/复制虚拟环境、安装/删除包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">conda创建/删除/复制虚拟环境、安装/删除包</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程语言"
+        id="heading-3bf8a523aea21a3a0f6c53b0f43429bb" role="tab" data-toggle="collapse" href="#collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+        aria-expanded="false"
+      >
+        编程语言
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+           role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/30/python%E6%80%BB%E7%BB%93/" title="python总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">python总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="配置"
+        id="heading-224e2ccda861c2514faa683b3683c361" role="tab" data-toggle="collapse" href="#collapse-224e2ccda861c2514faa683b3683c361"
+        aria-expanded="true"
+      >
+        配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-224e2ccda861c2514faa683b3683c361"
+           role="tabpanel" aria-labelledby="heading-224e2ccda861c2514faa683b3683c361">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="true"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/02/29/Jupyter%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="Jupyter的配置与使用"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Jupyter的配置与使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目"
+        id="heading-31ecc0e65b4cd3e6b12577382bb56d6a" role="tab" data-toggle="collapse" href="#collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+        aria-expanded="false"
+      >
+        项目
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+           role="tabpanel" aria-labelledby="heading-31ecc0e65b4cd3e6b12577382bb56d6a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/Python%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="Python豆瓣电影数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python豆瓣电影数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Jupyter的配置与使用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一文弄懂Jupyter的配置与使用-呕心沥血版"><a href="#一文弄懂Jupyter的配置与使用-呕心沥血版" class="headerlink" title="一文弄懂Jupyter的配置与使用(呕心沥血版)"></a><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2277074">一文弄懂Jupyter的配置与使用(呕心沥血版)</a></h1><blockquote>
+<p>Jupyter 是一个基于 Web 的交互式计算平台，使用户能够创建和共享文档，这些文档包含实时代码、方程式、可视化图表和解释文字。Jupyter 在数据分析领域被广泛应用，它提供了一个直观、交互式的操作界面，使得用户能够更容易地探索数据、可视化数据以及进行数据处理和建模的实验。 Jupyter 不仅能够对 Python 代码进行展示和格式化，还能够保存用户的历史代码和结果以及数据分析结果。这些结果可以在后期随时查看和修改，使得 Python 的学习和应用变得更加方便和高效。 总之，学习一下jupyter还是非常必要的，也非常的方便，本文的操作主要针对Windows系统。</p>
+</blockquote>
+<h3 id="1-安装Jupyter"><a href="#1-安装Jupyter" class="headerlink" title="1.安装Jupyter"></a>1.安装Jupyter</h3><blockquote>
+<p>安装是非常简单的，一般有两种方式，一种就是python环境，另外一种就是Anaconda环境；</p>
+</blockquote>
+<h4 id="1-1Python-环境下安装"><a href="#1-1Python-环境下安装" class="headerlink" title="1.1Python 环境下安装"></a>1.1Python 环境下安装</h4><p>安装 Python。从 Python 官方网站[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://zhuanlan.zhihu.com/p/242524977&source=article&objectId=2277074">1</a>]下载最新版本的 Python。</p>
+<p>安装 pip。pip 是 Python 的包管理工具，用于安装和管理 Python 包。在命令行输入以下命令来检查 pip 是否已经安装：</p>
+<pre><code class="hljs">pip --version
+</code></pre>
+<p>如果 pip 已经安装则会输出 pip 的版本信息，否则需要手动安装。</p>
+<p><strong>如果出现ModuleNotFoundError: No module named ‘pip’ 错误</strong></p>
+<pre><code class="hljs">方案1
+python -m ensurepip
+python -m pip install --upgrade pip
+方案2
+sudo apt install --fix-missing python3-pip
+方案3//推荐
+1）curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+2）python3 get-pip.py --force-reinstall
+</code></pre>
+<p>安装 Jupyter Notebook。使用 pip 命令来安装 Jupyter Notebook。在命令提示符或终端窗口中输入以下命令：</p>
+<pre><code class="hljs">pip install jupyter
+</code></pre>
+<p>等待一段时间，Jupyter Notebook 就会被安装到你的电脑上了。</p>
+<p>若大家是默认安装的话，则在C:\Users\Administrator\AppData\Local\Programs\Python\PythonXXX\Scripts 目录</p>
+<p>启动 Jupyter Notebook。安装完成后，在命令提示符或终端窗口中输入以下命令来启动 Jupyter Notebook ：</p>
+<pre><code class="hljs">jupyter notebook
+</code></pre>
+<p>这个命令会自动打开你的默认浏览器，展示 Jupyter Notebook 的主页，并在后台启动一个 Jupyter 内核（Kernel）。</p>
+<p><strong>如果报错“Exception: Jupyter command</strong> <code>jupyter-notebook</code> <strong>not found“</strong></p>
+<p><strong>如果你安装过jupyter-notebook 请重新安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip3 install --upgrade --force-reinstall --no-cache-dir jupyter<br>//暴力彻底重装<br>pip install --upgrade --force-reinstall --no-cache-dir jupyter==版本<br>//暴力彻底重装指定版本<br></code></pre></td></tr></table></figure>
+
+<p>然后再输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">jupyter notebook<br></code></pre></td></tr></table></figure>
+
+<p><strong>如果报错jupyter_server.extension.utils.ExtensionModuleNotFound: The module ‘jupyter_nbextensions_configurator’ could not be found (No module named ‘notebook.base’). Are you sure the extension is installed?</strong></p>
+<p>一开始在安装 <code>notebook</code> 中的插件 <code>nbextensions</code> 时根本没有注意到版本的适配问题，都是进行默认的安装，结果安装是最新版本的 <code>notebook=7.x</code>，恰好 <code>notebook=7.x</code> 版本不再适应插件 <code>nbextensions</code>，然后就各种报错，包括无法导出笔记本为其他文件的问题，需要卸载<strong>jupyter_nbextensions后重启notebook解决</strong></p>
+<pre><code class="hljs">pip uninstall jupyter_nbextensions_configurator
+</code></pre>
+<h4 id="1-2Anaconda-环境下安装"><a href="#1-2Anaconda-环境下安装" class="headerlink" title="1.2Anaconda 环境下安装"></a>1.2Anaconda 环境下安装</h4><blockquote>
+<p>正常的话，安装Anaconda的时候，jupyter是伴随anaconda安装好的，不需要按照如下步骤再去安装；</p>
+</blockquote>
+<p>安装 Anaconda。从 Anaconda 官方网站[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://zhuanlan.zhihu.com/p/124323387&source=article&objectId=2277074">3</a>]下载最新版本的 Anaconda。</p>
+<p>启动 Anaconda Navigator。安装完毕后，启动 Anaconda Navigator，它是一个可视化的应用程序，方便用户管理和运行 Anaconda 中包含的各种工具和应用。</p>
+<p>安装 Jupyter Notebook。在 Anaconda Navigator 中，点击左侧导航栏的 “Environments”，然后在右边的区域中选中需要安装 Jupyter Notebook 的环境，在下方的 “Packages” 标签页中搜索 “jupyter”，并勾选 “jupyter” 和 “notebook”。然后点击 “Apply” 按钮进行安装即可。</p>
+<p><img src="https://pic.imgdb.cn/item/65e11ad39f345e8d03a29ea7.png" srcset="/img/loading.gif" lazyload alt="image-20230423155830561"></p>
+<p>启动 Jupyter Notebook。安装完成后，在 Anaconda Navigator 中点击 “Launch” 按钮启动 Jupyter Notebook，也可以在命令提示符或终端窗口中输入以下命令来启动：</p>
+<pre><code class="hljs">jupyter notebook
+</code></pre>
+<h3 id="2-启动命令"><a href="#2-启动命令" class="headerlink" title="2.启动命令"></a>2.启动命令</h3><p>默认端口启动</p>
+<pre><code class="hljs">jupyter notebook
+</code></pre>
+<p>浏览器地址栏中默认地将会显示：<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=http://localhost:8888/tree%E3%80%82%E5%85%B6%E4%B8%AD%EF%BC%8C%E2%80%9Clocalhost%E2%80%9D%E6%8C%87%E7%9A%84%E6%98%AF%E6%9C%AC%E6%9C%BA%EF%BC%8C%E2%80%9C8888%E2%80%9D%E5%88%99%E6%98%AF%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%8C%E6%AF%8F%E5%A4%9A%E5%90%AF%E5%8A%A8%E4%B8%80%E6%AC%A1%EF%BC%8C%E7%AB%AF%E5%8F%A3%E5%8F%B7%E7%B1%BB%E6%8E%A8&source=article&objectId=2277074">http://localhost:8888/tree。其中，“localhost”指的是本机，“8888”则是端口号，每多启动一次，端口号类推</a></p>
+<p>指定端口启动</p>
+<pre><code class="hljs">jupyter notebook --port &lt;port_number&gt;
+指定端口号只有数字，不含 &lt;&gt;
+</code></pre>
+<p>启动服务器但不打开浏览器</p>
+<pre><code class="hljs">jupyter notebook --no-browser
+</code></pre>
+<p>终端会显示出打开浏览器的链接，若需启动浏览器，复制链接打开即可</p>
+<h3 id="3-配置文件存放位置"><a href="#3-配置文件存放位置" class="headerlink" title="3.配置文件存放位置"></a>3.配置文件存放位置</h3><blockquote>
+<p>Jupyter Notebook 的启动目录是指 Jupyter Notebook 执行服务时的默认工作目录。当你在 Jupyter Notebook 中新建一个文件时，默认情况下会在该目录下创建文件。 设置 Jupyter Notebook 的启动目录非常有用，尤其是在你的工程有大量分散在不同目录中的数据或代码时。通过将启动目录设置为你的工程根目录，你就可以更轻松的管理和访问这些数据或代码了。 例如，假设你有一个名为 “my_project” 的项目，其中包含多个子目录和数据文件。如果你将 Jupyter Notebook 的启动目录设置为 “my_project” 目录，那么你就可以很方便地访问这个项目中的任何文件，而无需在 Jupyter Notebook 中输入完整路径。 另外，在 Jupyter Notebook 里，你可以使用一些 Python 库来处理和可视化你的数据。如果你使用的是相对路径来访问数据文件，那么使用相对于启动目录的路径通常会比使用绝对路径更方便。 jupyter默认文件都放在用户目录下，如下图，启动的时候就可以看到启动目录；进入jupyter也确实是这个目录下的内容；显然这是有问题的，所以需要我们更改文件的存放位置；</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65e11b429f345e8d03a385c0.png" srcset="/img/loading.gif" lazyload alt="image-20230423113524823"></p>
+<p>新建一个目标文件夹</p>
+<p>在你想放这些文件的位置新建一个目录，比如我的目录是：<code>D:Jupyter</code></p>
+<p>查看配置文件路径</p>
+<p>命令窗口输入这行命令，或者在你对应的python环境下的命令窗口输入这行命令，即可查看默认的配置文件位置；但是这条命令虽然可以用于查看配置文件所在的路径，但主要用途是是否将这个路径下的配置文件<strong>替换为默认配置文件（相当于重置）</strong></p>
+<pre><code class="hljs">jupyter notebook --generate-config
+</code></pre>
+<p><img src="https://pic.imgdb.cn/item/65e11b599f345e8d03a3a36c.png" srcset="/img/loading.gif" lazyload alt="image-20230423114534766"></p>
+<p>修改配置文件</p>
+<p>上面找到了配置文件的位置，现在我们只需要打开这个文件，然后编辑即可；windows比较方便，利用记事本打开可以打开，但是可能找目标代码就有点麻烦了，这里使用notepad++打开；直接Ctrl+F搜索关键字<code>c.NotebookApp.notebook_dir</code>，就可以找到目标代码行了；注意：如果c.NotebookApp.notebook_dir如果不存在，则可在配置文件的最后手动添加 或者搜索 c.ServerApp.notebook_dir &#x3D; ‘’进行目录的修改</p>
+<p><strong>notebook_dir和password配置项已从NotebookApp迁移到ServerApp，建议在下一个版本发布之前更新配置</strong>。</p>
+<p><strong>c.NotebookApp.notebook_dir演示</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65e11b8d9f345e8d03a3dd1f.png" srcset="/img/loading.gif" lazyload alt="image-20230423115246543"></p>
+<p>找到这行代码后，取消注释，并在单引号内写上事先建好的用来存放文件的目录地址，保存退出；</p>
+<p><img src="https://pic.imgdb.cn/item/65e11ba59f345e8d03a3f810.png" srcset="/img/loading.gif" lazyload alt="image-20230423115545054"></p>
+<p><strong>c.ServerApp.notebook_dir 演示</strong></p>
+<p><img src="https://pic.imgdb.cn/item/65e18a9f9f345e8d03ae1981.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic.imgdb.cn/item/65e18a9e9f345e8d03ae18ec.png" srcset="/img/loading.gif" lazyload></p>
+<p>重新启动jupyter验证配置情况；</p>
+<p>可以看到这里已经修改成功了；</p>
+<p><img src="https://pic.imgdb.cn/item/65e11bc49f345e8d03a41bb8.png" srcset="/img/loading.gif" lazyload alt="image-20230423133121188"></p>
+<p><strong>如果python报”IndentationError: unexpected indent”说明tab和空格的混用会导致错误，或者缩进不对</strong></p>
+<p><strong>比如c.ServerApp.notebook_dir &#x3D; ‘ ’前有空格就会报 Exception while loading config file C:\Users\LENOVO\.jupyter\jupyter_notebook_config.py的错误</strong></p>
+<p><strong>这里有个坑</strong></p>
+<blockquote>
+<p>这里要强调一下通过命令打开和通过anaconda安装的时候提供的快捷方式打开，因为这里有坑，当你安装完Anaconda的时候，你会发现利用命令和快捷方式都能打开一个jupyter，这俩打开方式是不一样的，比如修改好了jupyter的启动目录，但是在使用快捷方式打开后，启动目录还是默认的目录；具体的差别请查看下面的Q&amp;A部分；</p>
+</blockquote>
+<h3 id="4-界面功能"><a href="#4-界面功能" class="headerlink" title="4.界面功能"></a>4.界面功能</h3><ul>
+<li>Files</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11bcf9f345e8d03a427fb.png" srcset="/img/loading.gif" lazyload alt="image-20230423214418700"></p>
+<ul>
+<li>Running Running tab 显示了当前正在运行的内核和 Jupyter Notebook 进程。具体来说，Running tab 会列出所有当前正在运行的 Notebook，包括它的名称、所在目录、 Noteboook 文件的路径、内核（kernel）的状态、连接的用户以及它的启动时间等信息。 通过 Running tab，您可以方便地查看已经打开的 Notebook，并可以选择以不同的方式关闭它们（关闭 Notebook 不会关闭内核），如停止内核、重启内核、删除 Notebook、打开终端、查看 Notebook 的启动日志等。此外，Running tab 还提供了一些高级功能，如将多个 Notebook 捆绑到单个服务中、配置和管理 Jupyter Notebook 服务器等。</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11be89f345e8d03a44564.png" srcset="/img/loading.gif" lazyload alt="image-20230423213901301"></p>
+<ul>
+<li><p>Clusters 在 Jupyter Notebook 中，Clusters tab 是指 Jupyter notebook 的一个组件，它是 IPython parallel 包提供的一个交互式界面，用于在多台计算机之间分配任务和协调计算。具体来说，Clusters tab 允许用户连接到一个或多个远程 IPython 核心（IPython engines），并在这些核心之间分发计算任务。 在 Clusters tab 中，用户可以通过添加、删除、启动、停止和连接到 IPython 集群来管理集群。一旦连接到集群，用户可以在各个核心之间分配计算任务，以便以最大程度地同时使用多台计算机的 CPU 和内存资源。Clusters tab 还提供了一些额外的功能，如查看集群状态、监控工作负载和任务进度等。 一般不用…</p>
+</li>
+<li><p>编辑器界面 这里搬运一张其他博主的图片，原文：<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://zhuanlan.zhihu.com/p/441668517&source=article&objectId=2277074">https://zhuanlan.zhihu.com/p/441668517</a> 其实还是比较清晰的，但是如果你还是不熟悉，就翻译呗，翻译网页就ok了，至于汉化，网上很多办法反正我都没成功。</p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11bf79f345e8d03a4595f.webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="5-主题扩展"><a href="#5-主题扩展" class="headerlink" title="5.主题扩展"></a>5.主题扩展</h3><h4 id="5-1配置方法"><a href="#5-1配置方法" class="headerlink" title="5.1配置方法"></a>5.1配置方法</h4><p>安装</p>
+<p>利用pip安装主题扩展</p>
+<pre><code class="hljs">pip install jupyterthemes
+</code></pre>
+<p>加载可用的主题列表</p>
+<pre><code class="hljs">jt -l
+</code></pre>
+<p><img src="https://pic.imgdb.cn/item/65e11c049f345e8d03a46af8.png" srcset="/img/loading.gif" lazyload alt="image-20230424024640368"></p>
+<p>应用某个主题</p>
+<p>这里的主题名称就是上面主题列表中的主题名，如果命令报错，看下面的解决办法；</p>
+<pre><code class="hljs">jt -t 主题名称
+</code></pre>
+<p>高级的配置</p>
+<pre><code class="hljs">jt -t 主题名称 -f 字体名称 -fs 字体大小 -cellw 代码单元格宽度 -T 工具栏 -N 笔记本名称
+</code></pre>
+<p>详细内容参看官网：<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/dunovank/jupyter-themes&source=article&objectId=2277074">https://github.com/dunovank/jupyter-themes</a></p>
+<p>还原默认主题</p>
+<pre><code class="hljs">jt -r
+</code></pre>
+<p><strong>jt命令不可用解决办法</strong></p>
+<p>安装jupyter themes之后，运行jt命令，报错如下</p>
+<pre><code class="hljs">jt : 无法将“jt”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再
+试一次。
+所在位置 行:1 字符: 1
++ jt -l
++ ~~
+    + CategoryInfo          : ObjectNotFound: (jt:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+</code></pre>
+<p>解决办法就是配置一下环境变量，打开环境变量——点击系统变量——点击PATH——新建；</p>
+<p>当然这里的路径要和你的本地环境一致；</p>
+<p>如果不知道路径的话，可以打开命令窗口；切换到你安装<code>jupyter themes</code>的环境下（你没有安装多个虚拟环境，或者你jupyter就安装在默认的环境下，就不用管），运行<code>pip show jupyterthemes</code>；</p>
+<p>最后不要定位到<code>site-packages</code>目录，要定位到<code>Scripts</code>目录；</p>
+<p><img src="https://pic.imgdb.cn/item/65e11b219f345e8d03a35be5.png" srcset="/img/loading.gif" lazyload alt="image-20230424115314361"></p>
+<p><img src="https://pic.imgdb.cn/item/65e11c1a9f345e8d03a48669.png" srcset="/img/loading.gif" lazyload alt="image-20230424114627808"></p>
+<h4 id="5-2主题一览"><a href="#5-2主题一览" class="headerlink" title="5.2主题一览"></a>5.2主题一览</h4><ul>
+<li>chesterish</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c3a9f345e8d03a4ad34.png" srcset="/img/loading.gif" lazyload alt="image-20230424025431263"></p>
+<ul>
+<li>grade3</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c479f345e8d03a4bd7f.png" srcset="/img/loading.gif" lazyload alt="image-20230424025535652"></p>
+<ul>
+<li>gruvboxd</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c559f345e8d03a4cd66.png" srcset="/img/loading.gif" lazyload alt="image-20230424025718565"></p>
+<ul>
+<li>gruvboxl</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c5f9f345e8d03a4d800.png" srcset="/img/loading.gif" lazyload alt="image-20230424025811441"></p>
+<ul>
+<li>monokai</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c809f345e8d03a50187.png" srcset="/img/loading.gif" lazyload alt="image-20230424025838515"></p>
+<ul>
+<li>oceans16</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c919f345e8d03a515dc.png" srcset="/img/loading.gif" lazyload alt="image-20230424025910536"></p>
+<ul>
+<li>onedork</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11cf79f345e8d03a58f64.png" srcset="/img/loading.gif" lazyload alt="image-20230424025939437"></p>
+<ul>
+<li>solarizedd</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11c9c9f345e8d03a52317.png" srcset="/img/loading.gif" lazyload alt="image-20230424030010676"></p>
+<ul>
+<li>solarizedl</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11d059f345e8d03a59f81.png" srcset="/img/loading.gif" lazyload alt="image-20230424030037606"></p>
+<h3 id="6功能扩展"><a href="#6功能扩展" class="headerlink" title="6功能扩展"></a>6功能扩展</h3><h4 id="6-1关联Anaconda环境"><a href="#6-1关联Anaconda环境" class="headerlink" title="6.1关联Anaconda环境"></a>6.1关联Anaconda环境</h4><h5 id="6-1-1简介与安装"><a href="#6-1-1简介与安装" class="headerlink" title="6.1.1简介与安装"></a>6.1.1简介与安装</h5><blockquote>
+<p><code>nb_conda</code> 是一个 Jupyter Notebook 的插件，它可以在 Notebook 中实现 Conda 环境和包的访问。在 Jupyter 的文件浏览器中， <code>nb_conda</code> 扩展会添加一个 Conda 选项卡，点击该选项卡即可查看已存在的 Conda 环境列表。通过 <code>nb_conda</code>，用户可以轻松地在 Notebook 中创建、使用和分享自己的 Conda 环境。</p>
+</blockquote>
+<p>安装</p>
+<pre><code class="hljs">conda install nb_conda
+</code></pre>
+<p>卸载</p>
+<pre><code class="hljs">canda remove nb_conda
+</code></pre>
+<h5 id="6-1-2使用简介"><a href="#6-1-2使用简介" class="headerlink" title="6.1.2使用简介"></a>6.1.2使用简介</h5><ul>
+<li>选择conda导航栏，就能显示anaconda的环境和包了；</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11d499f345e8d03a5fc7b.png" srcset="/img/loading.gif" lazyload alt="image-20230425203312630"></p>
+<ul>
+<li>Kernel选择</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11d5a9f345e8d03a61095.png" srcset="/img/loading.gif" lazyload alt="image-20230425203521053"></p>
+<h4 id="6-2扩展库"><a href="#6-2扩展库" class="headerlink" title="6.2扩展库"></a>6.2扩展库</h4><h5 id="6-2-1简介与安装"><a href="#6-2-1简介与安装" class="headerlink" title="6.2.1简介与安装"></a>6.2.1简介与安装</h5><blockquote>
+<p>扩展库一般涉及两个东西，一个就是<code>jupyter_nbextensions_configurator</code>，另一个是<code>jupyter_contrib_nbextensions</code>； <code>jupyter_nbextensions_configurator</code> 是一个用于管理和配置 Jupyter Notebook 的笔记本扩展程序的 GUI 工具。它提供了图形用户界面（GUI）来启用、禁用和配置 Jupyter Notebook 的 nbextensions 扩展程序。它还允许你使用预定义选项来配置这些扩展程序，使其更加符合你的需求。此外，它还提供了一些主题以改变笔记本的样式和交互体验。 <code>jupyter_contrib_nbextensions</code> 则是一组可用于增强 Jupyter Notebooks 功能的扩展程序集合。这些扩展包含多种类型的实用工具，如代码折叠、高亮显示、表格排序、导航栏等等。通过安装 jupyter_contrib_nbextensions，你可以更方便地管理你的笔记本，提高编程效率。需要注意的是，jupyter_contrib_nbextensions 中包括了 nbextensions_configurator 工具。</p>
+</blockquote>
+<p>pip安装</p>
+<pre><code class="hljs">pip install jupyter_contrib_nbextensions
+jupyter contrib nbextensions install --user
+pip install jupyter_nbextensions_configurator
+jupyter nbextensions_configurator enable --user
+</code></pre>
+<p>conda安装</p>
+<pre><code class="hljs">conda install -c conda-forge jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
+conda install -c conda-forge jupyter_nbextensions_configurator
+jupyter nbextensions_configurator enable --user
+</code></pre>
+<p>安装后发现扩展库里面只有四五个</p>
+<blockquote>
+<p>把扩展库卸载了重新装一遍就行了，建议一行一行的跑命令； pip卸载 pip uninstall jupyter_contrib_nbextensions anaconda卸载 conda remove jupyter_nbextensions_configurator</p>
+</blockquote>
+<p>安装之后，启动jupyter就能看到nbextensions了，要取消图中的选择，才能使用；使用即在对应的扩展前面选中即可；</p>
+<p><img src="https://pic.imgdb.cn/item/65e11d669f345e8d03a61f81.png" srcset="/img/loading.gif" lazyload alt="image-20230425202953077"></p>
+<h5 id="6-2-1扩展推荐"><a href="#6-2-1扩展推荐" class="headerlink" title="6.2.1扩展推荐"></a>6.2.1扩展推荐</h5><p><code>Table of Contents</code>: 自动生成文档中的目录，方便快速导航和查找内容。[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/jupyter-contrib/jupyter_nbextensions_configurator&source=article&objectId=2277074">1</a>]</p>
+<p><code>Collapsible Headings</code>: 折叠和展开单元格标题，节省页面空间并使整个文档更易于导航。[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tree/master/src/jupyter_contrib_nbextensions/nbextensions/collapsible_headings&source=article&objectId=2277074">2</a>]</p>
+<p><code>Code Folding</code>: 可以折叠代码单元格中的代码块，有助于隐藏不必要的细节并提高可读性。 [<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tree/master/src/jupyter_contrib_nbextensions/nbextensions/codefolding&source=article&objectId=2277074">3</a>]</p>
+<p><code>ExecuteTime</code>: 显示代码单元格的执行时间。[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tree/master/src/jupyter_contrib_nbextensions/nbextensions/execute_time&source=article&objectId=2277074">4</a>]</p>
+<p><img src="https://pic.imgdb.cn/item/65e11da19f345e8d03a668c5.png" srcset="/img/loading.gif" lazyload alt="image-20230425202405625"></p>
+<p><code>Notify</code>: 当代码执行完成时向浏览器推送通知。[<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tree/master/src/jupyter_contrib_nbextensions/nbextensions/notify&source=article&objectId=2277074">5</a>]</p>
+<p>部分内容及图片来源：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2135662?from_column=20421&from=20421">https://cloud.tencent.com/developer/article/2135662</a></p>
+<p>5.安装中文：pip install jupyterlab-language-pack-zh-CN</p>
+<h3 id="7-基本使用"><a href="#7-基本使用" class="headerlink" title="7.基本使用"></a>7.基本使用</h3><blockquote>
+<p>先摆上两个链接，更多详细的内容参看：</p>
+</blockquote>
+<ul>
+<li><p><a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://zhuanlan.zhihu.com/p/33105153&source=article&objectId=2277074">Jupyter Notebook介绍、安装及使用教程</a></p>
+</li>
+<li><p><a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://blog.csdn.net/lawme/article/details/51034543&source=article&objectId=2277074">Jupyter Notebook 的快捷键</a></p>
+</li>
+</ul>
+<p><strong>Jupyter Notebook笔记本的两种模式</strong></p>
+<ul>
+<li><p>命令模式 命令模式将键盘命令与Jupyter Notebook笔记本命令相结合，可以通过键盘不同键的组合运行笔记本的命令。 按esc键进入命令模式。 命令模式下，左侧边框线为蓝色粗线条。</p>
+</li>
+<li><p>编辑模式 编辑模式使用户可以在单元格内编辑代码或文档。 编辑模式下，单元格边框和左侧边框线均为绿色。</p>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/65e11db09f345e8d03a67a8b.png" srcset="/img/loading.gif" lazyload alt="image-20230426004005339"></p>
+<p><strong>删除单元格快捷方式</strong>：进入命令模式后双击D键</p>
+<p><strong>恢复单元格</strong>：进入命令模式后按Z键</p>
+<p><strong>Shift-Enter</strong> : 运行本单元，选中下个单元</p>
+<p><strong>Ctrl-Enter</strong> : 运行本单元</p>
+<p><strong>Alt-Enter</strong> : 运行本单元，在其下插入新单元</p>
+<p><strong>加载指定位置源代码</strong></p>
+<p>想要在Jupyter Notebook中直接加载指定位置的源代码到笔记本中;</p>
+<p>输入以下命令运行即可加载，运行完之后，代码会加载到单元格内，该命令会被注释；</p>
+<pre><code class="hljs">%load URL
+</code></pre>
+<p><img src="https://pic.imgdb.cn/item/65e11dc49f345e8d03a695ed.png" srcset="/img/loading.gif" lazyload alt="image-20230426003030312"></p>
+<p><strong>更多魔术命令</strong></p>
+<p>上面就是魔术命令的一个应用，其他的还有类似获取当前文件位置的命令等等，更多内容参考官网：<a href="https://cloud.tencent.com/developer/tools/blog-entry?target=https://ipython.readthedocs.io/en/stable/interactive/magics.html&source=article&objectId=2277074">https://ipython.readthedocs.io/en/stable/interactive/magics.html</a></p>
+<h3 id="8-实战"><a href="#8-实战" class="headerlink" title="8.实战"></a>8.实战</h3><h4 id="8-1一个简单的绘图"><a href="#8-1一个简单的绘图" class="headerlink" title="8.1一个简单的绘图"></a>8.1一个简单的绘图</h4><pre><code class="hljs">#!/usr/bin/env python
+# coding: utf-8
+​
+# In[1]:
+​
+​
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+​
+​
+# In[2]:
+​
+​
+# 创建测试数据
+df = pd.DataFrame({
+    &#39;year&#39;: [2016, 2017, 2018, 2019, 2020],
+    &#39;sales&#39;: [100, 130, 150, 170, 200]
+})
+​
+​
+# In[3]:
+​
+​
+# 绘制柱状图
+plt.bar(df[&#39;year&#39;], df[&#39;sales&#39;], color=&#39;blue&#39;)
+plt.xlabel(&#39;Year&#39;)
+plt.ylabel(&#39;Sales&#39;)
+plt.title(&#39;Sales over Year&#39;)
+plt.show()
+​
+​
+# In[ ]:
+</code></pre>
+<blockquote>
+<p>三个单元格分别导入包、创建测试数据、绘图； 运行需要严格按顺序执行；</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65e11dd59f345e8d03a6adf4.png" srcset="/img/loading.gif" lazyload alt="image-20230426005408378"></p>
+<h4 id="8-1爬取微博热搜"><a href="#8-1爬取微博热搜" class="headerlink" title="8.1爬取微博热搜"></a>8.1爬取微博热搜</h4><pre><code class="hljs">#!/usr/bin/env python
+# coding: utf-8
+​
+# In[7]:
+​
+​
+import requests
+from bs4 import BeautifulSoup
+import time
+​
+​
+# In[18]:
+​
+​
+headers = {
+    &#39;User-Agent&#39;: &#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36&#39;,
+    &#39;Cookie&#39;:&#39;SUB=_2AkMTf37Hf8NxqwJRmPAVyG7jbol0wwrEieKlI48cJRMxHRl-yT9vqlYOtRB6OP9QKBlDDjMdGlMFok5NIqGTLxEXHcGr; SUBP=0033WrSXqPxfM72-Ws9jqgMF55529P9D9W5UiecUPRV2SWjRzBIq2X0V; SINAGLOBAL=618205954960.4446.1681196722663; UOR=www.baidu.com,weibo.com,tophub.today; _s_tentry=-; Apache=5834475057987.334.1682445226156; ULV=1682445226181:3:3:1:5834475057987.334.1682445226156:1681202990452; XSRF-TOKEN=WKel-EKSczosZuoOMXKVIH9H; WBPSESS=durPiJxsbzq5XDaI2wW0N0pbOd3fbV1w3XF-VOcj7XTJ8vDiYa5jmFydo3U2yLd3wSJp3fMJK1n5h3EzWFi1ruvJTHRYOs9aoG4rZ64JjMz9qH5LbEnhw5Cxomz5i-gj&#39;
+}
+​
+url = &#39;https://s.weibo.com/top/summary&#39;
+​
+​
+# In[19]:
+​
+​
+try:
+    response = requests.get(url, headers=headers)
+    response.encoding = &#39;utf-8&#39;
+    if response.status_code == 200:
+        print(response.text)
+    else:
+        print(f&#39;Request failed with status code {response.status_code}&#39;)
+except RequestException as e:
+    print(e)
+​
+​
+# In[20]:
+​
+​
+response_html = response.text
+​
+​
+# In[21]:
+​
+​
+soup = BeautifulSoup(response_html, &#39;lxml&#39;)
+​
+​
+# In[22]:
+​
+​
+hot_list = []
+​
+​
+# In[23]:
+​
+​
+items = soup.select(&#39;tbody &gt; tr&#39;)
+​
+​
+# In[31]:
+​
+​
+for item in items:
+    hot_title = item.select_one(&#39;.td-02 &gt; a&#39;).get_text(strip=True)
+    hot_url = &#39;https://s.weibo.com&#39; + item.select_one(&#39;.td-02 &gt; a&#39;)[&#39;href&#39;]
+    hot_item = {
+        &#39;hot_title&#39;: hot_title,
+        &#39;hot_url&#39;: hot_url
+    }
+    hot_list.append(hot_item)
+​
+​
+# In[43]:
+​
+​
+for i in range(len(hot_list)):
+    if i&lt;10:
+        print(i+1,hot_list[i][&quot;hot_title&quot;])
+</code></pre>
+<blockquote>
+<p>具体思路是，使用requests库向新浪微博实时热搜的页面发送请求，并通过BeautifulSoup库解析返回的html内容。然后遍历html中的各个元素，提取出热搜话题的标题和链接，最后将其存储到hot_list数组中。最后再遍历一次hot_list数组，输出前十个热搜话题。 需要注意的是，这段代码访问新浪微博网站时设置了请求头和Cookie，防止因缺失必要参数而无法请求到数据。同时，由于网站的内容可能随时发生变化或者有反爬虫机制的存在，因此需要在爬取时进行一定的容错处理，确保程序运行的稳定性。</p>
+</blockquote>
+<p><img src="https://pic.imgdb.cn/item/65e11de89f345e8d03a6c6d9.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="Q-A-问题和其他"><a href="#Q-A-问题和其他" class="headerlink" title="Q&amp;A 问题和其他"></a>Q&amp;A 问题和其他</h3><h4 id="1-如果出现ModuleNotFoundError-No-module-named-‘pip’-错误"><a href="#1-如果出现ModuleNotFoundError-No-module-named-‘pip’-错误" class="headerlink" title="1.如果出现ModuleNotFoundError: No module named ‘pip’ 错误"></a><strong>1.如果出现ModuleNotFoundError: No module named ‘pip’ 错误</strong></h4><pre><code class="hljs">方案1
+python -m ensurepip
+python -m pip install --upgrade pip
+方案2
+sudo apt install --fix-missing python3-pip
+方案3//推荐
+1）curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+2）python3 get-pip.py --force-reinstall
+</code></pre>
+<h4 id="2-如果报错“Exception-Jupyter-command-jupyter-notebook-not-found“"><a href="#2-如果报错“Exception-Jupyter-command-jupyter-notebook-not-found“" class="headerlink" title="2.如果报错“Exception: Jupyter command jupyter-notebook not found“"></a><strong>2.如果报错“Exception: Jupyter command</strong> <code>jupyter-notebook</code> <strong>not found“</strong></h4><p><strong>如果你安装过jupyter-notebook 请重新安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip3 install --upgrade --force-reinstall --no-cache-dir jupyter<br>//暴力彻底重装<br>pip install --upgrade --force-reinstall --no-cache-dir jupyter==版本<br>//暴力彻底重装指定版本<br></code></pre></td></tr></table></figure>
+
+<p>然后再输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">jupyter notebook<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-如果报错jupyter-server-extension-utils-ExtensionModuleNotFound-The-module-‘jupyter-nbextensions-configurator’-could-not-be-found-No-module-named-‘notebook-base’-Are-you-sure-the-extension-is-installed"><a href="#3-如果报错jupyter-server-extension-utils-ExtensionModuleNotFound-The-module-‘jupyter-nbextensions-configurator’-could-not-be-found-No-module-named-‘notebook-base’-Are-you-sure-the-extension-is-installed" class="headerlink" title="3.如果报错jupyter_server.extension.utils.ExtensionModuleNotFound: The module ‘jupyter_nbextensions_configurator’ could not be found (No module named ‘notebook.base’). Are you sure the extension is installed?"></a><strong>3.如果报错jupyter_server.extension.utils.ExtensionModuleNotFound: The module ‘jupyter_nbextensions_configurator’ could not be found (No module named ‘notebook.base’). Are you sure the extension is installed?</strong></h4><p>一开始在安装 <code>notebook</code> 中的插件 <code>nbextensions</code> 时根本没有注意到版本的适配问题，都是进行默认的安装，结果安装是最新版本的 <code>notebook=7.x</code>，恰好 <code>notebook=7.x</code> 版本不再适应插件 <code>nbextensions</code>，然后就各种报错，包括无法导出笔记本为其他文件的问题，需要卸载<strong>jupyter_nbextensions后重启notebook解决</strong></p>
+<pre><code class="hljs">pip uninstall jupyter_nbextensions_configurator
+</code></pre>
+<h4 id="4-Anaconda快捷方式打开Jupyter和命令打开的启动目录不一样"><a href="#4-Anaconda快捷方式打开Jupyter和命令打开的启动目录不一样" class="headerlink" title="4.Anaconda快捷方式打开Jupyter和命令打开的启动目录不一样"></a>4.Anaconda快捷方式打开Jupyter和命令打开的启动目录不一样</h4><blockquote>
+<p>具体这里的坑就是，明明已经修改过Jupyter的启动目录了，但是通过Anaconda安装的jupyter快捷方式打开的时候，打开的启动目录还是默认的目录，但是使用命令打开的时候，启动目录已经修改成功了； <strong>为什么</strong>？ 在 Windows 上，可以通过两种方式运行 Jupyter Notebook：</p>
+</blockquote>
+<p>NaN.  通过命令行打开 Jupyter Notebook。</p>
+<p>NaN.  在 Windows 桌面上添加快捷方式，通过快捷方式打开 Jupyter Notebook。</p>
+<p>这两种方式的区别在于，通过 Anaconda 命令行打开 Jupyter Notebook 时，启动的是 Anaconda 中当前激活的环境下安装的 Jupyter Notebook；而通过桌面快捷方式打开 Jupyter Notebook 时，启动的是指定环境下 Anaconda 中安装的 Jupyter Notebook。 为了更好地理解这个问题，以下是各个文件路径的具体解释：</p>
+<ul>
+<li><p><code>C:\Anaconda3\python.exe</code> 是 Anaconda 配备的 Python 解释器执行文件的路径。</p>
+</li>
+<li><p><code>C:\Anaconda3\cwp.py</code> 是一个用于改变当前工作路径到指定路径的脚本文件。</p>
+</li>
+<li><p><code>C:\Anaconda3\envs\env_name</code> 是指向指定环境的路径。</p>
+</li>
+<li><p><code>C:\Anaconda3\Scripts\jupyter-notebook-script.py</code> 是用于启动 Jupyter Notebook 的 Python 脚本文件。</p>
+</li>
+<li><p><code>%USERPROFILE%</code> 是指向当前用户主目录的路径。</p>
+</li>
+</ul>
+<p>通过命令行进入到 Anaconda Prompt 界面后（或者直接使用 PowerShell&#x2F;CMD），输入 “jupyter-notebook” 命令，系统会自动在当前激活的 Anaconda 环境下寻找 Jupyter Notebook，并启动它。所以在这种情况下，无需使用 <a href="https://cloud.tencent.com/developer/tools/blog-entry?target=http://cwp.py/&source=article&objectId=2277074">cwp.py</a> 脚本文件、env_name 环境路径和 <a href="https://cloud.tencent.com/developer/tools/blog-entry?target=http://jupyter-notebook-script.py/&source=article&objectId=2277074">jupyter-notebook-script.py</a> 路径来指定环境和启动脚本。 但是，如果你想从桌面上的快捷方式来启动 Jupyter Notebook，就需要指明你想运行哪个环境中的 Jupyter Notebook。为了做到这一点，快捷方式需要知道：</p>
+<ul>
+<li><p>Python 解释器的位置（即 <code>C:\Anaconda3\python.exe</code>）；</p>
+</li>
+<li><p>切换环境的脚本位置（即 <code>C:\Anaconda3\cwp.py</code>）；</p>
+</li>
+<li><p>想要使用的环境的位置（即 <code>C:\Anaconda3\envs\env_name</code>）；</p>
+</li>
+<li><p>启动 Jupyter Notebook 的 Python 脚本位置（即 <code>C:\Anaconda3\Scripts\jupyter-notebook-script.py</code>）；</p>
+</li>
+<li><p>用户主目录的位置（即 <code>%USERPROFILE%</code>）。</p>
+</li>
+</ul>
+<p>因此，在使用桌面快捷方式启动 Jupyter Notebook 时，快捷方式实际上是通过执行如下命令来打开它的： C:\Anaconda3\python.exe C:\Anaconda3\cwp.py C:\Anaconda3\envs\env_name C:\Anaconda3\Scripts\jupyter-notebook-script.py %USERPROFILE% 这会激活指定环境，并在该环境下启动 Jupyter Notebook 执行服务。 例如，博主的路径如下，这里<code>D:\Coding\Anaconda3</code>就是默认的python环境； D:\Coding\Anaconda3\python.exe D:\Coding\Anaconda3\cwp.py D:\Coding\Anaconda3 D:\Coding\Anaconda3\python.exe D:\Coding\Anaconda3\Scripts\jupyter-notebook-script.py “%USERPROFILE%&#x2F;“ <strong>如何修改通过快捷方式打开的Jupyter的启动目录</strong>？ 打开快捷方式文件夹，右键单击要修改的快捷方式图标，并选择 “属性”。 在 “快捷方式” 选项卡下，找到 “目标” 字段，目标内的命令如下，<code>%USERPROFILE%</code>有没有双引号包含都不影响； C:\Anaconda3\python.exe C:\Anaconda3\cwp.py C:\Anaconda3\envs\env_name C:\Anaconda3\Scripts\jupyter-notebook-script.py %USERPROFILE% 将<code>%USERPROFILE%</code>完全替换为你设定的启动目录的路径，引号不影响。</p>
+<p><img src="https://pic.imgdb.cn/item/65e11df79f345e8d03a6d8fc.png" srcset="/img/loading.gif" lazyload alt="image-20230423160732799"></p>
+<p>点击 “应用” 按钮保存修改，并退出 “属性” 窗口就大功告成了。</p>
+<h4 id="5-jupyter-notebook安装Nbextensions不显示问题"><a href="#5-jupyter-notebook安装Nbextensions不显示问题" class="headerlink" title="5.jupyter notebook安装Nbextensions不显示问题"></a>5.jupyter notebook安装Nbextensions不显示问题</h4><blockquote>
+<p>伴随这个问题有一个报错，就是启动jupyter notebook后，命令窗口报错<code>404 GET /static/components/marked/lib/marked.js</code> 解决办法： 来到python安装目录： <code>Lib\site-packages\nbclassic\static\components\marked\lib\</code> 找到marked.umd.js，直接复制并重命名marked.js，重启jupyter notebook。</p>
+</blockquote>
+<h4 id="6-cmd窗口出现404-GET-api-kernels-e3ca3890-b870-4e61-b143-88c2259a0965-1711636255928-1-Kernel-does-not-exist-e3ca3890-b870-4e61-b143-88c2259a0965-W-2024-03-28-22-30-56-117-ServerApp-wrote-error-‘Kernel-does-not-exist"><a href="#6-cmd窗口出现404-GET-api-kernels-e3ca3890-b870-4e61-b143-88c2259a0965-1711636255928-1-Kernel-does-not-exist-e3ca3890-b870-4e61-b143-88c2259a0965-W-2024-03-28-22-30-56-117-ServerApp-wrote-error-‘Kernel-does-not-exist" class="headerlink" title="6.cmd窗口出现404 GET &#x2F;api&#x2F;kernels&#x2F;e3ca3890-b870-4e61-b143-88c2259a0965?1711636255928 (::1): Kernel does not exist: e3ca3890-b870-4e61-b143-88c2259a0965 [W 2024-03-28 22:30:56.117 ServerApp] wrote error: ‘Kernel does not exist"></a>6.cmd窗口出现<strong>404 GET &#x2F;api&#x2F;kernels&#x2F;e3ca3890-b870-4e61-b143-88c2259a0965?1711636255928 (::1): Kernel does not exist: e3ca3890-b870-4e61-b143-88c2259a0965 [W 2024-03-28 22:30:56.117 ServerApp] wrote error: ‘Kernel does not exist</strong></h4><p>是因为这个模块的版本过低导致,不影响使用</p>
+<pre><code class="hljs">pip install --upgrade ipykernel  
+</code></pre>
+<h4 id="7-cmd窗口出现Uncaught-exception-GET-lab-api-extensions-query-page-1-per-page-30-refresh-0-1711635975948-1-HTTPServerRequest-protocol-’http’-host-’localhost-8888‘-method-’GET’-uri-’-lab-api-extensions-query-page-1-per-pag"><a href="#7-cmd窗口出现Uncaught-exception-GET-lab-api-extensions-query-page-1-per-page-30-refresh-0-1711635975948-1-HTTPServerRequest-protocol-’http’-host-’localhost-8888‘-method-’GET’-uri-’-lab-api-extensions-query-page-1-per-pag" class="headerlink" title="7.cmd窗口出现Uncaught exception GET &#x2F;lab&#x2F;api&#x2F;extensions?query&amp;page&#x3D;1&amp;per_page&#x3D;30&amp;refresh&#x3D;0&amp;1711635975948 (::1) HTTPServerRequest(protocol&#x3D;’http’, host&#x3D;’localhost:8888‘, method&#x3D;’GET’, uri&#x3D;’&#x2F;lab&#x2F;api&#x2F;extensions?query&amp;page&#x3D;1&amp;per_pag"></a>7.cmd窗口出现Uncaught exception GET &#x2F;lab&#x2F;api&#x2F;extensions?query&amp;page&#x3D;1&amp;per_page&#x3D;30&amp;refresh&#x3D;0&amp;1711635975948 (::1) HTTPServerRequest(protocol&#x3D;’http’, host&#x3D;’<a target="_blank" rel="noopener" href="http://localhost:8888/">localhost:8888</a>‘, method&#x3D;’GET’, uri&#x3D;’&#x2F;lab&#x2F;api&#x2F;extensions?query&amp;page&#x3D;1&amp;per_pag</h4><p>代理没有设置在正确的范围内可以尝试以下命令</p>
+<pre><code class="hljs">import sys,os,os.path
+os.environ[&quot;HTTP_PROXY&quot;]=&quot;http://my.proxy.address&quot;
+os.environ[&quot;HTTPS_PROXY&quot;]=&quot;https://my.proxy.address&quot;
+
+pip install --upgrade nbconvert//如果不行可以尝试这个
+</code></pre>
+<h4 id="8-如何在jupyter-notebook中预览pyechart渲染的html文件？"><a href="#8-如何在jupyter-notebook中预览pyechart渲染的html文件？" class="headerlink" title="8.如何在jupyter notebook中预览pyechart渲染的html文件？"></a><strong>8.如何在jupyter notebook中预览pyechart渲染的html文件？</strong></h4><p>pyecharts-assets 提供了 <a target="_blank" rel="noopener" href="https://github.com/pyecharts/pyecharts">pyecharts</a> 的静态资源文件。</p>
+<p>可通过 <a target="_blank" rel="noopener" href="http://localhost/">localhost</a>-server 或者 notebook-server 启动本地服务。首先将项目下载到本地</p>
+<pre><code class="hljs"># 通过 git clone
+$ git clone https://github.com/pyecharts/pyecharts-assets.git
+
+# 或者直接下载压缩包
+$ wget https://github.com/pyecharts/pyecharts-assets/archive/master.zip
+</code></pre>
+<p><a target="_blank" rel="noopener" href="http://localhost/"><strong>Localhost</strong></a><strong>-Server</strong></p>
+<p>启动服务器</p>
+<pre><code class="hljs">$ cd pyecharts-assets
+$ python -m http.server
+</code></pre>
+<p>设置 host</p>
+<pre><code class="hljs"># 只需要在顶部声明 CurrentConfig.ONLINE_HOST 即可
+from pyecharts.globals import CurrentConfig
+
+CurrentConfig.ONLINE_HOST = &quot;http://127.0.0.1:8000/assets/&quot;
+
+# 接下来所有图形的静态资源文件都会来自刚启动的服务器
+from pyecharts.charts import Bar
+bar = Bar()
+</code></pre>
+<p><strong>Notebook-Server</strong></p>
+<p>安装扩展插件</p>
+<pre><code class="hljs">$ cd pyecharts-assets
+# 安装并激活插件
+# 使用nbextension 需要jupyter notebook的版本不能太新，版本需要为6.X，如果不想降版本，请使用Localhost-Server
+$ jupyter nbextension install assets
+$ jupyter nbextension enable assets/main
+</code></pre>
+<p>设置 host</p>
+<pre><code class="hljs"> # 只需要在顶部声明 CurrentConfig.ONLINE_HOST 即可
+from pyecharts.globals import CurrentConfig, OnlineHostType
+
+# OnlineHostType.NOTEBOOK_HOST 默认值为 http://localhost:8888/nbextensions/assets/
+CurrentConfig.ONLINE_HOST = OnlineHostType.NOTEBOOK_HOST
+
+# 接下来所有图形的静态资源文件都会来自刚启动的服务器
+from pyecharts.charts import Bar
+bar = Bar()
+</code></pre>
+<p><strong>更改默认的ONLINE_HOST使其不用在顶部声明</strong></p>
+<p>找到自己的Python的安装位置，然后找到lib&#x2F;site-package&#x2F;pyecharts&#x2F;globals.py文件。如果找不到直接搜索globals.py （Site-Packages是存放第三方库的目录。使用pip等方法安装Python库时，默认会安装到site-packages目录下。site-packages目录位于Python安装目录下的lib子目录中。） <img src="https://data.educoder.net/api/attachments/9349655?type=image/png" srcset="/img/loading.gif" lazyload alt=","> 2、使用记事本打开globals.py，找到 <img src="https://data.educoder.net/api/attachments/9349682?type=image/png" srcset="/img/loading.gif" lazyload alt=","> 里面的DEFAULT_HOST就是默认使用的官网服务器进行渲染。可将该代码注释，并替换成可用的其他服务器。如： <img src="https://data.educoder.net/api/attachments/9349707?type=image/png" srcset="/img/loading.gif" lazyload alt=","> 这样就不用每次都在代码文件的开始添加如下代码：</p>
+<pre><code class="hljs">from pyecharts.globals import CurrentConfig
+CurrentConfig.ONLINE_HOST = &quot;http://49.232.174.163:8000/assets/&quot;
+</code></pre>
+<h4 id="9-上一个单元格导的包下一个单元格可以使用吗"><a href="#9-上一个单元格导的包下一个单元格可以使用吗" class="headerlink" title="9.上一个单元格导的包下一个单元格可以使用吗"></a>9.上一个单元格导的包下一个单元格可以使用吗</h4><blockquote>
+<p>可以使用。 在 Jupyter 中，如果一个单元格中导入了某个 Python 包，那么下一个单元格是可以直接使用该包的。这是因为在 Jupyter 中，所有单元格都运行在同一个 Python 内核中，所以它们之间可以共享变量、函数和模块等资源。 需要注意的是，如果您在导入模块时发生了错误，比如因为模块不存在或者路径设置不正确等原因，后续的单元格也会受到影响。此外，如果您使用了一些需要进行初始化的模块，比如 TensorFlow 或者 PyTorch 等深度学习框架，建议您在每个单元格开头手动进行初始化操作，以避免出现意外的错误。 如果您遇到了模块无法被正确导入的问题，可以尝试在单元格中手动添加 sys.path，将需要导入的模块所在的路径加入到 sys.path 中。例如： import sys sys.path.append(‘&#x2F;path&#x2F;to&#x2F;module&#x2F;‘) # 将模块所在的路径添加到 sys.path 中 import module_name # 导入模块</p>
+</blockquote>
+<h4 id="10-jupyter中单元格之间的关系"><a href="#10-jupyter中单元格之间的关系" class="headerlink" title="10.jupyter中单元格之间的关系"></a>10.jupyter中单元格之间的关系</h4><blockquote>
+<p>在Jupyter Notebook中，单元格是最基本的单位，用户可以在其中编写代码、插入文本、图像、表格等内容，每个单元格可以看作是一个独立的小程序。这些单元格之间存在着以下几种关系：</p>
+</blockquote>
+<p>NaN.  执行顺序：Jupyter Notebook中的单元格按照它们的位置逐一执行，从上至下逐个执行。如果用户将一个循环拆分成两个单元格，那么第二个单元格就无法访问第一个单元格定义的变量，也就无法正确执行循环。</p>
+<p>NaN.  依赖关系：有时候一个单元格可能需要另一个单元格的输出结果来进行计算或者展示，这时候就需要通过”Shift+Enter”运行前一个单元格以产生输出结果，再运行当前单元格以完成计算或者展示。如果前一个单元格没有被执行或者输出结果不符合要求，会导致当前单元格出现错误。</p>
+<p>NaN.  顺序依赖性：有些单元格必须以特定的顺序执行，否则会出现错误。例如，在创建一个图表时，必须先定义图表的数据，然后才能使用数据绘制图表</p>
+<h3 id="Jupyter-notebook和IDE的适用场景"><a href="#Jupyter-notebook和IDE的适用场景" class="headerlink" title="Jupyter notebook和IDE的适用场景"></a>Jupyter notebook和IDE的适用场景</h3><blockquote>
+<p>Jupyter适用场景： 数据处理与分析：</p>
+</blockquote>
+<p>NaN.  <a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/yuntu?from_column=20065&from=20065">数据可视化</a>：Jupyter提供了交互性良好的可视化环境，使得数据探索变得更加简单直观。</p>
+<p>NaN.  机器学习建模：通过使用Jupyter Notebook进行数据预处理、特征工程和模型训练等步骤，提高建模效率和模型的准确性。</p>
+<p>NaN.  数据清洗：利用Jupyter进行数据分析和数据清洗，对于大量数据清洗工作尤为有效。</p>
+<p>NaN.  数据分析：Jupyter交互式的环境使得数据分析变得更加方便，运行代码并马上看到结果。</p>
+<p>NaN.  统计分析：Jupyter支持Python中常用的统计分析库，如NumPy、SciPy、pandas和statsmodels等。</p>
+<p>NaN.  可重复研究：借助Jupyter的notebook功能，将实验过程记录下来并共享给同事或者社区用户，利于可重复性研究。</p>
+<p>NaN.  实时数据流分析：使用Jupyter和Kafka结合，对大数据进行实时数据流分析和可视化展示。</p>
+<p>NaN.  巨大的数据集可视化：使用Jupyter和Dask等库，能够将大规模数据集转换成可视化展现的图表，便于用户理解。</p>
+<p>NaN.  研究证明：许多科学家和研究人员都使用Jupyter作为探索性研究的工具，非常方便快捷。</p>
+<p>NaN.  <a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/nlp?from_column=20065&from=20065">自然语言处理</a>：利用Jupyter Notebook进行各种自然语言处理任务，如文本处理、词向量生成等。</p>
+<p>IDE适用场景： 项目开发：</p>
+<p>NaN.  代码重构：IDE提供了更多的辅助手段，如代码补全、代码格式化、自动调试等，提高代码重构的效率。</p>
+<p>NaN.  大型项目开发：IDE支持更加复杂的文件组织、项目管理和版本控制，能够满足大型项目的需求。</p>
+<p>NaN.  单元测试和集成测试：IDE内置了一些调试工具，如单元测试器和集成测试工具，能够帮助开发者更加快速地定位和解决问题。</p>
+<p>NaN.  API开发：IDE支持RESTful API的开发，利于接口设计、测试和文档编写。</p>
+<p>NaN.  可视化界面开发：IDE中支持窗体设计器等工具，快速创建并完成可视化界面的开发。</p>
+<p>NaN.  桌面软件开发：IDE支持Python GUI开发库（如Tkinter、WxPython等），有助于在Python中构建桌面应用程序。</p>
+<p>NaN.  Web应用程序开发：通过使用IDE和Flask、Django等Web框架，可以更快地搭建和开发Web应用。</p>
+<p>NaN.  数据库应用：IDE支持数据库操作，利于程序与RDBMS或NO-SQL数据库的交互。</p>
+<p>NaN.  多人协同开发：IDE支持代码版本控制和<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/coding-cr?from_column=20065&from=20065">代码托管</a>，方便团队进行代码协同开发。</p>
+<p>NaN.  代码重用：代码重用是提高开发效率的重要手段，IDE中支持打包、发布和分享代码库，加速代码编写。</p>
+<h3 id="Jupyter-notebook和IDE的适用项目类型与举例"><a href="#Jupyter-notebook和IDE的适用项目类型与举例" class="headerlink" title="Jupyter notebook和IDE的适用项目类型与举例"></a>Jupyter notebook和IDE的适用项目类型与举例</h3><blockquote>
+<p><strong>Jupyter Notebook 适合的项目</strong></p>
+</blockquote>
+<p>NaN.  数据科学、机器学习和人工智能等领域的项目： 这些项目通常需要处理大量的数据，进行数据预处理、数据可视化、模型开发和评估。使用Jupyter Notebook 可以提供交互式环境，方便数据科学家和机器学习工程师们快速实验和迭代模型，同时也支持将代码、注释和可视化结果整合为一个文档来展示。 例如：使用 Scikit-learn 对鸢尾花数据集进行分类模型的开发和评估。</p>
+<p>NaN.  探索性编程和原型开发等项目： 这些项目需要快速验证代码方案，协作与分析的过程中也可能需要频繁地共享代码和文档。使用Jupyter Notebook 可以轻松地实现代码与文档的交互，同时支持 Markdown 和 Latex 等格式的文档展示（即所谓的 NBconvert），使得代码、注释、结果和文档可以整合在一起，方便团队成员协作和项目管理。 例如: 使用 Flask 开发一个简单的 Web 应用程序，可以先使用 Jupyter Notebook 原型化实现，再使用 IDE 进行后期开发。</p>
+<p>NaN.  教学和演示方面的项目： Jupyter Notebook 可以将代码、注释和结果整合到一起作为一个交互式文档来展示和分享。这使得它成为一个出色的教学工具，可以用于讲解和展示数据相关的主题，并且可以通过 Markdown 和 Latex 等格式进行细致的排版和思路展现。 例如：编写一个数据科学教学笔记，包括数据集介绍、数据分析过程、可视化展示和建模流程。</p>
+<p><strong>IDE 适合的项目</strong></p>
+<p>NaN.  大型 Python 应用程序的开发： IDE 适合处理大型项目，具有更好的代码组织、架构、调试和性能优化的支持，可以帮助开发者更好地管理和维护大型项目。 例如：使用 Django 框架开发一个复杂的 Web 应用程序。</p>
+<p>NaN.  调试、测试和性能优化等方面的项目： IDE 提供了强大的断点调试和测试支持，同时也提供了性能分析和优化的工具，有利于在长时间运行、高并发等场景下进行性能优化和问题排查。 例如：使用 PyCharm 进行 Python 代码的 debug 和 CPU profiling。</p>
+<p>NaN.  持久化，部署和集成等方面的项目： IDE 支持 Python 代码的打包、发布、版本控制和持续集成，具有更好的生产力，可以帮助开发者更好地部署和管理项目。 例如： 使用 Visual Studio 打包和发布 Python 应用程序到云上。</p>
+<p>NaN.  需要使用 Python 高级功能和库的项目： IDE 提供了更丰富的编辑器支持以及各种第三方插件，可以轻松处理并行计算、多线程处理、异步编程、机器学习框架等高级功能和库。 例如：使用 PyTorch 或 TensorFlow 框架进行深度学习模型的开发和训练。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E9%85%8D%E7%BD%AE/" class="category-chain-item">配置</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E9%85%8D%E7%BD%AE/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/jupyter/" class="print-no-link">#jupyter</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Jupyter的配置与使用</div>
+      <div>https://tingfeng347.github.io/2024/02/29/Jupyter的配置与使用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/01/markdown%E6%95%99%E7%A8%8B/" title="markdown教程">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">markdown教程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/23/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E4%BC%98%E5%8C%96/" title="个人网站优化">
+                        <span class="hidden-mobile">个人网站优化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

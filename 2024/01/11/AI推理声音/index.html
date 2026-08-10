@@ -1,0 +1,1777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="一.RVCRVC介绍全称 Retrieval-based-Voice-Conversion-WebUI 简称 RVC一个基于VITS的简单易用的语音转换（变声器）框架  RVC 是一款前沿的音色替换项目，可以进行歌曲的翻唱，和实时的变声，具有低延迟、优秀的变声效果、声音模型扩展性、个性化和先进的深度学习技术等特点。  该项目的核心功能之一是有更高的自由性和声音模型扩展性，可以对任意动漫角色和人物进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI推理声音">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="一.RVCRVC介绍全称 Retrieval-based-Voice-Conversion-WebUI 简称 RVC一个基于VITS的简单易用的语音转换（变声器）框架  RVC 是一款前沿的音色替换项目，可以进行歌曲的翻唱，和实时的变声，具有低延迟、优秀的变声效果、声音模型扩展性、个性化和先进的深度学习技术等特点。  该项目的核心功能之一是有更高的自由性和声音模型扩展性，可以对任意动漫角色和人物进">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-3a4f7e20fbfd15c036ae33517d944f70_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e031354d47151e40a6dea2e8a6449a9b_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-55e81637425d30ceffd8396130b5f103_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-6687b549b2dc3e29eb987d1b012f939d_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8a6f15ea8aa8e167ef59f8661393a11b_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-c367fbcfda1192142d79a209317fc0f9_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-2bcfee371c0b5f3f197c122c96462678_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0bf41a232933d9cd29a10c98a407d91b_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e827c36bab89f712ac481045d70bc7bb_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8e46734a279c43dde6e07d1b1d792c97_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-bcfcc975222a7e9247d002a165cc6e8c_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-64b303d51af6664cd1692eb4978c498b_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-5588cf38cdc290136589b4409acda536_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-0d65002e550742fb40709542b2dbb33a_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-a188dc8341a638032a0ee18ced75020e_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b57f204c7f4c7831a82ac37abfa39e3d_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-c5f6cb50b4c3dd47db79f5b6d5e7e0e1_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-ac6367fc65e661e5c5b4dede6088df94_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-86c99a69abbe1f4a5430a71064e4c904_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-8f9d5d32a9c75ee43c01193f24b30607_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-a30a5600ec9b0f80ad89717988664609_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d14f1ae7d340f7e3539ef7c205d840e4_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-12eecf8b37100a6fd2b0410847a5aa2c_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0643698f790d5abd8eab89dd1c9bb0df_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-0a75f57779321596a0d559eb740be5a7_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9fe274d031fa3333a8012a3328f19e58_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-4044f331c0c11a6a6457d6de004642f4_1440w.webp">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-82b7c67e000b045a4f7fef017c592fcc_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-c78be9f0c43053bf0e55468497fb1841_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-72679a4f88bbe6ff084f17ed39a57b79_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1bab7e2a4342271acbca1d2e3ba1a9a5_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-fd66a5d7a14a4c13cf314e9157650f22_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-134c5a5a67b23ce441ad1d96b488b759_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-68cbdd7ba74e9c0cd90bbbda6b44b093_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-ace27f73bd8a4f235733802202fb29a3_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-1d0e0b50c2d913c5efe258e1fa55c683_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-6fb7b5f10a963d718f4ff71d9669c273_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-371c00f2565d5109ea58ec9373f6ae21_1440w.webp">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-6e0e876b0191b984f8015dfc67f73142_1440w.webp">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-65896fe9ac316582eeddbcf8944e0ee3_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-4c8f395900e2dc99df11eaa41b8db155_1440w.webp">
+<meta property="og:image" content="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162854_93777_thumb.jpg">
+<meta property="og:image" content="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162923_72969_thumb.jpg">
+<meta property="og:image" content="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162959_74926_thumb.jpg">
+<meta property="og:image" content="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717163029_68580_thumb.jpg">
+<meta property="og:image" content="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717163052_52588_thumb.jpg">
+<meta property="article:published_time" content="2024-01-11T00:35:21.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.621Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="音频大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-3a4f7e20fbfd15c036ae33517d944f70_1440w.webp">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>AI推理声音 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="AI推理声音"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-11 08:35" pubdate>
+          2024年1月11日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" title="LangGraph 源码地图与运行机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LangGraph 源码地图与运行机制</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="true"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="false"
+      >
+        源码解析
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/02/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">AI推理声音</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一-RVC"><a href="#一-RVC" class="headerlink" title="一.RVC"></a>一.RVC</h2><p><strong>RVC介绍</strong><br>全称 Retrieval-based-Voice-Conversion-WebUI 简称 RVC<br>一个基于VITS的简单易用的语音转换（变声器）框架</p>
+<ul>
+<li><p>RVC 是一款前沿的音色替换项目，可以进行歌曲的翻唱，和实时的变声，具有低延迟、优秀的变声效果、声音模型扩展性、个性化和先进的深度学习技术等特点。</p>
+</li>
+<li><p>该项目的核心功能之一是有更高的自由性和声音模型扩展性，可以对任意动漫角色和人物进行实时的声音转换，前提是进行训练声音模型。这为用户提供了极大的自由度和创新空间。,这种声音模型的转换是通过深度学习实现的，可以通过简单的设置和选择输入输出，将自己的声音转换成不同的声音音色，从而实现声音的个性化和可玩性。</p>
+</li>
+</ul>
+<hr>
+<p><strong>RVC&#x2F;SVC&#x2F;bert-vist2声音模型下载（不涉及推广）</strong><br>推荐一个声音模型下载网站，模型工坊网址 <a href="https://link.zhihu.com/?target=https://mxgf.cc/">模型工坊</a><br>在寻找优质声音模型时，有些网站特别值得关注。例如，我发现了一个名为模型工坊的网站，它提供了各种有趣和实用的声音模型。这个网站的特色在于，它们的模型都是自主训练的，质量非常高。<br>更吸引人的是，模型工坊的模型库正在不断扩大，不仅有免费的模型供用户尝试，还有一些高级的收费模型。对于那些不想从头开始训练模型的人来说，这是一个省时省力的好选择。<br>虽然我在这里提到了模型工坊，但我真正想强调的是，选择合适的工具对于任何项目的成功都至关重要。无论您是专业人士还是爱好者，找到合适的资源都能大大提升您的工作效率。</p>
+<hr>
+<p>**<br>RVC模型训练<br>过程分为 1，声音数据集提取 2，模型训练 3，歌曲推理4，歌曲合成**</p>
+<h3 id=""><a href="#" class="headerlink" title="**"></a>**</h3><p>一、声音数据集提取**</p>
+<p>声音提取是整个环节最重要的，提取声音的方法有很多，包括手动提取和自动提取。手动提取需要使用音频编辑软件，通过手动选择需要提取的音频片段，然后导出为独立的音频文件。这种方法比较简单，但是比较费时费力，适合处理少量音频。自动提取可以使用基于信号处理的方法，例如短时傅里叶变换、小波变换等，将音频信号分解为不同的频段，然后提取特征或进行分类。<br>将提取之后的视频进行转换，转换成音频格式，如果是mp4则可以改后缀mp3。其他格式也需要转成声音格式。转成声音格式之后推荐再用UVR5进一步声音提纯处理，整理成音频素材集之后，就可以进行下一步操作了。  </p>
+<p><img src="https://pic1.zhimg.com/80/v2-3a4f7e20fbfd15c036ae33517d944f70_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic4.zhimg.com/80/v2-e031354d47151e40a6dea2e8a6449a9b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<h3 id="-1"><a href="#-1" class="headerlink" title="**"></a>**</h3><p>二，模型的训练**</p>
+<p><strong>RVC介绍</strong><br><strong>Retrieval-based-Voice-Conversion-WebUI 简称 RVC</strong><br><strong>一个基于VITS的简单易用的语音转换（变声器）框架</strong><br><strong>将整合包下载并解压，启动go-web.bat 等待运行</strong><br>RVC0813 整合包下载（整合包 包含 运行环境 启动器）<br><a href="https://link.zhihu.com/?target=https://pan.baidu.com/share/init?surl=mEs9Jmi2tBot4AgH6ZWp-w&pwd=eqea"><strong>https://pan.baidu.com/share/init?surl=mEs9Jmi2tBot4AgH6ZWp-w&amp;pwd=eqea</strong></a></p>
+<p><img src="https://pic4.zhimg.com/80/v2-55e81637425d30ceffd8396130b5f103_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>版本说明<br><code>下载RVC0813AMD_Intel包可解锁A卡I卡</code><br><code>（1）双击go-realtime-gui-dml.bat使用实时变声，A卡大概能压到300ms左右，以下有压力</code><br><code>（2）双击go-web-dml.bat使用训练推理（CPU训练）</code>  </p>
+<p><code>N卡用户下载RVC0813Nvidia</code><br><code>（1）双击go-realtime-gui.bat使用实时变声，N卡大概能压到100ms左右，以下有压力</code><br><code>（2）双击go-web.bat使用训练推理</code>  </p>
+<p><img src="https://pic2.zhimg.com/80/v2-6687b549b2dc3e29eb987d1b012f939d_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>进入训练界面，默认的参数默认就行，不用动</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-8a6f15ea8aa8e167ef59f8661393a11b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>3，输入音频文件夹路径，处理数据<br>将要训练的的干声数据集放到本地任意英文路径文件夹内复，点击处理数据<br><strong>处理数据</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-c367fbcfda1192142d79a209317fc0f9_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic1.zhimg.com/80/v2-2bcfee371c0b5f3f197c122c96462678_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>出现 end preprocess 表示处理完毕</strong><br><strong>特征提取</strong><br>（特征提取是从声音信号中提取有用信息的过程，这些信息可以被用于训练模型进行分类或识别）</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0bf41a232933d9cd29a10c98a407d91b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://pic4.zhimg.com/80/v2-e827c36bab89f712ac481045d70bc7bb_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>出现 all-feature-done 表示已经处理完毕，可以进行最后一步处理了<br><strong>开始训练，设置训练的步数和保存频率</strong>  </p>
+<p><img src="https://pic4.zhimg.com/80/v2-8e46734a279c43dde6e07d1b1d792c97_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>保存頻率 <strong>这个数值表示多少轮保存一次模型，如果你的电脑很牛很稳定 50轮也是可以的，不然就推荐 20-40轮保存一次模型</strong><br>總訓練輪數一般 300轮，模型就可以出炉了<br>每张显卡的batch_size 如果你的显存是8则填8，显存多少，填多少数值。<br><strong>点击一键训练</strong>  </p>
+<p><img src="https://pic1.zhimg.com/80/v2-bcfcc975222a7e9247d002a165cc6e8c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>终端显示<strong>Epoch: 1</strong>字符，表示第一轮，正在训练了</p>
+<p><img src="https://pic4.zhimg.com/80/v2-64b303d51af6664cd1692eb4978c498b_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>等待几个小时后，就训练结束了，就可以进行下一步，对声音模型进行推理试音了。<br>三、 歌曲分离&#x2F;推理<br>1，歌曲分离<br>1，准备好歌曲文件，格式包括AAC,FLAC等主流声音格式，但不包括加密格式，比如网易云加密歌曲，酷狗,qq音乐。<br>2，将歌曲文件放到UVR 5，进行分离，分离的目的是 把伴奏和人声抽离出来</p>
+<p><img src="https://pic3.zhimg.com/80/v2-5588cf38cdc290136589b4409acda536_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>处理完成之后会得到两个音频文件<br>1_陈雪凝 - 绿色_(Instrumental) 伴奏<br>1_陈雪凝 - 绿色_(Vocals) 人声<br>等下推理时候会用到 这个 _(Vocals) 人声部分</p>
+<p><img src="https://pic3.zhimg.com/80/v2-0d65002e550742fb40709542b2dbb33a_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>注：</strong></p>
+<ul>
+<li>模型要记得选择 MDX-NET UVR-MDX-NET Main</li>
+</ul>
+<p>处理模型下载<br><a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/1QgjSllWUCoTNEYkzgMMMjA?pwd=yvkv">https://pan.baidu.com/s/1QgjSllWUCoTNEYkzgMMMjA?pwd=yvkv</a><br>将下载好的模型，放到UVR根目录下面的models文件夹下</p>
+<ul>
+<li>如果分离过程中出现报错，可能原因是显存或内存不足，尝试重启电脑</li>
+</ul>
+<p>2，歌曲推理</p>
+<ul>
+<li><strong>打开整合包</strong></li>
+</ul>
+<p>RVC0813 整合包下载（整合包 包含 运行环境 启动器）<br><a href="https://link.zhihu.com/?target=https://pan.baidu.com/share/init?surl=mEs9Jmi2tBot4AgH6ZWp-w&pwd=eqea"><strong>https://pan.baidu.com/share/init?surl=mEs9Jmi2tBot4AgH6ZWp-w&amp;pwd=eqea</strong></a><br>下载之后，解压<br>版本说明<br><code>下载RVC0813AMD_Intel包可解锁A卡I卡</code><br><code>（1）双击go-realtime-gui-dml.bat使用实时变声，A卡大概能压到300ms左右，以下有压力</code><br><code>（2）双击go-web-dml.bat使用训练推理（CPU训练）</code>  </p>
+<p><code>N卡用户下载RVC0813Nvidia</code><br><code>（1）双击go-realtime-gui.bat使用实时变声，N卡大概能压到100ms左右，以下有压力</code></p>
+<ol>
+<li><code>双击go-web.bat使用训练推理</code></li>
+</ol>
+<p>选择合适自己的显卡下载</p>
+<p><img src="https://pic3.zhimg.com/80/v2-a188dc8341a638032a0ee18ced75020e_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><strong>等待启动，出现地址，表示启动成功</strong></li>
+</ul>
+<p><img src="https://pic2.zhimg.com/80/v2-b57f204c7f4c7831a82ac37abfa39e3d_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>启动成功会自动跳转WEBUI</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-c5f6cb50b4c3dd47db79f5b6d5e7e0e1_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>将模型放置到目录（训练好的，忽略这一步）</strong></p>
+<p><img src="https://pic1.zhimg.com/80/v2-ac6367fc65e661e5c5b4dede6088df94_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>刷新音色，然后按顺序进行推理</strong>  </p>
+<p><img src="https://pic1.zhimg.com/80/v2-86c99a69abbe1f4a5430a71064e4c904_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p><strong>解疑</strong><br><strong>音频地址</strong><br>WIN11 鼠标右击可以快速复制地址，复制的地址前后如果带有双引号记得删除”“<br>WIN10 需要将声音文件放到 任意文件夹内，按shift+鼠标右键 选择复制路径</p>
+<p><img src="https://pic4.zhimg.com/80/v2-8f9d5d32a9c75ee43c01193f24b30607_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>四、歌曲合成<br>所需工具 AU 链接：<a href="https://link.zhihu.com/?target=https://pan.baidu.com/s/107cWfLF6ftdxxfVLipfnfw?pwd=mxgf">https://pan.baidu.com/s/107cWfLF6ftdxxfVLipfnfw?pwd=mxgf</a><br>解压密码 @vposy<br>1，转换后的歌曲人声下载到桌面</p>
+<p><img src="https://pic2.zhimg.com/80/v2-a30a5600ec9b0f80ad89717988664609_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>2，使用AU将伴奏和转换后的人声合并</p>
+<p><img src="https://pic1.zhimg.com/80/v2-d14f1ae7d340f7e3539ef7c205d840e4_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>首先新建多轨会话，将转换的人声和伴奏拉进AU</p>
+<p><img src="https://pic1.zhimg.com/80/v2-12eecf8b37100a6fd2b0410847a5aa2c_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>导出</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0643698f790d5abd8eab89dd1c9bb0df_1440w.webp" srcset="/img/loading.gif" lazyload>在原有基础上，有大佬开发了RVC AI 变声器，实现了实时推理</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Sw411u77x/?spm_id_from=333.337.search-card.all.click">https://www.bilibili.com/video/BV1Sw411u77x/?spm_id_from&#x3D;333.337.search-card.all.click</a></p>
+<h2 id="二-so-vite-svc"><a href="#二-so-vite-svc" class="headerlink" title="二.so-vite-svc"></a>二.so-vite-svc</h2><p><strong>Sovits</strong></p>
+<p>首先介绍一下今天要讲的Sovits，So-vits-svc（也称Sovits）是由是中国民间歌声合成爱好者Rcell基于VITS、soft-vc、VISinger2等一系列项目开发的一款开源免费AI语音转换软件，通过SoftVC内容编码器提取源音频语音特征，与F0同时输入VITS替换原本的文本输入达到歌声转换的效果。</p>
+<p>由于某些原因，原作者Rcell删除了原代码仓库，现由svc-develop-team接手进行后续维护，现仓库地址：<a href="https://link.zhihu.com/?target=https://github.com/svc-develop-team/so-vits-svc">https://github.com/svc-develop-team/so-vits-svc</a></p>
+<p><strong>配置要求</strong></p>
+<ul>
+<li><p>一张支持 CUDA 的，拥有至少 6G 以上显存的 NVIDIA 显卡</p>
+</li>
+<li><p>推荐使用<code>Windows</code>系统，教程后续的素材处理、训练、推理均在<code>Windows</code>平台上完成，同时使用整合包GUI也可以帮助新手将注意力集中在训练&#x2F;推理本身上，避免了繁杂的环境配置等工作</p>
+</li>
+</ul>
+<p><strong>环境配置</strong></p>
+<p>本次的环境使用的是 <a href="https://link.zhihu.com/?target=https://space.bilibili.com/3493141443250876">bilibili@羽毛布団</a> 大佬提供的整合包：<a href="https://link.zhihu.com/?target=https://github.com/svc-develop-team/so-vits-svc">https://www.yuque.com/umoubuton/ueupp5/sdahi7m5m6r0ur1r</a> ，在这里能找到下载地址和一些说明</p>
+<p>下载完后，你会得到一个Sovits的压缩包和一些工具软件，将其中的so-vits-svc解压缩后，打开里面的<code>启动webui.bat</code>文件，它会自动准备环境，然后弹出一个网页</p>
+<p><img src="https://pic4.zhimg.com/80/v2-0a75f57779321596a0d559eb740be5a7_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>sovits目录</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9fe274d031fa3333a8012a3328f19e58_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>启动webui</p>
+<p>在网页中将Tab页切换至训练页，可以看到我们的显卡信息</p>
+<p><img src="https://pic1.zhimg.com/80/v2-4044f331c0c11a6a6457d6de004642f4_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>显卡信息</p>
+<p>确认无误后我们就可以开始训练了</p>
+<p><strong>准备数据集</strong></p>
+<p>数据集的质量及多少决定了训练模型质量的上下限，质量差的数据集无论你训练多久，训练了多少万个step，都不可能达到一个理想的效果</p>
+<p><strong>准备干声</strong></p>
+<p>Sovits的训练我们需要找一些想训练的声线所对应的干声素材，不可混杂多种声线，时长最好在2个小时以上，最低不要少于30分钟，否则无法保证训练出来的模型的质量，可以是说话、读书或唱歌的声音（有的人说加入一些哭闹、大笑等各种各样的声音有奇效，我没尝试过，大家可以试试看），如果想让你的模型唱歌的话，唱歌的素材需要覆盖低中高音多个频率</p>
+<p>干声素材中不能有伴奏、混响、和声（避免转换后的声音自带BGM），不要有换气声、颤音、转音等，尽量将背景噪音去除干净</p>
+<p><strong>降噪</strong></p>
+<p>如果你本来的素材就是不带伴奏混响的干声文件，但是有一些嘈杂的背景噪音，可以使用<code>Adobe Audition</code>（以下简称AU）进行降噪处理</p>
+<p>教程：<a href="https://link.zhihu.com/?target=https://github.com/svc-develop-team/so-vits-svc">https://helpx.adobe.com/cn/audition/using/noise-reduction-restoration-effects.html</a></p>
+<p><strong>去伴奏混响</strong></p>
+<p>如果你的素材是之前录好的歌曲，那么需要对它进行去伴奏去混响处理，这里推荐使用 <a href="https://link.zhihu.com/?target=https://ultimatevocalremover.com/">Ultimate Vocal Remover v5</a>（简称UVR5）</p>
+<p>下载完UVR5，在处理音频前建议先去<code>Advanced VR Options</code>中将<code>Post-Process</code>选项打开，这样去混响的效果可能更好（玄学）</p>
+<p><img src="https://pic1.zhimg.com/80/v2-82b7c67e000b045a4f7fef017c592fcc_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>UVR5 Settings</p>
+<p><img src="https://pic2.zhimg.com/80/v2-c78be9f0c43053bf0e55468497fb1841_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>UVR5 Advanced VR Options</p>
+<p>接着开始去伴奏，推荐采用以下配置：</p>
+<ol>
+<li><p>Process Method: Demucs</p>
+</li>
+<li><p>Stems: Vocals</p>
+</li>
+<li><p>Demucs Model: v3 | UVR_Model_1 <strong>注：找不到对应模型的可以在下拉框中选择Download在软件内下载相应模型</strong></p>
+</li>
+<li><p>勾选GPU Conversion</p>
+</li>
+</ol>
+<p><img src="https://pic2.zhimg.com/80/v2-72679a4f88bbe6ff084f17ed39a57b79_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>UVR5去伴奏</p>
+<p>然后对处理完后的人声文件再做一次去混响处理，推荐采用以下配置：</p>
+<ol>
+<li><p>Process Method: VR Architecture</p>
+</li>
+<li><p>Window Size: 320</p>
+</li>
+<li><p>Aggression Setting: 10</p>
+</li>
+<li><p>VR Model: 5_HP-Karaoke_UVR</p>
+</li>
+<li><p>勾选GPU Conversion</p>
+</li>
+<li><p>勾选Voacls Only</p>
+</li>
+</ol>
+<p><img src="https://pic2.zhimg.com/80/v2-1bab7e2a4342271acbca1d2e3ba1a9a5_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>UVR5去混响</p>
+<p>这样简单的几步，我们就将干声从歌曲文件中提取出来了，如果你觉得提取出来的效果差强人意，也可以使用 <a href="https://link.zhihu.com/?target=https://hitnmix.com/audio-manipulation/">RipX DeepAudio</a> 做一些精修</p>
+<p>将文件导入RipX中，会产生如下图一样的一段曲线</p>
+<p>点击其中的某段黄色曲线可以播放这段音频，我们可以一段段听过去，遇到杂音部分可以将其手动删除</p>
+<p><img src="https://pic3.zhimg.com/80/v2-fd66a5d7a14a4c13cf314e9157650f22_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>RipX</p>
+<p><strong>匹配响度</strong></p>
+<p>如果你的干声素材的来源不同，很可能会有素材响度大小不一的情况，这种情况下需要使用AU对所有音频去做匹配响度，使所有素材的分贝值在一个统一的范围内</p>
+<p>教程：<a href="https://link.zhihu.com/?target=https://github.com/svc-develop-team/so-vits-svc">https://helpx.adobe.com/cn/audition/using/match-loudness.html</a></p>
+<p><strong>压限</strong></p>
+<p>干声的响度不宜超过-6db，建议使用<code>Adobe Audition</code>中的压限器将声音的分贝限制在-6db以内</p>
+<p>教程：<a href="https://link.zhihu.com/?target=https://github.com/svc-develop-team/so-vits-svc">https://helpx.adobe.com/cn/audition/using/amplitude-compression-effects.html</a></p>
+<p><strong>切片</strong></p>
+<p>干声素材都处理完后，下一步就是将这些素材切成一个个2-15s的小片段（片段太长容易爆显存，最好不要超过20s），这里推荐使用 <a href="https://link.zhihu.com/?target=https://github.com/flutydeer/audio-slicer">Audio Slicer</a> ，可以根据响度阈值和间隔时间等自动将音频切片</p>
+<p><img src="https://pic2.zhimg.com/80/v2-134c5a5a67b23ce441ad1d96b488b759_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>Audio Slicer</p>
+<p>将干声文件拖进去后可以先使用默认参数切一遍，然后去输出目录，将文件按文件大小由大到小排列，查看是否还有大于15s的音频切片，如有的话，将这些音频重新拖入软件中，按照以下参数重新切片一次：</p>
+<ol>
+<li><p>Threshold（db）: -20</p>
+</li>
+<li><p>Minimum Interval: 100</p>
+</li>
+<li><p>Maximum Silence Length（ms）: 500</p>
+</li>
+</ol>
+<p>一般这样就不会有大于15s的音频了，如果还有的话，我将这些参数的含义列在下面，大家可以自己调整参数尝试，大家也可以使用其他的一些音频处理工具（如：AU）手动切片</p>
+<ul>
+<li>Threshold（阈值）</li>
+</ul>
+<p>以 dB 表示的 RMS 阈值。所有 RMS 值都低于此阈值的区域将被视为静音。如果音频有噪音，请增加此值。默认值为 -40。</p>
+<ul>
+<li>Minimum Length（最小长度）</li>
+</ul>
+<p>每个切片音频剪辑所需的最小长度，以毫秒为单位。默认值为 5000。</p>
+<ul>
+<li>Minimum Interval（最小间距）</li>
+</ul>
+<p>要切片的静音部分的最小长度，以毫秒为单位。如果音频仅包含短暂的中断，请将此值设置得更小。此值越小，此应用程序可能生成的切片音频剪辑就越多。请注意，此值必须小于 min length 且大于 hop size。默认值为 300。</p>
+<ul>
+<li>Hop Size（跳跃步长）</li>
+</ul>
+<p>每个 RMS 帧的长度，以毫秒为单位。增加此值将提高切片的精度，但会降低处理速度。默认值为 10。</p>
+<ul>
+<li>Maximum Silence Length（最大静音长度）</li>
+</ul>
+<p>在切片音频周围保持的最大静音长度，以毫秒为单位。根据需要调整此值。请注意，设置此值并不意味着切片音频中的静音部分具有完全给定的长度。如上所述，该算法将搜索要切片的最佳位置。默认值为 1000。</p>
+<p>最后，记得把过短的音频切片删除掉</p>
+<p><strong>格式转换</strong></p>
+<p>数据集的格式必须是<code>wav</code>原始波形格式，大家检查一下，如果如果有非<code>wav</code>格式的文件，需要做一下格式转换，推荐使用<code>Foobar2000</code>，或者直接使用<code>FFmepg</code>进行转换</p>
+<p><strong>重命名</strong></p>
+<p>数据集中不能出现中文等非英文字符，特殊字符推荐只使用下划线，<code>Windows</code>下直接将文件全选后重命名，文件名会变成以下这种格式：</p>
+<ul>
+<li><p>xxx (1).wav</p>
+</li>
+<li><p>xxx (2).wav</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<p>本人亲测这样命名虽然会报Warning，但不影响训练，是可行的</p>
+<p><strong>预训练</strong></p>
+<p>接着我们就开始准备训练了</p>
+<p><strong>放置数据集</strong></p>
+<p>首先将处理好的干声全部放到一个文件夹下，然后再将这个文件夹放到<code>so-vits-svc</code>目录下的<code>dataset_raw</code>文件夹下</p>
+<p><img src="https://pic4.zhimg.com/80/v2-68cbdd7ba74e9c0cd90bbbda6b44b093_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>放置数据集</p>
+<p><strong>数据预处理</strong></p>
+<p>打开webui界面，切换到训练选项卡，首先点击<code>识别数据集</code>，上面的文本框中便会显示出我们准备好的数据集名，然后选择训练使用的<code>编码器</code>和<code>f0预测器</code>，这里选择我图中标出的两个选项，是目前效果比较好的选项，接着点击数据预处理，在预处理输出信息那一栏会打印进度，耐心等待它跑完</p>
+<p><img src="https://pic4.zhimg.com/80/v2-ace27f73bd8a4f235733802202fb29a3_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>数据预处理</p>
+<p><strong>训练配置</strong></p>
+<p>等待数据预处理完成后，我们要将训练的设置和参数写入到配置文件中</p>
+<p><img src="https://pic4.zhimg.com/80/v2-1d0e0b50c2d913c5efe258e1fa55c683_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>训练配置</p>
+<p>介绍一下这里参数的含义和推荐设置：</p>
+<ol>
+<li><p>每隔多少步(steps)生成一次评估日志：每隔一定步数输出一下当前步数下的学习率，loss值等信息，根据个人偏好自己填写即可</p>
+</li>
+<li><p>每隔多少步(steps)验证并保存一次模型：字面意思，根据个人偏好自己填写即可</p>
+</li>
+<li><p>仅保留最新的X个模型：我训练到11万步时一个模型接近600MB，大家根据自己的硬盘大小和个人偏好填写即可</p>
+</li>
+<li><p>批量大小：大的batch size可以减少训练时间，提高稳定性，但同时也会导致模型泛化能力下降，所以，就算你的显存很大也不建议将本参数设置的过大，推荐使用4</p>
+</li>
+<li><p>学习率：初始学习率过大会导致模型无法收敛，过小则会导致模型收敛特别慢或无法学习，建议使用默认值0.0001</p>
+</li>
+<li><p>使用fp16混合精度训练：混合精度训练是在尽可能减少精度损失的情况下利用半精度浮点数加速训练，它使用FP16即半精度浮点数存储权重和梯度，在减少占用内存的同时起到了加速训练的效果，理论上来说使用混合精度几乎不会造成精度损失，但目前没对模型质量的影响尚未查证，在显卡性能足够的情况下建议还是先不要勾选</p>
+</li>
+<li><p>加载数据集到内存中：在内存足够的情况下建议勾选，可以加快训练速度</p>
+</li>
+</ol>
+<p>所有训练参数设置好后，点击下面的写入配置文件按钮，在下面的输出信息那里会显示<code>配置文件写入完成</code>，接下来就可以开始正式训练了</p>
+<p><img src="https://pic4.zhimg.com/80/v2-6fb7b5f10a963d718f4ff71d9669c273_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>写入配置文件</p>
+<p><strong>正式训练</strong></p>
+<p>点击下面的<code>从头开始训练</code>，会弹出一个新的终端窗口，在这个终端窗口中，会不断的输出当前训练的日志</p>
+<p><img src="https://pic2.zhimg.com/80/v2-371c00f2565d5109ea58ec9373f6ae21_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>开始训练</p>
+<p><img src="https://pic3.zhimg.com/80/v2-6e0e876b0191b984f8015dfc67f73142_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>训练终端窗口</p>
+<p>我的训练参数设置的是每隔200步生成一次评估日志，每隔1000步保存一次模型，日志中输出的<code>reference_loss</code>值代表了模型的输出与真实值之间的差距，理论来说，这个值越低越好，越低，模型输出的声音就和真人的声音越像，但从经验来说未必如此，过低的loss值也可能代表了模型过拟合，我们只能将这个参数作为一个参考，实际效果要使用测试了这个模型后才能得知，我们可以参考这个值初步选择模型进行推理测试</p>
+<p>训练是不会自动终止的，当我们感觉训练的差不多了，想试一下模型的实际效果时，可以在训练终端窗口中键盘键入<code>Ctrl + C</code>停止训练，如果对本次训练出来的模型还不满意，想要继续训练，则可以点击<code>继续上一次的训练进度</code>，程序会从上一个自动保存的模型的进度开始继续训练</p>
+<p><strong>推理</strong></p>
+<p><strong>加载模型</strong></p>
+<p>模型训练完后我们就可以将选项卡切换到<code>推理</code>来测试模型的实际效果了</p>
+<p>我们先点击<code>刷新选项</code>，此时在<code>模型选择</code>和<code>配置文件</code>的下拉菜单中就出现了我们之前训练好的模型，参考之前的<code>reference_loss</code>值我们选取一个模型（G开头），并且选择训练所使用的配置文件，点击加载模型，等待下面的<code>Output Message</code>文本框出现<code>模型加载成功</code>字样，就可以正式开始我们的推理了</p>
+<p><img src="https://pic4.zhimg.com/80/v2-65896fe9ac316582eeddbcf8944e0ee3_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>加载模型</p>
+<p><strong>开始推理</strong></p>
+<p>Sovits是一个声音转换工具，我们首先需要找一段想要转换的原声音频，和准备数据集那一章的要求一样，我们需要一段干声，不能有伴奏、混响、和声。如果想让模型唱歌的话，我们可以采用前面准备数据集所用的方法，直接将原曲去伴奏混响，处理好后将其拖入音频上传区域中</p>
+<p>默认的 <code>pm</code> f0预测器推理出来的音质效果最好，所以建议先使用默认参数推理一遍，出现问题再针对性的对参数进行调整</p>
+<p>我们点击下面的<code>音频转换</code>按钮，稍等一会儿，在<code>Output Audio</code>那里便会生成一段推理后的音频</p>
+<p><img src="https://pic2.zhimg.com/80/v2-4c8f395900e2dc99df11eaa41b8db155_1440w.webp" srcset="/img/loading.gif" lazyload></p>
+<p>推理</p>
+<p>我们试听后根据具体的问题设置转换参数：</p>
+<ul>
+<li>出现哑音</li>
+</ul>
+<p>哑音是因为原声音频中的和声部分没有去处干净，导致f0预测器对音高的预测出现了错误，预测成了一个极高的音高，模型唱不上去导致的</p>
+<p>有两种办法解决这个问题，一种就是从源头解决问题，想办法将原声音频的和声混响去除，获得更纯净的干声重新推理，另一种方法可以将f0预测器换成<code>crepe</code>，适度调节<code>F0过滤阈值</code>（一般使用默认值就行，改大改小没什么区别），然后重新进行推理基本就可以解决这个问题，但是音质不如f0预测器<code>pm</code>，电流音等杂音会变多，两种方法大家可以自行判断选取</p>
+<ul>
+<li>音域差距过大</li>
+</ul>
+<p>如果训练的模型是男声，但推理使用的原声是女声，或者反过来，碰到这种音域差距过大的情况会导致推理出来的音频不堪入耳</p>
+<p>我们可以打开f0自动预测选项来解决这个问题，但正如选项里描述的那样，此选择仅限于转换语音时才可用，转换歌声时打开此选项会导致灾难性的跑调</p>
+<p>如果是歌声并且实在是想要唱这首歌的话，建议去找一个和自己音域比较契合的翻唱音频，用这个音频处理后作为原声进行推理</p>
+<ul>
+<li>部分音调唱不上（下）去</li>
+</ul>
+<p>训练时喂的数据集没有覆盖到部分音域</p>
+<p>这里的变调选项似乎是先推理再变调？所以对这种情况不起作用，建议使用AU先将原声音频升降调到合适的音域，再进行推理</p>
+<ul>
+<li>爆显存</li>
+</ul>
+<p>在推理的过程中有可能会出现爆显存的情况，因为推理也是将原音频按照响度阈值切成一段段小切片分别进行推理，最后再合成，如果其中有一段切片时常过长就可能会导致爆显存</p>
+<p>我们可以将切片阈值调高，使得原声音频可以切的更加细碎，甚至你也可以直接调整音频自动切片的值开启强制切片，比如输入10，音频就会被切成每10s一段，确保音频时常不会爆显存</p>
+<p><strong>合成</strong></p>
+<p>如果转换的是歌声，最后可以将转换出来的干声和伴奏合并成一个音频文件，可以使用AU等软件，在合成之前还可以对干声进行一些EQ、混响的调整等，关于音乐方面的知识这里就不多说了</p>
+<p>以下是我推理的声音：</p>
+<p>仅用于学习，严禁用于非法用途</p>
+<p>晴天-孙燕姿</p>
+<h2 id="三-大饼AI变声"><a href="#三-大饼AI变声" class="headerlink" title="三.大饼AI变声"></a>三.大饼AI变声</h2><p><a target="_blank" rel="noopener" href="https://www.redcatai.com/tag/da-bing-ai-bian-sheng">大饼AI变声</a>是一款专注于声音领域的AI工具，提供实时变声、音色转换和文本转语音等功能。其令人惊叹的效果和免费的使用使其成为声音从业者和内容创作者的首选。</p>
+<p><a target="_blank" rel="noopener" href="https://dubbing.tech/">https://dubbing.tech/</a></p>
+<p><strong>使用教程</strong></p>
+<p>进入软件的设置，然后把输入和输出设备改成你的 “耳机扬声器和耳机麦克风”</p>
+<p><img src="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162854_93777_thumb.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>　　2、右键桌面的喇叭选择 “声音 ”</p>
+<p><img src="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162923_72969_thumb.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>　　3、打开播放，然后选中你的耳机，再点击下面的 “设置成默认值 ”</p>
+<p><img src="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717162959_74926_thumb.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>　　4、录制这里也选择大饼的 虚拟驱动 ，设置成默认值。</p>
+<p><img src="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717163029_68580_thumb.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>　　5、然后再退出软件 再重新打开 就可以了。</p>
+<p><img src="https://img0.pconline.com.cn/pconline/2307/28/16409666_20230717163052_52588_thumb.jpg" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/Python/" class="category-chain-item">Python</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9F%B3%E9%A2%91%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#音频大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>AI推理声音</div>
+      <div>https://tingfeng347.github.io/2024/01/11/AI推理声音/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/30/python%E6%80%BB%E7%BB%93/" title="python总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐">
+                        <span class="hidden-mobile">AI大模型推荐</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,1520 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="数据结构相关知识一.Java数据结构-线性表的设计与实现相关知识顺序表顺序表是在计算机内存中以数组的形式保存的线性表，线性表的顺序存储是指用一组地址连续的存储单元依次存储线性表中的各个元素、使得线性表中在逻辑结构上相邻的数据元素存储在相邻的物理存储单元中，即通过数据元素物理存储的相邻关系来反映数据元素之间逻辑上的相邻关系，采用顺序存储结构的线性表通常称为顺序表。顺序表是将表中的结点依次存放在计算机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构头歌题目相关知识">
+<meta property="og:url" content="https://tingfeng347.github.io/2023/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%B4%E6%AD%8C%E9%A2%98%E7%9B%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="数据结构相关知识一.Java数据结构-线性表的设计与实现相关知识顺序表顺序表是在计算机内存中以数组的形式保存的线性表，线性表的顺序存储是指用一组地址连续的存储单元依次存储线性表中的各个元素、使得线性表中在逻辑结构上相邻的数据元素存储在相邻的物理存储单元中，即通过数据元素物理存储的相邻关系来反映数据元素之间逻辑上的相邻关系，采用顺序存储结构的线性表通常称为顺序表。顺序表是将表中的结点依次存放在计算机">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184031">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184032">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184026">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184027">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184033">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184044">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184045">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184051">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184052">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184124">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184143">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184139">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184149">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184556">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184167">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184170">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184178">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184409">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184411">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184415">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184596">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184599">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184883">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184626">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184655">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184650">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184697">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184700">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184701">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184853">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184854">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184854">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184857">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184857">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184858">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184858">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184858">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184860">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184860">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184860">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184861">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184861">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184861">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184861">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184862">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184862">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184862">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184862">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184890">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184890">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184890">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184890">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184964">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184964">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184964">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184964">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184965">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184965">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184965">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/184965">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185251">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/185252">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199759">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199760">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199761">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199768">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199766">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200535">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200537">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200544">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200551">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200552">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200572">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200571">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/200956">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/206375">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/191600">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194134">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194458">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/194459">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199462">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/199525">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="og:image" content="https://data.educoder.net/api/attachments/247568">
+<meta property="article:published_time" content="2023-12-01T00:01:47.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.612Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://data.educoder.net/api/attachments/184031">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>数据结构头歌题目相关知识 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据结构头歌题目相关知识"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-01 08:01" pubdate>
+          2023年12月1日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          103 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数据结构"
+        id="heading-0fea7c47d93da5689f31820ee525b367" role="tab" data-toggle="collapse" href="#collapse-0fea7c47d93da5689f31820ee525b367"
+        aria-expanded="true"
+      >
+        数据结构
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0fea7c47d93da5689f31820ee525b367"
+           role="tabpanel" aria-labelledby="heading-0fea7c47d93da5689f31820ee525b367">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%B4%E6%AD%8C%E9%A2%98%E7%9B%AE%E5%92%8C%E7%AD%94%E6%A1%88/" title="数据结构头歌题目和答案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据结构头歌题目和答案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%B4%E6%AD%8C%E9%A2%98%E7%9B%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/" title="数据结构头歌题目相关知识"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">数据结构头歌题目相关知识</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/18/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%9C%9F%E6%9C%AB%E6%80%BB%E7%BB%93/" title="数据结构期末总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据结构期末总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据结构头歌题目相关知识</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 style="" id="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><strong>数据结构相关知识</strong></h1><h2 style="" id="%E4%B8%80.java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><strong>一.Java数据结构-线性表的设计与实现</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><strong>相关知识</strong></h3><p style="">顺序表</p><p style="">顺序表是在计算机内存中以数组的形式保存的线性表，线性表的顺序存储是指用一组地址连续的存储单元依次存储线性表中的各个元素、使得线性表中在逻辑结构上相邻的数据元素存储在相邻的物理存储单元中，即通过数据元素物理存储的相邻关系来反映数据元素之间逻辑上的相邻关系，采用顺序存储结构的线性表通常称为顺序表。</p><p style="">顺序表是将表中的结点依次存放在计算机内存中，一组地址连续的存储单元中。</p><p style="">下图是一个顺序表示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184031" srcset="/img/loading.gif" lazyload alt="img" width="679px" data-position="left"></figure><p style=""><strong>增加元素</strong></p><p style="">现要插入元素到顺序表中，若没有指定添加元素的位置，则元素直接添加到数组末尾，表元素个数加<code>1</code>。</p><p style="">如指定要插入到位置<code>index</code>，则下标为<code>index</code>及之后的元素都需相应的移动。</p><p style="">现假设表中已有元素<code>15 23 46 16 57 10 64</code>，要插入一个新元素<code>48</code>到位置<code>3</code>（即调用<code>list.Add(3,48)</code>方法），因这里下标为<code>3</code>的元素是<code>16</code>，则<code>16</code>及之后的元素都需移动。</p><p style="">表中元素的变化过程如下图:</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184032" srcset="/img/loading.gif" lazyload alt="img" width="898px" data-position="left"></figure><p style=""><strong>删除元素</strong></p><p style="">同样，假设现在表中已有元素<code>15 23 46 16 57 10 64</code>，现要删除下标为<code>3</code>的元素，即调用<code>list.remove(3)</code>方法，则表中元素的变化过程如下图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184026" srcset="/img/loading.gif" lazyload alt="img" width="712px" data-position="left"></figure><p style=""><strong>Java 数组</strong></p><p style="">数组，是由相同类型的元素的集合所组成的数据结构，分配一块连续的内存来存储。你可以声明一个数组变量，如 <code>arr[10]</code> 来代替直接声明 <code>10</code> 个独立变量 <code>arr0</code>，<code>arr1</code>，....，<code>arr9</code>。</p><p style=""><strong>声明数组变量</strong></p><p style="">首先必须声明数组变量，才能在程序中使用数组。下面是声明数组变量的语法：</p><pre><code class="hljs">Type[] arrVar; &nbsp; // 方式一Type arrVar[];  // 方式二</code></pre><p style="">这两种声明数组的方式都是正确的。 例如，声明一个<code>double</code>型数组，我们可以这样写：</p><pre><code class="hljs">double[] myArr或者double myArr[]</code></pre><p style=""><strong>创建数组</strong></p><p style=""><code>Java</code>语言使用<code>new</code>操作符来创建数组，如下：</p><pre><code class="hljs">myArr = new Type[arrSize];</code></pre><p style=""><code>arrSize</code>是数组的大小，所以这里我们创建了一个大小为<code>arrSize</code>的<code>Type</code>类型的数组，并把它赋值给<code>myArr</code>。</p><p style="">数组变量的声明、创建数组可以用一条语句完成，如下：</p><pre><code class="hljs">Type[] arrVar = new Type[arrSize];</code></pre><p style="">Java <strong>中的数组下标</strong></p><p style="">在<code>Java</code>中，数组的下标是从<code>0</code>开始的。如一个有<code>7</code>个元素的数组，其下标范围是<code>0，1，2，3，4，5，6</code>。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184027" srcset="/img/loading.gif" lazyload alt="img" width="163px" data-position="left"></figure><p style="">我们实现的表中，下标仍然是从<code>0</code>开始，即<code>list.get(0)</code>返回的是第一个元素，<code>list.get(n-1)</code>返回的是第<code>n</code>个元素</p><p style=""><strong>链表</strong></p><p style=""><strong>链表的概念</strong></p><p style="">链式方式实现的表，简称链表。链表是使用指针（即引用）将存储元素的那些单元依次串联在一起。这种方法避免了数组中用连续的单元存储元素的缺点，因而在插入或者删除时不再需要移动元素来腾出空间或填补空缺。</p><p style="">链表中元素之间的逻辑关系（前还是后）是通过设置指针（引用）表示的。因此每个单元至少有两个域，一个用于数据元素的存储，一个用于指向其他单元的指针。这种具有一个数据域和多个指针域的存储单元称为结点。(<code>node</code>)。</p><p style="">结点图示：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184033" srcset="/img/loading.gif" lazyload alt="img" width="689px" data-position="left"></figure><p style=""><strong>单链表</strong></p><p style="">单链表的每个结点只有一个指向表中下一个结点的指针。我们称最后一个结点为尾结点，尾结点的特征是指针域(<code>next</code>)引用为空(<code>null</code>)。</p><p style="">单链表的一个图示如下：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184044" srcset="/img/loading.gif" lazyload alt="img" width="832px" data-position="left"></figure><p style="">下图是一个带头结点的单链表：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184045" srcset="/img/loading.gif" lazyload alt="img" width="945px" data-position="left"></figure><p style="">头结点中的数据域不存放数据，指针域指向链表的第一个结点，便于对链表操作。</p><p style=""><strong>向单链表中添加元素</strong></p><p style="">插入数据示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184051" srcset="/img/loading.gif" lazyload alt="img" width="951px" data-position="left"></figure><p style=""><strong>从单链表中删除元素</strong></p><p style="">删除元素示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184052" srcset="/img/loading.gif" lazyload alt="img" width="750px" data-position="left"></figure><p style=""></p><h2 style="" id="%E4%BA%8C.java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0"><strong>二.Java数据结构-循环链表的设计与实现</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-1"><strong>相关知识</strong></h3><p style=""><strong>单循环链表</strong></p><p style="">循环链表是一种首尾相接的链表。其特点是无需增加存储量，只需对表的链接方式稍作改变，即可使得表操作更加方便灵活。</p><p style="">在单链表中，将末尾结点的指针域<code>null</code>改为指向表头结点或开始结点，就得到单链形式的循环链表，称为单循环链表。</p><p style="">为使空表和非空表的处理方式一致，循环链表中也可以设置一个头结点。这样空循环链表仅有一个自成循环的头结点。 如下图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184124" srcset="/img/loading.gif" lazyload alt="img" width="939px" data-position="left"></figure><p style=""><strong>添加操作</strong></p><p style="">单循环链表的添加操作与普通的单链表操作类似，只需添加时注意处理尾结点，使其指向头结点。下面是添加操作示意图。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184143" srcset="/img/loading.gif" lazyload alt="img" width="944px" data-position="left"></figure><p style="">这里采用的是尾插法，即在链表的末尾添加结点。我们使<code>tail</code>指向链表尾结点，因此添加结点<code>node</code>时只需改动<code>tail</code>和新结点<code>node</code>之间的链接关系即可。由于有头结点，所以空表和非空表的处理方式是一样的。</p><pre><code class="hljs">node.next=tail.next;tail.next=node;tail=node;</code></pre><p style=""><strong>遍历循环链表</strong></p><p style="">在循环链表中，链表的尾结点不是指向<code>null</code>。因此要输出链表元素时，其终止条件就不再是像非循环链表那样判断<code>p==null</code>或<code>p.next==null</code>，而是判别它们是否等于某一指定结点，如头结点<code>head</code>。如下图所示：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184139" srcset="/img/loading.gif" lazyload alt="img" width="720px" data-position="left"></figure><p style=""><strong>单循环链表删除操作</strong></p><p style="">单循环链表的删除操作与普通的单链表操作基本类似，通过遍历找到要删除结点的直接前驱，然后改变前驱的链接情况。如下图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184149" srcset="/img/loading.gif" lazyload alt="img" width="244px" data-position="left"></figure><p style="">这里删除的是尾结点，由于我们在构建单循环链表时是用<code>tail</code>指向尾结点的，所以在删除尾结点后需改变<code>tail</code>的指向，如果删除的不是尾结点则不需改变<code>tail</code>指向。</p><p style=""><strong>双向循环链表</strong></p><p style="">双向链表也叫双链表，是链表的一种，它的每个数据结点中都有两个指针，分别指向直接后继和直接前驱。所以，从双向链表中的任意一个结点开始，都可以很方便地访问它的前驱结点和后继结点。一般我们都构造双向循环链表。</p><p style=""><strong>双向链表结点表示</strong></p><p style="">双向链表中的结点由三个域组成，两个链接域一个数据域，如下图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184556" srcset="/img/loading.gif" lazyload alt="img" width="733px" data-position="left"></figure><p style=""><code>prev</code>链接域指向结点的直接前驱，<code>next</code>链接域链接该结点的直接后继。</p><p style=""><strong>双向循环链表图示</strong></p><p style="">下图是带头结点<code>head</code>的双向循环链表示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184167" srcset="/img/loading.gif" lazyload alt="img" width="748px" data-position="left"></figure><p style=""><strong>双向循环链表添加操作</strong></p><p style="">双向循环链表的添加操作示意图如下：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184170" srcset="/img/loading.gif" lazyload alt="img" width="770px" data-position="left"></figure><p style=""><strong>双向循环链表的删除操作</strong></p><p style="">双向循环链表的删除操作示意图如下：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184178" srcset="/img/loading.gif" lazyload alt="img" width="313px" data-position="left"></figure><h2 style="" id="%E4%B8%89.java-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97"><strong>三.Java 数据结构之栈、队列</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-2"><strong>相关知识</strong></h3><p style=""><strong>栈</strong></p><p style="">栈，是一种运算受限的线性表；仅允许在表的一端进行插入和删除运算。这一端被称为栈顶，相对地，把另一端称为栈底。对栈的基本操作有<code>push</code>(入栈)和<code>pop</code>(出栈)，前者是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；后者是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。</p><p style="">一个栈的示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184409" srcset="/img/loading.gif" lazyload alt="img" width="1046px" data-position="left"></figure><p style="">下面是<code>1 2 3</code>入栈出栈的示意图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184411" srcset="/img/loading.gif" lazyload alt="img" width="1288px" data-position="left"></figure><p style="">用数组表示线性表的相关知识可以参考之前的实训。</p><p style=""><strong>栈的数组表示</strong></p><p style="">我们可以用一个数组<code>S[1...n]</code>来实现一个最多容纳<code>n</code>个元素的栈。该数组有一个<code>top</code>属性，指向最新插入的元素。栈中包含的元素为<code>S[1...top]</code>，其中<code>S[1]</code>是栈底元素，<code>S[top]</code>是栈顶元素。</p><p style="">下图是栈的数组实现的一个实例，<code>top</code>指向的是栈顶元素的下标：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184415" srcset="/img/loading.gif" lazyload alt="img" width="313px" data-position="left"></figure><p style=""><code>(a)</code>栈<code>S</code>内有<code>4</code>个元素。栈顶元素为<code>9</code>； <code>(b)</code>调用<code>push(17)</code>和<code>push(3)</code>后的栈<code>S</code>； <code>(c)</code>调用<code>pop()</code>并返回栈顶元素<code>3</code>的栈<code>S</code>。虽然<code>3</code>仍然在数组里，但它已经不在栈内了，此时栈顶的元素是<code>17</code>。</p><p style=""></p><p style=""><strong>栈的链式存储</strong></p><p style="">栈的链式存储结构称为链栈，是运算受限的单链表，其插入和删除操作只能在表头进行，如下图：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184596" srcset="/img/loading.gif" lazyload alt="img" width="482px" data-position="left"></figure><p style=""><strong>入栈</strong></p><p style="">基于单链表实现的栈，入栈就是插入一个新结点，这里在头结点后插入新结点：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184599" srcset="/img/loading.gif" lazyload alt="img" width="481px" data-position="left"></figure><p style="">上图中，首先让新结点的<code>next</code>指向原来的栈顶元素<code>head.next</code>，保持对整个链表的引用，再把<code>head.next</code>指向新结点。</p><p style=""><strong>出栈</strong></p><p style="">同样，出栈就是删除第一个结点：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184883" srcset="/img/loading.gif" lazyload alt="img" width="371px" data-position="left"></figure><p style="">删除头结点，可以直接把<code>head.next</code>指向<code>head.next.next</code></p><p style=""><strong>队列</strong></p><p style="">队列实现的是一种先进先出的策略，队列上的插入操作称为<strong>入队</strong><code>(enqueue)</code>，删除操作称为<strong>出队</strong><code>(dequeue)</code>。队列的先进先出特性类似于收银台前排队等待结账的一排顾客。队列有队头<code>(head)</code>和队尾<code>(tail)</code>，当有新元素入队时，它被放到队尾的位置，就像一个新到来的顾客排在队伍末端一样。而出队的元素则总是在队头的那个，就像排在队伍前面等待最久的那个顾客一样。下图是一个队列的抽象模型：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184626" srcset="/img/loading.gif" lazyload alt="img" width="552px" data-position="left"></figure><p style=""><strong>队列的数组实现</strong></p><p style="">对于一个队列数据结构，我们使用一个数组<code>Q</code>，以及队头<code>head</code>和队尾<code>tail</code>的位置来表示。<code>head</code>和<code>tail</code>代表队列的两端。下图表明利用数组<code>Q[0...n]</code>来实现一个最多容纳<code>n+1</code>个元素的队列的一种方式。该队列有一个属性<code>Q.head</code>指向队头元素。而属性<code>Q.tail</code>则指向下一个新元素将要插入的位置。队列中的元素存放在位置<code>Q.head</code>，<code>Q.head+1</code>，<code>……</code>，<code>Q.tail-1</code>。初始时有<code>Q.head=Q.tail=0</code>。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184655" srcset="/img/loading.gif" lazyload alt="img" width="542px" data-position="left"></figure><p style="">入队出队的操作应该是很清楚的。为使一个元素<code>x</code>入队，即执行<code>enqueue(x)</code>，让<code>Q[tail]=x</code>，然后使<code>tail</code>增<code>1</code>。若使元素出队（<code>dequeue</code>），我们返回<code>Q[head]</code>处的值，且使<code>head</code>增<code>1</code>。</p><p style=""><strong>循环队列</strong></p><p style="">上述这种实现存在一个问题。以上图为例，经过<code>12</code>次入队操作后队列似乎满了，因为此时<code>tail</code>已经超过数组尾端了，再次执行入队操作会造成数组越界。然而，队列中也许只剩下几个元素。因为可能有若干元素出队了。像栈一样，即使有许多操作的情况下，队列也常常不是很大。 一个简单的解决方法是，只要<code>head</code>或<code>tail</code>到达数组尾端，它就绕回开头。我们称这种队列称为循环队列。</p><p style="">下图是一个队列实例。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184650" srcset="/img/loading.gif" lazyload alt="img" width="781px" data-position="left"></figure><p style="">这里我们利用数组<code>Q[0...12]</code>实现一个循环队列。</p><ul><li><p style=""><code>(a)</code>队列包含<code>5</code>个元素，位于<code>Q[6...10]</code>；</p></li><li><p style=""><code>(b)</code>依次调用<code>Q.enqueue(17)</code>，<code>Q.enqueue(3)</code>，<code>Q.enqueue(5)</code>后的队列；</p></li><li><p style=""><code>(c)</code>调用<code>Q.dequeue()</code>方法并返回原队头值<code>15</code>后，队列的构成。此时新的队头是元素<code>6</code>。</p></li></ul><p style=""><strong>链式队列</strong></p><p style="">队列的链式存储结构简称为链式队列。它实际上是一个限制仅在表头删除和表尾插入的单链表。 链式队列的存储结构如下图所示：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184697" srcset="/img/loading.gif" lazyload alt="img" width="797px" data-position="left"></figure><p style="">其中<code>front</code>指向队头，<code>tail</code>指向队尾。出队操作在队头进行，入队操作在队尾进行。 ##### 出队操作</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184700" srcset="/img/loading.gif" lazyload alt="img" width="914px" data-position="left"></figure><p style=""><strong>入队操作</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184701" srcset="/img/loading.gif" lazyload alt="img" width="628px" data-position="left"></figure><p style=""></p><h2 style="" id="%E5%9B%9B.java-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91"><strong>四.Java 数据结构之二叉树</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-3"><strong>相关知识</strong></h3><p style=""><strong>树</strong></p><p style=""><strong>定义</strong></p><p style="">树<code>(Tree)</code>是<code>n(n≥0)</code>个结点的有限集合<code>T</code>，若<code>n=0</code>时称为空树，否则：</p><ol start="NaN"><li><p style="">有且只有一个特殊的称为根<code>(root)</code>结点;</p></li><li><p style="">若<code>n&gt;1</code>时，其余的结点被分为<code>m(m&gt;0)</code>个互不相交的子集<code>T1，T2，T3...Tm</code>，其中每个子集本身又是一棵树，称为根的子树。 这是树的递归定义，即用树来定义树。如下图所示： </p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184853" srcset="/img/loading.gif" lazyload alt="img" width="623px" data-position="left"></figure></li></ol><p style=""><strong>树的基本术语</strong></p><p style=""><code>（1）</code>结点的度 树中的一个结点拥有的子树数称为该结点的度。上图<code>(b)</code>中结点<code>A</code>的度是<code>3</code>,结点<code>B</code>的度是<code>2</code>，<code>E</code>的度是<code>0</code>。 <code>（2）</code>孩子和双亲 树中某个结点的子树之根称为该结点的孩子或儿子，相应地，该结点称为孩子的双亲或父亲。同一个双亲的孩子称为兄弟。 上图<code>(b)</code>中结点<code>B、C、D</code>是结点<code>A</code>的子结点，而结点<code>A</code>是结点<code>B、C、D</code>的父结点。<code>B、C、D</code>的兄弟结点。 <code>（3）</code>叶子结点 树中度为<code>0</code>的结点称为叶子结点，相应地，度不为<code>0</code>的结点为非叶子结点。<code>E、F、G、H、I、J</code>是叶子结点。 <code>（4）</code>结点的层数和树的高度 结点的层数从根起算，根的层数为<code>1</code>，其余结点的层数等于其双亲结点的层数加<code>1</code>。树中结点的最大层数称为树的高度或深度。</p><p style=""><strong>二叉树</strong></p><p style=""><strong>二叉树的定义</strong></p><p style="">二叉树是<code>n(n≥0)</code>个结点的有限集，它或者是空集<code>(n=0)</code>，或者由一个根结点及两棵互不相交的、分别称作这个根的左子树和右子树的二叉树组成。这是二叉树的递归定义。</p><p style=""><strong>二叉树的五种基本形态</strong></p><p style="">二叉树可以是空集；根可以有空的左子树或右子树；或者左、右子树皆为空。 二叉树的五种基本形态如下图所示</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184854" srcset="/img/loading.gif" lazyload alt="img" width="623px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184854" srcset="/img/loading.gif" lazyload alt="img" width="651px" data-position="left"></figure><p style=""><code>(a)</code>空二叉树<code>(b)</code>仅有一个根结点的二叉树<code>(c)</code>右子树为空的二叉树<code>(d)</code>左子树为空的二叉树<code>(e)</code>左右子树均非空的二叉树</p><p style=""><strong>满二叉树</strong></p><p style="">一个二叉树，如果每一个层的结点数都达到最大值，则这个二叉树就是满二叉树。</p><p style=""><strong>完全二叉树</strong></p><p style="">若一棵二叉树至多只有最下面的两层上结点的度数可以小于<code>2</code>，并且最下一层上的结点都集中在该层最左边的若干位置上，则此二叉树称为完全二叉</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184857" srcset="/img/loading.gif" lazyload alt="img" width="651px" data-position="left"></figure><p style="">。 </p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184857" srcset="/img/loading.gif" lazyload alt="img" width="898px" data-position="left"></figure><p style=""><strong>二叉树的存储结构</strong></p><p style=""><strong>顺序存储结构</strong></p><p style="">用一组地址连续的存储单元依次自上而下，从左至右存储二叉树上</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184858" srcset="/img/loading.gif" lazyload alt="img" width="898px" data-position="left"></figure><p style="">结点元素。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184858" srcset="/img/loading.gif" lazyload alt="img" width="302px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184858" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style=""> 这种方式仅适用完全二叉树，对于非完全二叉树，将会造成空间浪费。</p><p style=""><strong>链式存储结构</strong></p><p style="">以链式方式存储二叉树。用链接方式存储二叉树时，因二叉树的每个结点最多有两个孩子，所以每个结点除了存储结点本身的数据外，还应设置两个指针域<code>lchild</code>和<code>rchild</code>，分别指向该结点的左孩子和</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184860" srcset="/img/loading.gif" lazyload alt="img" width="302px" data-position="left"></figure><p style="">。结点的结</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184860" srcset="/img/loading.gif" lazyload alt="img" width="340px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184860" srcset="/img/loading.gif" lazyload alt="img" width="340px" data-position="left"></figure><p style="">下图是二叉</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184861" srcset="/img/loading.gif" lazyload alt="img" width="340px" data-position="left"></figure><p style="">式存储的一个实</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184861" srcset="/img/loading.gif" lazyload alt="img" width="249px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184861" srcset="/img/loading.gif" lazyload alt="img" width="340px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184861" srcset="/img/loading.gif" lazyload alt="img" width="249px" data-position="left"></figure><p style="">这里<code>root</code>指向二叉树的根结点，若二叉树为空，则<code>root==null</code>；若结点的某个孩子不存在，则相应的指针为<code>null</code>。</p><p style=""><strong>二叉树的遍历</strong></p><p style="">所谓遍历，是指沿着某条搜索路线，依次对树中每个结点均做一次且仅做一次访问。访问结点所做的操作依赖于具体的应用问题。</p><p style="">遍历是二叉树上最重要的运算之一，是二叉树上进行其它运算之基础。</p><p style=""><strong>前序遍历</strong></p><p style="">先序遍历是指遍历二叉树时，访问结点的操作发生在遍历其左右子树之前。 从二叉树的递归定义可知，一棵非空的二叉树由根结点及左、右子树这三个基本部分组成，因此前序遍历的递归算法定义如下： 若二叉树非空，则： <code>(1)</code> 访问根结点； <code>(2)</code> 遍历</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184862" srcset="/img/loading.gif" lazyload alt="img" width="249px" data-position="left"></figure><p style="">； <code>(3)</code> </p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184862" srcset="/img/loading.gif" lazyload alt="img" width="409px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184862" srcset="/img/loading.gif" lazyload alt="img" width="249px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184862" srcset="/img/loading.gif" lazyload alt="img" width="409px" data-position="left"></figure><p style="">上图的前序遍历结果为：<code>3 4 0 5</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184890" srcset="/img/loading.gif" lazyload alt="img" width="409px" data-position="left"></figure><p style=""><code>6</code>。</p><p style="">遍历次序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184890" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184890" srcset="/img/loading.gif" lazyload alt="img" width="409px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184890" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">首先访问根结点<code>3</code>，接着遍历其左子树，访问结点<code>4</code>，继续遍历结点<code>4</code>的左子树，访问结点<code>0</code>，因结点<code>0</code>的左右子树均为空，结束对结点<code>4</code>的左子树的遍历，返回遍历<code>4</code>的右子树，遍历完<code>4</code>的右子树后，继续遍历根结点<code>3</code>的右子树，直至所有结点访问完为止。</p><p style=""><strong>二叉树的中序遍历</strong></p><p style="">中序遍历二叉树时，对结点的访问次序为中序序列，即首先访问左</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184964" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">树，再访问根结点，最后访问右子</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184964" srcset="/img/loading.gif" lazyload alt="img" width="438px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184964" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">。 </p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184964" srcset="/img/loading.gif" lazyload alt="img" width="438px" data-position="left"></figure><p style=""> 上图二叉树的中序遍历结果为：<code>0 4 </code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184965" srcset="/img/loading.gif" lazyload alt="img" width="438px" data-position="left"></figure><p style=""><code> 3 6 7</code>。</p><p style="">中序遍历次序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184965" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">意图如下：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184965" srcset="/img/loading.gif" lazyload alt="img" width="438px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/184965" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">中序遍历的递归算法定义如下： 若二叉树非空，则： <code>(1)</code> 遍历左子树； <code>(2)</code> 访问根结点； <code>(3)</code> 遍历右子树。</p><p style=""><strong>二叉树的后序遍历</strong></p><p style="">后序遍历是指在遍历二叉树时，先递归</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">打印结点的左子树、右子树，最后</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">印结点。对于下</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><p style="">：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="243px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185251" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style="">其</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style="">序遍历结果为：<code>0 5 4 6 </code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style=""><code>3</code>。</p><p style="">遍历</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style="">意图如</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="424px" data-position="left"></figure><p style="">：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/185252" srcset="/img/loading.gif" lazyload alt="img" width="684px" data-position="left"></figure><p style="">后序遍历的递归算法可表示如下： 若二叉树非空，则： (1) 遍历左子树； (2) 遍历右子树； (3) 访问根结点。</p><h2 style="" id="%E4%BA%94.java-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><strong>五.Java 数据结构之二叉搜索树</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-4"><strong>相关知识</strong></h3><h2 style="" id="%E5%85%AD.java-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%9B%BE"><strong>六.Java 数据结构之图</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-5"><strong>相关知识</strong></h3><p style=""><strong>图是什么</strong></p><p style="">图由顶点（<code>Vertex</code>）和边（<code>Edge</code>）组成。顶点代表对象。在画示意图的时候，我们使用点或圆圈来表示顶点。边表示的是两个对象的连接关系。在示意图中，我们使用连接顶点之间的线段来表示。顶点的集合是<code>V</code>、边的集合是</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">记为<code>G=(V, E)</code>，连接</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">边用</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>u</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>)</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199759" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>图的种类</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">上分为<code>2</code>种。边没有指向性的</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">无向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">叫做有</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199760" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">我们可以给边赋予各种各样的属性。比较具有代表性的有权值（<code>cost</code>）。边上带有权值的图叫带权图。在不</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">中，权值可以代表距离、</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">及价</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">同的</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">下图所</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199761" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>无向图的术语</strong></p><p style="">对于无向图，如果两个顶点之间有边连接，那么就视为两个顶点相邻。相邻顶点的序列称为路径。起点和终点重合的路径叫</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">任意两点之间都有路径连</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">叫做</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">。顶</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">数叫做这个顶点</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199768" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199766" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">没有环的连通图叫做树（<code>tree</code>），没有环的非连通图叫做森林。一棵树的边数恰好是顶点数减<code>1</code>。反之，边数等于顶点数减<code>1</code>的连通图就是一棵树。</p><p style=""><strong>有向图的术语</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">有向图中，以顶点<code>v</code>为起</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">的数</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>v</code>的</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">终点的边的数量</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200535" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>图的表示</strong></p><p style="">为了能在程序中对图进行处理，需要用具体的数据结构存储顶点和边。在图的表示方法中，代表性的存储方法有邻接矩阵和邻接表。我们把顶点和边的集合记为<code>V</code>和<code>E</code>，<code>|V|</code>和<code>|E|</code>分别表示顶点和边的数量。</p><p style=""><strong>邻接矩阵</strong></p><p style="">邻接矩阵使用大小为<code>|V|×|V|</code>的二维数组<code>G</code>来表示图。<code>G[i][j]</code>表示的是顶点<code>i</code>和顶点<code>j</code>的关系。</p><p style="">无向图中，只需知道“顶点<code>i</code>和顶点<code>j</code>之间是否有边连着”这样的信息，因</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">果顶点<code>i</code>和顶点<code>j</code>之间有</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">，那</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>i]</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">和<code>G</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>[i]</code>就设为<code>1</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">为<code>0</code>。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200537" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">有向图中，只需知道“是否有从顶点<code>i</code>指向顶点<code>j</code>的边”这样的信息，因此，如果顶点<code>i</code>有一条指向顶点<code>j</code>的边，那么<code>G</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>[j]</code>设为<code>1</code>，否则设为</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">有</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">无向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">，并</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>G[i][j]</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>][i]</code>。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200544" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>邻接表</strong></p><p style="">邻接表，是通过把“从顶点<code>1</code>出发有到顶点<code>2, 5</code>的边”这样的信息保存在链表中来表示图的。即如果从顶点</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">点<code>2</code>之间有边，则把顶点<code>2</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">顶</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">邻接</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">具体</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">下图。</p><p style="">下面</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">示的一个示例。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200551" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">无向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">种表示。<code>(a)</code>一个有<code>5</code>个</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>7</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">无向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>(b</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">的邻接表表示。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><code>G</code>的邻接矩阵表示。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200552" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">有向图的两种表示。<code>(a)</code>一个有<code>6</code>个顶点和<code>8</code>条边的有向图<code>G</code>。<code>(b) G</code>的邻接表表示。<code>(c) G</code>的邻接矩阵表示。</p><p style=""></p><p style=""><strong>深度优先搜索介绍</strong></p><p style="">图的深度优先搜索(<code>Depth-First Search，DFS</code>)，是找出图结构所有顶点的最简单最传统的方法。</p><p style="">它的思想：假设初始状态是图中所有顶点均未被访问，则从某个顶点<code>v</code>出发，首先访问该顶点，然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和<code>v</code>有路径相通的顶点都被访问到。 若此时尚有其他顶点未被访问到，则另选一个未被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">显然，深度优先搜索是一个</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">过程。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>度</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>索图解</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">无向</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">深</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">搜</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">图示。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">对上面的图<code>G</code>进</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">先搜索，从顶点<code>A</code>开始。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200572" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>第1步：</strong>访问<code>A</code>。 <strong>第2步：</strong>访问(<code>A</code>的邻接点)<code>C</code>。 （在第<code>1</code>步访问<code>A</code>之后，接下来应该访问的是<code>A</code>的邻接点，即<code>C, D, F</code>中的一个。这里访问的是<code>C</code>） <strong>第3步：</strong>访问(<code>C</code>的邻接点)<code>B</code>。 (在第<code>2</code>步访问<code>C</code>之后，接下来应该访问<code>C</code>的邻接点，即<code>B</code>和<code>D</code>中一个(<code>A</code>已经被访问过，就不算在内)。这里访问<code>B</code>。） <strong>第4步：</strong>访问(<code>C</code>的邻接点)<code>D</code>。 (在第<code>3</code>步访问了<code>C</code>的邻接点<code>B</code>之后，<code>B</code>没有未被访问的邻接点；因此，返回到访问<code>C</code>的另一个邻接点<code>D</code>。) <strong>第5步：</strong>访问(<code>A</code>的邻接点)<code>F</code>。 （前面已经访问了<code>A</code>，并且访问完了<code>A</code>的邻接点<code>C</code>的所有邻接点(包括递归的邻接点在内)；因此，此时返回到访问<code>A</code>的另一个邻接点<code>F</code>。 <strong>第6步：</strong>访问(<code>F</code>的邻接点)<code>G</code>。 <strong>第7步：</strong>访问(<code>G</code>的邻接点)<code>E</code>。</p><p style="">因此访问顺序是：<code>A -&gt; C -&gt; B -&gt; D -&gt; F -&gt; G -&gt; E</code>。</p><p style=""></p><p style=""><strong>广度优先搜索介绍</strong></p><p style="">广度优先搜索算法(<code>Breadth First Search</code>)，又称为"宽度优先搜索"或"横向优先搜索"，简称<code>BFS</code>。</p><p style="">它的思想是：从图中某顶点<code>v</code>出发，在访问了<code>v</code>之后依次访问<code>v</code>的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到。如果此时图中尚有顶点未被访问，则需要另选一个未曾被访问过的顶点作为新的起始点，重复上述过程，直至图中所有顶点都被访问到为止。</p><p style="">换句话说，广度优先搜索遍历图的过程是以<code>v</code>为起点，由近至远，依次访问和<code>v</code>有</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">通且路径长度为<code>1,2..</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">点。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>度优</strong></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>图解</strong></p><p style="">下面以"无</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">例</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">搜索进行图示。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200571" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">对上面</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">度优先搜索，从顶点<code>A</code>开始</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/200956" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style=""><strong>第1步：</strong>访问<code>A</code>。 <strong>第2步：</strong>依次访问<code>A</code>的邻接点<code>C，D，F</code>。 （在第2步访问完<code>C，D，F</code>之后，再依次访问它们的邻接点。首先访问<code>C</code>的邻接点<code>B</code>，再访问<code>F</code>的邻接点<code>G</code>。） <strong>第3步：</strong>依次访问<code>B，G</code>。 （在第<code>3</code>步访问完<code>B</code>，<code>G</code>之后，再依次访问它们的邻接点。只有<code>G</code>有邻接点<code>E</code>，因此访问<code>G</code>的邻接点<code>E</code>。） <strong>第4步：</strong>访问<code>E</code>。 因此访问顺序是：<code>A -&gt; C -&gt; D -&gt; F -&gt; B -&gt; G -&gt; E</code>。</p><p style=""><strong>Dijkstra算法</strong></p><p style="">迪杰斯特拉算法（<code>Dijkstra's algorithm</code>）是由荷兰计算机科学家<code>Edsger Wybe Dijkstra</code>提出。该算法常用于路由算法或者作为其他图算法的一个子模块。举例来说，如果图中的顶点表示城市</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">上的权重表示城市间开</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">的</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">该</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">以用来找到两个城</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">的最短路径。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">下图中找到从家到学校的最短</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/206375" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><p style="">(可以使用<code>Dijkstra</code>算法找到的最短路径是 <code>Home-&gt;B-&gt;D-&gt;F-&gt;School</code>)</p><p style=""><strong>基本思想：</strong></p><p style="">将图<code>G</code>中所有的顶点<code>V</code>分成两个顶点集合<code>S</code>和<code>T</code>。以<code>v</code>为源点已经确定了最短路径的终点并入<code>S</code>集合中，<code>S</code>初始时只含顶点<code>v</code>,<code>T</code>则是尚未确定到源点<code>v</code>最短路径的顶点集合。然后每次从<code>T</code>集合中选择<code>S</code>集合点中到<code>T</code>路径最短的那个点，并加入到集合<code>S</code>中，并把这个点从集合<code>T</code>删除。直到<code>T</code>集合为空为止。</p><p style=""><strong>算法步骤：</strong></p><ol start="NaN"><li><p style="">初始时，<code>S</code>只包含源点，即<code>S＝{v}</code>，<code>v</code>的距离为<code>0</code>。<code>T</code>包含除<code>v</code>外的其他顶点，即:<code>T={</code>其余顶点<code>}</code>，若<code>v</code>与<code>T</code>中顶点<code>u</code>有边，则<code>&lt;u,v&gt;</code>正常有权值，若<code>u</code>不是<code>v</code>的出边邻接点，则<code>&lt;u,v&gt;</code>权值为<code>∞</code>。</p></li><li><p style="">从<code>T</code>中选取一个距离<code>v</code>最小的顶点<code>k</code>，把<code>k</code>加入<code>S</code>中（该选定的距离就是<code>v</code>到<code>k</code>的最短路径长度）。</p></li><li><p style="">以<code>k</code>为新考虑的中间点，修改<code>U</code>中各顶点的距离；若从源点<code>v</code>到顶点<code>u</code>的距离（经过顶点<code>k</code>）比原来距离（不经过顶点<code>k</code>）短，则修改顶点<code>u</code>的距离值，修改后的距离值为顶点<code>k</code>的距离加上边上的权。</p></li><li><p style="">重复步骤<code>2</code>和<code>3</code>直到所有顶点都包含在<code>S</code>中。</p></li></ol><p style="">伪代码：</p><pre><code class="hljs">function Dijkstra(Graph, source):
+ &nbsp; &nbsp; &nbsp; dist[source]  := 0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 源点到源点的距离为0
+ &nbsp; &nbsp; &nbsp; for each vertex v in Graph: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 初始化
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if v ≠ source
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dist[v]  := infinity &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 从源点到各个节点的距离初始化为无穷大
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; add v to Q &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 把所有节点都加入队列Q中
+ &nbsp; &nbsp; &nbsp;while Q is not empty: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 主循环
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;v := vertex in Q with min dist[v] &nbsp;// 第一次循环，返回的必然是源点
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;remove v from Q 
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;for each neighbor u of v: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 遍历v的所有邻接节点
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;alt := dist[v] + length(v, u)
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if alt &lt; dist[u]: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // 找到了到u的更短的路径
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dist[u]  := alt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// 更新到u的距离 
+ &nbsp; &nbsp; &nbsp;return dist[]
+ &nbsp;end function</code></pre><h2 style="" id="%E4%B8%83.java-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8E%92%E5%BA%8F"><strong>七.Java 数据结构之排序</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-6"><strong>相关知识</strong></h3><p style=""><strong>选择排序</strong></p><p style="">选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理如下：首先在未排序序列中找到最小（大）元素，存放到排序序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">始位置，然后，再从剩</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">继</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">最小（大）元素，</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">到已排序序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">以此类推，直到所有元素均排序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/191600" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style=""> 上图是一个从小到大排序的选择排序过程。第一次，我们从初始序列中找出了最小的元素<code>11</code>，把它放到第一位；第二次我们从剩下的元素中找出最小的元素<code>13</code>，把它放到第二位，以此类推，直到所有元素从小到大排好序。</p><p style=""><strong>插入排序</strong></p><p style="">插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据。</p><p style="">假设我们输入的是<code>5，1，4，2，3</code>，我们从第二个数字开始，这个数字是<code>1</code>，我们的任务只要看看<code>1</code>有没有正确的位置，我们的做法是和这个数字左边的数字来比，因此我们比较<code>1</code>和<code>5</code>，<code>1</code>比<code>5</code>小，所以我们就交换<code>1</code>和<code>5</code>，原来的排列就变成了<code>1，5，4，2，3</code>。</p><p style="">接下来我们看第三个数字有没有在正确的位置。这个数字是<code>4</code>，它的左边数字是<code>5</code>，<code>4</code>比<code>5</code>小，所以我们将<code>4</code>和<code>5</code>交换，排列变成了<code>1，4，5，2，3</code>我们必须继续看<code>4</code>有没有在正确的位置，<code>4</code>的左边是<code>1</code>，<code>1</code>比<code>4</code>小，<code>4</code>就维持不动了。</p><p style="">再来看第四个数字，这个数字是<code>2</code>，我们将<code>2</code>和它左边的数字相比，都比<code>2</code>大，所以就将<code>2</code>一路往左移动，一直移到<code>2</code>的左边是<code>1</code>，这时候排序变成了<code>1，2，4，5，3</code>。</p><p style="">最后</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">检查第五个数字，这个</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style=""><code>3</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">须</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">，一直移到<code>3</code>的左</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">为止，所以我</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><p style="">就变成了<code>1，2，3，4，5</code>，排序</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="440px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194134" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><p style=""><strong>归并排序</strong></p><p style="">归并排序<code>(Merge Sort)</code>是建立在归并操作上的一种有效的排序算法。归并是指将若干个已排序的子序列合并成一个有序的序列。若将两个有序序列合并成一个有序序列，称为二路归并。</p><p style=""><strong>原理</strong></p><p style="">假设初始序列含有<code>n</code>个记录，则可看成<code>n</code>个有序的子序列</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style="">子序列长度为<code>1</code>。然后</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style="">并</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style=""><code>n</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style="">长度为<code>2</code>或<code>1</code>的有</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style="">列；再两两归并</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style="">重复，直到得到一个长度为<code>n</code>的有序序列</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194458" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="793px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/194459" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style=""> 上图是一个二路归并排序过程示例，经过三次归并操作后完成了排序。</p><p style="">快速排序由<code>C. A. R. Hoare</code>在<code>1962</code>年提出。它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p><p style=""><strong>快速排序</strong></p><p style="">快速排序的基本思想是： 1．先从数列中取出一个数作为基准数。 2．将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边。 3．再对左右区间重复第二步，直到各区间只有一个数。</p><p style="">现在假设我们对<code>6 1 2 7 9 3 4 5 10 8</code>这<code>10</code>个数进行排序。首先在这个序列中找一个数作为基准数。为了方便，取第一个数<code>6</code>作为基准数。接下来，需要将这个序列中所有比基准数大的数放在<code>6</code>的右边，比基准数小的数放在<code>6</code>的左边，类似下面</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style="">种排列： <code>3 1 2 5</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style=""><code>4 6</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style=""><code>9 7</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style=""><code>10 8</code> 具体过程是</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style="">从右往左找比<code>6</code>小的</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style="">，从左往右找<code>6</code>大的数，然后把这两个数交换，如下图</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="580px" data-position="left"></figure><p style="">， </p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199462" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style=""> 最后得到<code>3 1 2 5 4 6 9 7 10 8</code>。</p><p style="">我们接着在对<code>6</code>的左右区间分别进行同样的操作。会得到类似<code>1 2 3 5 4</code>和<code>8 7 9 10</code>的排列。直到区间只有一个数，处理结束。</p><p style="">堆排序(<code>Heapsort</code>)是指利用堆这种数据结构所设计的一种排序算法，它是选择排序的一种。可以利用数组的特点快速定位指定索引的元素。堆分为大根堆和小根堆，是完全二叉树。大根堆的要求是每个节点的值都不大于其父节点的值，即<code>A[PARENT[i]] &gt;= A[i]</code>。在数组的非降序排序中，需要使用的就是大根堆，因为根据大根堆的要求可知，最大的值一定在堆顶。</p><p style=""><strong>堆</strong></p><p style="">堆（<code>Heap</code>）是计算机科学中一类特殊的数据结构的统称。堆通常是一个可以被看做一棵树的数组对象。 当一个含有n个元素的数组<code>{k1, k2... ki...kn}</code>,当且仅当满足下列关系时称之为堆： <code>(ki &lt;= k2i, ki &lt;= k2i+1)</code>或者<code>(ki &gt;= k2i, ki &gt;= k2i+1), (i = 1, 2, 3, 4... n/2)</code></p><p style="">即，如果用堆中的元素依次从上至下，从左至右构建一棵完全二叉树，那么这棵二叉树的任意节点的值都大于其子节点的值(或都小于其子结点的值)，将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style=""><strong>质</strong></p><p style="">通常堆是通过一</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">来</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style="">。</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style="">起始位置为<code>1</code>的情</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style=""> 父节点<code>i</code>的左</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style="">在位置 <code>(2i)</code>; 父节点<code>i</code>的右子节点在位置</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><p style=""><code>)</code></p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="761px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/199525" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style=""> 大根堆堆顶元素最大</p><p style=""><strong>堆排序</strong></p><p style="">堆排序利用了大根堆（或小根堆）堆顶记录的关键字最大（或最小）这一特征，使得选取最大（或最小）关键字变得简单。</p><p style=""><strong>用大根堆排序的基本思想</strong></p><ol start="NaN"><li><p style="">先将初始数组<code>R[1..n]</code>构造成一个大根堆，此堆为初始的无序区。</p></li><li><p style="">再将关键字最大的记录<code>R[1]</code>（即堆顶）和无序区的最后一个记录<code>R[n]</code>交换，由此得到新的无序区<code>R[1..n-1]</code>和有序区<code>R[n]</code>，且满足<code>R[1..n-1].keys≤R[n].key</code></p></li><li><p style="">由于交换后新的根<code>R[1]</code>可能违反堆性质，故应将当前无序区<code>R[1..n-1]</code>调整为堆。然后再次将<code>R[1..n-1]</code>中关键字最大的记录<code>R[1]</code>和该区间的最后一个记录<code>R[n-1]</code>交换，由此得到新的无序区<code>R[1..n-2]</code>和有序区<code>R[n-1..n]</code>，且仍满足关系<code>R[1..n-2].keys≤R[n-1..n].keys</code>，同样要将<code>R[1..n-2]</code>调整为堆。</p></li><li><p style="">直到无序区只有一个元素为止。</p></li></ol><p style=""><strong>大根堆排序算法的基本操作</strong></p><ol start="NaN"><li><p style="">建堆，建堆是不断调整堆的过程，从<code>len/2</code>处开始调整，一直到第一个节点，此处<code>len</code>是堆中元素的个数。</p></li><li><p style="">调整堆：调整堆在构建堆的过程中会用到，而且在堆排序过程中也会用到。利用的思想是比较节点<code>i</code>和它的孩子节点<code>left(i)</code>,<code>right(i)</code>，选出三者最大(或者最小)者，如果最大（小）值不是节点<code>i</code>而是它的一个孩子节点，那边交换节点<code>i</code>和该节点，然后再调用调整堆过程，这是一个递归的过程。</p></li><li><p style="">堆排序：堆排序是利用上面的两个过程来进行的。首先是根据元素构建堆。然后将堆的根节点取出(一般是与最后一个节点进行交换)，将前面<code>len-1</code>个节点继续进行堆调整的过程，然后再将根节点取出，这样一直到所有节点都取出。</p></li></ol><h2 style="" id="%E5%85%AB.java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><strong>八.java数据结构之二分搜索</strong></h2><h3 style="" id="%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86-7"><strong>相关知识</strong></h3><p style=""><strong>折半查找（二分查找）</strong></p><p style=""><strong>二分查找</strong>又称为<strong>折半查找</strong>，是一种在有序数组中查找某一特定元素的搜索算法。</p><p style=""><strong>搜索过程：</strong></p><ul><li><p style="">从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；</p></li><li><p style="">如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较；</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure></li><li><p style="">如果在某一步骤</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="302px" data-position="left"></figure><p style="">空</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">表</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">。这种搜索算法每</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">较都使搜索范</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="509px" data-position="left"></figure><p style="">半。</p></li></ul><p style="">搜索过程如下图，例如查找<code>9</code>在数组</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">次出</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="428px" data-position="left"></figure><p style="">：</p><figure data-content-type="image" data-position="left" style="display: flex; flex-direction: column; align-items: start"><img src="https://data.educoder.net/api/attachments/247568" srcset="/img/loading.gif" lazyload alt="img" width="743px" data-position="left"></figure><p style=""><strong>详细步骤：</strong></p><p style="">给予一个包含<code>n</code>个带值元素的数组<code>A</code>：<code>A[0] ≤ ··· ≤ A[n-1]</code>，以及目标值<code>T</code>，进行折半查找过程如下：</p><ol start="NaN"><li><p style="">让初始位置（<code>L</code>）为<code>0</code>，结束位置（<code>R</code>）为<code>n-1</code>；</p></li><li><p style="">如果<code>L &gt; R</code> ，则查找失败；</p></li><li><p style="">令<code>m</code>（中间元素），为<code>[L+R/2]</code>；</p></li><li><p style="">如果<code>A[m] &lt; T</code>，令 <code>L</code> 为 <code>m + 1</code> 并回到步骤二；</p></li><li><p style="">如果<code>A[m] &gt; T</code>，令 <code>R</code> 为 <code>m - 1</code> 并回到步骤二；</p></li><li><p style="">如果<code>A[m] = T</code>，搜索结束，返回值<code>m</code>。</p></li></ol><p style="">这个迭代步骤会持续透过两个变量追踪搜索的边界。</p><p style="">注意： <strong>二分查找是针对的排好序的数组</strong>。</p><p style=""><strong>复杂度分析</strong></p><p style=""><strong>时间复杂度</strong></p><p style="">折半搜索每次把搜索区域减少一半，时间复杂度为 <em>O</em>(log<em>n</em>)。（<code>n</code>代表集合中元素的个数）</p><p style=""><strong>空间复杂度</strong></p><p style=""><em>O</em>(1)</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-chain-item">数据结构</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据结构头歌题目相关知识</div>
+      <div>https://tingfeng347.github.io/2023/12/01/数据结构头歌题目相关知识/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/03/%E9%BB%91%E7%BE%A4%E8%BE%89%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/" title="黑群辉搭建指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">黑群辉搭建指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%B4%E6%AD%8C%E9%A2%98%E7%9B%AE%E5%92%8C%E7%AD%94%E6%A1%88/" title="数据结构头歌题目和答案">
+                        <span class="hidden-mobile">数据结构头歌题目和答案</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

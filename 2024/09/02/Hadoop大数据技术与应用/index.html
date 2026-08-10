@@ -1,0 +1,4302 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="第1章 Hadoop介绍 第2章 Hadoop集群的搭建及配置 第3章 Hadoop基础操作 第4章 MapReduce编程入门 第5章 MapReduce进阶编程 第6章 Hive数据仓库 第7章 HBase分布式数据库 第8章 项目案例：电影网站用户影评分析 hadoop课本代码详解第1章 Hadoop介绍第2章 Hadoop集群的搭建及配置任务2.1示例代码代码2-1 ifcfg-ens33">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop大数据技术与应用">
+<meta property="og:url" content="https://tingfeng347.github.io/2024/09/02/Hadoop%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="第1章 Hadoop介绍 第2章 Hadoop集群的搭建及配置 第3章 Hadoop基础操作 第4章 MapReduce编程入门 第5章 MapReduce进阶编程 第6章 Hive数据仓库 第7章 HBase分布式数据库 第8章 项目案例：电影网站用户影评分析 hadoop课本代码详解第1章 Hadoop介绍第2章 Hadoop集群的搭建及配置任务2.1示例代码代码2-1 ifcfg-ens33">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-02T00:05:13.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.623Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="hadoop">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Hadoop大数据技术与应用 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Hadoop大数据技术与应用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-02 08:05" pubdate>
+          2024年9月2日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          85k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          712 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="课程"
+        id="heading-58983b0dbd37e844a2fbd6094f31a2e0" role="tab" data-toggle="collapse" href="#collapse-58983b0dbd37e844a2fbd6094f31a2e0"
+        aria-expanded="true"
+      >
+        课程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-58983b0dbd37e844a2fbd6094f31a2e0"
+           role="tabpanel" aria-labelledby="heading-58983b0dbd37e844a2fbd6094f31a2e0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/09/02/Hadoop%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%BA%94%E7%94%A8/" title="Hadoop大数据技术与应用"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Hadoop大数据技术与应用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Hadoop大数据技术与应用</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>第1章 Hadoop介绍</p>
+<p>第2章 Hadoop集群的搭建及配置</p>
+<p>第3章 Hadoop基础操作</p>
+<p>第4章 MapReduce编程入门</p>
+<p>第5章 MapReduce进阶编程</p>
+<p>第6章 Hive数据仓库</p>
+<p>第7章 HBase分布式数据库</p>
+<p>第8章 项目案例：电影网站用户影评分析</p>
+<h1 id="hadoop课本代码详解"><a href="#hadoop课本代码详解" class="headerlink" title="hadoop课本代码详解"></a><strong>hadoop课本代码详解</strong></h1><h2 id="第1章-Hadoop介绍"><a href="#第1章-Hadoop介绍" class="headerlink" title="第1章 Hadoop介绍"></a><strong>第1章 Hadoop介绍</strong></h2><h2 id="第2章-Hadoop集群的搭建及配置"><a href="#第2章-Hadoop集群的搭建及配置" class="headerlink" title="第2章 Hadoop集群的搭建及配置"></a><strong>第2章 Hadoop集群的搭建及配置</strong></h2><h3 id="任务2-1示例代码"><a href="#任务2-1示例代码" class="headerlink" title="任务2.1示例代码"></a><strong>任务2.1示例代码</strong></h3><pre><code class="hljs">代码2-1 ifcfg-ens33文件原有的内容
+TYPE=&quot;Ethernet&quot;
+PROXY_METHOD=&quot;none&quot;
+BROWSER_ONLY=&quot;no&quot;
+BOOTPROTO=&quot;dhcp&quot;
+DEFROUTE=&quot;yes&quot;
+IPV4_FAILURE_FATAL=&quot;no&quot;
+IPV6INIT=&quot;yes&quot;
+IPV6_AUTOCONF=&quot;yes&quot;
+IPV6_DEFROUTE=&quot;yes&quot;
+IPV6_FAILURE_FATAL=&quot;no&quot;
+IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot;
+NAME=&quot;ens33&quot;
+UUID=&quot;6c2a466f-a4b0-4f29-aeee-8ea96252aee4&quot;
+DEVICE=&quot;ens33&quot;
+ONBOOT=&quot;no&quot;
+​
+代码2-2 修改ifcfg-ens33文件后的内容
+TYPE=&quot;Ethernet&quot;
+PROXY_METHOD=&quot;none&quot;
+BROWSER_ONLY=&quot;no&quot;
+BOOTPROTO=&quot;static&quot;
+DEFROUTE=&quot;yes&quot;
+IPV4_FAILURE_FATAL=&quot;no&quot;
+IPV6INIT=&quot;yes&quot;
+IPV6_AUTOCONF=&quot;yes&quot;
+IPV6_DEFROUTE=&quot;yes&quot;
+IPV6_FAILURE_FATAL=&quot;no&quot;
+IPV6_ADDR_GEN_MODE=&quot;stable-privacy&quot;
+NAME=&quot;ens33&quot;
+UUID=&quot;6c2a466f-a4b0-4f29-aeee-8ea96252aee4&quot;
+DEVICE=&quot;ens33&quot;
+ONBOOT=&quot;yes&quot;
+# 添加内容
+IPADDR=192.168.128.130
+GATEWAY=192.168.128.2
+NETMASK=255.255.255.0
+DNS1=8.8.8.8
+​
+代码2-3 将除yum本地源以外的其他yum源禁用
+mv CentOS-Base.repo CentOS-Base.repo.bak
+mv CentOS-Debuginfo.repo CentOS-Debuginfo.repo.bak
+mv CentOS-fasttrack.repo CentOS-fasttrack.repo.bak
+mv CentOS-Vault.repo CentOS-Vault.repo.bak
+​
+代码2-4 CentOS-Media.repo修改前的内容
+[c7-media]
+name=CentOS-$releasever - Media
+baseurl=file:///media/CentOS/
+        file:///media/cdrom/
+        file:///media/cdrecorder/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+​
+代码2-5 CentOS-Media.repo修改后的内容
+[c7-media]
+name=CentOS-$releasever - Media
+baseurl=file:///media/
+gpgcheck=0
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+</code></pre>
+<h3 id="任务2-2示例代码"><a href="#任务2-2示例代码" class="headerlink" title="任务2.2示例代码"></a><strong>任务2.2示例代码</strong></h3><pre><code class="hljs">代码2-6 修改core-site.xml
+&lt;configuration&gt;
+    &lt;property&gt;
+    &lt;name&gt;fs.defaultFS&lt;/name&gt;
+      &lt;value&gt;hdfs://master:8020&lt;/value&gt;
+      &lt;/property&gt;
+    &lt;property&gt;
+      &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+      &lt;value&gt;/var/log/hadoop/tmp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码2-7 修改hadoop-env.sh
+export JAVA_HOME=/usr/java/jdk1.8.0_281-amd64
+​
+代码2-8 修改yarn-env.sh文件
+# export JAVA_HOME=/home/y/libexec/jdk1.6.0/
+export JAVA_HOME=/usr/java/jdk1.8.0_281-amd64
+​
+代码2-9 mapred-site.xml文件添加的内容
+&lt;configuration&gt;
+&lt;property&gt;
+    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+    &lt;value&gt;yarn&lt;/value&gt;
+&lt;/property&gt;
+&lt;!-- jobhistory properties --&gt;
+&lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+    &lt;value&gt;master:10020&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+     &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+     &lt;value&gt;master:19888&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码2-10 yarn-site.xml文件修改的内容
+&lt;configuration&gt;
+&lt;!-- Site specific YARN configuration properties --&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+    &lt;value&gt;master&lt;/value&gt;
+  &lt;/property&gt;    
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8032&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8030&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8088&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8090&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8031&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+    &lt;value&gt;${yarn.resourcemanager.hostname}:8033&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/yarn/local&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.remote-app-log-dir&lt;/name&gt;
+    &lt;value&gt;/data/tmp/logs&lt;/value&gt;
+  &lt;/property&gt;
+&lt;property&gt; 
+ &lt;name&gt;yarn.log.server.url&lt;/name&gt; 
+ &lt;value&gt;http://master:19888/jobhistory/logs/&lt;/value&gt;
+ &lt;description&gt;URL for job history server&lt;/description&gt;
+&lt;/property&gt;
+&lt;property&gt;
+   &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;
+    &lt;value&gt;false&lt;/value&gt;
+  &lt;/property&gt;
+ &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+    &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+      &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+      &lt;/property&gt;
+&lt;property&gt;  
+        &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;  
+        &lt;value&gt;2048&lt;/value&gt;  
+ &lt;/property&gt;  
+ &lt;property&gt;  
+        &lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;  
+        &lt;value&gt;512&lt;/value&gt;  
+ &lt;/property&gt;   
+ &lt;property&gt;  
+        &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;  
+        &lt;value&gt;4096&lt;/value&gt;  
+ &lt;/property&gt; 
+ &lt;property&gt; 
+    &lt;name&gt;mapreduce.map.memory.mb&lt;/name&gt; 
+    &lt;value&gt;2048&lt;/value&gt; 
+ &lt;/property&gt; 
+ &lt;property&gt; 
+    &lt;name&gt;mapreduce.reduce.memory.mb&lt;/name&gt; 
+    &lt;value&gt;2048&lt;/value&gt; 
+ &lt;/property&gt; 
+ &lt;property&gt; 
+    &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt; 
+    &lt;value&gt;1&lt;/value&gt; 
+ &lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码2-11 修改workers文件
+slave1
+slave2
+slave3
+​
+代码2-12 修改hdfs-site.xml文件
+&lt;configuration&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/hdfs/name&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/hdfs/data&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+     &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+     &lt;value&gt;master:50090&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+     &lt;name&gt;dfs.replication&lt;/name&gt;
+     &lt;value&gt;3&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码2-13 修改start-dfs.sh和stop-dfs.sh文件
+HDFS_DATANODE_USER=root
+HADOOP_SECURE_DN_USER=hdfs
+HDFS_NAMENODE_USER=root
+HDFS_SECONDARYNAMENODE_USER=root
+​
+代码2-14 修改start-yarn.sh和stop-yarn.sh文件
+YARN_RESOURCEMANAGER_USER=root
+HADOOP_SECURE_DN_USER=yarn
+YARN_NODEMANAGER_USER=root
+​
+代码2-15 修改/etc/hosts文件
+192.168.128.130 master master.centos.com
+192.168.128.131 slave1 slave1.centos.com
+192.168.128.132 slave2 slave2.centos.com
+192.168.128.133 slave3 slave3.centos.com
+​
+代码2-16 修改slave1的ifcfg-ens33文件的IPADDR
+IPADDR=192.168.128.131
+​
+代码2-17 重启网络服务和查看IP
+# 重启网络服务
+systemctl restart network
+# 查看IP
+ip addr
+​
+代码2-18 修改slave1的主机名称
+# 修改slave1的主机名称
+hostnamectl set-hostname slave1
+​
+代码2-19 将公钥复制到远程机器中的命令
+# 依次输入yes,123456（root用户的密码）
+ssh-copy-id -i /root/.ssh/id_rsa.pub master
+ssh-copy-id -i /root/.ssh/id_rsa.pub slave1
+ssh-copy-id -i /root/.ssh/id_rsa.pub slave2
+ssh-copy-id -i /root/.ssh/id_rsa.pub slave3
+​
+代码2-20 修改master主节点的ntp.conf文件
+restrict 192.168.0.0 mask 255.255.255.0 nomodify notrap
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
+​
+代码2-21 修改子节点的ntp.conf文件
+server master
+​
+代码2-22 设置环境变量
+export HADOOP_HOME=/usr/local/hadoop-3.1.4
+export JAVA HOME=/usr/java/jdk1.8.0_281-amd64
+export PATH=$HADOOP_HOME/bin:$PATH:$JAVA_HOME/bin
+​
+代码2-23 启动集群命令
+cd $HADOOP_HOME  # 进入Hadoop安装目录
+sbin/start-dfs.sh     # 启动HDFS相关服务
+sbin/start-yarn.sh     # 启动YARN相关服务
+sbin/mr-jobhistory-daemon.sh start historyserver  # 启动日志相关服务
+​
+代码2-24 关闭集群命令
+cd $HADOOP_HOME  # 进入Hadoop安装目录
+sbin/stop-yarn.sh  # 关闭YARN相关服务
+sbin/stop-dfs.sh  # 关闭HDFS相关服务
+sbin/mr-jobhistory-daemon.sh stop historyserver  # 关闭日志相关服务
+​
+代码2-25 修改本地host文件
+192.168.128.130 master master.centos.com
+192.168.128.131 slave1 slave1.centos.com
+192.168.128.132 slave2 slave2.centos.com
+192.168.128.133 slave3 slave3.centos.com
+</code></pre>
+<h2 id="第3章-Hadoop基础操作"><a href="#第3章-Hadoop基础操作" class="headerlink" title="第3章 Hadoop基础操作"></a><strong>第3章 Hadoop基础操作</strong></h2><pre><code class="hljs">代码3-1 创建目录命令
+hdfs dfs -mkdir /user/dfstest
+​
+代码3-2 创建多级目录
+hdfs dfs -mkdir -p /user/test/example
+​
+代码3-3 文件上传命令
+hdfs dfs -copyFromLocal a.txt /user/dfstest
+hdfs dfs -put a.txt /user/dfstest/c.txt
+hdfs dfs -moveFromLocal a.txt /user/dfstest/b.txt
+​
+代码3-4 文件下载命令
+hdfs dfs -copyToLocal /user/dfstest/a.txt /data/hdfs_test/
+hdfs dfs -get /user/dfstest/c.txt /data/hdfs_test/
+​
+代码3-5 查看文件内容命令
+hdfs dfs -cat /user/dfstest/a.txt
+hdfs dfs -tail /user/dfstest/b.txt
+​
+代码3-6 删除文件命令
+hdfs dfs -mkdir /user/dfstest/rmdir
+hdfs dfs -rm /user/dfstest/c.txt
+hdfs dfs -rmdir /user/dfstest/rmdir
+​
+代码3-7 上传email_log.txt至HDFS的/user/root/目录
+hdfs dfs -put /root/hadoop/email_log.txt /user/root/
+​
+代码3-8 使用hadoop jar命令提交MapReduce任务命令
+hadoop jar \
+$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+wordcount \
+/user/root/email_log.txt \
+/user/root/output
+​
+代码3-9 执行统计登录次数程序的命令
+hadoop jar \
+$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+wordcount \
+/user/root/email_log.txt \
+/user/root/output
+​
+代码3-10 执行估算PI值的任务命令
+hadoop jar \
+/usr/local/hadoop-3.1.4/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+pi \
+10 \
+100
+​
+代码3-11 统计用户登录次数的命令
+hadoop jar  \
+$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+wordcount \
+/user/root/email_log.txt \
+/user/root/output1
+​
+代码3-12 执行估算PI值的命令
+hadoop jar \
+/usr/local/hadoop-3.1.4/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+pi \
+10 \
+100
+​
+代码3-13 估算PI值
+hadoop jar \
+/usr/local/hadoop-3.1.4/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+pi \
+30 \
+5000
+​
+代码3-14 统计用户登录次数
+hadoop jar \
+$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.1.4.jar \
+wordcount \
+/user/root/email_log.txt \
+/user/root/output2
+​
+</code></pre>
+<h2 id="第4章-MapReduce编程入门"><a href="#第4章-MapReduce编程入门" class="headerlink" title="第4章 MapReduce编程入门"></a><strong>第4章 MapReduce编程入门</strong></h2><h3 id="任务实现4-2"><a href="#任务实现4-2" class="headerlink" title="任务实现4.2"></a><strong>任务实现4.2</strong></h3><h4 id="WordCount源代码"><a href="#WordCount源代码" class="headerlink" title="WordCount源代码"></a><strong>WordCount源代码</strong></h4><pre><code class="hljs"> //代码4.1
+package Other;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+​
+import java.io.IOException;
+import java.util.StringTokenizer;
+​
+// 定义一个词频统计的类
+public class WordCount {
+​
+    // Mapper类，用于处理输入数据并输出键值对
+    public static class TokenizerMapper
+            extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
+​
+        // 定义一个常量值1，用于表示每个单词出现的次数
+        private final static IntWritable one = new IntWritable(1);
+        // 定义一个Text对象用于存储每个单词
+        private Text word = new Text();
+​
+        // map方法，负责将输入的文本数据按单词进行分割并输出&lt;单词, 1&gt;的键值对
+        public void map(Object key, Text value, Context context
+        ) throws IOException, InterruptedException {
+            // 将输入的每一行文本转换为字符串并使用StringTokenizer按空格分割单词
+            StringTokenizer itr = new StringTokenizer(value.toString());
+            // 遍历所有单词
+            while (itr.hasMoreTokens()) {
+                // 取出下一个单词并设置为当前的word
+                word.set(itr.nextToken());
+                // 输出&lt;单词, 1&gt;的键值对
+                context.write(word, one);
+            }
+        }
+    }
+​
+    // Reducer类，用于将相同的单词累加词频
+    public static class IntSumReducer
+            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+        // 定义一个IntWritable对象用于存储最终的结果
+        private IntWritable result = new IntWritable();
+​
+        // reduce方法，负责将相同单词的所有值进行累加
+        public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
+                           Context context
+        ) throws IOException, InterruptedException {
+            // 初始化累加器
+            int sum = 0;
+            // 遍历当前单词的所有值，并进行累加
+            for (IntWritable val : values) {
+                sum += val.get();
+            }
+            // 将累加结果设置到result中
+            result.set(sum);
+            // 输出&lt;单词, 累加结果&gt;的键值对
+            context.write(key, result);
+        }
+    }
+​
+    // 主方法，设置作业配置并启动作业
+    public static void main(String[] args) throws Exception {
+        // 创建一个Hadoop配置对象
+        Configuration conf = new Configuration();
+        // 解析命令行参数，获取输入和输出路径
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();
+        // 如果没有指定足够的参数，输出错误信息并退出
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;Usage: wordcount &lt;in&gt; [&lt;in&gt;...] &lt;out&gt;&quot;);
+            System.exit(2);
+        }
+        // 创建一个MapReduce作业，并设置作业名称为&quot;word count&quot;
+        Job job = Job.getInstance(conf, &quot;word count&quot;);
+        // 设置作业的主类
+        job.setJarByClass(WordCount.class);
+        // 设置Mapper类
+        job.setMapperClass(TokenizerMapper.class);
+        // 设置Combiner类，将中间结果进行局部归约
+        job.setCombinerClass(IntSumReducer.class);
+        // 设置Reducer类
+        job.setReducerClass(IntSumReducer.class);
+        // 设置输出键类型为Text
+        job.setOutputKeyClass(Text.class);
+        // 设置输出值类型为IntWritable
+        job.setOutputValueClass(IntWritable.class);
+        // 为作业添加输入路径，可能有多个
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
+        }
+        // 设置作业的输出路径
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));
+        // 提交作业并等待作业完成，完成后根据结果退出
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+​
+</code></pre>
+<h4 id="MapReduce任务初始化的通用代码"><a href="#MapReduce任务初始化的通用代码" class="headerlink" title="MapReduce任务初始化的通用代码"></a><strong>MapReduce任务初始化的通用代码</strong></h4><pre><code class="hljs">Configuration conf = new Configuration();
+Job job = Job.getInstance(conf);
+job.setMapperClass(MyMapper.class);
+job.setReducerClass(MyReducer.class);
+job.setCombinerClass(MyCombiner.class);
+job.setMapOutputKeyClass(MyMapKeyWritable.class);
+job.setMapOutputValueClass(MyMapValueWritable.class);
+job.setOutputKeyClass(MyKeyWritable.class);
+job.setOutputValueClass(MyValueWritable.class);   
+job.setInputFormatClass(MyInputFormat.class);
+job.setOutputFormatClass(MyOutputFormat.class);
+for (int i = 0; i &lt; args.length - 1; ++i) {
+    FileInputFormat.addInputPath(job, new Path(args[i])); 
+    }
+FileOutputFormat.setOutputPath(job,new Path(args[args.length - 1]));
+job.waitForCompletion(true);
+</code></pre>
+<h3 id="任务实现-4-3"><a href="#任务实现-4-3" class="headerlink" title="任务实现 4.3"></a><strong>任务实现 4.3</strong></h3><h4 id="任务4-3-示例代码"><a href="#任务4-3-示例代码" class="headerlink" title="任务4.3 示例代码"></a><strong>任务4.3 示例代码</strong></h4><pre><code class="hljs">// 代码4-3 Mapper处理逻辑伪代码
+Begin
+    自定义类MyMapper继承自Mapper；
+        覆写map方法； 
+            定义初始次数为1；
+            读取用户访问日志文件；
+            以每一行为单位，以逗号为分隔符进行分拆；
+            将结果存入Array数组；
+            将数组中的第5个元素的前9个字符与初始次数组合后输出，格式为&lt;访问日期，1&gt;；
+End
+​
+​
+//代码4-4 Reducer类处理逻辑伪代码
+Begin
+  自定义MyReducer继承自Reducer；
+    覆写reduce方法；
+      读取Mapper输出的键值对；
+      将相同键的值进行累加；
+      输出&lt;访问日期，总访问次数&gt;；
+End
+​
+​
+//代码4-5 Mapper模块代码
+// Mapper模块
+public static class MyMap extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
+    public void map(Object key, Text value, Context context)
+            throws IOException, InterruptedException {
+        String line = value.toString();
+        String arr[] = line.split(&quot;,&quot;);
+        context.write(new Text(arr[4].substring(0, 9)), new IntWritable(1));
+    }
+}
+​
+​
+//代码4-6 Reducer模块代码
+// Reducer模块
+public static class MyReduce extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+    public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context)
+            throws IOException, InterruptedException {
+        int count = 0;
+        for (IntWritable value : values) {
+            count++;
+        }
+        context.write(key, new IntWritable(count));
+    }
+}
+​
+​
+//代码4-7 Driver模块代码
+public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
+            System.exit(2);
+        }
+        Job job = Job.getInstance(conf, &quot;visits count&quot;);
+        job.setJarByClass(dailyAccessCount.class);
+        job.setMapperClass(MyMap.class);
+        job.setReducerClass(MyReduce.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
+        }
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+​
+</code></pre>
+<h4 id="dailyAccessCount-java"><a href="#dailyAccessCount-java" class="headerlink" title="dailyAccessCount.java"></a><strong>dailyAccessCount.java</strong></h4><pre><code class="hljs">// 代码4.6
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+​
+import java.io.IOException;
+​
+// 定义一个统计每日访问量的类
+public class dailyAccessCount {
+​
+    // Mapper类，继承自Hadoop的Mapper类，负责将输入数据进行映射
+    public static class MyMap
+            extends Mapper&lt;Object, Text, Text, IntWritable&gt; {
+        
+        // map方法将输入的每一行数据进行处理，输出键值对
+        public void map(Object key, Text value, Context context)
+                throws IOException, InterruptedException {
+            // 将输入的行数据转换为字符串
+            String line = value.toString();
+            // 按逗号分隔字符串
+            String arr[] = line.split(&quot;,&quot;);
+            // 将第5列(索引为4)的日期部分(只取到天)作为键，输出键值对&lt;日期, 1&gt;
+            context.write(new Text(arr[4].substring(0, 9)),
+                    new IntWritable(1));
+        }
+    }
+​
+    // Reducer类，继承自Hadoop的Reducer类，负责对映射后的数据进行归约
+    public static class MyReduce
+            extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+​
+        // reduce方法将同一个键的所有值进行累加，输出最终的访问次数
+        public void reduce(Text key, Iterable&lt;IntWritable&gt; values,
+                           Context context)
+                throws IOException, InterruptedException {
+            // 初始化计数器
+            int count = 0;
+            // 遍历当前键的所有值，并累加计数
+            for (IntWritable value : values) {
+                count++;
+            }
+            // 输出键值对&lt;日期, 总访问次数&gt;
+            context.write(key, new IntWritable(count));
+        }
+    }
+​
+    // 主方法，设置作业配置并启动作业
+    public static void main(String[] args) throws Exception {
+        // 创建一个Hadoop配置对象
+        Configuration conf = new Configuration();
+        // 解析命令行参数，获取输入和输出路径
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();
+        // 如果没有指定足够的参数，输出错误信息并退出
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
+            System.exit(2);
+        }
+        // 创建一个MapReduce作业，并设置作业名称为&quot;visits count&quot;
+        Job job = Job.getInstance(conf, &quot;visits count&quot;);
+        // 设置作业的主类
+        job.setJarByClass(dailyAccessCount.class);
+        // 设置Mapper类
+        job.setMapperClass(MyMap.class);
+        // 设置Reducer类
+        job.setReducerClass(MyReduce.class);
+        // 设置输出键类型为Text
+        job.setOutputKeyClass(Text.class);
+        // 设置输出值类型为IntWritable
+        job.setOutputValueClass(IntWritable.class);
+        // 为作业添加输入路径，可能有多个
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
+        }
+        // 设置作业的输出路径
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));
+        // 提交作业并等待作业完成，完成后根据结果退出
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+​
+​
+输入键类型（Object）: 这是输入数据的偏移量或标识符。在默认情况下，输入的键是数据的偏移量（通常是 Long 或 Object），但如果输入格式发生变化，键类型也可以是其他类型。
+输入值类型（Text）: 这是输入数据的值，通常是一行文本。在此例子中，使用 Text 来表示输入数据的每一行。
+输出键类型（Text）: 这是 Mapper 的输出键。在这个例子中，输出的键是一个 Text，也就是处理后的文本数据（例如单词或日期等）。
+输出值类型（IntWritable）: 这是 Mapper 的输出值。在这个例子中，输出的值是 IntWritable，也就是代表该键的计数或某种数值形式。
+​
+map(Object key, Text value, Context context)    
+输入键 (Object key):
+这个键是输入数据的标识符。通常，在处理文本文件时，默认的输入键是偏移量（行号），即 Hadoop 提供的 LongWritable 类型。但是你可以根据需要自定义输入键类型。
+你可以在 Mapper 的泛型中指定输入键的具体类型。
+输入值 (Text value):
+这是实际的数据内容，通常是每一行的文本。在处理文本文件时，通常使用 Text 来表示文本行。
+输入值的类型可以根据数据格式的不同进行调整。例如，处理二进制文件时，输入值类型可能会是 BytesWritable。
+上下文对象 (Context context):
+​
+Context 对象是固定的，它提供了与 Hadoop 框架的交互接口，可以通过它输出键值对，以及获取配置信息等。   
+以hadoop jar提交任务给集群的命令
+hadoop jar /opt/jars/Hadoop/dailyAccessCount.jar \
+Text.NO4.dailyAccessCount \
+/Tipdm/Hadoop/MapReduce/raceData.csv \
+/Tipdm/Hadoop/MapReduce/Result/dailyAccessCount
+​
+</code></pre>
+<h3 id="任务实现-4-4"><a href="#任务实现-4-4" class="headerlink" title="任务实现 4.4"></a><strong>任务实现 4.4</strong></h3><h4 id="任务4-4-示例代码"><a href="#任务4-4-示例代码" class="headerlink" title="任务4.4 示例代码"></a><strong>任务4.4 示例代码</strong></h4><pre><code class="hljs">代码4-10 输入数据的内容及格式
+2020/10/1   18016
+2020/10/2   18654
+2020/10/3   2669
+2020/10/4   1212
+2020/10/5   1426
+​
+//代码4-11 设置Reduce任务数
+job.setNumReduceTasks(num);
+​
+​
+//代码4-12 Mapper模块代码
+// Mapper模块
+public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; {
+    public void map(Object key, Text value, Context context)
+            throws IOException, InterruptedException {
+        String line = value.toString();
+        //指定tab为分隔符
+        String arr[] = line.split(&quot;\t&quot;);
+        //key：统计结果， value：日期
+        context.write(new IntWritable(Integer.parseInt(arr[1])),
+                new Text(arr[0]));
+    }
+}
+​
+//代码4-13 Reducer模块代码
+// Reducer模块
+public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; {
+    public void reduce(IntWritable key, Iterable&lt;Text&gt; values,
+                       Context context)
+            throws IOException, InterruptedException {
+        for (Text value : values) {
+            context.write(value, key);
+        }
+    }
+}
+​
+//代码4-14 Driver模块代码
+public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);
+            System.exit(2);
+        }
+        Job job = Job.getInstance(conf, &quot;Visits Sort&quot;);
+        job.setJarByClass(accessTimesSort.class);
+        job.setMapperClass(MyMap.class);
+        job.setReducerClass(MyReduce.class);
+        job.setMapOutputKeyClass(IntWritable.class);
+        job.setMapOutputValueClass(Text.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
+        }
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+​
+​
+​
+​
+</code></pre>
+<h4 id="accessTimesSort-java"><a href="#accessTimesSort-java" class="headerlink" title="accessTimesSort.java"></a><strong>accessTimesSort.java</strong></h4><pre><code class="hljs">// 代码4.12 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+​
+import java.io.IOException;
+​
+// 定义访问次数排序类
+public class accessTimesSort {
+​
+    // Mapper类，输入的键值对为&lt;Object, Text&gt;，输出为&lt;IntWritable, Text&gt;
+    public static class MyMap extends Mapper&lt;Object, Text, IntWritable, Text&gt; {
+        // map方法，用于将输入的每一行转换为输出的键值对
+        public void map(Object key, Text value, Context context)
+                throws IOException, InterruptedException {
+            String line = value.toString();  // 将输入的每一行文本转换为字符串
+            // 指定tab为分隔符，将行数据分割成数组
+            String arr[] = line.split(&quot;\t&quot;);
+            // 输出的键是统计的访问次数（转换为IntWritable），值是日期（Text类型）
+            context.write(new IntWritable(Integer.parseInt(arr[1])),
+                    new Text(arr[0]));
+        }
+    }
+​
+    // Reducer类，输入的键值对为&lt;IntWritable, Text&gt;，输出为&lt;Text, IntWritable&gt;
+    public static class MyReduce extends Reducer&lt;IntWritable, Text, Text, IntWritable&gt; {
+        // reduce方法，将按访问次数排序的结果输出
+        public void reduce(IntWritable key, Iterable&lt;Text&gt; values,
+                           Context context)
+                throws IOException, InterruptedException {
+            // 遍历同一个访问次数对应的所有日期，输出&lt;日期, 访问次数&gt;
+            for (Text value : values) {
+                context.write(value, key);
+            }
+        }
+    }
+​
+    // 主方法，负责配置并运行MapReduce作业
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();  // 创建Hadoop的配置对象
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();  // 解析命令行参数，获取输入和输出路径
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);  // 如果参数不足，输出错误信息并退出
+            System.exit(2);
+        }
+        Job job = Job.getInstance(conf, &quot;Visits Sort&quot;);  // 创建一个MapReduce作业，名称为“Visits Sort”
+        job.setJarByClass(accessTimesSort.class);  // 设置作业的主类
+        job.setMapperClass(MyMap.class);  // 设置Mapper类
+        job.setReducerClass(MyReduce.class);  // 设置Reducer类
+        job.setMapOutputKeyClass(IntWritable.class);  // 设置Mapper输出键类型为IntWritable
+        job.setMapOutputValueClass(Text.class);  // 设置Mapper输出值类型为Text
+        job.setOutputKeyClass(Text.class);  // 设置最终输出键类型为Text
+        job.setOutputValueClass(IntWritable.class);  // 设置最终输出值类型为IntWritable
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));  // 设置输入路径
+        }
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));  // 设置输出路径
+        System.exit(job.waitForCompletion(true) ? 0 : 1);  // 提交作业并等待完成，成功则返回0，否则返回1
+    }
+}
+​
+​
+​
+以hadoop jar提交任务给集群的命令
+hadoop jar /opt/jars/Hadoop/accessTimesSort.jar \
+Text.NO4.test2.accessTimesSort \
+/Tipdm/Hadoop/MapReduce/Result/dailyAccessCount \
+/Tipdm/Hadoop/MapReduce/Result/accessTimesSort
+​
+</code></pre>
+<h2 id="第5章-MapReduce进阶编程"><a href="#第5章-MapReduce进阶编程" class="headerlink" title="第5章 MapReduce进阶编程"></a><strong>第5章 MapReduce进阶编程</strong></h2><h3 id="任务实现5-1"><a href="#任务实现5-1" class="headerlink" title="任务实现5.1"></a><strong>任务实现5.1</strong></h3><h4 id="任务5-1示例代码"><a href="#任务5-1示例代码" class="headerlink" title="任务5.1示例代码"></a><strong>任务5.1示例代码</strong></h4><pre><code class="hljs">//代码5-1 设置输入格式代码
+job.setInputFotmatClass(TextInputFormat.class)
+​
+//代码5-2 设定输出格式
+job.setOutputFormatClass(SequenceFileOutputFormat.class);
+​
+</code></pre>
+<h4 id="SelectData-java"><a href="#SelectData-java" class="headerlink" title="SelectData.java"></a><strong>SelectData.java</strong></h4><pre><code class="hljs">// 代码5.3
+package No5.Text.test1;
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.SequenceFileOutputFormat;
+import org.apache.hadoop.util.GenericOptionsParser;
+​
+import java.io.IOException;
+​
+// 定义SelectData类，用于筛选数据
+public class SelectData {
+    
+    // 自定义Mapper类，输入的键值对为&lt;Object, Text&gt;，输出为&lt;Text, Text&gt;
+    public static class MyMap extends Mapper&lt;Object, Text, Text, Text&gt; {
+        // map方法，用于处理每一行输入数据
+        public void map(Object key, Text value, Context context) 
+                throws IOException, InterruptedException {
+            String line = value.toString();  // 将输入的每一行文本转换为字符串
+            String arr[] = line.split(&quot;,&quot;);  // 按逗号分割字符串
+            // 如果第5列包含“2021/1”或“2021/2”字符串
+            if (arr[4].contains(&quot;2021/1&quot;) || arr[4].contains(&quot;2021/2&quot;)) {
+                // 输出的键是第3列数据，值是日期的前9个字符（格式化后的日期）
+                context.write(new Text(arr[2]), 
+                        new Text(arr[4].substring(0, 9)));
+            }
+        }
+    }
+​
+    // 主方法，负责配置并运行MapReduce作业
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();  // 创建Hadoop的配置对象
+        String[] otherArgs = new GenericOptionsParser(conf, args)
+                .getRemainingArgs();  // 解析命令行参数，获取输入和输出路径
+        if (otherArgs.length &lt; 2) {
+            System.err.println(&quot;必须输入读取文件路径和输出路径&quot;);  // 如果参数不足，输出错误信息并退出
+            System.exit(2);
+        }
+        Job job = Job.getInstance(conf, &quot;Select Data&quot;);  // 创建一个MapReduce作业，名称为“Select Data”
+        job.setJarByClass(SelectData.class);  // 设置作业的主类
+        job.setMapperClass(MyMap.class);  // 设置Mapper类
+        job.setOutputKeyClass(Text.class);  // 设置Mapper输出键类型为Text
+        job.setOutputValueClass(Text.class);  // 设置Mapper输出值类型为Text
+        // 设置输入格式为TextInputFormat
+        job.setInputFormatClass(TextInputFormat.class);
+        // 设置输出格式为SequenceFileOutputFormat
+        job.setOutputFormatClass(SequenceFileOutputFormat.class);
+        // 设置Reducer任务数为0，表示没有Reducer任务
+        job.setNumReduceTasks(0);
+        // 添加输入路径
+        for (int i = 0; i &lt; otherArgs.length - 1; ++i) {
+            FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
+        }
+        // 设置输出路径
+        FileOutputFormat.setOutputPath(job,
+                new Path(otherArgs[otherArgs.length - 1]));
+        // 提交作业并等待完成，成功则返回0，否则返回1
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+}
+​
+</code></pre>
+<h3 id="任务实现5-2"><a href="#任务实现5-2" class="headerlink" title="任务实现5.2"></a><strong>任务实现5.2</strong></h3><h4 id="任务5-2示例代码"><a href="#任务5-2示例代码" class="headerlink" title="任务5.2示例代码"></a><strong>任务5.2示例代码</strong></h4><pre><code class="hljs">// 代码5.4 列举子目录
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+public class view_folders {
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        // 声明文件路径
+        Path path = new Path(&quot;/user/root&quot;);
+        // 获取文件列表
+        FileStatus[] fileStatuses = fs.listStatus(path);
+        // 遍历文件列表
+        for (FileStatus file : fileStatuses) {
+            // 判断是否是文件夹
+            if (file.isDirectory()) {
+                System.out.println(file.getPath().toString());
+            }
+        }
+        // 关闭文件系统
+        fs.close();
+    }
+}
+​
+​
+// 代码5.5 列举文件
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+public class view_files {
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        // 声明文件路径
+        Path path = new Path(&quot;/user/root&quot;);
+        // 获取文件列表
+        FileStatus[] fileStatuses = fs.listStatus(path);
+        // 遍历文件列表
+        for (FileStatus file : fileStatuses) {
+            // 判断是否是文件夹
+            if (file.isFile()) {
+                System.out.println(file.getPath().toString());
+            }
+        }
+        // 关闭文件系统
+        fs.close();
+    }
+}
+​
+//代码5.6 创建目录
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+​
+public class mkdir_folders {
+    public static void main(String[] args) throws Exception {
+        //获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        //声明创建的目录
+        Path path = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test1&quot;);
+        //调用mkdirs函数创建目录
+        fs.mkdirs(path);
+        //关闭文件系统
+        fs.close();
+    }
+}
+​
+//代码5.7 删除文件
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+public class delete_files {
+    public static void main(String[] args) throws Exception {
+        //获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        //声明文件路径
+        Path path = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test1&quot;);
+        //删除文件
+        fs.delete(path, true);
+        //关闭文件系统
+        fs.close();
+    }
+}
+​
+//代码5.8 上传文件至HDFS
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+public class put_files {
+    public static void main(String[] args) throws Exception {
+        // 获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        // 获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        // 声明源文件路径和目标路径
+        Path fromPath = new Path(&quot;D:/hadoop/test.csv&quot;);
+        Path toPath = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test&quot;);
+        // 调用copyFromLocalFile方法上传文件
+        fs.copyFromLocalFile(fromPath, toPath);
+        // 关闭文件系统
+        fs.close();
+    }
+}
+​
+​
+//代码5.9 下载HDFS上的文件至本地
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+public class load_files {
+    public static void main(String[] args) throws Exception {
+        // 获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        // 获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        // 声明源文件路径和目标路径
+        Path fromPath = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test/test.csv&quot;);
+        Path toPath = new Path(&quot;D:/&quot;);
+        // 调用copyToLocalFile方法下载文件到本地
+        fs.copyToLocalFile(false, fromPath, toPath, true);
+        // 关闭文件系统
+        fs.close();
+    }
+}
+​
+// 5.10 读取文件内容
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+​
+public class read_files {
+    public static void main(String[] args) throws Exception {
+        //获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        //声明查看的路径
+        Path path = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test/test.csv&quot;);
+        //获取指定文件的数据字节流
+        FSDataInputStream is = fs.open(path);
+        //读取文件内容并打印出来
+        BufferedReader br = new BufferedReader(new InputStreamReader(is,
+                &quot;utf-8&quot;));
+        String line = &quot;&quot;;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+        //关闭数据字节流
+        br.close();
+        is.close();
+        //关闭文件系统
+        fs.close();
+    }
+}
+​
+//代码5.11 写入数据
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FSDataOutputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+​
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+​
+public class write_files {
+    public static void main(String[] args) throws Exception {
+        //获取配置
+        Configuration conf = new Configuration();
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        //获取文件系统
+        FileSystem fs = FileSystem.get(conf);
+        //声明查看的路径
+        Path path = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test/test.csv&quot;);
+        //创建新文件
+        Path newPath = new Path(&quot;/Tipdm/Hadoop/MapReduce/mkdir_folders_test/test_new.csv&quot;);
+        fs.delete(newPath, true);
+        FSDataOutputStream os = fs.create(newPath);
+        //获取指定文件的数据字节流
+        FSDataInputStream is = fs.open(path);
+        //读取文件内容并写入到新文件
+        BufferedReader br = new BufferedReader(new InputStreamReader(is,
+                &quot;utf-8&quot;));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os,
+                &quot;utf-8&quot;));
+        String line = &quot;&quot;;
+        while ((line = br.readLine()) != null) {
+            bw.write(line);
+            bw.newLine();
+        }
+        //关闭数据字节流
+        bw.close();
+        os.close();
+        br.close();
+        is.close();
+        //关闭文件系统
+        fs.close();
+​
+    }
+}
+​
+</code></pre>
+<h4 id="task5-2-java"><a href="#task5-2-java" class="headerlink" title="task5_2.java"></a><strong>task5_2.java</strong></h4><pre><code class="hljs">//代码 5.12 读取序列化文件
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.SequenceFile;
+import org.apache.hadoop.io.Text;
+​
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+​
+public class task5_2 {
+    public static void main(String[] args) throws Exception {
+        // 创建 Hadoop 配置对象
+        Configuration conf = new Configuration();
+        // 设置 Hadoop 文件系统的默认文件系统地址为 master:8020
+        conf.set(&quot;fs.defaultFS&quot;, &quot;master:8020&quot;);
+        
+        // 获取文件系统对象
+        FileSystem fs = FileSystem.get(conf);
+        
+        // 创建 SequenceFile.Reader 对象，用于读取指定路径的 SequenceFile 文件
+        SequenceFile.Reader reader = new SequenceFile.Reader(fs, new Path(
+                &quot;/Tipdm/Hadoop/MapReduce/Result/SelectData/part-m-00000&quot;),
+                conf);
+        
+        // 创建 Text 类型的 key 和 value 用于存储读取的键值对
+        Text key = new Text();
+        Text value = new Text();
+        
+        // 创建 BufferedWriter 对象，将读取的数据写入到 D 盘的 janfeb.txt 文件中
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(&quot;D:\\janfeb.txt&quot;, true)));
+        
+        // 读取 SequenceFile 文件中的每一个键值对，并写入到 janfeb.txt 文件
+        while (reader.next(key, value)) {
+            // 将键值对以“键值\t键值对”格式写入到文件，每行一个键值对
+            out.write(key.toString() + &quot;\t&quot; + value.toString() + &quot;\r\n&quot;);
+        }
+        
+        // 关闭 BufferedWriter，释放资源
+        out.close();
+        
+        // 关闭 SequenceFile.Reader，释放资源
+        reader.close();
+    }
+}
+​
+​
+/*
+FileOutputStream 是一个用于写入文件的字节输出流，创建后会将数据写入指定的文件。
+参数 &quot;D:\\janfeb.txt&quot; 指定了文件路径（在 Windows 系统上使用反斜杠 \ 表示路径），该代码会将输出写入 D: 盘的 janfeb.txt 文件。
+第二个参数 true 表示以“追加模式”打开文件。这样，如果文件 janfeb.txt 已存在，数据会追加到文件的末尾，而不会覆盖文件中的现有内容。
+​
+OutputStreamWriter 将字节流 FileOutputStream 转换为字符流，以便可以使用字符编码写入文本。
+默认使用系统字符编码，可以通过指定编码格式来改变编码方式，例如 new OutputStreamWriter(new FileOutputStream(&quot;D:\\janfeb.txt&quot;, true), &quot;UTF-8&quot;)。
+​
+BufferedWriter 为字符输出流提供缓冲功能，减少实际的 IO 操作次数以提升性能。
+它会将数据存储在内存缓冲区中，缓冲区填满或调用 out.close() 方法时，数据才会被写入文件。
+</code></pre>
+<h3 id="任务实现5-3"><a href="#任务实现5-3" class="headerlink" title="任务实现5.3"></a><strong>任务实现5.3</strong></h3><h4 id="任务5-3示例代码"><a href="#任务5-3示例代码" class="headerlink" title="任务5.3示例代码"></a><strong>任务5.3示例代码</strong></h4><pre><code class="hljs">// 代码5.14 自定义键类型
+import org.apache.hadoop.io.WritableComparable;
+​
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+​
+public class MemberLogTime implements WritableComparable&lt;MemberLogTime&gt; {
+​
+    private String member_name;
+    private String logTime;
+​
+    public MemberLogTime() {
+    }
+​
+    public MemberLogTime(String member_name, String logTime) {
+        this.member_name = member_name;
+        this.logTime = logTime;
+    }
+​
+    public String getMember_name() {
+        return member_name;
+    }
+​
+    public void setMember_name(String member_name) {
+        this.member_name = member_name;
+    }
+​
+    public String getLogTime() {
+        return logTime;
+    }
+​
+    public void setLogTime(String logTime) {
+        this.logTime = logTime;
+    }
+​
+    public int compareTo(MemberLogTime o) {
+        return this.getMember_name().compareTo(o.getMember_name());
+    }
+​
+    public void write(DataOutput dataOutput) throws IOException {
+        dataOutput.writeUTF(member_name);
+        dataOutput.writeUTF(logTime);
+    }
+​
+    public void readFields(DataInput dataInput) throws IOException {
+        this.member_name = dataInput.readUTF();
+        this.logTime = dataInput.readUTF();
+    }
+​
+    @Override
+    public String toString() {
+        return this.member_name + &quot;,&quot; + this.logTime;
+    }
+}
+​
+
+// 代码5.15 Conbiner代码
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Reducer;
+import java.io.IOException;
+​
+​
+public class LogCountCombiner extends
+        Reducer&lt;MemberLogTime, IntWritable, MemberLogTime, IntWritable&gt; {
+    @Override
+    protected void reduce(MemberLogTime key, Iterable&lt;IntWritable&gt; values, Context context)
+            throws IOException, InterruptedException {
+        int sum = 0;
+        for (IntWritable val : values) {
+            sum += val.get();
+        }
+        context.write(key, new IntWritable(sum));
+    }
+}
+​
+//代码5.16 配置Combiner类
+job.setCombinerClass(LogCountCombiner.class);
+​
+//代码5.17 Combiner与Reducer的实现逻辑相同时同时配置Combiner
+job.setCombinerClass(LogCountReducer.class);
+​
+//代码5.18 HashPartitoner源码
+public class HashPartitioner&lt;K2, V2&gt; implements Partitioner&lt;K2, V2&gt;{
+  public void configure(JobConf job){}
+  public int getPartition(K2 key,V2 value,int numReduceTasks) {
+    return (key.hashCode() &amp; Integer.MAX_VALUE) % numReduceTasks;
+  }
+}
+​
+//代码5.19 自定义Partitioner
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Partitioner;
+​
+public class LogCountPartitioner
+        extends Partitioner&lt;MemberLogTime, IntWritable&gt; {
+    public int getPartition(
+            MemberLogTime key, IntWritable value, int numPartitions) {
+        String date = key.getLogTime();
+        if (date.contains(&quot;2021/1&quot;)) {
+            return 0 % numPartitions;
+        } else {
+            return 1 % numPartitions;
+        }
+    }
+}
+​
+//代码5.20  设置Partitioner类和Reducer个数
+job.setPartitionerClass(LogCountPartitioner.class);
+job.setNumReduceTasks(2);
+​
+//代码5.21 定义枚举类型
+enum LogCounter {
+    January,
+    February
+}
+​
+//代码5.22 使用计数器
+if (logTime.contains(&quot;2021/1&quot;)) {
+    context.getCounter(LogCounter.January).increment(1);
+} else if (logTime.contains(&quot;2021/2&quot;)) {
+    context.getCounter(LogCounter.February).increment(1);
+}
+​
+//代码5.23 使用动态计数器
+if (key.getLogTime().contains(&quot;2021/1&quot;)) {
+    context.getCounter(&quot;OutputCounter&quot;, &quot;JanuaryResult&quot;).increment(1);
+} else if (key.getLogTime().contains(&quot;2021/2&quot;)) {
+    context.getCounter(&quot;OutputCounter&quot;, &quot;FebruaryResult&quot;).increment(1);
+}
+​
+</code></pre>
+<h4 id="LogCount-java"><a href="#LogCount-java" class="headerlink" title="LogCount.java"></a><strong>LogCount.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.conf.Configuration;  // 引入Hadoop的配置类，用于配置Hadoop作业的属性
+import org.apache.hadoop.fs.FileSystem;  // 引入Hadoop文件系统类，用于处理文件系统的操作
+import org.apache.hadoop.fs.Path;  // 引入Hadoop路径类，用于表示文件的路径
+import org.apache.hadoop.io.IntWritable;  // 引入Hadoop整数类型的可序列化类
+import org.apache.hadoop.mapreduce.Job;  // 引入Hadoop MapReduce作业类，用于配置和提交MapReduce作业
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;  // 引入Hadoop的输入格式类，用于读取输入数据
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileAsTextInputFormat;  // 引入Hadoop序列化文件格式的输入格式类
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;  // 引入Hadoop的输出格式类，用于输出结果到文件
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;  // 引入Hadoop文本文件输出格式类
+​
+import java.io.IOException;  // 引入IOException类，用于捕获输入输出异常
+​
+public class LogCount {
+    public static void main(String[] args)
+            throws IOException, ClassNotFoundException, InterruptedException {
+        
+        // 创建Hadoop作业的配置对象
+        Configuration conf = new Configuration();
+        // 创建一个MapReduce作业实例，作业名为“Log Count”
+        Job job = Job.getInstance(conf, &quot;Log Count&quot;);
+        // 设置作业的jar文件来源类，指定MapReduce作业的主类
+        job.setJarByClass(LogCount.class);
+        // 设置Map阶段的处理类（Mapper类）
+        job.setMapperClass(LogCountMapper.class);   
+        // 设置Reduce阶段的处理类（Reducer类）
+        job.setReducerClass(LogCountReducer.class);  
+        // 设置Combiner阶段的处理类（用于合并Mapper输出结果）
+        job.setCombinerClass(LogCountCombiner.class); 
+        // 设置Partitioner类，用于控制数据如何分配给各个Reducer
+        job.setPartitionerClass(LogCountPartitioner.class);  
+        // 设置Reduce任务的数量
+        job.setNumReduceTasks(2);  
+        // 设置作业的输出键类型为MemberLogTime类
+        job.setOutputKeyClass(MemberLogTime.class);    
+        // 设置作业的输出值类型为IntWritable类
+        job.setOutputValueClass(IntWritable.class);     
+        // 设置输入数据的格式为SequenceFileAsTextInputFormat，即从序列化文件中读取文本数据
+        job.setInputFormatClass(SequenceFileAsTextInputFormat.class); 
+        // 设置输出数据的格式为TextOutputFormat，即将输出写入文本文件
+        job.setOutputFormatClass(TextOutputFormat.class);
+        // 设置输入路径，将args[0]作为输入路径
+        FileInputFormat.addInputPath(job, new Path(args[0])); 
+        // 删除指定的输出路径（如果该路径存在）
+        FileSystem.get(conf).delete(new Path(args[1]), true);
+        // 设置输出路径，将args[1]作为输出路径
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        // 提交作业并等待完成，返回作业执行结果，-1表示成功，1表示失败
+        System.err.println(job.waitForCompletion(true) ? -1 : 1);
+    }
+}
+​
+</code></pre>
+<h4 id="LogCountMapper-java"><a href="#LogCountMapper-java" class="headerlink" title="LogCountMapper.java"></a><strong>LogCountMapper.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.io.IntWritable;  // 导入Hadoop的IntWritable类，用于表示整型值
+import org.apache.hadoop.io.Text;  // 导入Hadoop的Text类，用于表示文本类型
+import org.apache.hadoop.mapreduce.Mapper;  // 导入Hadoop的Mapper类，用于MapReduce的映射操作
+​
+import java.io.IOException;  // 导入IO异常类
+​
+// 定义LogCountMapper类，继承自Mapper类
+public class LogCountMapper
+        extends Mapper&lt;Text, Text, MemberLogTime, IntWritable&gt; {  // Mapper的输入类型为&lt;Text, Text&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
+    
+    // 创建一个MemberLogTime类型的对象，用于存储每一条日志记录的相关信息
+    private MemberLogTime mt = new MemberLogTime(); 
+    
+    // 创建一个IntWritable类型的对象，用于计数
+    private IntWritable one = new IntWritable(1);
+​
+    // 定义一个枚举类LogCounter，用于统计不同月份的日志数量
+    enum LogCounter {
+        January,  // 1月
+        February  // 2月
+    }
+​
+    @Override
+    // 重写map方法，执行Map操作
+    protected void map(
+            Text key, Text value,
+            Mapper&lt;Text, Text, MemberLogTime, IntWritable&gt;.Context context)
+            throws IOException, InterruptedException {  // 输入参数：key为成员名，value为日志时间；输出参数：context用于输出结果
+        String member_name = key.toString();  // 将key（成员名）转换为字符串
+        String logTime = value.toString();  // 将value（日志时间）转换为字符串
+        
+        // 如果日志时间包含&quot;2021/1&quot;，表示1月的日志
+        if (logTime.contains(&quot;2021/1&quot;)) {
+            // 增加January计数器的值
+            context.getCounter(LogCounter.January).increment(1);  
+        } else if (logTime.contains(&quot;2021/2&quot;)) {  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
+            // 增加February计数器的值
+            context.getCounter(LogCounter.February).increment(1);  
+        }
+​
+        // 设置MemberLogTime对象的成员名
+        mt.setMember_name(member_name);
+        // 设置MemberLogTime对象的日志时间
+        mt.setLogTime(logTime);
+        
+        // 将MemberLogTime对象和计数1输出到context中
+        context.write(mt, one);
+    }
+}
+​
+</code></pre>
+<h4 id="LogCountReducer-java"><a href="#LogCountReducer-java" class="headerlink" title="LogCountReducer.java"></a><strong>LogCountReducer.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.io.IntWritable;  // 导入Hadoop的IntWritable类，用于表示整型值
+import org.apache.hadoop.mapreduce.Reducer;  // 导入Hadoop的Reducer类，用于MapReduce的归约操作
+​
+import java.io.IOException;  // 导入IO异常类
+​
+// 定义LogCountReducer类，继承自Reducer类
+public class LogCountReducer
+        extends Reducer&lt;MemberLogTime, IntWritable,
+        MemberLogTime, IntWritable&gt; {  // Reducer的输入类型为&lt;MemberLogTime, IntWritable&gt;，输出类型为&lt;MemberLogTime, IntWritable&gt;
+​
+    @Override
+    // 重写reduce方法，执行归约操作
+    protected void reduce(
+            MemberLogTime key, Iterable&lt;IntWritable&gt; value,
+            Reducer&lt;MemberLogTime, IntWritable, MemberLogTime,
+                    IntWritable&gt;.Context context)
+            throws IOException, InterruptedException {  // 输入参数：key为MemberLogTime，value为多个IntWritable的集合；输出参数：context用于输出结果
+        // 如果日志时间包含&quot;2021/1&quot;，表示1月的日志
+        if (key.getLogTime().contains(&quot;2021/1&quot;)) {
+            // 增加&quot;OutputCounter&quot;计数器中的&quot;JanuaryResult&quot;计数值
+            context.getCounter(&quot;OutputCounter&quot;, &quot;JanuaryResult&quot;).increment(1);  
+        } else if (key.getLogTime().contains(&quot;2021/2&quot;)) {  // 如果日志时间包含&quot;2021/2&quot;，表示2月的日志
+            // 增加&quot;OutputCounter&quot;计数器中的&quot;FebruaryResult&quot;计数值
+            context.getCounter(&quot;OutputCounter&quot;, &quot;FebruaryResult&quot;).increment(1);  
+        }
+​
+        int sum = 0;  // 初始化sum变量，用于累计该key的所有值
+        // 遍历value中所有的IntWritable值
+        for (IntWritable val : value) {
+            sum += val.get();  // 将每个val的值加到sum中
+        }
+        
+        // 将最终的结果（key和累计的sum）输出到context中
+        context.write(key, new IntWritable(sum));  
+    }
+}
+​
+</code></pre>
+<h3 id="任务实现5-4"><a href="#任务实现5-4" class="headerlink" title="任务实现5.4"></a><strong>任务实现5.4</strong></h3><h4 id="任务5-4示例代码"><a href="#任务5-4示例代码" class="headerlink" title="任务5.4示例代码"></a><strong>任务5.4示例代码</strong></h4><pre><code class="hljs">//代码5-29 驱动类使用ToolRunner
+package No5.Text.test3;
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileAsTextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+​
+public class LogCount extends Configured implements Tool {
+    public static void main(String[] args) {
+        String[] myArgs = {
+                &quot;/Tipdm/Hadoop/MapReduce/Result/Select_Data/part-m-00000&quot;,
+                &quot;/Tipdm/Hadoop/MapReduce/Result/Log_Count&quot;
+        };
+        try {
+            ToolRunner.run(new Configuration(), new LogCount(), myArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+​
+    public int run(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        Job job = Job.getInstance(conf, &quot;Log Count&quot;);
+        job.setJarByClass(LogCount.class);
+        job.setMapperClass(LogCountMapper.class);
+        job.setReducerClass(LogCountReducer.class);
+        job.setCombinerClass(LogCountCombiner.class);
+        job.setPartitionerClass(LogCountPartitioner.class);
+        job.setNumReduceTasks(2);
+        job.setOutputKeyClass(MemberLogTime.class);
+        job.setOutputValueClass(IntWritable.class);
+        job.setInputFormatClass(SequenceFileAsTextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileSystem.get(conf).delete(new Path(args[1]), true);
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        return job.waitForCompletion(true) ? -1 : 1;
+    }
+}
+​
+
+//代码5-34 工具类实现代码
+package No5.Text.test3;
+​
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
+​
+public class JarUtil {
+    public static String jar(Class&lt;?&gt; cls) {
+        String outputJar = cls.getName() + &quot;.jar&quot;;
+        String input = cls.getClassLoader().getResource(&quot;&quot;).getFile();
+        input = input.substring(0, input.length() - 1);
+        input = input.substring(0, input.lastIndexOf(&quot;/&quot;) + 1);
+        jar(input, outputJar);
+        return outputJar;
+    }
+​
+    private static void jar(String inputFileName, String outputFileName) {
+        JarOutputStream out = null;
+        try {
+            out = new JarOutputStream(new FileOutputStream(outputFileName));
+            File f = new File(inputFileName);
+            jar(out, f, &quot;&quot;);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+​
+    private static void jar(JarOutputStream out, File f, String base) throws Exception {
+        if (f.isDirectory()) {
+            File[] fl = f.listFiles();
+            // 注意，这里用左斜杠
+            base = base.length() == 0 ? &quot;&quot; : base + &quot;/&quot;; 
+            for (int i = 0; i &lt; fl.length; i++) {
+                jar(out, fl[i], base + fl[i].getName());
+            }
+        } else {
+            out.putNextEntry(new JarEntry(base));
+            FileInputStream in = new FileInputStream(f);
+            byte[] buffer = new byte[1024];
+            int n = in.read(buffer);
+            while (n != -1) {
+                out.write(buffer, 0, n);
+                n = in.read(buffer);
+            }
+            in.close();
+        }
+    }
+}
+​
+
+// 代码5-27 set方法使用
+// 初始化配置，getConf()为自定义获取配置方法
+Configuration conf = getConf();
+// 设置第1个参数的属性名称为inputPath
+conf.set(&quot;inputPath&quot;,args[0]);
+// 设置第2个参数的属性名称为ouputPath
+conf.set(&quot;outputPath&quot;,args[1]);
+// 设置第3个参数的属性名称为splitter
+conf.set(&quot;splitter&quot;,args[2]);
+​
+//代码5-28 获取参数值
+// 通过属性名称inputPath获取第1个参数值
+String inputPath=context.getConfiguration().get(&quot;inputPath&quot;); 
+// 通过属性名称outputPath获取第2个参数值
+String outputPath=context.getConfiguration().get(&quot;outputPath&quot;); 
+// 通过属性名称splitter获取第3个参数值
+String splitter=context.getConfiguration().get(&quot;splitter&quot;); 
+​
+//代码5-30 hadoop jar提交命令
+hadoop jar /opt/jars/Hadoop/logcount.jar No5.Text.test3.LogCount
+    
+//代码5-31 连接Hadoop集群配置的方法
+public static Configuration getMyConfiguration() {
+    // 声明配置
+    Configuration conf = new Configuration();
+    conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
+    // 指定namenode
+    conf.set(&quot;fs.defaultFS&quot;, &quot;hdfs://master:8020&quot;);
+    // 指定使用yarn框架
+    conf.set(&quot;mapreduce.framework.name&quot;, &quot;yarn&quot;);
+    String resourcenode = &quot;master&quot;;
+    // 指定resourcemanager
+    conf.set(&quot;yarn.resourcemanager.address&quot;, resourcenode + &quot;:8032&quot;);
+    // 指定资源分配器
+    conf.set(&quot;yarn.resourcemanager.scheduler.address&quot;, resourcenode + &quot;:8030&quot;);
+    conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
+    conf.set(&quot;mapreduce.job.jar&quot;, &quot;E:\\LC.jar&quot;);
+    return conf;
+}
+​
+//代码5-32 调用自定义的获取集群配置的方法
+public static Configuration getMyConfiguration() {
+    // 声明配置
+    Configuration conf = new Configuration();
+    conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
+    // 指定namenode
+    conf.set(&quot;fs.defaultFS&quot;, &quot;hdfs://master:8020&quot;);
+    // 指定使用yarn框架
+    conf.set(&quot;mapreduce.framework.name&quot;, &quot;yarn&quot;);
+    String resourcenode = &quot;master&quot;;
+    // 指定resourcemanager
+    conf.set(&quot;yarn.resourcemanager.address&quot;, resourcenode + &quot;:8032&quot;);
+    // 指定资源分配器
+    conf.set(&quot;yarn.resourcemanager.scheduler.address&quot;, resourcenode + &quot;:8030&quot;);
+    conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
+    conf.set(&quot;mapreduce.job.jar&quot;, &quot;E:\\LC.jar&quot;);
+    return conf;
+}
+​
+//代码5-33 log4j.properties文件代码
+log4j.rootLogger = INFO,stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy/MM/dd HH:mm:ss,SSS}- %c{1}: %m%n
+​
+    
+//代码5-35 设置自动打包
+conf.set(&quot;mapreduce.job.jar&quot;,JarUtil.jar(LogCount.class))    
+</code></pre>
+<h4 id="LogCount-java-1"><a href="#LogCount-java-1" class="headerlink" title="LogCount.java"></a><strong>LogCount.java</strong></h4><pre><code class="hljs">package No5.Text.test3;
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileAsTextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
+​
+public class LogCount extends Configured implements Tool {
+    public static void main(String[] args) {
+        String[] myArgs = {
+                &quot;/Tipdm/Hadoop/MapReduce/Result/Select_Data/part-m-00000&quot;,
+                &quot;/Tipdm/Hadoop/MapReduce/Result/Log_Count3&quot;
+        };
+        try {
+            ToolRunner.run(new Configuration(), new LogCount(), myArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+​
+    public int run(String[] args) throws Exception {
+        Configuration conf = getMyConfiguration();
+        Job job = Job.getInstance(conf, &quot;Log Count&quot;);
+        job.setJarByClass(LogCount.class);
+        job.setMapperClass(LogCountMapper.class);
+        job.setReducerClass(LogCountReducer.class);
+        job.setCombinerClass(LogCountCombiner.class);
+        job.setPartitionerClass(LogCountPartitioner.class);
+        job.setNumReduceTasks(2);
+        job.setOutputKeyClass(MemberLogTime.class);
+        job.setOutputValueClass(IntWritable.class);
+        job.setInputFormatClass(SequenceFileAsTextInputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
+        FileInputFormat.addInputPath(job, new Path(args[0]));
+        FileSystem.get(conf).delete(new Path(args[1]), true);
+        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        return job.waitForCompletion(true) ? -1 : 1;
+    }
+​
+    public static Configuration getMyConfiguration() {
+        // 声明配置
+        Configuration conf = new Configuration();
+        conf.setBoolean(&quot;mapreduce.app-submission.cross-platform&quot;, true);
+        // 指定namenode
+        conf.set(&quot;fs.defaultFS&quot;, &quot;hdfs://master:8020&quot;);
+        // 指定使用yarn框架
+        conf.set(&quot;mapreduce.framework.name&quot;, &quot;yarn&quot;);
+        String resourcenode = &quot;master&quot;;
+        // 指定resourcemanager
+        conf.set(&quot;yarn.resourcemanager.address&quot;, resourcenode + &quot;:8032&quot;);
+        // 指定资源分配器
+        conf.set(&quot;yarn.resourcemanager.scheduler.address&quot;, resourcenode + &quot;:8030&quot;);
+        conf.set(&quot;mapreduce.jobhistory.address&quot;, resourcenode + &quot;:10020&quot;);
+        conf.set(&quot;mapreduce.job.jar&quot;,JarUtil.jar(LogCount.class));
+        return conf;
+    }
+}
+​
+</code></pre>
+<h2 id="第6章-Hive数据仓库"><a href="#第6章-Hive数据仓库" class="headerlink" title="第6章 Hive数据仓库"></a><strong>第6章 Hive数据仓库</strong></h2><h3 id="任务6-2-访问Hive的3种方式"><a href="#任务6-2-访问Hive的3种方式" class="headerlink" title="任务6.2 访问Hive的3种方式"></a><strong>任务6.2 访问Hive的3种方式</strong></h3><h4 id="6-2-1-设置内嵌Derby模式"><a href="#6-2-1-设置内嵌Derby模式" class="headerlink" title="6.2.1 设置内嵌Derby模式"></a><strong>6.2.1 设置内嵌Derby模式</strong></h4><pre><code class="hljs">代码6-1 创建文件夹
+// 由于要将安装包上传到/opt/apps文件夹下，所以先在/opt/下面创建apps文件夹
+mkdir -p /opt/apps
+// 切换至/opt/apps目录下
+cd /opt/apps/
+//切换至/opt/apps目录下后，通过Xshell提供的文件传输工具将apache-hive-3.1.2-bin.tar.gz上传至Linux系统中的/opt/apps目录下。
+​
+代码6-2 解压压缩包
+tar -zxvf apache-hive-3.1.2-bin.tar.gz -C /opt/
+​
+代码6-3 启动Hive
+# 删除guava-19.0.jar
+rm -rf /opt/apache-hive-3.1.2-bin/lib/guava-19.0.jar
+# 复制guava-27.0-jre.jar
+cp /usr/local/hadoop-3.1.4/share/hadoop/common/lib/guava-27.0-jre.jar /opt/apache-hive-3.1.2-bin/lib/guava-27.0.jar
+​
+代码6-4 解决日志jar包冲突
+mv log4j-slf4j-impl-2.10.0.jar log4j-slf4j-impl-2.10.0.jar.bak
+​
+代码6-5 初始化元数据库
+# 切换至Hive的安装目录下的bin目录执行如下命令
+cd /usr/local/hive/bin
+./schematool -dbType derby -initSchema
+​
+图6-3 Hive环境变量配置信息
+vim /etc/profile
+#添加环境变量
+export JAVA_HOME=/usr/local/jdk1.8.0_221-amd64
+export HADOOP_HOME=/opt/hadoop-3.1.4
+export HIVE_HOME=/opt/apache-hive-3.1.3-bin
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin
+#source配置文件
+source /etc/profile
+​
+图6-4、6-5 查询Hive数据仓库列表
+hive
+show databases;
+​
+</code></pre>
+<h4 id="6-2-2-设置直连数据库模式"><a href="#6-2-2-设置直连数据库模式" class="headerlink" title="6.2.2 设置直连数据库模式"></a><strong>6.2.2 设置直连数据库模式</strong></h4><pre><code class="hljs">代码6-6 删除旧版本MySQL的残留信息
+rm -rf /usr/lib/mysql
+rm -rf /usr/include/mysql
+rm -rf /etc/my.cnf
+rm -rf /var/lib/mysql
+rm -rf /usr/share/mysql
+​
+代码6-7 MySQL包的安装
+rpm -ivh mysql-community-common-5.7.18-1.el7.x86_64.rpm
+rpm -ivh mysql-community-libs-5.7.18-1.el7.x86_64.rpm
+rpm -ivh mysql-community-client-5.7.18-1.el7.x86_64.rpm
+rpm -ivh mysql-community-server-5.7.18-1.el7.x86_64.rpm
+rpm -ivh mysql-community-*
+​
+图6-6 修改my.cnf文件,添加配置信息
+[client]
+default-character-set=utf8
+[mysql]
+default-character-set=utf8
+[mysqld]
+character_set_server=utf8
+​
+代码6-8 启动MySQL服务器
+// 启动MySQL服务
+systemctl start mysqld
+service mysqld restart
+Redirecting to /bin/systemctl restart mysqld.service
+​
+图6-7、6-8 查看初始密码并登录Mysql
+cat /var/log/mysqld.log
+#登录Mysql，再输入初始密码
+mysql -u root -p
+​
+代码6-9 修改默认密码
+// 设置新密码的验证策略为0，表示最低
+mysql&gt; set global validate_password_policy=0;
+// 设置新密码的长度最小值为6位
+mysql&gt; set global validate_password_length=6;
+// 设置新密码为123456
+mysql&gt; set password for &#39;root&#39;@&#39;localhost&#39;=password(&#39;123456&#39;);
+​
+代码6-10 设置远程登录和开机启动
+// 给root设置远程登录权限
+mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;123456&#39; WITH GRANT OPTION;
+mysql&gt;FLUSH PRIVILEGES;
+// 使用“quit;”命令退出MySQL，在centos中设置MySQL开机启动
+$ chkconfig mysqld on
+​
+图6-9 Hive全局变量配置信息
+vim /etc/profile
+#添加环境变量
+export JAVA_HOME=/usr/java/jdk1.8.0_281-amd64
+export HADOOP_HOME=/usr/local/hadoop-3.1.4
+export HIVE_HOME=/opt/apache-hive-3.1.2-bin
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin
+#source配置文件
+source /etc/profile
+​
+代码6-11 配置hive-site.xml配置信息
+cd /opt/apache-hive-3.1.2-bin/conf
+vim hive-site.xml
+#添加相关内容
+&lt;configuration&gt;
+  &lt;property&gt;
+       &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;
+&lt;value&gt;jdbc:mysql://192.168.128.130:3306/hive?createDatabaseIfNotExist=true&lt;/value&gt;
+       &lt;description&gt;Mysql连接协议&lt;/description&gt;
+  &lt;/property&gt;
+&lt;property&gt;
+       &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+       &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+       &lt;description&gt;JDBC连接驱动&lt;/description&gt;
+  &lt;/property&gt;
+&lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+        &lt;value&gt;root&lt;/value&gt;
+       &lt;description&gt;用户名&lt;/description&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+        &lt;value&gt;123456&lt;/value&gt;
+       &lt;description&gt;密码&lt;/description&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码6-12 复制MySQL连接驱动的jar包至Hive安装包的lib目录
+cp /opt/apps/mysql-connector-java-5.1.32-bin.jar /opt/apache-hive-3.1.2-bin/lib/
+​
+图6-10 初始化数据库
+schematool  -dbType mysql -initSchema
+​
+</code></pre>
+<h4 id="6-2-3-设置远程服务器模式"><a href="#6-2-3-设置远程服务器模式" class="headerlink" title="6.2.3 设置远程服务器模式"></a><strong>6.2.3 设置远程服务器模式</strong></h4><pre><code class="hljs">#前提步骤 将hive安装包发送各节点，并配置环境变量
+scp -r /opt/apache-hive-3.1.2-bin slave2:/opt
+scp -r /opt/apache-hive-3.1.2-bin slave3:/opt
+#将环境变量发送到slave2、slave3，去对应节点source /etc/profile
+scp -r /etc/profile slave2:/etc
+scp -r /etc/profile slave3:/etc
+​
+代码6-13 slave2上hive-site.xml的配置
+cd /opt/apache-hive-3.1.2-bin/conf
+vim hive-site.xml
+#添加相关内容
+&lt;configuration&gt;
+  &lt;property&gt;
+        &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+        &lt;value&gt;/user/hive_remote/warehouse&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt; &lt;value&gt;jdbc:mysql://192.168.128.130:3306/hive_remote?createDatabaseIfNotExist=true&lt;/value&gt;
+        &lt;description&gt;Mysql连接协议&lt;/description&gt;
+  &lt;/property&gt;
+&lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;
+        &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;
+        &lt;description&gt;JDBC连接驱动&lt;/description&gt;
+  &lt;/property&gt;
+&lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;
+        &lt;value&gt;root&lt;/value&gt;
+        &lt;description&gt;用户名&lt;/description&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+        &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
+        &lt;value&gt;123456&lt;/value&gt;
+        &lt;description&gt;密码&lt;/description&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+        &lt;name&gt;datanucleus.schema.autoCreateAll&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+      &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt;
+      &lt;value&gt;false&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码6-14 slave3上hive-site.xml的配置
+cd /opt/apache-hive-3.1.2-bin/conf
+vim hive-site.xml
+#添加相关内容
+&lt;configuration&gt;
+  &lt;property&gt;
+        &lt;name&gt;hive.metastore.warehouse.dir&lt;/name&gt;
+        &lt;value&gt;/user/hive_remote/warehouse&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+         &lt;name&gt;hive.metastore.uris&lt;/name&gt;
+         &lt;value&gt;thrift://192.168.128.130:9083&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+​
+图6-13 在slave2节点上启动hive服务,在slave3上开启Hive访问服务器
+#在slave2上
+hive --service metastore &amp;
+#在slave3上
+hive
+​
+图6-15 查看新数据库，在master上
+mysql -u root -p 123456
+show databases;
+​
+</code></pre>
+<h3 id="任务6-3-实现Hive表的创建与修改"><a href="#任务6-3-实现Hive表的创建与修改" class="headerlink" title="任务6.3 实现Hive表的创建与修改"></a><strong>任务6.3 实现Hive表的创建与修改</strong></h3><h4 id="6-3-1-了解Hive数据定义语言基本语法"><a href="#6-3-1-了解Hive数据定义语言基本语法" class="headerlink" title="6.3.1 了解Hive数据定义语言基本语法"></a><strong>6.3.1 了解Hive数据定义语言基本语法</strong></h4><pre><code class="hljs">图6-16 创建student数据库
+#启动hive服务
+hive --service metastore &amp;
+#开启hive
+hive
+#创建student数据库
+create database student;
+</code></pre>
+<h4 id="6-3-2-创建表基本操作"><a href="#6-3-2-创建表基本操作" class="headerlink" title="6.3.2 创建表基本操作"></a><strong>6.3.2 创建表基本操作</strong></h4><pre><code class="hljs">代码6-15 创建user_info表
+create table user_info(id int,name string);
+​
+代码6-16 上传student_info至HDFS的/stu目录下
+hdfs dfs -mkdir /stu
+hdfs dfs -put student_info.txt /stu
+​
+代码6-17 创建外部表student_info
+create external table student_info(
+stu_no string,
+stu_name string,
+stu_sex string,
+telphone string,
+stu_class string)
+row format delimited fields terminated by &#39;,&#39; location &#39;/stu&#39;;
+#查看数据库
+show tables;
+#查看student_info
+select * from student_info;
+​
+代码6-18 创建分区表
+create table teacher_info(t_no string,t_name string,t_sex string,t_age string) partitioned by(depart string) row format delimited fields terminated by &#39;,&#39;stored as textfile;
+​
+</code></pre>
+<h4 id="6-3-3-修改表基本操作"><a href="#6-3-3-修改表基本操作" class="headerlink" title="6.3.3 修改表基本操作"></a><strong>6.3.3 修改表基本操作</strong></h4><pre><code class="hljs">代码6-19 创建成绩信息表
+create table score(
+stu_no string,
+cla_no string,
+grade float
+) partitioned by (class_name string);
+#查看score表结构
+describe extended score ;
+​
+代码6-20 将表score重命名成stu_score
+alter table score rename to stu_score; 
+​
+代码6-21 向表stu_score添加列
+alter table stu_score add columns (credit int,gpa float);
+#查看score表结构
+describe extenden stu_score
+​
+代码6-22 将表stu_score中列credit重命名为Credits,并将数据类型修改为Float
+alter table stu_score change column credit Credits float;.
+​
+代码6-23 修改表stu_score中的分区，新增class_name为07111301的分区
+alter table stu_score add partition(class_name=&#39;07111301&#39;);
+​
+代码6-24 删除分区，将6-32新增的class_name为07111301的分区删除
+alter table stu_score drop if exists partition(class_name = &#39;07111301&#39;);
+​
+代码6-25 删除表stu_score，可直接使用drop table命令删除表
+drop table stu_score;
+​
+</code></pre>
+<h3 id="任务6-4-实现Hive表中数据的增删改查"><a href="#任务6-4-实现Hive表中数据的增删改查" class="headerlink" title="任务6.4 实现Hive表中数据的增删改查"></a><strong>任务6.4 实现Hive表中数据的增删改查</strong></h3><h4 id="6-4-2-向表中装载（Load）文件"><a href="#6-4-2-向表中装载（Load）文件" class="headerlink" title="6.4.2 向表中装载（Load）文件"></a><strong>6.4.2 向表中装载（Load）文件</strong></h4><pre><code class="hljs">代码6-26 创建student、course、sc3个表结构
+create table student(Sno int,Sname string,Sex string,Sage int,Sdept string)row format delimited fields terminated by &#39;,&#39;stored as textfile;
+create table course(Cno int,Cname string) row format delimited fields terminated by &#39;,&#39; stored as textfile;
+create table sc(Sno int,Cno int,Grade int)row format delimited fields terminated by &#39;,&#39; stored as textfile;
+
+代码6-27 装载数据
+load data local inpath &#39;/root/hivedata/students.txt&#39; overwrite into table student;
+load data local inpath &#39;/root/hivedata/sc.txt&#39; overwrite into table sc;
+load data local inpath &#39;/root/hivedata/course.txt&#39; overwrite into table course;
+#查询Hive中的myhive数据库下的student、course和sc表的数据
+select * from student;
+</code></pre>
+<h4 id="6-4-3-查询数据"><a href="#6-4-3-查询数据" class="headerlink" title="6.4.3 查询数据"></a><strong>6.4.3 查询数据</strong></h4><pre><code class="hljs">代码6-28 select查询
+// 查询全体学生的学号与姓名
+select Sno,Sname from student;
+​
+代码6-29 where条件查询
+// 查询所有的男生的学号和姓名
+select Sno,Sname from student where Sex=&#39;男&#39;;
+​
+代码6-30 join连接查询
+// 查询选修了课程的学生姓名
+select distinct Sname from student inner join sc on student.Sno=Sc.Sno;
+// 查询学生的课程成绩情况
+select student.Sname,course.Cname,sc.Grade from student join sc on student.Sno=sc.Sno join course on sc.cno=course.cno;
+// 查询选修2号课程且成绩在90分以上的所有学生。
+select student.Sname,sc.Grade from student join sc on student.Sno=sc.Sno where sc.Cno=2 and sc.Grade&gt;90;
+​
+代码6-31 Group by 分组查询
+// 各个课程号及相应的选课人数
+select Cno,count(1) from sc group by Cno;
+​
+代码6-32 having 条件查询
+// 查询选修了3门以上的课程的学生学号
+select Sno from sc group by Sno having count(Cno)&gt;3;
+​
+代码6-33 order by 排序查询
+// 查询学生信息，结果按学号全局升序排序
+select Sno from student order by Sno;
+​
+代码6-34 sort by 排序查询
+//设置reduce个数
+set mapred.reduce.tasks=2;
+// 查询学生信息，按性别分区，在分区内按年龄有序
+insert overwrite local directory &#39;/home/hadoop/out&#39; select * from student distribute by Sex sort by Sage;
+</code></pre>
+<h4 id="6-4-4-插入数据"><a href="#6-4-4-插入数据" class="headerlink" title="6.4.4 插入数据"></a><strong>6.4.4 插入数据</strong></h4><pre><code class="hljs">代码6-35 insert插入数据
+// 向student表中插入一条新的记录
+insert into table student values(2018213223,&#39;王小哲&#39;,&#39;男&#39;,18,&#39;IS&#39;);
+#查询student表的数据进行验证
+select * from student;
+​
+代码6-36 将查询结果作为新记录插入表中
+// 将student中查询的结果再插入到student表的末尾
+insert into table student select * from student;
+// 将student中查询的结果再插入到student中，并覆盖原有表中的内容
+insert overwrite table student select * from student;
+</code></pre>
+<h4 id="6-4-5-删除表中数据"><a href="#6-4-5-删除表中数据" class="headerlink" title="6.4.5 删除表中数据"></a><strong>6.4.5 删除表中数据</strong></h4><pre><code class="hljs">代码6-37 默认情况下使用update和delete操作的报错信息
+hive&gt; delete from student where Sno=’2018213026’
+FAILED: SemanticException [Error 10294]: Attempt to do update or delete using transaction manager that does not support these operations.
+​
+代码6-38 hive-site.xml配置文件增加的内容
+cd /opt/apache-hive-3.1.2-bin/conf
+vim hive-site.xml
+#添加相关内容
+&lt;property&gt;
+    &lt;name&gt;hive.support.concurrency&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+    &lt;property&gt;
+    &lt;name&gt;hive.enforce.bucketing&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+    &lt;property&gt;
+    &lt;name&gt;hive.exec.dynamic.partition.mode&lt;/name&gt;
+    &lt;value&gt;nonstrict&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;hive.txn.manager&lt;/name&gt;
+    &lt;value&gt;org.apache.hadoop.hive.ql.lockmgr.DbTxnManager&lt;/value&gt;
+  &lt;/property&gt;
+    &lt;property&gt;
+    &lt;name&gt;hive.compactor.initiator.on&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;hive.compactor.worker.threads&lt;/name&gt;
+    &lt;value&gt;1&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+    &lt;name&gt;hive.in.test&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+&lt;/property&gt;
+​
+代码6-39 删除表的指定数据
+// 删除学号为2018213026的学生信息
+delete from student where Sno=’2018213026’
+​
+代码6-40 清空表数据
+// 清空学生表student的信息
+truncate table student
+​
+</code></pre>
+<h3 id="任务6-5-掉线率top20基站统计"><a href="#任务6-5-掉线率top20基站统计" class="headerlink" title="任务6.5 掉线率top20基站统计"></a><strong>任务6.5 掉线率top20基站统计</strong></h3><h4 id="代码6-41-创建jizhan表结构"><a href="#代码6-41-创建jizhan表结构" class="headerlink" title="代码6-41 创建jizhan表结构"></a><strong>代码6-41 创建jizhan表结构</strong></h4><pre><code class="hljs">代码6-41 创建jizhan表结构
+hive&gt;use myhive;
+hive&gt; create table jizhan(
+record_time string,
+imei int,
+cell string,
+ph_num int,
+call_num int,
+drop_num int,
+duration int,
+drop_rate double,
+net_type string,
+erl int)
+row format delimited fields terminated by &#39;,&#39;;
+</code></pre>
+<h4 id="代码6-42-装载jizhan-information-scv文件至jizhan表"><a href="#代码6-42-装载jizhan-information-scv文件至jizhan表" class="headerlink" title="代码6-42 装载jizhan_information.scv文件至jizhan表"></a><strong>代码6-42 装载jizhan_information.scv文件至jizhan表</strong></h4><pre><code class="hljs">代码6-42 装载jizhan_information.scv文件至jizhan表
+load data local inpath &#39;/root/data/jizhan_information.csv&#39; into table jizhan;
+select * from jizhan limit 10;
+</code></pre>
+<h4 id="代码6-43-创建jizhan-result表结构"><a href="#代码6-43-创建jizhan-result表结构" class="headerlink" title="代码6-43 创建jizhan_result表结构"></a><strong>代码6-43 创建jizhan_result表结构</strong></h4><pre><code class="hljs">代码6-43 创建jizhan_result表结构
+hive&gt;create table jizhan_result(
+imei string,
+drop_num int,
+duration int,
+drop_rate double
+);
+</code></pre>
+<h4 id="代码6-44-基站掉话率统计"><a href="#代码6-44-基站掉话率统计" class="headerlink" title="代码6-44 基站掉话率统计"></a><strong>代码6-44 基站掉话率统计</strong></h4><pre><code class="hljs">代码6-44 基站掉话率统计
+hive&gt;from jizhan 
+insert into jizhan_result 
+select imei,sum(drop_num) as sdrop,sum(duration) as sdura,sum(drop_num)/sum(duration) as drop_rate 
+group by imei 
+order by drop_rate desc;
+</code></pre>
+<h2 id="第7章-HBase分布式数据库"><a href="#第7章-HBase分布式数据库" class="headerlink" title="第7章 HBase分布式数据库"></a><strong>第7章 HBase分布式数据库</strong></h2><h3 id="任务7-2-安装部署HBase集群"><a href="#任务7-2-安装部署HBase集群" class="headerlink" title="任务7.2 安装部署HBase集群"></a><strong>任务7.2 安装部署HBase集群</strong></h3><h4 id="7-2-1了解并安装Zookeeper"><a href="#7-2-1了解并安装Zookeeper" class="headerlink" title="7.2.1了解并安装Zookeeper"></a><strong>7.2.1了解并安装Zookeeper</strong></h4><pre><code class="hljs">代码7-1 切换到/opt/apps 目录
+cd /opt/apps
+​
+代码7-2 解压安装包
+tar -zxvf apache-zookeeper-3.5.6-bin.tar.gz -C /opt
+​
+代码7-3 复制配置文件
+cd /opt/apache-zookeeper-3.5.6-bin/conf/
+cp zoo_sample.cfg zoo.cfg
+​
+代码7-4 配置zoo.cfg文件
+vim zoo.cfg
+#添加内容为
+# The number of milliseconds of each tick
+tickTime=2000
+# The number of ticks that the initial 
+# synchronization phase can take
+initLimit=10
+# The number of ticks that can pass between 
+# sending a request and getting an acknowledgement
+syncLimit=5
+# the directory where the snapshot is stored.
+# do not use /tmp for storage, /tmp here is just 
+# example sakes.
+# 设置数据文件目录+数据持久化路径
+dataDir=/root/data/zookeeper
+# the port at which the clients will connect
+clientPort=2181
+# the maximum number of client connections.
+# increase this if you need to handle more clients
+#maxClientCnxns=60
+#
+# Be sure to read the maintenance section of the 
+# administrator guide before turning on autopurge.
+#
+# http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
+#
+# The number of snapshots to retain in dataDir
+#autopurge.snapRetainCount=3
+# Purge task interval in hours
+# Set to &quot;0&quot; to disable auto purge feature
+#autopurge.purgeInterval=1
+# 配置zookeeper集群的服务器编号以及对应的主机名、选举端口号和通信端口号（心跳端口号）
+server.1=slave1:2888:3888
+server.2=slave2:2888:3888
+server.3=slave3:2888:3888
+​
+代码7-5 创建并配置myid文件
+mkdir -p /root/data/zookeeper/
+cd /root/data/zookeeper/
+echo 1 &gt; myid
+​
+代码7-6 配置Zookeeper的环境变量
+#ZK_HOME
+export ZK_HOME=/opt/apache-zookeeper-3.8.4-bin
+export PATH=$PATH:$ZK_HOME/bin
+​
+代码7-7 分发zookeeper相关文件
+ 分发Zookeeper安装包至slave2和slave3上
+$ scp -r /opt/apache-zookeeper-3.5.6-bin/ slave2:/opt/
+$ scp -r /opt/apache-zookeeper-3.5.6-bin/ slave3:/opt/
+# 分发myid文件至slave2和slave3上
+$ scp -r /root/data/zookeeper/myid slave2:`pwd`
+$ scp -r /root/data/zookeeper/myid slave2:`pwd`
+# 分别切换至slave2和slave3的/root/data/zookeeper目录下
+# 修改slave2和slave3上的myid文件的值分别为2、3
+echo 2 &gt; myid
+echo 3 &gt; myid
+# 发分profile文件至slave2和slave3服务器上
+$ scp /etc/profile slave2:/etc/profile
+$ scp /etc/profile slave3:/etc/profile
+​
+代码7-8 生效环境变量
+#分别在slave1、slave2、slave3服务器上刷新profile配置文件，使得环境变量生效。
+source /etc/profile
+​
+代码7-9 启动Zookeeper服务
+#启动Zookeeper服务。首先，依次在slave1、slave2、slave3服务器上启动Zookeeper服务，
+#以在slave1节点上启动Zookeeper服务为例，
+#并查看该节点Zookeeper服务的状态及角色
+zkServer.sh start
+zkServer.sh status
+​
+代码7-10 关闭Zookeeper服务
+$ zkServer.sh stop
+​
+</code></pre>
+<h4 id="7-2-2安装配置HBase集群"><a href="#7-2-2安装配置HBase集群" class="headerlink" title="7.2.2安装配置HBase集群"></a><strong>7.2.2安装配置HBase集群</strong></h4><pre><code class="hljs">#从HBase的官网下载HBase安装包，本书使用的HBase版本为HBase 2.2.2。
+#将下载的HBase安装包上传至Linux系统的/opt/apps目录下。
+​
+代码7-11 解压HBase安装包
+cd /opt/apps/
+tar -zxvf hbase-2.2.2-bin.tar.gz -C /opt
+​
+代码7-12 配置hbase-env.sh文件
+cd /opt/hbase-2.2.2/conf
+vim hbase-env.sh
+#添加内容
+export JAVA_HOME=/usr/java/jdk1.8.0_281-amd64/
+export HBASE_MANAGES_ZK=false
+​
+代码7-13 修改hbase-site.xml
+vim hbase-site.xml
+#添加内容
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;hbase.rootdir&lt;/name&gt;
+        &lt;value&gt;hdfs://master:8020/hbase&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hbase.master&lt;/name&gt;
+        &lt;value&gt;master&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hbase.zookeeper.property.clientPort&lt;/name&gt;
+        &lt;value&gt;2181&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;
+        &lt;value&gt;slave1,slave2,slave3&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;zookeeper.session.timeout&lt;/name&gt;
+        &lt;value&gt;60000000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.support.append&lt;/name&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+&lt;!-- 防止连接16010失败 --&gt;
+&lt;property&gt;
+   &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;
+         &lt;value&gt;false&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+​
+代码7-14 修改regionservers文件
+vim regionservers
+#添加内容
+master
+slave1
+slave2
+slave3
+​
+代码7-15 添加HBase的环境变量
+vim /etc/profile
+#HBASE_HOME
+export HBASE_HOME=/opt/hbase-2.2.2
+export PATH=$PATH:$HBASE_HOME/bin
+​
+代码7-16 分发HBase相关文件
+#分发HBase相关配置文件至其他节点。首先，将HBase安装目录分发至slave1、slave2和slave3节点上；
+#其次profile文件也分发至slave1、slave2和slave3节点上
+# 分发HBase安装包至slave1、slave2和slave3上
+scp -r /opt/hbase-2.2.2/ slave1:/opt/
+scp -r /opt/hbase-2.2.2/ slave2:/opt/
+scp -r /opt/hbase-2.2.2/ slave3:/opt/
+#分发profile文件至slave2和slave3节点上
+scp /etc/profile slave1:/etc/profile
+scp /etc/profile slave2:/etc/profile
+scp /etc/profile slave3:/etc/profile
+#使环境变量生效。在slave1、slave2、slave3节点上分别
+#使用“source /etc/profile”命令刷新profile配置文件
+​
+代码7-17 启动HBase服务
+start-all.sh
+zkServer.sh start
+start-hbase.sh
+#启动成功后，可通过浏览器输入“http://192.168.65.141:16010”网址，查看Master信息
+#打开浏览器输入“http://192.168.65.142:16030”网址，查看Region Server信息
+#关闭HBase服务。若关闭HBase服务，则只需在slave1机器上执行hbase-stop.sh命令
+​
+</code></pre>
+<h3 id="任务7-3-掌握HBase常用的Shell命令"><a href="#任务7-3-掌握HBase常用的Shell命令" class="headerlink" title="任务7.3 掌握HBase常用的Shell命令"></a><strong>任务7.3 掌握HBase常用的Shell命令</strong></h3><h4 id="7-3-1-修改与删除表"><a href="#7-3-1-修改与删除表" class="headerlink" title="7.3.1 修改与删除表"></a><strong>7.3.1 修改与删除表</strong></h4><pre><code class="hljs">代码7-18 表的创建
+hbase shell
+hbase(main):001:0&gt; create &#39;student&#39;,&#39;info&#39;
+​
+代码7-19 获取表信息
+hbase(main):003:0&gt; describe &#39;student&#39;
+​
+代码7-20 查询表student是否存在
+hbase(main):009:0&gt; exists &#39;student&#39;
+​
+代码7-21判断表是否enable/disable
+hbase(main):011:0&gt; is_enabled &#39;student&#39;
+hbase(main):012:0&gt; is_disabled &#39;student&#39;
+​
+代码7-22 增加表列族relationship
+hbase(main):004:0&gt; disable &#39;student&#39;
+hbase(main):005:0&gt; alter &#39;student&#39;,NAME=&gt; &#39;relationship&#39;
+​
+代码7-23 删除列族relationship
+hbase(main):007:0&gt; disable &#39;student&#39;
+hbase(main):008:0&gt; alter &#39;student&#39;,&#39;delete&#39;=&gt;&#39;relationship&#39;
+​
+代码7-24 删除student表
+hbase(main):014:0&gt; disable &#39;student&#39;
+hbase(main):015:0&gt; drop &#39;student&#39;
+hbase(main):016:0&gt; exists &#39;student&#39;
+​
+</code></pre>
+<h4 id="7-3-2-查询表数据"><a href="#7-3-2-查询表数据" class="headerlink" title="7.3.2 查询表数据"></a><strong>7.3.2 查询表数据</strong></h4><pre><code class="hljs">代码7-25 插入数据
+hbase(main):018:0&gt; put &#39;student&#39;,&#39;07112001&#39;,&#39;info:name&#39;,&#39;Ben&#39;
+hbase(main):019:0&gt; put &#39;student&#39;,&#39;07112001&#39;,&#39;relationship:father&#39;,&#39;Bill&#39; 
+hbase(main):022:0&gt; put &#39;student&#39;,&#39;07112001&#39;,&#39;relationship:mather&#39;,&#39;Rose&#39;
+hbase(main):020:0&gt; put &#39;student&#39;,&#39;07112002&#39;,&#39;info:name&#39;,&#39;Bobby&#39;
+hbase(main):026:0&gt; put &#39;student&#39;,&#39;07112002&#39;,&#39;relationship:father&#39;,&#39;Bert&#39;
+hbase(main):023:0&gt; put &#39;student&#39;,&#39;07112002&#39;,&#39;relationship:mather&#39;,&#39;Anna&#39;
+hbase(main):027:0&gt; put &#39;student&#39;,&#39;07112003&#39;,&#39;info:name&#39;,&#39;Jerry&#39;
+hbase(main):033:0&gt; put &#39;student&#39;,&#39;07112003&#39;,&#39;relationship:father&#39;,&#39;Jason&#39;
+hbase(main):032:0&gt; put &#39;student&#39;,&#39;07112003&#39;,&#39;relationship:mather&#39;,&#39;Lori&#39;
+​
+代码7-26 查询表数据student
+hbase(main):039:0&gt; get &#39;student&#39;,&#39;07112002&#39;
+hbase(main):040:0&gt; get &#39;student&#39;,&#39;07112002&#39;,&#39;relationship&#39;
+​
+代码7-27 扫描student表数据
+hbase(main):041:0&gt; scan &#39;student&#39;
+​
+代码7-28 统计student表记录数
+hbase(main):042:0&gt; count &#39;student&#39;
+​
+代码7-29 删除列
+hbase(main):044:0&gt; delete &#39;student&#39;,&#39;07112003&#39;,&#39;relationship:father&#39;
+hbase(main):045:0&gt; get &#39;student&#39;,&#39;07112003&#39;,&#39;relationship&#39;
+​
+代码7-30 删除RowKey为07112003的所有行
+hbase(main):047:0&gt; deleteall &#39;student&#39;,&#39;07112003&#39;
+hbase(main):048:0&gt; scan &#39;student&#39;
+​
+代码7-31 删除表中所有的数据
+hbase(main):049:0&gt; truncate &#39;student&#39;
+
+​
+​
+</code></pre>
+<h3 id="任务7-4-使用HBase-Java-API-实现表设计"><a href="#任务7-4-使用HBase-Java-API-实现表设计" class="headerlink" title="任务7.4 使用HBase Java API 实现表设计"></a><strong>任务7.4 使用HBase Java API 实现表设计</strong></h3><h4 id="7-4-1-创建Java项目"><a href="#7-4-1-创建Java项目" class="headerlink" title="7.4.1 创建Java项目"></a><strong>7.4.1 创建Java项目</strong></h4><pre><code class="hljs">代码7-32 pom.xml依赖
+#Maven项目的相关Jar包会自动下载。pom.xml文件添加的内容
+&lt;dependencies&gt;
+    &lt;!-- 单元测试依赖包 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.12&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- hbase客户端依赖 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+        &lt;artifactId&gt;hbase-client&lt;/artifactId&gt;
+        &lt;version&gt;2.2.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- hbase核心依赖 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+        &lt;artifactId&gt;hbase-common&lt;/artifactId&gt;
+        &lt;version&gt;2.2.2&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+​
+代码7-33 创建HBaseTest类
+package com.cqyti.hbase;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
+import java.io.IOException;
+public class HBaseTest {
+    public static Configuration configuration;  //管理HBase的配置信息
+    public static Connection connection;  //管理HBase的连接
+    public static Admin admin;   //管理HBase数据库表信息
+    public static void main(String[] args)throws IOException{
+        init();
+        createTable(&quot;students&quot;,new String[]{&quot;score&quot;});
+        insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Bigdata&quot;,&quot;69&quot;);
+        insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Python&quot;,&quot;86&quot;);
+        insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;JavaWeb&quot;,&quot;77&quot;);
+        close();
+}
+}
+​
+代码7-34 建立连接/关闭连接
+//建立连接
+    public static void init(){       
+        configuration  = HBaseConfiguration.create();
+        configuration.set(&quot;hbase.rootdir&quot;,&quot;hdfs://master:9000/hbase&quot;);
+        try{
+            connection = ConnectionFactory.createConnection(configuration);
+            admin = connection.getAdmin();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+}
+// 关闭连接
+    public static void close(){
+        try{
+            if(admin != null){
+                admin.close();
+            }
+            if(null != connection){
+                connection.close();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+​
+</code></pre>
+<h4 id="7-4-2-实现表的创建"><a href="#7-4-2-实现表的创建" class="headerlink" title="7.4.2 实现表的创建"></a><strong>7.4.2 实现表的创建</strong></h4><pre><code class="hljs">/**
+ * 创建HBase表
+ * 
+ * @param myTableName 表名
+ * @param colFamily 列族数组
+ * @throws IOException 如果在创建表过程中出现异常
+ */
+public static void createTable(String myTableName, String[] colFamily) throws IOException {
+    // 将表名字符串转换为HBase的TableName对象
+    TableName tableName = TableName.valueOf(myTableName);    
+    // 检查表是否已经存在
+    if(admin.tableExists(tableName)){
+        // 如果表存在，输出提示信息
+        System.out.println(&quot;table is exists!&quot;);
+    }else {
+        // 如果表不存在，开始创建新表        
+        // 使用TableDescriptorBuilder构建表的描述符
+        TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tableName);        
+        // 遍历列族数组，为每个列族创建并添加列族描述符
+        for(String str : colFamily){
+            // 使用ColumnFamilyDescriptorBuilder为列族创建描述符，并将列族名转换为字节数组
+            ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(str)).build();         
+            // 将列族描述符添加到表的描述符中
+            tableDescriptor.setColumnFamily(family);
+        }
+        // 使用管理员对象（admin）创建表
+        admin.createTable(tableDescriptor.build());
+    }
+}
+​
+</code></pre>
+<h4 id="7-4-3-向表中插入数据"><a href="#7-4-3-向表中插入数据" class="headerlink" title="7.4.3 向表中插入数据"></a><strong>7.4.3 向表中插入数据</strong></h4><pre><code class="hljs">代码7-36 insertData()方法插入数据
+/**
+     * 添加数据
+     * @param tableName 表名
+     * @param rowKey    行键
+     * @param colFamily 列族
+     * @param col       列限定符
+     * @param val       数据
+     * @throws IOException
+     */
+public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws IOException {
+    // 获取HBase连接中的指定表
+    Table table = connection.getTable(TableName.valueOf(tableName));
+    // 创建一个Put对象，指定行键
+    Put put = new Put(rowKey.getBytes());
+    // 向Put对象中添加列族、列名和对应的值
+    put.addColumn(colFamily.getBytes(), col.getBytes(), val.getBytes());
+    // 将Put对象提交到表中，插入数据
+    table.put(put);
+    // 关闭表连接
+    table.close();
+}
+    
+代码7-37  插入数据
+insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Bigdata&quot;,&quot;96&quot;);
+insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;Python&quot;,&quot;88&quot;);
+insertData(&quot;students&quot;,&quot;George&quot;,&quot;score&quot;,&quot;JavaWeb&quot;,&quot;67&quot;);
+​
+代码7-38  HBase Shell插入数据命令
+put &#39;students&#39;,&#39;George&#39;,&#39;score:Bigdata&#39;,&#39;96&#39;
+put &#39;students&#39;,&#39;George&#39;,&#39;score:Python&#39;,&#39;88&#39;
+put &#39;students&#39;,&#39;George&#39;,&#39;score:JavaWeb&#39;,&#39;67&#39;
+​
+图7-20  插入数据结果
+hbase&gt;scan &#39;students&#39;
+
+/**工程*/
+package com.cqyti.hbase;
+​
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
+​
+import java.io.IOException;
+​
+public class HBaseTest {
+    public static Configuration configuration;  //初始化HBase的配置信息
+    public static Connection connection;  //初始化HBase的连接
+    public static Admin admin;   //初始化HBase数据库表信息
+​
+    public static void main(String[] args) throws IOException {
+        init();
+        createTable(&quot;students&quot;, new String[]{&quot;score&quot;});
+        insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;Bigdata&quot;, &quot;69&quot;);
+        insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;Python&quot;, &quot;86&quot;);
+        insertData(&quot;students&quot;, &quot;George&quot;, &quot;score&quot;, &quot;JavaWeb&quot;, &quot;77&quot;);
+        close();
+    }
+​
+    //建立连接
+    public static void init() {
+        configuration = HBaseConfiguration.create();
+//        configuration.set(&quot;hbase.rootdir&quot;, &quot;hdfs://master:9000/hbase&quot;);
+        try {
+            connection = ConnectionFactory.createConnection(configuration);
+            admin = connection.getAdmin();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+​
+    /**
+     * @param myTableName 表名
+     * @param colFamily   列族
+     * @throws IOException
+     */
+    public static void createTable(String myTableName, String[] colFamily) throws IOException {
+        TableName tableName = TableName.valueOf(myTableName);
+        if (admin.tableExists(tableName)) {
+            System.out.println(&quot;talbe is exists!&quot;);
+        } else {
+            TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.
+                    newBuilder(tableName);
+            for (String str : colFamily) {
+                ColumnFamilyDescriptor family =
+                        ColumnFamilyDescriptorBuilder.newBuilder(Bytes.
+                                toBytes(str)).build();
+                tableDescriptor.setColumnFamily(family);
+            }
+            admin.createTable(tableDescriptor.build());
+        }
+    }
+​
+    /**
+     * 插入数据
+     *
+     * @param tableName 表名
+     * @param rowKey    行键
+     * @param colFamily 列族
+     * @param col       列限定符
+     * @param val       数据
+     * @throws IOException
+     */
+    public static void insertData(String tableName, String rowKey, String colFamily, String col, String val) throws
+            IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Put put = new Put(rowKey.getBytes());
+        put.addColumn(colFamily.getBytes(), col.getBytes(), val.getBytes());
+        table.put(put);
+        table.close();
+    }
+​
+    // 关闭连接
+    public static void close() {
+        try {
+            if (admin != null) {
+                admin.close();
+            }
+            if (null != connection) {
+                connection.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+​
+    }
+}
+</code></pre>
+<h3 id="任务7-5-查询分析通话记录数据"><a href="#任务7-5-查询分析通话记录数据" class="headerlink" title="任务7.5 查询分析通话记录数据"></a><strong>任务7.5 查询分析通话记录数据</strong></h3><h4 id="7-5-2-任务实现"><a href="#7-5-2-任务实现" class="headerlink" title="7.5.2 任务实现"></a><strong>7.5.2 任务实现</strong></h4><pre><code class="hljs">代码7-39  配置pom.xml文件
+&lt;dependencies&gt;
+         &lt;dependency&gt;
+              &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+              &lt;artifactId&gt;hbase-client&lt;/artifactId&gt;
+              &lt;version&gt;2.2.2&lt;/version&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+              &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+              &lt;artifactId&gt;hbase-common&lt;/artifactId&gt;
+              &lt;version&gt;2.2.2&lt;/version&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+              &lt;groupId&gt;org.apache.hbase&lt;/groupId&gt;
+              &lt;artifactId&gt;hbase-server&lt;/artifactId&gt;
+              &lt;version&gt;2.2.2&lt;/version&gt;
+         &lt;/dependency&gt;
+         &lt;dependency&gt;
+              &lt;groupId&gt;junit&lt;/groupId&gt;
+              &lt;artifactId&gt;junit&lt;/artifactId&gt;
+              &lt;version&gt;RELEASE&lt;/version&gt;
+              &lt;scope&gt;compile&lt;/scope&gt;
+         &lt;/dependency&gt;
+&lt;/dependencies&gt;
+​
+代码7-40  代码实现框架
+import com.sun.deploy.security.ruleset.RuleSetParser;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
+import org.junit.Before;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+public class PhoneLogDemo {
+      public static Configuration configuration;
+      public static Connection connection;
+      public static Admin admin;
+      public static Random random;
+      public static SimpleDateFormat sdf;
+      public static void main(String[] args) throws IOException, ParseException {
+              random = new Random();
+              new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+              // 初始化并建立连接
+              init();
+              // 创建一个表名为phone_log、列族名为basic的表
+              createTable(&quot;phone_log&quot;, new String[]{&quot;basic&quot;});
+              // 插入随机生成的数据
+              insert(&quot;phone_log&quot;,&quot;basic&quot;);
+              // 关闭连接
+              close();    
+}
+​
+代码7-41  定义init()方法
+// 初始化并建立连接
+public static void init() {
+             // 创建配置对象
+             Configuration conf = HBaseConfiguration.create();
+             try {
+                  // 获取HBase连接对象
+                  connection = ConnectionFactory.createConnection(conf);
+                  // 获取操作对象
+                  admin = connection.getAdmin();
+             } catch (IOException e) {
+                  e.printStackTrace();
+             }
+}
+// 关闭admin和connection
+public static void close() {
+       if (admin != null) {
+             try {
+                  admin.close();
+                } catch (IOException e) {
+                      e.printStackTrace();
+                   }
+       }
+       if (null != connection) {
+             try {
+                  connection.close();
+             } catch (IOException e) {
+                   e.printStackTrace();
+             }
+       }
+}
+​
+代码7-42  定义createTable()方法
+public static void createTable(String myTableName, String[] colFamily) throws IOException {
+    TableName tableName = TableName.valueOf(myTableName);
+     // 判断表是否存在
+     if (admin.tableExists(tableName)) {
+         // 如果存在那么输出“table exists!”  
+         System.out.println(&quot;table exists!&quot;);    
+     } else {    
+         // 如果不存在那么添加表描述符信息及列族信息
+         TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.
+newBuilder(tableName);
+         for (String str : colFamily) {
+               ColumnFamilyDescriptor family=
+                  ColumnFamilyDescriptorBuilder.newBuilder
+(Bytes.toBytes(str)).build();
+             //将列族描述符添加到表描述符上
+             tableDescriptor.setColumnFamily(family);   
+         }
+             admin.createTable(tableDescriptor.build());
+     }
+}
+​
+代码7-43  定义insert()方法
+/**
+* 10个用户，每个用户每年产生1000条通话记录
+* dnum：对方用户电话号码；
+  type：通话类型，0代表主叫，1代表被叫；
+  length：通话时长；
+  date：通话日期
+* rowkey：当前用户手机号码（Long.MAX_VALUE-timestamp）
+*/
+public static void insert(String tableName, String colFamily) throws IOException, ParseException {
+    Table table = connection.getTable(TableName.valueOf(tableName));
+    List&lt;Put&gt; putList = new ArrayList&lt;Put&gt;();
+    for (int i =1; i &lt;= 10; i++) {
+         // 当前用户电话号码
+         String phoneNum = getPhoneNum(&quot;158&quot;);  // 生成以“158”开头的用户电话号码
+         System.out.println(phoneNum);
+         // 清空集合
+         putList.clear();
+         // 模拟1000条通话记录
+         for (int j = 1; j &lt;= 1000; j++) {
+                // 生成数据
+                String dnum = getPhoneNum(&quot;199&quot;);  // 生成以“199”开头的对方用户电话号码
+                int length = random.nextInt(99) + 1;  // 随机生成通话时长
+                int type = random.nextInt(2);  // 随机生成通话类型
+                String date = getDate(2019);  // 随机生成通话日期
+                // rowkey的设计
+                String rowkey = phoneNum + &quot;_&quot; + (Long.MAX_VALUE - sdf.parse(date).getTime());
+                Put put = new Put(rowkey.getBytes());
+                put.addColumn(colFamily.getBytes(), &quot;dnum&quot;.getBytes(), Bytes.
+toBytes(dnum));
+                put.addColumn(colFamily.getBytes(), &quot;length&quot;.getBytes(), Bytes. toBytes(length));
+                put.addColumn(colFamily.getBytes(), &quot;type&quot;.getBytes(), Bytes. toBytes(type));
+                put.addColumn(colFamily.getBytes(), &quot;date&quot;.getBytes(), Bytes. toBytes(date));
+                // 将put添加到集合
+                   putList.add(put);
+         }
+          // 执行添加操作，每次添加1000条通话记录
+           table.put(putList);
+    }
+}
+// 2019-01-01 00:00:00 - 2019-12-31 23:59:59
+ private static String getDate(int year) {
+      Calendar calendar = Calendar.getInstance();
+      calendar.set(year, 0, 1);//2019-01-01
+      calendar.add(Calendar.MONTH, random.nextInt(12));
+      calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(31));
+      calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(12));
+      calendar.add(Calendar.MINUTE, random.nextInt(60));
+      calendar.add(Calendar.MILLISECOND, random.nextInt(60));
+       return sdf.format(calendar.getTime());
+ }
+ private static String getPhoneNum(String prefixNum) {
+       return prefixNum + String.format(&quot;%08d&quot;, random.nextInt(99999999));
+ }
+​
+图7-22  查看phone_log表结构
+hbase&gt;desc &#39;phone_log&#39;
+​
+代码7-44  Search类的main()方法
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Random;
+​
+public class Search {
+​
+      public static Configuration configuration;
+      public static Connection connection;
+      public static Admin admin;
+      public static Random random;
+      public static SimpleDateFormat sdf;
+​
+      public static void main(String[] args) throws IOException, ParseException {
+            random = new Random();
+            sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+            // 初始化并建立连接
+            init();
+            // 查询phone_log表中15894116226用户的某个时间段的通话记录
+            scan(&quot;phone_log&quot;,&quot;15894116226&quot;);
+            // 关闭连接
+            close();
+      }
+​
+代码7-45  查询指定用户某个时间段的通话记录
+public static void scan(String tableName, String num) throws ParseException, IOException {
+      String phoneNume = num;
+      Scan scan = new Scan();
+      String startRow = phoneNume+&quot;_&quot;+(Long.MAX_VALUE -sdf.parse(&quot;2019-01-08 21:38:13&quot;).getTime());
+      scan.setStartRow(startRow.getBytes());
+      String stopRow = phoneNume+&quot;_&quot;+(Long.MAX_VALUE -sdf.parse(&quot;2019-01-02 01:58:13&quot;).getTime());
+      scan.setStopRow(stopRow.getBytes());
+      // 执行查询并返回结果集
+      Table table = connection.getTable(TableName.valueOf(tableName));
+      ResultScanner resultScanner = table.getScanner(scan);
+      // 遍历输出
+      for(Result result:resultScanner){
+           printMsg(result);
+       }
+      // 关闭
+       resultScanner.close();
+ }
+ 
+代码7-46  设置输出结果
+// 设置输出结果
+public static void printMsg(Result result) {
+System.out.print(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell
+(&quot;basic&quot;.getBytes(),&quot;dnum&quot;.getBytes())))+&quot;\t&quot;);
+System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;type&quot;.getBytes())))+&quot;\t&quot;);
+System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;length&quot;.getBytes())))+&quot;\t&quot;);
+System.out.println(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(),&quot;date&quot;.getBytes()))));
+}
+​
+​
+</code></pre>
+<h4 id="PhoneLogDemo-java"><a href="#PhoneLogDemo-java" class="headerlink" title="PhoneLogDemo.java"></a><strong>PhoneLogDemo.java</strong></h4><pre><code class="hljs">import com.sun.deploy.security.ruleset.RuleSetParser;  // 引入RuleSetParser类（未使用）
+import org.apache.hadoop.conf.Configuration;  // 引入Hadoop配置类
+import org.apache.hadoop.hbase.*;  // 引入HBase相关类
+import org.apache.hadoop.hbase.client.*;  // 引入HBase客户端操作类
+import org.apache.hadoop.hbase.util.Bytes;  // 引入字节数组操作工具类
+import org.junit.Before;  // 引入JUnit注解（未使用）
+​
+import java.io.IOException;  // 引入IOException异常类
+import java.text.ParseException;  // 引入ParseException异常类
+import java.text.SimpleDateFormat;  // 引入日期格式化类
+import java.util.ArrayList;  // 引入ArrayList类
+import java.util.Calendar;  // 引入Calendar类，用于日期和时间的操作
+import java.util.List;  // 引入List接口
+import java.util.Random;  // 引入Random类，用于生成随机数据
+​
+public class PhoneLogDemo {
+    // 声明静态变量
+    public static Configuration configuration;  // HBase配置对象
+    public static Connection connection;  // HBase连接对象
+    public static Admin admin;  // HBase管理员对象
+    public static Random random;  // 用于生成随机数据的对象
+    public static SimpleDateFormat sdf;  // 日期格式化工具类
+​
+    public static void main(String[] args) throws IOException, ParseException {
+        random = new Random();  // 初始化随机数生成器
+        new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 创建SimpleDateFormat对象，日期格式
+        sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 将SimpleDateFormat实例赋值给sdf
+        
+        // 初始化并建立连接
+        init();
+        
+        // 创建名为phone_log的表，列族为basic
+        createTable(&quot;phone_log&quot;, new String[]{&quot;basic&quot;});
+        
+        // 插入随机生成的数据
+        insert(&quot;phone_log&quot;, &quot;basic&quot;);
+        
+        // 关闭连接
+        close();
+    }
+​
+    // 初始化并建立HBase连接
+    public static void init() {
+        // 创建HBase配置对象
+        Configuration conf = HBaseConfiguration.create();
+        try {
+            // 获取HBase连接对象
+            connection = ConnectionFactory.createConnection(conf);
+            // 获取HBase管理员对象，用于表的管理操作
+            admin = connection.getAdmin();
+        } catch (IOException e) {
+            e.printStackTrace();  // 捕获并打印IOException异常
+        }
+    }
+​
+    // 创建HBase表的方法
+    public static void createTable(String myTableName, String[] colFamily) throws IOException {
+        TableName tableName = TableName.valueOf(myTableName);  // 将表名字符串转换为TableName对象
+        // 判断表是否已经存在
+        if (admin.tableExists(tableName)) {
+            System.out.println(&quot;table exists!&quot;);  // 如果表存在，输出提示信息
+        } else {
+            // 如果表不存在，创建表描述符对象
+            TableDescriptorBuilder tableDescriptor = TableDescriptorBuilder.newBuilder(tableName);
+            // 遍历列族数组，添加列族信息
+            for (String str : colFamily) {
+                // 创建列族描述符
+                ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(str)).build();
+                // 将列族描述符添加到表描述符
+                tableDescriptor.setColumnFamily(family);
+            }
+            // 创建表
+            admin.createTable(tableDescriptor.build());
+        }
+    }
+​
+    // 插入数据的方法
+    /**
+     * 模拟10个用户，每个用户每年生成1000条通话记录
+     * dnum：对方用户电话号码；
+     * type：通话类型，0代表主叫，1代表被叫；
+     * length：通话时长；
+     * date：通话日期；
+     * rowkey：当前用户手机号码（Long.MAX_VALUE - timestamp）
+     */
+    public static void insert(String tableName, String colFamily) throws IOException, ParseException {
+        // 获取表对象
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        List&lt;Put&gt; putList = new ArrayList&lt;Put&gt;();  // 存储Put对象的集合
+        // 模拟10个用户
+        for (int i = 1; i &lt;= 10; i++) {
+            // 生成当前用户电话号码
+            String phoneNum = getPhoneNum(&quot;158&quot;);  // 生成以“158”开头的手机号码
+            System.out.println(phoneNum);  // 输出当前用户电话号码
+            putList.clear();  // 清空Put集合
+            // 模拟每个用户1000条通话记录
+            for (int j = 1; j &lt;= 1000; j++) {
+                // 生成对方用户电话号码
+                String dnum = getPhoneNum(&quot;199&quot;);  // 生成以“199”开头的对方电话号码
+                // 随机生成通话时长（1到99秒之间）
+                int length = random.nextInt(99) + 1;
+                // 随机生成通话类型（0为主叫，1为被叫）
+                int type = random.nextInt(2);
+                // 随机生成通话日期
+                String date = getDate(2019);  // 生成2019年的随机日期
+                // rowkey的设计：手机号码 + 通话日期的倒序时间戳
+                String rowkey = phoneNum + &quot;_&quot; + (Long.MAX_VALUE - sdf.parse(date).getTime());
+                // 创建Put对象，指定rowkey
+                Put put = new Put(rowkey.getBytes());
+                // 添加列族中的各列数据
+                put.addColumn(colFamily.getBytes(), &quot;dnum&quot;.getBytes(), Bytes.toBytes(dnum));
+                put.addColumn(colFamily.getBytes(), &quot;length&quot;.getBytes(), Bytes.toBytes(length));
+                put.addColumn(colFamily.getBytes(), &quot;type&quot;.getBytes(), Bytes.toBytes(type));
+                put.addColumn(colFamily.getBytes(), &quot;date&quot;.getBytes(), Bytes.toBytes(date));
+                // 将Put对象添加到集合中
+                putList.add(put);
+            }
+            // 执行批量插入操作，每次插入1000条通话记录
+            table.put(putList);
+        }
+    }
+​
+    // 随机生成通话日期（2019年范围内）
+    private static String getDate(int year) {
+        Calendar calendar = Calendar.getInstance();  // 获取当前日期
+        calendar.set(year, 0, 1);  // 设置为2019年1月1日
+        // 随机生成日期（随机月份、日期、小时、分钟等）
+        calendar.add(Calendar.MONTH, random.nextInt(12));
+        calendar.add(Calendar.DAY_OF_MONTH, random.nextInt(31));
+        calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(12));
+        calendar.add(Calendar.MINUTE, random.nextInt(60));
+        calendar.add(Calendar.MILLISECOND, random.nextInt(60));
+        return sdf.format(calendar.getTime());  // 返回格式化后的日期字符串
+    }
+​
+    // 随机生成手机号码
+    private static String getPhoneNum(String prefixNum) {
+        // 返回以指定前缀开头的手机号码（8位随机数）
+        return prefixNum + String.format(&quot;%08d&quot;, random.nextInt(99999999));
+    }
+​
+    // 关闭HBase连接
+    public static void close() {
+        if (admin != null) {
+            try {
+                admin.close();  // 关闭管理员对象
+            } catch (IOException e) {
+                e.printStackTrace();  // 捕获并打印IOException异常
+            }
+        }
+        if (null != connection) {
+            try {
+                connection.close();  // 关闭HBase连接
+            } catch (IOException e) {
+                e.printStackTrace();  // 捕获并打印IOException异常
+            }
+        }
+    }
+}
+​
+</code></pre>
+<h4 id="Search-java"><a href="#Search-java" class="headerlink" title="Search.java"></a><strong>Search.java</strong></h4><pre><code class="hljs">import org.apache.hadoop.conf.Configuration;  // 引入Hadoop配置类
+import org.apache.hadoop.hbase.CellUtil;  // 引入HBase单元格工具类，用于处理HBase中的单元格数据
+import org.apache.hadoop.hbase.HBaseConfiguration;  // 引入HBase配置工具类
+import org.apache.hadoop.hbase.TableName;  // 引入HBase表名类
+import org.apache.hadoop.hbase.client.*;  // 引入HBase客户端操作类（如Connection、Admin、Table、Scan等）
+import org.apache.hadoop.hbase.util.Bytes;  // 引入字节数组工具类，HBase的很多操作是基于字节数组的
+​
+import java.io.IOException;  // 引入IOException异常类
+import java.text.ParseException;  // 引入ParseException异常类
+import java.text.SimpleDateFormat;  // 引入日期格式化类
+import java.util.Calendar;  // 引入Calendar类，用于日期和时间的操作
+import java.util.Random;  // 引入Random类，用于生成随机数
+​
+public class Search {
+​
+    // 声明静态变量
+    public static Configuration configuration;  // HBase配置对象
+    public static Connection connection;  // HBase连接对象
+    public static Admin admin;  // HBase管理员对象
+    public static Random random;  // 用于生成随机数的对象
+    public static SimpleDateFormat sdf;  // 日期格式化工具类，用于处理时间格式
+​
+    public static void main(String[] args) throws IOException, ParseException {
+        random = new Random();  // 初始化随机数生成器
+        sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);  // 创建SimpleDateFormat实例，用于日期格式化
+​
+        // 初始化并建立连接
+        init();
+        
+        // 查询指定用户在某个时间段内的通话记录
+        scan(&quot;phone_log&quot;, &quot;15894116226&quot;);
+        
+        // 关闭连接
+        close();
+    }
+​
+    // 初始化并建立HBase连接
+    public static void init() {
+        // 创建HBase配置对象
+        Configuration conf = HBaseConfiguration.create();
+        try {
+            // 获取HBase连接对象
+            connection = ConnectionFactory.createConnection(conf);
+            // 获取HBase管理员对象，用于表的管理操作
+            admin = connection.getAdmin();
+        } catch (IOException e) {
+            e.printStackTrace();  // 捕获并打印IOException异常
+        }
+    }
+​
+    // 执行HBase表的扫描操作，根据指定的用户和时间范围查询记录
+    public static void scan(String tableName, String num) throws ParseException, IOException {
+        String phoneNume = num;  // 保存用户电话号码
+​
+        // 创建Scan对象，表示一次查询
+        Scan scan = new Scan();
+        
+        // 设置查询的起始行（以用户手机号和时间戳构造）
+        String startRow = phoneNume + &quot;_&quot; + (Long.MAX_VALUE - sdf.parse(&quot;2019-1-08 21:38:13&quot;).getTime());
+        scan.setStartRow(startRow.getBytes());  // 设置起始行键
+        
+        // 设置查询的结束行（以用户手机号和时间戳构造）
+        String stopRow = phoneNume + &quot;_&quot; + (Long.MAX_VALUE - sdf.parse(&quot;2019-11-02 01:58:13&quot;).getTime());
+        scan.setStopRow(stopRow.getBytes());  // 设置结束行键
+​
+        // 获取指定表的Table对象
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        
+        // 执行查询并获取结果扫描器
+        ResultScanner resultScanner = table.getScanner(scan);
+        
+        // 遍历扫描结果并输出
+        for (Result result : resultScanner) {
+            printMsg(result);  // 打印每一条查询结果
+        }
+        
+        // 关闭扫描器
+        resultScanner.close();
+    }
+​
+    // 设置输出查询结果的格式
+    public static void printMsg(Result result) {
+        // 获取并输出列族basic中的dnum列的值（对方电话号码）
+        System.out.print(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;dnum&quot;.getBytes()))) + &quot;\t&quot;);
+        
+        // 获取并输出列族basic中的type列的值（通话类型：主叫或被叫）
+        System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;type&quot;.getBytes()))) + &quot;\t&quot;);
+        
+        // 获取并输出列族basic中的length列的值（通话时长）
+        System.out.print(Bytes.toInt(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;length&quot;.getBytes()))) + &quot;\t&quot;);
+        
+        // 获取并输出列族basic中的date列的值（通话日期）
+        System.out.println(Bytes.toString(CellUtil.cloneValue(result.getColumnLatestCell(&quot;basic&quot;.getBytes(), &quot;date&quot;.getBytes()))));
+    }
+​
+    // 关闭HBase连接和管理员对象
+    public static void close() {
+        if (admin != null) {
+            try {
+                admin.close();  // 关闭管理员对象
+            } catch (IOException e) {
+                e.printStackTrace();  // 捕获并打印IOException异常
+            }
+        }
+        if (null != connection) {
+            try {
+                connection.close();  // 关闭HBase连接
+            } catch (IOException e) {
+                e.printStackTrace();  // 捕获并打印IOException异常
+            }
+        }
+    }
+}
+​
+</code></pre>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BE%E7%A8%8B/" class="category-chain-item">课程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hadoop/" class="print-no-link">#hadoop</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Hadoop大数据技术与应用</div>
+      <div>https://tingfeng347.github.io/2024/09/02/Hadoop大数据技术与应用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/02/%E6%99%BA%E6%85%A7%E6%A0%A1%E5%9B%AD%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="智慧校园管理系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">智慧校园管理系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/02/MinIO%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1(Windows)/" title="MinIO对象存储服务(Windows)">
+                        <span class="hidden-mobile">MinIO对象存储服务(Windows)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

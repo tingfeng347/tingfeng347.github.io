@@ -1,0 +1,401 @@
+* {
+  --background-blur: 15px;
+}
+
+#board {
+  -webkit-backdrop-filter: blur(calc(var(--background-blur) * 2));
+  backdrop-filter: blur(calc(var(--background-blur) * 2));
+}
+
+
+#toc {
+  visibility: visible !important;
+  padding: 10px;
+  top: 4rem;
+  background-color: var(--board-bg-color);
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(var(--background-blur));
+  backdrop-filter: blur(var(--background-blur));
+}
+
+/* Fluid 1.9.9 将目录项改为可折行，窄侧栏会把中文逐字拆开。 */
+@media (min-width: 992px) {
+  .side-col:last-child .sidebar {
+    display: none;
+  }
+
+  .side-col:last-child .sidebar.toc-is-visible {
+    position: fixed;
+    top: 4.5rem;
+    right: 0.5rem;
+    display: block;
+    width: 17rem;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(65vh + 3rem);
+    margin-left: 0 !important;
+    padding: 0;
+    z-index: 10;
+    animation: tocSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes tocSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* 左侧分类导航 — 与右侧目录面板统一样式 */
+  .side-col:first-child .sidebar {
+    display: none;
+  }
+
+  .side-col:first-child .sidebar.category-bar.cat-is-visible {
+    position: fixed;
+    top: 4.5rem;
+    left: 0.5rem;
+    display: block;
+    width: 17rem;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(65vh + 3rem);
+    margin-right: 0 !important;
+    padding: 0.8rem 1rem;
+    z-index: 10;
+    background-color: var(--board-bg-color);
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(var(--background-blur));
+    backdrop-filter: blur(var(--background-blur));
+    overflow-y: auto;
+    animation: catSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .side-col:first-child .sidebar.category-bar.cat-is-visible.cat-collapsed {
+    display: none;
+  }
+
+  .side-col:last-child .sidebar.toc-is-visible.toc-collapsed {
+    display: none !important;
+  }
+
+  @keyframes catSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .side-col:first-child .sidebar.category-bar .category-item,
+  .side-col:first-child .sidebar.category-bar .category-subitem {
+    font-size: 0.88rem;
+    color: var(--text-color);
+    transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .side-col:first-child .sidebar.category-bar .category-item:hover,
+  .side-col:first-child .sidebar.category-bar .category-subitem:hover {
+    color: var(--link-hover-color);
+  }
+
+  .side-col:first-child .sidebar.category-bar .list-group-count {
+    color: var(--sec-text-color);
+    font-size: 0.76rem;
+  }
+
+  .side-col:first-child .sidebar.category-bar .category-post {
+    font-size: 0.82rem;
+  }
+
+  .side-col:last-child #toc .toc-header,
+  .side-col:last-child #toc .toc-list-item {
+    white-space: nowrap;
+  }
+
+  .side-col:last-child #toc .tocbot-link {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1.15rem;
+  }
+
+  .side-col:last-child #toc .toc-body {
+    max-height: 65vh;
+  }
+
+  .side-col:last-child #toc .toc-list-item {
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+
+  .side-col:last-child #toc .toc-toggle {
+    float: right;
+    margin: 0.45rem 0.1rem 0 0;
+  }
+
+  .side-col:last-child #toc .toc-list-item::after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+
+
+[data-user-color-scheme='dark'] {
+  --link-hover-bg-color: #36415199;
+  --text-color: #cecece !important;
+  --sec-text-color: #cecece !important;
+}
+
+:root {
+  --link-hover-bg-color: #f8f9fa57;
+  --text-color: #000;
+  --sec-text-color: #000;
+}
+
+.category-list .category {
+  margin-bottom: 0;
+}
+
+/* Colorful tag cloud - override pale default colors */
+.tagcloud a {
+  color: #e74c3c !important;
+}
+.tagcloud a:nth-child(7n+1) { color: #e74c3c !important; }
+.tagcloud a:nth-child(7n+2) { color: #2ecc71 !important; }
+.tagcloud a:nth-child(7n+3) { color: #3498db !important; }
+.tagcloud a:nth-child(7n+4) { color: #e67e22 !important; }
+.tagcloud a:nth-child(7n+5) { color: #9b59b6 !important; }
+.tagcloud a:nth-child(7n+6) { color: #1abc9c !important; }
+.tagcloud a:nth-child(7n+7) { color: #f39c12 !important; }
+
+/* Hide image captions/names below images */
+.markdown-body figcaption.image-caption {
+  display: none !important;
+}
+
+
+#web_bg {
+  transition: all 0.5s;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* 搜索弹窗与页面玻璃面板保持一致，并移除标题和输入框的横线。 */
+#modalSearch .modal-content {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(calc(var(--background-blur) * 1.5));
+  backdrop-filter: blur(calc(var(--background-blur) * 1.5));
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.16);
+}
+
+#modalSearch .modal-header {
+  border-bottom: 0;
+}
+
+#modalSearch .modal-body {
+  overflow-x: hidden;
+}
+
+#modalSearch .md-form {
+  margin-bottom: 1.5rem !important;
+}
+
+#modalSearch #local-search-input {
+  height: auto;
+  border: 0 !important;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: none !important;
+  padding: 0.8rem 1rem;
+}
+
+#modalSearch #local-search-input:focus {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 0 0 0.18rem rgba(41, 166, 216, 0.2) !important;
+}
+
+[data-user-color-scheme='dark'] #modalSearch .modal-content {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(25, 32, 43, 0.7);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+[data-user-color-scheme='dark'] #modalSearch #local-search-input {
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-user-color-scheme='dark'] #modalSearch #local-search-input:focus {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* 使用站点自身的目录高亮状态，避免 tocbot 的旧偏移量覆盖点击项。 */
+#toc-body.toc-custom-sync .tocbot-active-link:not(.toc-custom-active) {
+  color: var(--text-color);
+  font-weight: normal;
+}
+
+#toc-body.toc-custom-sync .toc-custom-active {
+  color: var(--link-hover-color);
+  font-weight: bold;
+}
+
+#toc-body.toc-custom-sync .toc-list-item.is-active-li:not(.toc-custom-active-item)::before {
+  visibility: hidden;
+}
+
+#toc-body.toc-custom-sync .toc-custom-active-item::before {
+  visibility: visible;
+}
+
+/* ===== About Page Enhancements ===== */
+
+/* GitHub Stats Cards */
+.github-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.github-stats img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Tech Stack Badges */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.tech-stack img {
+  transition: transform 0.2s ease;
+}
+
+.tech-stack img:hover {
+  transform: translateY(-2px);
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.project-card {
+  padding: 1.2rem 1.3rem;
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.38);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary, #1e80ff);
+}
+
+.project-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.08rem;
+}
+
+.project-card h3 a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.project-card h3 a:hover {
+  color: var(--primary, #1e80ff);
+}
+
+.project-card p {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.88rem;
+  color: var(--sec-text-color);
+  line-height: 1.55;
+}
+
+.project-meta {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--sec-text-color);
+  opacity: 0.72;
+  margin-top: 0.2rem;
+}
+
+/* GitHub Achievements / Trophies */
+.achievements {
+  text-align: center;
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.achievements img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Collaboration Banner */
+.collaboration-banner {
+  margin-top: 2rem;
+  padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(30, 128, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(30, 128, 255, 0.06);
+  text-align: center;
+}
+
+.collaboration-banner p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.collaboration-banner a {
+  font-weight: 600;
+  color: var(--primary, #1e80ff);
+}
+
+/* Dark mode adjustments */
+[data-user-color-scheme='dark'] .project-card {
+  background: rgba(30, 40, 55, 0.45);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-user-color-scheme='dark'] .project-card:hover {
+  border-color: var(--primary, #1e80ff);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+[data-user-color-scheme='dark'] .collaboration-banner {
+  background: rgba(30, 128, 255, 0.08);
+  border-color: rgba(30, 128, 255, 0.18);
+}

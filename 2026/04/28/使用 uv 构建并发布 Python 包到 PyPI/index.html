@@ -1,0 +1,2139 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="使用 uv 构建并发布 Python 包到 PyPI 完整教程目录 概述 环境准备 创建项目 pyproject.toml 配置详解 编写包代码 构建包 发布到 PyPI 使用 TestPyPI 测试 版本管理 最佳实践 常见问题   概述本教程将指导你使用 uv（一个超快的 Python 包管理器）来：  创建一个标准的 Python 包项目 配置 pyproject.toml 构建源码分发包（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 uv 构建并发布 Python 包到 PyPI">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/04/28/%E4%BD%BF%E7%94%A8%20uv%20%E6%9E%84%E5%BB%BA%E5%B9%B6%E5%8F%91%E5%B8%83%20Python%20%E5%8C%85%E5%88%B0%20PyPI/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="使用 uv 构建并发布 Python 包到 PyPI 完整教程目录 概述 环境准备 创建项目 pyproject.toml 配置详解 编写包代码 构建包 发布到 PyPI 使用 TestPyPI 测试 版本管理 最佳实践 常见问题   概述本教程将指导你使用 uv（一个超快的 Python 包管理器）来：  创建一个标准的 Python 包项目 配置 pyproject.toml 构建源码分发包（">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-28T07:40:00.000Z">
+<meta property="article:modified_time" content="2026-07-30T22:08:00.609Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="PyPI">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="uv">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>使用 uv 构建并发布 Python 包到 PyPI - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用 uv 构建并发布 Python 包到 PyPI"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-04-28 15:40" pubdate>
+          2026年4月28日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          126 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="true"
+      >
+        Python
+        <span class="list-group-count">(23)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/08/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%9C%9F%E6%9C%AB%E6%80%BB%E7%BB%93/" title="数据采集期末总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集期末总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/04/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E5%AE%9E%E8%AE%AD/" title="数据采集实训"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集实训</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/12/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="数据可视化学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/23/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E6%80%BB%E7%BB%93/" title="数据采集总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据采集总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/05/10/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E6%80%BB%E7%BB%93/" title="数据可视化总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数据可视化总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/06/21/%E6%97%A0%E4%BA%BA%E5%BA%97%E5%94%AE%E8%B4%A7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="无人店售货管理系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无人店售货管理系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/11/%E7%94%A8python%E5%86%99%E4%B8%80%E4%B8%AA%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%99%BB%E5%BD%95%E7%A8%8B%E5%BA%8F/" title="用python写一个校园网登录程序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">用python写一个校园网登录程序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/16/%E4%BD%9C%E7%89%A9%E4%BA%A7%E9%87%8F%E9%A2%84%E6%B5%8B%E4%B8%8E%E7%97%85%E8%99%AB%E5%AE%B3%E8%AF%86%E5%88%AB/" title="作物产量预测与病虫害识别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">作物产量预测与病虫害识别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/12/%E6%A0%A1%E5%9B%AD%E9%97%A8%E7%A6%81%E7%B3%BB%E7%BB%9F/" title="校园门禁系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">校园门禁系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="图像处理大作业"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">图像处理大作业</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/22/yolo%E8%AE%AD%E7%BB%83%E6%8C%87%E6%A0%87%E8%AF%A6%E8%A7%A3/" title="yolo训练指标详解"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">yolo训练指标详解</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="false"
+      >
+        AI
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/01/%E8%AF%AD%E9%9F%B3%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="语音大模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">语音大模型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="全栈"
+        id="heading-bd1529711cb25e6a1fb797f502d39132" role="tab" data-toggle="collapse" href="#collapse-bd1529711cb25e6a1fb797f502d39132"
+        aria-expanded="false"
+      >
+        全栈
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bd1529711cb25e6a1fb797f502d39132"
+           role="tabpanel" aria-labelledby="heading-bd1529711cb25e6a1fb797f502d39132">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/25/Django5+Vue3+Docker%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9AOA%E7%B3%BB%E7%BB%9F/" title="Django5+Vue3+Docker打造企业OA系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Django5+Vue3+Docker打造企业OA系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/19/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%EF%BC%88pytorch%E3%80%81yoloV5%E3%80%81Flask%EF%BC%89%E7%9A%84%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B3%BB%E7%BB%9F/" title="基于深度学习（pytorch、yoloV5、Flask）的目标检测系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于深度学习（pytorch、yoloV5、Flask）的目标检测系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/23/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E5%8D%9A%E5%AE%A2%E5%B9%B3%E5%8F%B0/" title="知了传课博客平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课博客平台</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="后端"
+        id="heading-e778d61ae403fbb16e643ebfd764d320" role="tab" data-toggle="collapse" href="#collapse-e778d61ae403fbb16e643ebfd764d320"
+        aria-expanded="false"
+      >
+        后端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e778d61ae403fbb16e643ebfd764d320"
+           role="tabpanel" aria-labelledby="heading-e778d61ae403fbb16e643ebfd764d320">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="前端"
+        id="heading-9abfe4a03928eb88a75a5cd95822dfef" role="tab" data-toggle="collapse" href="#collapse-9abfe4a03928eb88a75a5cd95822dfef"
+        aria-expanded="false"
+      >
+        前端
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-9abfe4a03928eb88a75a5cd95822dfef"
+           role="tabpanel" aria-labelledby="heading-9abfe4a03928eb88a75a5cd95822dfef">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/%E7%9F%A5%E4%BA%86%E4%BC%A0%E8%AF%BE%E9%97%AE%E7%AD%94%E5%B9%B3%E5%8F%B0/" title="知了传课问答平台"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">知了传课问答平台</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/18/%E5%BE%AE%E5%8D%9A%E8%88%86%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="微博舆论数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">微博舆论数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="大数据"
+        id="heading-2c657e7dce6effaecbb458deb45e800a" role="tab" data-toggle="collapse" href="#collapse-2c657e7dce6effaecbb458deb45e800a"
+        aria-expanded="false"
+      >
+        大数据
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2c657e7dce6effaecbb458deb45e800a"
+           role="tabpanel" aria-labelledby="heading-2c657e7dce6effaecbb458deb45e800a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/09/03/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%AE%9E%E6%88%98/" title="Python数据挖掘实战"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python数据挖掘实战</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="true"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/04/28/%E4%BD%BF%E7%94%A8%20uv%20%E6%9E%84%E5%BB%BA%E5%B9%B6%E5%8F%91%E5%B8%83%20Python%20%E5%8C%85%E5%88%B0%20PyPI/" title="使用 uv 构建并发布 Python 包到 PyPI"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">使用 uv 构建并发布 Python 包到 PyPI</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="环境配置"
+        id="heading-a69f6882042ddb9e04b8ba73f37404dc" role="tab" data-toggle="collapse" href="#collapse-a69f6882042ddb9e04b8ba73f37404dc"
+        aria-expanded="false"
+      >
+        环境配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a69f6882042ddb9e04b8ba73f37404dc"
+           role="tabpanel" aria-labelledby="heading-a69f6882042ddb9e04b8ba73f37404dc">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/01/21/conda%20%E5%88%9B%E5%BB%BA_%E5%88%A0%E9%99%A4_%E5%A4%8D%E5%88%B6%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E3%80%81%E5%AE%89%E8%A3%85_%E5%88%A0%E9%99%A4%E5%8C%85/" title="conda创建/删除/复制虚拟环境、安装/删除包"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">conda创建/删除/复制虚拟环境、安装/删除包</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编程语言"
+        id="heading-3bf8a523aea21a3a0f6c53b0f43429bb" role="tab" data-toggle="collapse" href="#collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+        aria-expanded="false"
+      >
+        编程语言
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-3bf8a523aea21a3a0f6c53b0f43429bb"
+           role="tabpanel" aria-labelledby="heading-3bf8a523aea21a3a0f6c53b0f43429bb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/30/python%E6%80%BB%E7%BB%93/" title="python总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">python总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="配置"
+        id="heading-224e2ccda861c2514faa683b3683c361" role="tab" data-toggle="collapse" href="#collapse-224e2ccda861c2514faa683b3683c361"
+        aria-expanded="false"
+      >
+        配置
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-224e2ccda861c2514faa683b3683c361"
+           role="tabpanel" aria-labelledby="heading-224e2ccda861c2514faa683b3683c361">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/02/29/Jupyter%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="Jupyter的配置与使用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Jupyter的配置与使用</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="项目"
+        id="heading-31ecc0e65b4cd3e6b12577382bb56d6a" role="tab" data-toggle="collapse" href="#collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+        aria-expanded="false"
+      >
+        项目
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-31ecc0e65b4cd3e6b12577382bb56d6a"
+           role="tabpanel" aria-labelledby="heading-31ecc0e65b4cd3e6b12577382bb56d6a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/07/09/Python%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%8F%AF%E8%A7%86%E5%8C%96%E7%B3%BB%E7%BB%9F/" title="Python豆瓣电影数据分析可视化系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python豆瓣电影数据分析可视化系统</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">使用 uv 构建并发布 Python 包到 PyPI</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="使用-uv-构建并发布-Python-包到-PyPI-完整教程"><a href="#使用-uv-构建并发布-Python-包到-PyPI-完整教程" class="headerlink" title="使用 uv 构建并发布 Python 包到 PyPI 完整教程"></a>使用 uv 构建并发布 Python 包到 PyPI 完整教程</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">环境准备</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE">创建项目</a></li>
+<li><a href="#pyprojecttoml-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3">pyproject.toml 配置详解</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E5%8C%85%E4%BB%A3%E7%A0%81">编写包代码</a></li>
+<li><a href="#%E6%9E%84%E5%BB%BA%E5%8C%85">构建包</a></li>
+<li><a href="#%E5%8F%91%E5%B8%83%E5%88%B0-pypi">发布到 PyPI</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-testpypi-%E6%B5%8B%E8%AF%95">使用 TestPyPI 测试</a></li>
+<li><a href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86">版本管理</a></li>
+<li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li>
+</ol>
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本教程将指导你使用 <a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">uv</a>（一个超快的 Python 包管理器）来：</p>
+<ul>
+<li>创建一个标准的 Python 包项目</li>
+<li>配置 <code>pyproject.toml</code></li>
+<li>构建源码分发包（sdist）和 wheel 包</li>
+<li>发布到 <a target="_blank" rel="noopener" href="https://pypi.org/">PyPI</a>（Python Package Index）</li>
+</ul>
+<h3 id="为什么选择-uv？"><a href="#为什么选择-uv？" class="headerlink" title="为什么选择 uv？"></a>为什么选择 uv？</h3><ul>
+<li><strong>极快</strong>：比 pip 快 10-100 倍</li>
+<li><strong>一体化</strong>：替代 pip、pip-tools、poetry、pyenv、twine 等多个工具</li>
+<li><strong>现代</strong>：原生支持 pyproject.toml 和最新的 Python 打包标准</li>
+<li><strong>可靠</strong>：提供锁文件和可重现的环境</li>
+</ul>
+<hr>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="1-安装-uv"><a href="#1-安装-uv" class="headerlink" title="1. 安装 uv"></a>1. 安装 uv</h3><p><strong>macOS 和 Linux：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -LsSf https://astral.sh/uv/install.sh | sh<br></code></pre></td></tr></table></figure>
+
+<p><strong>Windows (PowerShell)：</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;irm https://astral.sh/uv/install.ps1 | iex&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>通过 pip 安装：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install uv<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-验证安装"><a href="#2-验证安装" class="headerlink" title="2. 验证安装"></a>2. 验证安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">uv --version<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-安装-Python（如果需要）"><a href="#3-安装-Python（如果需要）" class="headerlink" title="3. 安装 Python（如果需要）"></a>3. 安装 Python（如果需要）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装特定版本的 Python</span><br>uv python install 3.12<br><br><span class="hljs-comment"># 查看已安装的 Python 版本</span><br>uv python list<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><h3 id="方法一：使用-uv-init-自动创建"><a href="#方法一：使用-uv-init-自动创建" class="headerlink" title="方法一：使用 uv init 自动创建"></a>方法一：使用 uv init 自动创建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建新项目</span><br>uv init my-awesome-package<br><br><span class="hljs-comment"># 进入项目目录</span><br><span class="hljs-built_in">cd</span> my-awesome-package<br><br><span class="hljs-comment"># 项目结构会自动创建</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="方法二：手动创建项目结构"><a href="#方法二：手动创建项目结构" class="headerlink" title="方法二：手动创建项目结构"></a>方法二：手动创建项目结构</h3><pre><code class="hljs">my-awesome-package/
+├── src/
+│   └── my_awesome_package/
+│       ├── __init__.py
+│       └── core.py
+├── tests/
+│   ├── __init__.py
+│   └── test_core.py
+├── pyproject.toml
+├── README.md
+├── LICENSE
+└── .gitignore
+</code></pre>
+<p>创建目录结构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p my-awesome-package/src/my_awesome_package<br><span class="hljs-built_in">mkdir</span> -p my-awesome-package/tests<br><span class="hljs-built_in">cd</span> my-awesome-package<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="pyproject-toml-配置详解"><a href="#pyproject-toml-配置详解" class="headerlink" title="pyproject.toml 配置详解"></a>pyproject.toml 配置详解</h2><p><code>pyproject.toml</code> 是 Python 项目的核心配置文件，包含三个主要部分：</p>
+<h3 id="完整的-pyproject-toml-示例"><a href="#完整的-pyproject-toml-示例" class="headerlink" title="完整的 pyproject.toml 示例"></a>完整的 pyproject.toml 示例</h3><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[build-system]</span><br><span class="hljs-attr">requires</span> = [<span class="hljs-string">&quot;hatchling &gt;= 1.26&quot;</span>]<br><span class="hljs-attr">build-backend</span> = <span class="hljs-string">&quot;hatchling.build&quot;</span><br><br><span class="hljs-section">[project]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;my-awesome-package&quot;</span><br><span class="hljs-attr">version</span> = <span class="hljs-string">&quot;0.1.0&quot;</span><br><span class="hljs-attr">authors</span> = [<br>    &#123; name = <span class="hljs-string">&quot;Your Name&quot;</span>, email = <span class="hljs-string">&quot;your.email@example.com&quot;</span> &#125;<br>]<br><span class="hljs-attr">maintainers</span> = [<br>    &#123; name = <span class="hljs-string">&quot;Your Name&quot;</span>, email = <span class="hljs-string">&quot;your.email@example.com&quot;</span> &#125;<br>]<br><span class="hljs-attr">description</span> = <span class="hljs-string">&quot;A short description of your package&quot;</span><br><span class="hljs-attr">readme</span> = <span class="hljs-string">&quot;README.md&quot;</span><br><span class="hljs-attr">requires-python</span> = <span class="hljs-string">&quot;&gt;=3.9&quot;</span><br><span class="hljs-attr">license</span> = <span class="hljs-string">&quot;MIT&quot;</span><br><span class="hljs-attr">license-files</span> = [<span class="hljs-string">&quot;LICEN[CS]E*&quot;</span>]<br><span class="hljs-attr">keywords</span> = [<span class="hljs-string">&quot;example&quot;</span>, <span class="hljs-string">&quot;package&quot;</span>, <span class="hljs-string">&quot;tutorial&quot;</span>]<br><span class="hljs-attr">classifiers</span> = [<br>    <span class="hljs-string">&quot;Development Status :: 3 - Alpha&quot;</span>,<br>    <span class="hljs-string">&quot;Intended Audience :: Developers&quot;</span>,<br>    <span class="hljs-string">&quot;License :: OSI Approved :: MIT License&quot;</span>,<br>    <span class="hljs-string">&quot;Operating System :: OS Independent&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3.9&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3.10&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3.11&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3.12&quot;</span>,<br>    <span class="hljs-string">&quot;Programming Language :: Python :: 3.13&quot;</span>,<br>]<br><br><span class="hljs-attr">dependencies</span> = [<br>    <span class="hljs-string">&quot;requests&gt;=2.28.0&quot;</span>,<br>    <span class="hljs-string">&quot;pydantic&gt;=2.0.0&quot;</span>,<br>]<br><br><span class="hljs-section">[project.optional-dependencies]</span><br><span class="hljs-attr">dev</span> = [<br>    <span class="hljs-string">&quot;pytest&gt;=7.0.0&quot;</span>,<br>    <span class="hljs-string">&quot;pytest-cov&gt;=4.0.0&quot;</span>,<br>    <span class="hljs-string">&quot;ruff&gt;=0.1.0&quot;</span>,<br>    <span class="hljs-string">&quot;mypy&gt;=1.0.0&quot;</span>,<br>]<br><span class="hljs-attr">docs</span> = [<br>    <span class="hljs-string">&quot;mkdocs&gt;=1.5.0&quot;</span>,<br>    <span class="hljs-string">&quot;mkdocs-material&gt;=9.0.0&quot;</span>,<br>]<br><br><span class="hljs-section">[project.urls]</span><br><span class="hljs-attr">Homepage</span> = <span class="hljs-string">&quot;https://github.com/yourusername/my-awesome-package&quot;</span><br><span class="hljs-attr">Documentation</span> = <span class="hljs-string">&quot;https://github.com/yourusername/my-awesome-package#readme&quot;</span><br><span class="hljs-attr">Repository</span> = <span class="hljs-string">&quot;https://github.com/yourusername/my-awesome-package&quot;</span><br><span class="hljs-attr">Issues</span> = <span class="hljs-string">&quot;https://github.com/yourusername/my-awesome-package/issues&quot;</span><br><span class="hljs-attr">Changelog</span> = <span class="hljs-string">&quot;https://github.com/yourusername/my-awesome-package/blob/main/CHANGELOG.md&quot;</span><br><br><span class="hljs-section">[project.scripts]</span><br><span class="hljs-attr">my-cli</span> = <span class="hljs-string">&quot;my_awesome_package.cli:main&quot;</span><br><br><span class="hljs-section">[project.gui-scripts]</span><br><span class="hljs-attr">my-gui</span> = <span class="hljs-string">&quot;my_awesome_package.gui:main&quot;</span><br><br><span class="hljs-section">[tool.hatch.build.targets.wheel]</span><br><span class="hljs-attr">packages</span> = [<span class="hljs-string">&quot;src/my_awesome_package&quot;</span>]<br><br><span class="hljs-section">[tool.ruff]</span><br><span class="hljs-attr">line-length</span> = <span class="hljs-number">88</span><br><span class="hljs-attr">target-version</span> = <span class="hljs-string">&quot;py39&quot;</span><br><br><span class="hljs-section">[tool.ruff.lint]</span><br><span class="hljs-attr">select</span> = [<span class="hljs-string">&quot;E&quot;</span>, <span class="hljs-string">&quot;F&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;N&quot;</span>, <span class="hljs-string">&quot;W&quot;</span>, <span class="hljs-string">&quot;UP&quot;</span>]<br><br><span class="hljs-section">[tool.pytest.ini_options]</span><br><span class="hljs-attr">testpaths</span> = [<span class="hljs-string">&quot;tests&quot;</span>]<br><span class="hljs-attr">addopts</span> = <span class="hljs-string">&quot;-v --cov=my_awesome_package&quot;</span><br><br><span class="hljs-section">[tool.mypy]</span><br><span class="hljs-attr">python_version</span> = <span class="hljs-string">&quot;3.9&quot;</span><br><span class="hljs-attr">warn_return_any</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">warn_unused_configs</span> = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="各部分详解"><a href="#各部分详解" class="headerlink" title="各部分详解"></a>各部分详解</h3><h4 id="build-system-构建系统配置"><a href="#build-system-构建系统配置" class="headerlink" title="[build-system] - 构建系统配置"></a>[build-system] - 构建系统配置</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[build-system]</span><br><span class="hljs-attr">requires</span> = [<span class="hljs-string">&quot;hatchling &gt;= 1.26&quot;</span>]<br><span class="hljs-attr">build-backend</span> = <span class="hljs-string">&quot;hatchling.build&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>常用的构建后端：</p>
+<table>
+<thead>
+<tr>
+<th>构建后端</th>
+<th>requires</th>
+<th>build-backend</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Hatchling</strong> (推荐)</td>
+<td><code>&quot;hatchling &gt;= 1.26&quot;</code></td>
+<td><code>&quot;hatchling.build&quot;</code></td>
+</tr>
+<tr>
+<td><strong>Setuptools</strong></td>
+<td><code>&quot;setuptools &gt;= 77.0.3&quot;</code></td>
+<td><code>&quot;setuptools.build_meta&quot;</code></td>
+</tr>
+<tr>
+<td><strong>Flit</strong></td>
+<td><code>&quot;flit_core &gt;= 3.12.0, &lt;4&quot;</code></td>
+<td><code>&quot;flit_core.buildapi&quot;</code></td>
+</tr>
+<tr>
+<td><strong>PDM</strong></td>
+<td><code>&quot;pdm-backend &gt;= 2.4.0&quot;</code></td>
+<td><code>&quot;pdm.backend&quot;</code></td>
+</tr>
+<tr>
+<td><strong>uv-build</strong></td>
+<td><code>&quot;uv_build &gt;= 0.11.7, &lt;0.12.0&quot;</code></td>
+<td><code>&quot;uv_build&quot;</code></td>
+</tr>
+</tbody></table>
+<h4 id="project-项目元数据"><a href="#project-项目元数据" class="headerlink" title="[project] - 项目元数据"></a>[project] - 项目元数据</h4><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>包名（PyPI 上的名称）</td>
+<td><code>&quot;my-awesome-package&quot;</code></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>版本号</td>
+<td><code>&quot;0.1.0&quot;</code></td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>简短描述</td>
+<td><code>&quot;A short description&quot;</code></td>
+</tr>
+<tr>
+<td><code>readme</code></td>
+<td>README 文件路径</td>
+<td><code>&quot;README.md&quot;</code></td>
+</tr>
+<tr>
+<td><code>requires-python</code></td>
+<td>Python 版本要求</td>
+<td><code>&quot;&gt;=3.9&quot;</code></td>
+</tr>
+<tr>
+<td><code>license</code></td>
+<td>SPDX 许可证表达式</td>
+<td><code>&quot;MIT&quot;</code></td>
+</tr>
+<tr>
+<td><code>dependencies</code></td>
+<td>运行时依赖</td>
+<td><code>[&quot;requests&gt;=2.28.0&quot;]</code></td>
+</tr>
+</tbody></table>
+<h4 id="project-urls-项目链接"><a href="#project-urls-项目链接" class="headerlink" title="[project.urls] - 项目链接"></a>[project.urls] - 项目链接</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[project.urls]</span><br><span class="hljs-attr">Homepage</span> = <span class="hljs-string">&quot;https://github.com/user/repo&quot;</span><br><span class="hljs-attr">Documentation</span> = <span class="hljs-string">&quot;https://readthedocs.org&quot;</span><br><span class="hljs-attr">Repository</span> = <span class="hljs-string">&quot;https://github.com/user/repo&quot;</span><br><span class="hljs-attr">Issues</span> = <span class="hljs-string">&quot;https://github.com/user/repo/issues&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="project-scripts-命令行工具"><a href="#project-scripts-命令行工具" class="headerlink" title="[project.scripts] - 命令行工具"></a>[project.scripts] - 命令行工具</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[project.scripts]</span><br><span class="hljs-attr">my-cli</span> = <span class="hljs-string">&quot;my_package.module:function&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>安装后会创建一个 <code>my-cli</code> 命令。</p>
+<h4 id="project-optional-dependencies-可选依赖"><a href="#project-optional-dependencies-可选依赖" class="headerlink" title="[project.optional-dependencies] - 可选依赖"></a>[project.optional-dependencies] - 可选依赖</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[project.optional-dependencies]</span><br><span class="hljs-attr">dev</span> = [<span class="hljs-string">&quot;pytest&quot;</span>, <span class="hljs-string">&quot;ruff&quot;</span>]<br><span class="hljs-attr">docs</span> = [<span class="hljs-string">&quot;mkdocs&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>安装时使用：<code>pip install my-package[dev]</code></p>
+<hr>
+<h2 id="编写包代码"><a href="#编写包代码" class="headerlink" title="编写包代码"></a>编写包代码</h2><h3 id="1-创建-init-py"><a href="#1-创建-init-py" class="headerlink" title="1. 创建 init.py"></a>1. 创建 <strong>init</strong>.py</h3><p><strong>src&#x2F;my_awesome_package&#x2F;<strong>init</strong>.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;My Awesome Package - A short description.&quot;&quot;&quot;</span><br><br>__version__ = <span class="hljs-string">&quot;0.1.0&quot;</span><br>__author__ = <span class="hljs-string">&quot;Your Name&quot;</span><br>__email__ = <span class="hljs-string">&quot;your.email@example.com&quot;</span><br><br><span class="hljs-keyword">from</span> .core <span class="hljs-keyword">import</span> hello, add_numbers<br><br>__all__ = [<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;add_numbers&quot;</span>, <span class="hljs-string">&quot;__version__&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-编写核心模块"><a href="#2-编写核心模块" class="headerlink" title="2. 编写核心模块"></a>2. 编写核心模块</h3><p><strong>src&#x2F;my_awesome_package&#x2F;core.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;Core functionality of my awesome package.&quot;&quot;&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">name: <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;World&quot;</span></span>) -&gt; <span class="hljs-built_in">str</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Say hello to someone.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        name: The name to greet. Defaults to &quot;World&quot;.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">        A greeting string.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">f&quot;Hello, <span class="hljs-subst">&#123;name&#125;</span>!&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">add_numbers</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span> | <span class="hljs-built_in">float</span>, b: <span class="hljs-built_in">int</span> | <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">int</span> | <span class="hljs-built_in">float</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Add two numbers together.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Args:</span><br><span class="hljs-string">        a: First number.</span><br><span class="hljs-string">        b: Second number.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">        The sum of a and b.</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> a + b<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Calculator</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;A simple calculator class.&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.history: <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>] = []<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">self, a: <span class="hljs-built_in">float</span>, b: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Add two numbers.&quot;&quot;&quot;</span><br>        result = a + b<br>        <span class="hljs-variable language_">self</span>.history.append(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;a&#125;</span> + <span class="hljs-subst">&#123;b&#125;</span> = <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">subtract</span>(<span class="hljs-params">self, a: <span class="hljs-built_in">float</span>, b: <span class="hljs-built_in">float</span></span>) -&gt; <span class="hljs-built_in">float</span>:<br>        <span class="hljs-string">&quot;&quot;&quot;Subtract b from a.&quot;&quot;&quot;</span><br>        result = a - b<br>        <span class="hljs-variable language_">self</span>.history.append(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;a&#125;</span> - <span class="hljs-subst">&#123;b&#125;</span> = <span class="hljs-subst">&#123;result&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_history</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">list</span>[<span class="hljs-built_in">str</span>]:<br>        <span class="hljs-string">&quot;&quot;&quot;Get calculation history.&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.history.copy()<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-创建-CLI-入口（可选）"><a href="#3-创建-CLI-入口（可选）" class="headerlink" title="3. 创建 CLI 入口（可选）"></a>3. 创建 CLI 入口（可选）</h3><p><strong>src&#x2F;my_awesome_package&#x2F;cli.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;Command-line interface for my awesome package.&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> __version__<br><span class="hljs-keyword">from</span> .core <span class="hljs-keyword">import</span> hello<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>() -&gt; <span class="hljs-built_in">int</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Main entry point for the CLI.&quot;&quot;&quot;</span><br>    parser = argparse.ArgumentParser(<br>        description=<span class="hljs-string">&quot;My Awesome Package CLI&quot;</span><br>    )<br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--version&quot;</span>,<br>        action=<span class="hljs-string">&quot;version&quot;</span>,<br>        version=<span class="hljs-string">f&quot;%(prog)s <span class="hljs-subst">&#123;__version__&#125;</span>&quot;</span><br>    )<br>    parser.add_argument(<br>        <span class="hljs-string">&quot;--name&quot;</span>,<br>        default=<span class="hljs-string">&quot;World&quot;</span>,<br>        <span class="hljs-built_in">help</span>=<span class="hljs-string">&quot;Name to greet&quot;</span><br>    )<br><br>    args = parser.parse_args()<br>    <span class="hljs-built_in">print</span>(hello(args.name))<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    sys.exit(main())<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-编写测试"><a href="#4-编写测试" class="headerlink" title="4. 编写测试"></a>4. 编写测试</h3><p><strong>tests&#x2F;test_core.py：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;Tests for core module.&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> pytest<br><br><span class="hljs-keyword">from</span> my_awesome_package.core <span class="hljs-keyword">import</span> Calculator, add_numbers, hello<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestHello</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Tests for hello function.&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_hello_default</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> hello() == <span class="hljs-string">&quot;Hello, World!&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_hello_with_name</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> hello(<span class="hljs-string">&quot;Alice&quot;</span>) == <span class="hljs-string">&quot;Hello, Alice!&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_hello_empty_string</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> hello(<span class="hljs-string">&quot;&quot;</span>) == <span class="hljs-string">&quot;Hello, !&quot;</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestAddNumbers</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Tests for add_numbers function.&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_add_positive_integers</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> add_numbers(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>) == <span class="hljs-number">5</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_add_negative_integers</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> add_numbers(-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>) == -<span class="hljs-number">2</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_add_floats</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> add_numbers(<span class="hljs-number">1.5</span>, <span class="hljs-number">2.5</span>) == <span class="hljs-number">4.0</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_add_mixed</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">assert</span> add_numbers(<span class="hljs-number">1</span>, <span class="hljs-number">2.5</span>) == <span class="hljs-number">3.5</span><br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">TestCalculator</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;Tests for Calculator class.&quot;&quot;&quot;</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_add</span>(<span class="hljs-params">self</span>):<br>        calc = Calculator()<br>        <span class="hljs-keyword">assert</span> calc.add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>) == <span class="hljs-number">5</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_subtract</span>(<span class="hljs-params">self</span>):<br>        calc = Calculator()<br>        <span class="hljs-keyword">assert</span> calc.subtract(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>) == <span class="hljs-number">2</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">test_history</span>(<span class="hljs-params">self</span>):<br>        calc = Calculator()<br>        calc.add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br>        calc.subtract(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>)<br>        history = calc.get_history()<br>        <span class="hljs-keyword">assert</span> <span class="hljs-built_in">len</span>(history) == <span class="hljs-number">2</span><br>        <span class="hljs-keyword">assert</span> <span class="hljs-string">&quot;1 + 2 = 3&quot;</span> <span class="hljs-keyword">in</span> history[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-创建-README-md"><a href="#5-创建-README-md" class="headerlink" title="5. 创建 README.md"></a>5. 创建 README.md</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section"># My Awesome Package</span><br><br>[<span class="hljs-string">![PyPI version</span>](<span class="hljs-link">https://badge.fury.io/py/my-awesome-package.svg</span>)](<span class="hljs-link">https://pypi.org/project/my-awesome-package/</span>)<br>[<span class="hljs-string">![Python Versions</span>](<span class="hljs-link">https://img.shields.io/pypi/pyversions/my-awesome-package.svg</span>)](<span class="hljs-link">https://pypi.org/project/my-awesome-package/</span>)<br><br>A short description of your package.<br><br><span class="hljs-section">## Installation</span><br><br><span class="hljs-code">```bash</span><br><span class="hljs-code">pip install my-awesome-package</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> my_awesome_package <span class="hljs-keyword">import</span> hello, add_numbers<br><br><span class="hljs-comment"># Say hello</span><br><span class="hljs-built_in">print</span>(hello(<span class="hljs-string">&quot;World&quot;</span>))  <span class="hljs-comment"># Output: Hello, World!</span><br><br><span class="hljs-comment"># Add numbers</span><br>result = add_numbers(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br><span class="hljs-built_in">print</span>(result)  <span class="hljs-comment"># Output: 5</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="CLI-Usage"><a href="#CLI-Usage" class="headerlink" title="CLI Usage"></a>CLI Usage</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">my-cli --name <span class="hljs-string">&quot;Alice&quot;</span><br><span class="hljs-comment"># Output: Hello, Alice!</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="Development"><a href="#Development" class="headerlink" title="Development"></a>Development</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Clone the repository</span><br>git <span class="hljs-built_in">clone</span> https://github.com/yourusername/my-awesome-package.git<br><span class="hljs-built_in">cd</span> my-awesome-package<br><br><span class="hljs-comment"># Install dependencies</span><br>uv <span class="hljs-built_in">sync</span> --extra dev<br><br><span class="hljs-comment"># Run tests</span><br>uv run pytest<br><br><span class="hljs-comment"># Run linter</span><br>uv run ruff check .<br></code></pre></td></tr></table></figure>
+
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT License - see <a href="LICENSE">LICENSE</a> for details.</p>
+<pre><code class="hljs">### 6. 创建 LICENSE
+</code></pre>
+<p>MIT License</p>
+<p>Copyright (c) 2024 Your Name</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and&#x2F;or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<pre><code class="hljs">---
+
+## 构建包
+
+### 1. 使用 uv 管理依赖
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">    <span class="hljs-comment"># 添加运行时依赖</span><br>    uv add requests pydantic<br><br>    <span class="hljs-comment"># 添加开发依赖</span><br>    uv add --dev pytest ruff mypy<br><br>    <span class="hljs-comment"># 同步依赖（安装所有依赖）</span><br>    uv <span class="hljs-built_in">sync</span><br><br>    <span class="hljs-comment"># 只安装特定可选依赖</span><br>    uv <span class="hljs-built_in">sync</span> --extra dev<br><br><span class="hljs-comment">### 2. 运行测试</span><br><br>``` bash<br><span class="hljs-comment"># 运行测试</span><br>uv run pytest<br><br><span class="hljs-comment"># 运行测试并生成覆盖率报告</span><br>uv run pytest --cov=my_awesome_package --cov-report=html<br></code></pre></td></tr></table></figure>
+</code></pre>
+<h3 id="3-代码检查"><a href="#3-代码检查" class="headerlink" title="3. 代码检查"></a>3. 代码检查</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行 linter</span><br>uv run ruff check .<br><br><span class="hljs-comment"># 运行 formatter</span><br>uv run ruff format .<br><br><span class="hljs-comment"># 运行类型检查</span><br>uv run mypy src/<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-构建分发包"><a href="#4-构建分发包" class="headerlink" title="4. 构建分发包"></a>4. 构建分发包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 构建 sdist 和 wheel</span><br>uv build<br><br><span class="hljs-comment"># 构建时不使用本地源码覆盖（推荐用于发布）</span><br>uv build --no-sources<br></code></pre></td></tr></table></figure>
+
+<p>构建完成后，会在 <code>dist/</code> 目录下生成：</p>
+<pre><code class="hljs">dist/
+├── my_awesome_package-0.1.0.tar.gz        # 源码分发包 (sdist)
+└── my_awesome_package-0.1.0-py3-none-any.whl  # wheel 包
+</code></pre>
+<h3 id="5-验证构建"><a href="#5-验证构建" class="headerlink" title="5. 验证构建"></a>5. 验证构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 检查包的元数据</span><br>uv pip show --files dist/my_awesome_package-0.1.0-py3-none-any.whl<br><br><span class="hljs-comment"># 使用 twine 检查（可选）</span><br>pip install twine<br>twine check dist/*<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="发布到-PyPI"><a href="#发布到-PyPI" class="headerlink" title="发布到 PyPI"></a>发布到 PyPI</h2><h3 id="1-注册-PyPI-账号"><a href="#1-注册-PyPI-账号" class="headerlink" title="1. 注册 PyPI 账号"></a>1. 注册 PyPI 账号</h3><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://pypi.org/account/register/">https://pypi.org/account/register/</a></li>
+<li>完成注册并验证邮箱</li>
+<li>启用双因素认证（推荐）</li>
+</ol>
+<h3 id="2-生成-API-Token"><a href="#2-生成-API-Token" class="headerlink" title="2. 生成 API Token"></a>2. 生成 API Token</h3><ol>
+<li>登录 PyPI</li>
+<li>访问 <a target="_blank" rel="noopener" href="https://pypi.org/manage/account/token/">https://pypi.org/manage/account/token/</a></li>
+<li>点击 “Add API token”</li>
+<li>设置 Token 名称和权限范围</li>
+<li><strong>立即复制并保存 Token</strong>（只显示一次）</li>
+</ol>
+<p>Token 格式：<code>pypi-AgEI...</code></p>
+<h3 id="3-配置认证信息"><a href="#3-配置认证信息" class="headerlink" title="3. 配置认证信息"></a>3. 配置认证信息</h3><p><strong>方法一：环境变量（推荐）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> UV_PUBLISH_TOKEN=<span class="hljs-string">&quot;pypi-your-token-here&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>方法二：命令行参数</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">uv publish --token <span class="hljs-string">&quot;pypi-your-token-here&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>方法三：使用 .pypirc 文件</strong></p>
+<p>创建 <code>~/.pypirc</code>：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[pypi]</span><br><span class="hljs-attr">username</span> = __token__<br><span class="hljs-attr">password</span> = pypi-your-token-here<br><br><span class="hljs-section">[testpypi]</span><br><span class="hljs-attr">username</span> = __token__<br><span class="hljs-attr">password</span> = pypi-your-testpypi-token-here<br></code></pre></td></tr></table></figure>
+
+<p>设置文件权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 ~/.pypirc<br></code></pre></td></tr></table></figure>
+
+<h3 id="4-发布到-PyPI"><a href="#4-发布到-PyPI" class="headerlink" title="4. 发布到 PyPI"></a>4. 发布到 PyPI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 发布所有构建产物</span><br>uv publish<br><br><span class="hljs-comment"># 使用 Token 发布</span><br>uv publish --token <span class="hljs-string">&quot;pypi-your-token-here&quot;</span><br><br><span class="hljs-comment"># 发布到指定索引（需要在 pyproject.toml 中配置）</span><br>uv publish --index pypi<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-验证发布"><a href="#5-验证发布" class="headerlink" title="5. 验证发布"></a>5. 验证发布</h3><p>发布成功后，访问 <a target="_blank" rel="noopener" href="https://pypi.org/project/my-awesome-package/">https://pypi.org/project/my-awesome-package/</a> 查看你的包。</p>
+<p>安装测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在新环境中测试安装</span><br>uv run --with my-awesome-package --no-project -- python -c <span class="hljs-string">&quot;from my_awesome_package import hello; print(hello())&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="使用-TestPyPI-测试"><a href="#使用-TestPyPI-测试" class="headerlink" title="使用 TestPyPI 测试"></a>使用 TestPyPI 测试</h2><p>在正式发布前，建议先在 TestPyPI 上测试。</p>
+<h3 id="1-注册-TestPyPI-账号"><a href="#1-注册-TestPyPI-账号" class="headerlink" title="1. 注册 TestPyPI 账号"></a>1. 注册 TestPyPI 账号</h3><p>访问 <a target="_blank" rel="noopener" href="https://test.pypi.org/account/register/">https://test.pypi.org/account/register/</a></p>
+<h3 id="2-配置-TestPyPI-索引"><a href="#2-配置-TestPyPI-索引" class="headerlink" title="2. 配置 TestPyPI 索引"></a>2. 配置 TestPyPI 索引</h3><p>在 <code>pyproject.toml</code> 中添加：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-section">[[tool.uv.index]]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;testpypi&quot;</span><br><span class="hljs-attr">url</span> = <span class="hljs-string">&quot;https://test.pypi.org/simple/&quot;</span><br><span class="hljs-attr">publish-url</span> = <span class="hljs-string">&quot;https://test.pypi.org/legacy/&quot;</span><br><span class="hljs-attr">explicit</span> = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-发布到-TestPyPI"><a href="#3-发布到-TestPyPI" class="headerlink" title="3. 发布到 TestPyPI"></a>3. 发布到 TestPyPI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成 TestPyPI Token 后</span><br>uv publish --index testpypi --token <span class="hljs-string">&quot;pypi-your-testpypi-token&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-从-TestPyPI-安装测试"><a href="#4-从-TestPyPI-安装测试" class="headerlink" title="4. 从 TestPyPI 安装测试"></a>4. 从 TestPyPI 安装测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建测试环境</span><br>uv venv test-env<br><span class="hljs-built_in">source</span> test-env/bin/activate  <span class="hljs-comment"># Linux/macOS</span><br><span class="hljs-comment"># test-env\Scripts\activate   # Windows</span><br><br><span class="hljs-comment"># 从 TestPyPI 安装</span><br>uv pip install --index-url https://test.pypi.org/simple/ my-awesome-package<br><br><span class="hljs-comment"># 测试导入</span><br>python -c <span class="hljs-string">&quot;from my_awesome_package import hello; print(hello())&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h2><h3 id="使用-uv-version-管理版本"><a href="#使用-uv-version-管理版本" class="headerlink" title="使用 uv version 管理版本"></a>使用 uv version 管理版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看当前版本</span><br>uv version<br><br><span class="hljs-comment"># 设置精确版本</span><br>uv version 1.0.0<br><br><span class="hljs-comment"># 预览版本变更（不实际修改）</span><br>uv version 2.0.0 --dry-run<br><br><span class="hljs-comment"># 语义化版本升级</span><br>uv version --bump patch    <span class="hljs-comment"># 0.1.0 -&gt; 0.1.1</span><br>uv version --bump minor    <span class="hljs-comment"># 0.1.0 -&gt; 0.2.0</span><br>uv version --bump major    <span class="hljs-comment"># 0.1.0 -&gt; 1.0.0</span><br><br><span class="hljs-comment"># 预发布版本</span><br>uv version --bump patch --bump beta    <span class="hljs-comment"># 0.1.0 -&gt; 0.1.1b1</span><br>uv version --bump major --bump alpha   <span class="hljs-comment"># 0.1.0 -&gt; 1.0.0a1</span><br><br><span class="hljs-comment"># 从预发布升级到稳定版</span><br>uv version --bump stable    <span class="hljs-comment"># 1.0.0b2 -&gt; 1.0.0</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="版本号规范"><a href="#版本号规范" class="headerlink" title="版本号规范"></a>版本号规范</h3><p>遵循 <a target="_blank" rel="noopener" href="https://semver.org/lang/zh-CN/">语义化版本</a>：</p>
+<ul>
+<li><strong>MAJOR.MINOR.PATCH</strong> (例如：1.2.3)</li>
+<li><strong>MAJOR</strong>: 不兼容的 API 变更</li>
+<li><strong>MINOR</strong>: 向下兼容的功能性新增</li>
+<li><strong>PATCH</strong>: 向下兼容的问题修正</li>
+</ul>
+<p>预发布版本：<code>1.0.0a1</code>, <code>1.0.0b2</code>, <code>1.0.0rc1</code></p>
+<hr>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="1-项目结构"><a href="#1-项目结构" class="headerlink" title="1. 项目结构"></a>1. 项目结构</h3><p>推荐使用 <code>src</code> 布局：</p>
+<pre><code class="hljs">my-package/
+├── src/
+│   └── my_package/
+│       ├── __init__.py
+│       ├── core.py
+│       └── py.typed        # PEP 561 类型标记
+├── tests/
+├── pyproject.toml
+├── README.md
+├── LICENSE
+└── .gitignore
+</code></pre>
+<h3 id="2-依赖管理"><a href="#2-依赖管理" class="headerlink" title="2. 依赖管理"></a>2. 依赖管理</h3><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># 明确指定版本范围</span><br><span class="hljs-attr">dependencies</span> = [<br>    <span class="hljs-string">&quot;requests&gt;=2.28.0,&lt;3.0.0&quot;</span>,<br>    <span class="hljs-string">&quot;pydantic&gt;=2.0.0&quot;</span>,<br>]<br><br><span class="hljs-comment"># 分离开发依赖</span><br><span class="hljs-section">[project.optional-dependencies]</span><br><span class="hljs-attr">dev</span> = [<span class="hljs-string">&quot;pytest&gt;=7.0&quot;</span>, <span class="hljs-string">&quot;ruff&gt;=0.1.0&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-CI-CD-自动发布"><a href="#3-CI-CD-自动发布" class="headerlink" title="3. CI&#x2F;CD 自动发布"></a>3. CI&#x2F;CD 自动发布</h3><p><strong>GitHub Actions 示例 (.github&#x2F;workflows&#x2F;publish.yml)：</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">name:</span> <span class="hljs-string">Publish</span> <span class="hljs-string">to</span> <span class="hljs-string">PyPI</span><br><br><span class="hljs-attr">on:</span><br>  <span class="hljs-attr">release:</span><br>    <span class="hljs-attr">types:</span> [<span class="hljs-string">published</span>]<br><br><span class="hljs-attr">jobs:</span><br>  <span class="hljs-attr">publish:</span><br>    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span><br>    <span class="hljs-attr">permissions:</span><br>      <span class="hljs-attr">id-token:</span> <span class="hljs-string">write</span>  <span class="hljs-comment"># 用于可信发布</span><br><br>    <span class="hljs-attr">steps:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v4</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">uv</span><br>        <span class="hljs-attr">uses:</span> <span class="hljs-string">astral-sh/setup-uv@v4</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Set</span> <span class="hljs-string">up</span> <span class="hljs-string">Python</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">uv</span> <span class="hljs-string">python</span> <span class="hljs-string">install</span> <span class="hljs-number">3.12</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Run</span> <span class="hljs-string">tests</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">|</span><br><span class="hljs-string">          uv sync --extra dev</span><br><span class="hljs-string">          uv run pytest</span><br><span class="hljs-string"></span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">package</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">uv</span> <span class="hljs-string">build</span> <span class="hljs-string">--no-sources</span><br><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Publish</span> <span class="hljs-string">to</span> <span class="hljs-string">PyPI</span><br>        <span class="hljs-attr">run:</span> <span class="hljs-string">uv</span> <span class="hljs-string">publish</span><br>        <span class="hljs-attr">env:</span><br>          <span class="hljs-attr">UV_PUBLISH_TOKEN:</span> <span class="hljs-string">$&#123;&#123;</span> <span class="hljs-string">secrets.PYPI_TOKEN</span> <span class="hljs-string">&#125;&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-可信发布（Trusted-Publishing）"><a href="#4-可信发布（Trusted-Publishing）" class="headerlink" title="4. 可信发布（Trusted Publishing）"></a>4. 可信发布（Trusted Publishing）</h3><p>PyPI 支持无需 Token 的可信发布：</p>
+<ol>
+<li>在 PyPI 项目设置中添加 GitHub Actions 作为可信发布者</li>
+<li>配置 GitHub Actions 使用 <code>id-token: write</code> 权限</li>
+<li>不需要设置任何 Token</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Publish</span> <span class="hljs-string">to</span> <span class="hljs-string">PyPI</span><br>  <span class="hljs-attr">run:</span> <span class="hljs-string">uv</span> <span class="hljs-string">publish</span><br>  <span class="hljs-comment"># 不需要设置 UV_PUBLISH_TOKEN</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-发布检查清单"><a href="#5-发布检查清单" class="headerlink" title="5. 发布检查清单"></a>5. 发布检查清单</h3><p>发布前确认：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 更新版本号</li>
+<li><input disabled="" type="checkbox"> 更新 CHANGELOG</li>
+<li><input disabled="" type="checkbox"> 运行测试并确保通过</li>
+<li><input disabled="" type="checkbox"> 运行 linter 和类型检查</li>
+<li><input disabled="" type="checkbox"> 更新 README（如有必要）</li>
+<li><input disabled="" type="checkbox"> 构建并验证包</li>
+<li><input disabled="" type="checkbox"> 在 TestPyPI 上测试</li>
+<li><input disabled="" type="checkbox"> 确认许可证文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 完整的发布流程</span><br>uv run pytest &amp;&amp; \<br>uv run ruff check . &amp;&amp; \<br>uv build --no-sources &amp;&amp; \<br>twine check dist/* &amp;&amp; \<br>uv publish<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q1-包名已被占用怎么办？"><a href="#Q1-包名已被占用怎么办？" class="headerlink" title="Q1: 包名已被占用怎么办？"></a>Q1: 包名已被占用怎么办？</h3><ul>
+<li>使用更有创意的名称</li>
+<li>添加前缀（如 <code>yourname-packagename</code>）</li>
+<li>检查 PyPI 上是否真的需要该名称</li>
+</ul>
+<h3 id="Q2-构建失败怎么办？"><a href="#Q2-构建失败怎么办？" class="headerlink" title="Q2: 构建失败怎么办？"></a>Q2: 构建失败怎么办？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 清理构建缓存</span><br><span class="hljs-built_in">rm</span> -rf dist/ build/ *.egg-info<br><br><span class="hljs-comment"># 重新构建</span><br>uv build --no-sources<br><br><span class="hljs-comment"># 查看详细错误</span><br>uv build --verbose<br></code></pre></td></tr></table></figure>
+
+<h3 id="Q3-如何删除已发布的版本？"><a href="#Q3-如何删除已发布的版本？" class="headerlink" title="Q3: 如何删除已发布的版本？"></a>Q3: 如何删除已发布的版本？</h3><p>PyPI 不允许删除已发布的版本，只能：</p>
+<ul>
+<li>发布新版本</li>
+<li>使用 <code>yanking</code> 标记版本为不推荐</li>
+</ul>
+<h3 id="Q4-如何处理二进制扩展？"><a href="#Q4-如何处理二进制扩展？" class="headerlink" title="Q4: 如何处理二进制扩展？"></a>Q4: 如何处理二进制扩展？</h3><p>如果包含 C&#x2F;C++ 扩展，需要使用 <code>cibuildwheel</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># GitHub Actions</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Build</span> <span class="hljs-string">wheels</span><br>  <span class="hljs-attr">uses:</span> <span class="hljs-string">pypa/cibuildwheel@v2.16</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Q5-发布后如何更新包？"><a href="#Q5-发布后如何更新包？" class="headerlink" title="Q5: 发布后如何更新包？"></a>Q5: 发布后如何更新包？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 更新版本号</span><br>uv version --bump patch<br><br><span class="hljs-comment"># 重新构建并发布</span><br>uv build --no-sources<br>uv publish<br></code></pre></td></tr></table></figure>
+
+<h3 id="Q6-如何在私有仓库发布？"><a href="#Q6-如何在私有仓库发布？" class="headerlink" title="Q6: 如何在私有仓库发布？"></a>Q6: 如何在私有仓库发布？</h3><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs toml"><span class="hljs-comment"># pyproject.toml</span><br><span class="hljs-section">[[tool.uv.index]]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;private&quot;</span><br><span class="hljs-attr">url</span> = <span class="hljs-string">&quot;https://private.pypi.org/simple/&quot;</span><br><span class="hljs-attr">publish-url</span> = <span class="hljs-string">&quot;https://private.pypi.org/legacy/&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">uv publish --index private<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">uv 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://packaging.python.org/">Python 打包用户指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://packaging.python.org/en/latest/guides/writing-pyproject-toml/">pyproject.toml 规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://pypi.org/help/">PyPI 帮助</a></li>
+<li><a target="_blank" rel="noopener" href="https://semver.org/">语义化版本</a></li>
+<li><a target="_blank" rel="noopener" href="https://spdx.org/licenses/">SPDX 许可证列表</a></li>
+</ul>
+<hr>
+<h2 id="快速参考命令"><a href="#快速参考命令" class="headerlink" title="快速参考命令"></a>快速参考命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 项目初始化</span><br>uv init my-package<br><span class="hljs-built_in">cd</span> my-package<br><br><span class="hljs-comment"># 依赖管理</span><br>uv add requests<br>uv add --dev pytest<br>uv <span class="hljs-built_in">sync</span><br><br><span class="hljs-comment"># 运行代码</span><br>uv run python -m my_package<br>uv run pytest<br><br><span class="hljs-comment"># 版本管理</span><br>uv version<br>uv version --bump patch<br><br><span class="hljs-comment"># 构建和发布</span><br>uv build --no-sources<br>uv publish<br><br><span class="hljs-comment"># 发布到 TestPyPI</span><br>uv publish --index testpypi<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p><em>最后更新：2024</em></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/uv/" class="print-no-link">#uv</a>
+      
+        <a href="/tags/PyPI/" class="print-no-link">#PyPI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用 uv 构建并发布 Python 包到 PyPI</div>
+      <div>https://tingfeng347.github.io/2026/04/28/使用 uv 构建并发布 Python 包到 PyPI/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年4月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2026/05/16/%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%20CLI%20%E5%B7%A5%E5%85%B7/" title="如何编写可维护的 CLI 工具">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何编写可维护的 CLI 工具</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/04/19/%E4%B8%87%E8%B1%A1%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%9B%BE%E5%87%87%E6%8B%BC%E9%9F%B3%20Rime%20%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/" title="万象大模型与雾凇拼音 Rime 配置指南">
+                        <span class="hidden-mobile">万象大模型与雾凇拼音 Rime 配置指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,2127 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="LangGraph 源码地图与运行机制这篇文章记录了我对 LangGraph 的一次系统性源码阅读：从用户写下 StateGraph、add_node、compile() 开始，一路追到 invoke() 背后的 Pregel loop、任务调度、LLM 调用和 checkpoint 持久化。阅读范围以 Python libs&#x2F;langgraph 核心运行时和 libs&#x2F;prebuilt 的经典">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LangGraph 源码地图与运行机制">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="LangGraph 源码地图与运行机制这篇文章记录了我对 LangGraph 的一次系统性源码阅读：从用户写下 StateGraph、add_node、compile() 开始，一路追到 invoke() 背后的 Pregel loop、任务调度、LLM 调用和 checkpoint 持久化。阅读范围以 Python libs&#x2F;langgraph 核心运行时和 libs&#x2F;prebuilt 的经典">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-04T13:30:00.000Z">
+<meta property="article:modified_time" content="2026-08-04T15:54:49.152Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="LangGraph">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="源码分析">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>LangGraph 源码地图与运行机制 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LangGraph 源码地图与运行机制"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-04 21:30" pubdate>
+          2026年8月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          168 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" title="LangGraph 源码地图与运行机制"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">LangGraph 源码地图与运行机制</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="false"
+      >
+        源码解析
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/02/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">LangGraph 源码地图与运行机制</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="LangGraph-源码地图与运行机制"><a href="#LangGraph-源码地图与运行机制" class="headerlink" title="LangGraph 源码地图与运行机制"></a>LangGraph 源码地图与运行机制</h1><p>这篇文章记录了我对 LangGraph 的一次系统性源码阅读：从用户写下 <code>StateGraph</code>、<code>add_node</code>、<code>compile()</code> 开始，一路追到 <code>invoke()</code> 背后的 Pregel loop、任务调度、LLM 调用和 checkpoint 持久化。阅读范围以 Python <code>libs/langgraph</code> 核心运行时和 <code>libs/prebuilt</code> 的经典 ReAct Agent 为主，并覆盖 checkpoint、stream、store 的边界。</p>
+<p>阅读方法：先用符号调用图建立整体结构，再对关键函数按源码顺序逐段阅读。</p>
+<h2 id="1-先给结论：LangGraph-到底是什么"><a href="#1-先给结论：LangGraph-到底是什么" class="headerlink" title="1. 先给结论：LangGraph 到底是什么"></a>1. 先给结论：LangGraph 到底是什么</h2><p>LangGraph 是一个以<strong>状态、通道（channel）、任务、超步（superstep）和检查点</strong>为核心的图运行时。用户写的是节点函数和边，运行时真正执行的是一组 <code>PregelExecutableTask</code>；每个任务读取当前 checkpoint 的通道快照，产出对通道的 writes，所有任务完成后统一应用 writes，再决定下一轮任务。</p>
+<p>最重要的架构分层如下：</p>
+<pre><code class=" mermaid">flowchart TB
+    APP[用户代码\nStateGraph / Functional API] --&gt; BUILD[图构建层\nStateGraph]
+    BUILD --&gt; COMPILED[编译产物\nCompiledStateGraph]
+    COMPILED --&gt; PREGEL[执行接口\nPregel.invoke / stream]
+    PREGEL --&gt; LOOP[运行控制\nSyncPregelLoop / AsyncPregelLoop]
+    LOOP --&gt; ALGO[算法层\nprepare_next_tasks / apply_writes]
+    LOOP --&gt; RUNNER[任务执行\nPregelRunner / retry]
+    RUNNER --&gt; NODE[PregelNode.bound\nRunnable / 用户节点 / ToolNode]
+    NODE --&gt; LLM[LangChain ChatModel\ninvoke / ainvoke]
+    LOOP --&gt; CP[Checkpoint Saver]
+    LOOP --&gt; EVENTS[stream handlers\nvalues / updates / messages / debug]
+    PRE[prebuilt create_react_agent] --&gt; BUILD
+    PRE --&gt; TOOL[ToolNode]
+    TOOL --&gt; LOOP
+</code></pre>
+
+<p>由此可以得到四个关键判断：</p>
+<ol>
+<li><code>StateGraph</code> 只负责声明和编译，不负责执行用户节点。</li>
+<li><code>invoke()</code> 不是独立的执行器；它消费 <code>stream()</code> 产生的事件并收集最终结果。</li>
+<li>LLM 不是 LangGraph 内部的特殊对象。对运行时来说，LLM 只是一个 Runnable，和普通节点一样被包装成任务；真正的模型 HTTP 请求发生在 LangChain provider 实现中。</li>
+<li>Agent 的”思考-调用工具-再思考”不是用 Python <code>while</code> 写成的业务循环，而是图边让 <code>agent</code> 和 <code>tools</code> 在连续的 Pregel step 中反复成为下一轮任务。</li>
+</ol>
+<h2 id="2-仓库源码地图"><a href="#2-仓库源码地图" class="headerlink" title="2. 仓库源码地图"></a>2. 仓库源码地图</h2><table>
+<thead>
+<tr>
+<th>层</th>
+<th>目录</th>
+<th>主要职责</th>
+<th>首要入口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>图 DSL</td>
+<td><code>libs/langgraph/langgraph/graph/</code></td>
+<td>schema、节点、边、条件分支、编译</td>
+<td><code>graph/state.py</code></td>
+</tr>
+<tr>
+<td>核心执行</td>
+<td><code>libs/langgraph/langgraph/pregel/</code></td>
+<td>Runnable 接口、loop、任务、并发、重试、输出</td>
+<td><code>pregel/main.py</code></td>
+</tr>
+<tr>
+<td>状态算法</td>
+<td><code>libs/langgraph/langgraph/pregel/_algo.py</code></td>
+<td>任务准备、触发器匹配、writes 应用</td>
+<td><code>prepare_next_tasks</code>、<code>apply_writes</code></td>
+</tr>
+<tr>
+<td>任务执行</td>
+<td><code>libs/langgraph/langgraph/pregel/_runner.py</code></td>
+<td>并发提交、等待、commit、错误处理</td>
+<td><code>PregelRunner.tick</code></td>
+</tr>
+<tr>
+<td>运行上下文</td>
+<td><code>libs/langgraph/langgraph/runtime.py</code></td>
+<td><code>context</code>、<code>store</code>、<code>stream_writer</code>、control</td>
+<td><code>Runtime</code></td>
+</tr>
+<tr>
+<td>Runnable 包装</td>
+<td><code>libs/langgraph/langgraph/_internal/_runnable.py</code></td>
+<td>函数、Runnable、序列组合与 callback</td>
+<td><code>RunnableCallable</code>、<code>RunnableSeq</code></td>
+</tr>
+<tr>
+<td>预构建 Agent</td>
+<td><code>libs/prebuilt/langgraph/prebuilt/</code></td>
+<td>ToolNode、ReAct 图工厂</td>
+<td><code>chat_agent_executor.py</code></td>
+</tr>
+<tr>
+<td>checkpoint 契约</td>
+<td><code>libs/checkpoint/langgraph/checkpoint/</code></td>
+<td>checkpoint 数据结构和 saver 抽象</td>
+<td><code>checkpoint/base/__init__.py</code></td>
+</tr>
+<tr>
+<td>SQLite 后端</td>
+<td><code>libs/checkpoint-sqlite/langgraph/checkpoint/sqlite/</code></td>
+<td>checkpoint 和 pending writes 的 SQLite 实现</td>
+<td><code>SqliteSaver</code>、<code>AsyncSqliteSaver</code></td>
+</tr>
+<tr>
+<td>PostgreSQL 后端</td>
+<td><code>libs/checkpoint-postgres/langgraph/checkpoint/postgres/</code></td>
+<td>服务化、多连接 checkpoint</td>
+<td><code>PostgresSaver</code></td>
+</tr>
+</tbody></table>
+<p>依赖方向是 <code>checkpoint -&gt; langgraph/prebuilt -&gt; 应用图</code>；SQLite&#x2F;Postgres 只是 checkpoint 的替换实现。CLI 负责发现和装载用户导出的图，SDK 负责远程 HTTP&#x2F;stream，不会替代进程内的 Pregel loop。</p>
+<h2 id="3-从用户代码到编译产物"><a href="#3-从用户代码到编译产物" class="headerlink" title="3. 从用户代码到编译产物"></a>3. 从用户代码到编译产物</h2><h3 id="3-1-StateGraph-init-：先把类型变成通道"><a href="#3-1-StateGraph-init-：先把类型变成通道" class="headerlink" title="3.1 StateGraph.__init__：先把类型变成通道"></a>3.1 <code>StateGraph.__init__</code>：先把类型变成通道</h3><p>文件：<code>libs/langgraph/langgraph/graph/state.py</code>。</p>
+<p>初始化按源码顺序做这些事：</p>
+<ol>
+<li>处理已废弃的 <code>config_schema</code>、<code>input</code>、<code>output</code> 参数，并把它们转换到 <code>context_schema</code>、<code>input_schema</code>、<code>output_schema</code>。</li>
+<li>初始化 <code>nodes</code>、<code>edges</code>、<code>branches</code>、<code>schemas</code>、<code>channels</code>、<code>managed</code>、<code>waiting_edges</code>。</li>
+<li>记录状态、输入、输出、运行上下文三种 schema。没有单独输入&#x2F;输出 schema 时，它们回退到状态 schema。</li>
+<li>对 state schema 调用 <code>_add_schema()</code>；对 input&#x2F;output schema 调用同一函数但禁止 managed channel。</li>
+</ol>
+<p><code>_add_schema()</code> 不是简单保存类型：</p>
+<ol>
+<li><code>_get_channels(schema)</code> 从 TypedDict、dataclass、Pydantic 或注解中解析普通 channel 和 managed value。</li>
+<li>普通 channel 放入 <code>self.channels</code>，它描述字段的值类型和聚合规则。</li>
+<li>managed value 放入 <code>self.managed</code>，它不是每一步普通状态更新的一部分，例如步数管理器或外部资源。</li>
+<li>同名 channel 如果类型不同会报错；<code>LastValue</code> 有兼容处理。</li>
+<li>因此，状态字典只是用户看到的形状，运行时内部真正维护的是”channel 名 -&gt; channel 实例”。</li>
+</ol>
+<p>一个字段的更新路径是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">节点返回 &#123;&quot;messages&quot;: [new_message]&#125;<br>  -&gt; PregelNode writer 将返回值转换为 (&quot;messages&quot;, value)<br>  -&gt; apply_writes 找到 messages 对应 channel<br>  -&gt; channel.update(values) 按 LastValue / BinOp / Topic 等规则归约<br>  -&gt; 下一步通过 ChannelRead 读取新值<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-add-node-：保存节点规范，不运行节点"><a href="#3-2-add-node-：保存节点规范，不运行节点" class="headerlink" title="3.2 add_node()：保存节点规范，不运行节点"></a>3.2 <code>add_node()</code>：保存节点规范，不运行节点</h3><p>具体实现的职责可以按源码执行顺序理解为：</p>
+<ol>
+<li>识别调用形式：<code>add_node(fn)</code>、<code>add_node(&quot;name&quot;, fn)</code> 或传入 Runnable。</li>
+<li>推导或校验节点名，拒绝重复节点名以及与 <code>START</code>&#x2F;<code>END</code> 冲突的名字。</li>
+<li><code>coerce_to_runnable()</code> 将普通函数、异步函数或 Runnable 统一成可调用对象。</li>
+<li>保存节点输入 schema、metadata、<code>defer</code>、retry policy、cache policy、timeout、error handler 和 destinations。</li>
+<li>如果节点使用了额外 state schema，会再次 <code>_add_schema()</code>，让节点可以只读取状态的一个视图。</li>
+</ol>
+<p>这里有一个容易误解的设计：<code>destinations</code> 主要用于渲染&#x2F;静态说明；真正的运行时路由来自普通边、条件分支、节点返回的 <code>Command</code> 或 <code>Send</code>。</p>
+<h3 id="3-3-add-edge-与-add-conditional-edges-：声明触发关系"><a href="#3-3-add-edge-与-add-conditional-edges-：声明触发关系" class="headerlink" title="3.3 add_edge() 与 add_conditional_edges()：声明触发关系"></a>3.3 <code>add_edge()</code> 与 <code>add_conditional_edges()</code>：声明触发关系</h3><p>无条件边被保存为 <code>(source, target)</code>。<code>START</code>、<code>END</code> 是虚拟边界：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs text">输入 writes -&gt; START trigger -&gt; 第一个用户节点<br>用户节点 writes -&gt; 后继节点 trigger<br>没有更多 trigger -&gt; END<br></code></pre></td></tr></table></figure>
+
+<p>条件边保存的是 branch：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">source node<br>  -&gt; branch.runnable(state)<br>  -&gt; 返回目标名 / Send / Command<br>  -&gt; branch 的 ends 映射到目标节点或 END<br></code></pre></td></tr></table></figure>
+
+<p>条件函数不是在 <code>add_conditional_edges()</code> 时执行，而是在 source 节点的 writes 已经提交、下一轮准备任务时执行。因此路由看到的是该超步结束后的状态，而不是 source 节点执行的中间态。</p>
+<h3 id="3-4-StateGraph-compile-：把声明固化成-Pregel"><a href="#3-4-StateGraph-compile-：把声明固化成-Pregel" class="headerlink" title="3.4 StateGraph.compile()：把声明固化成 Pregel"></a>3.4 <code>StateGraph.compile()</code>：把声明固化成 Pregel</h3><p><code>compile()</code> 的核心结果是 <code>CompiledStateGraph</code>，它继承&#x2F;组合 Pregel 的执行能力。按源码语义，编译过程分为：</p>
+<ol>
+<li>校验 graph 是否已经编译、输入&#x2F;输出 channel 是否存在、边的 source&#x2F;target 是否有效。</li>
+<li>合并用户传入的 checkpointer、store、cache、interrupt、debug 和 name。</li>
+<li>创建 <code>CompiledStateGraph</code>，把 builder 的 channels、managed、节点配置、输入输出 channel 交给它。</li>
+<li><code>attach_node()</code> 为每个用户节点建立 <code>PregelNode</code>：节点的 bound runnable、读取哪些 channel、写入哪些 channel、writers、retry&#x2F;cache&#x2F;error 策略都会在这里固定。</li>
+<li><code>attach_edge()</code> 把普通边编译成 channel trigger。目标节点不是直接被 Python 函数调用，而是被某个 channel 更新触发。</li>
+<li><code>attach_branch()</code> 把条件分支编译成 branch runnable 和动态写入逻辑。</li>
+<li>设置 <code>START</code> 的输入写入和 <code>END</code> 的终止语义。</li>
+<li>设置 <code>trigger_to_nodes</code>，这是运行时从”哪些 channel 更新了”反查”哪些节点需要执行”的索引。</li>
+</ol>
+<p>所以编译前后是一次重要的表示转换：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">StateGraph.nodes / edges / branches<br>  -&gt; PregelNode.bound + readers + writers<br>  -&gt; channels + trigger_to_nodes<br>  -&gt; CompiledStateGraph(Pregel)<br></code></pre></td></tr></table></figure>
+
+<p>编译不会调用模型、工具或用户节点；只会包装和连接它们。</p>
+<h2 id="4-一次-invoke-的完整调用链"><a href="#4-一次-invoke-的完整调用链" class="headerlink" title="4. 一次 invoke() 的完整调用链"></a>4. 一次 <code>invoke()</code> 的完整调用链</h2><p>主入口：<code>libs/langgraph/langgraph/pregel/main.py</code>。</p>
+<h3 id="4-1-invoke-只是-stream-的收集器"><a href="#4-1-invoke-只是-stream-的收集器" class="headerlink" title="4.1 invoke() 只是 stream 的收集器"></a>4.1 <code>invoke()</code> 只是 stream 的收集器</h3><p><code>Pregel.invoke()</code> 的实际策略是：</p>
+<ol>
+<li>根据 <code>stream_mode</code> 选择收集方式，默认使用 <code>values</code>。</li>
+<li>调用 <code>self.stream(...)</code>。</li>
+<li>逐个消费 stream chunk；v1&#x2F;v2 对 interrupt 的读取方式不同。</li>
+<li><code>values</code> 模式返回最新完整状态；其他模式返回最后一个 chunk 或收集后的 chunks。</li>
+</ol>
+<p>这就是为什么排查执行问题时应该先看：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">graph.stream(<span class="hljs-built_in">input</span>, stream_mode=<span class="hljs-string">&quot;debug&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>而不是只盯着 <code>invoke()</code> 的最终字典。</p>
+<h3 id="4-2-Pregel-stream-的逐段流程"><a href="#4-2-Pregel-stream-的逐段流程" class="headerlink" title="4.2 Pregel.stream() 的逐段流程"></a>4.2 <code>Pregel.stream()</code> 的逐段流程</h3><h4 id="阶段-A：解析运行参数"><a href="#阶段-A：解析运行参数" class="headerlink" title="阶段 A：解析运行参数"></a>阶段 A：解析运行参数</h4><ol>
+<li>处理旧的 <code>checkpoint_during</code>，转换为 durability。</li>
+<li>没有显式 <code>stream_mode</code> 时，顶层使用实例默认值；被另一个图作为节点调用时默认 <code>values</code>。</li>
+<li>创建 <code>SyncQueue</code>，所有 stream handler 最终都向这个队列写入。</li>
+<li><code>ensure_config(self.config, config)</code> 合并调用配置和图默认配置。</li>
+<li><code>_defaults()</code> 解析 stream modes、output keys、interrupt 前后节点、checkpointer、store、cache、durability。</li>
+<li>创建 callback manager 和 graph callback manager，建立一次运行的 run id。</li>
+</ol>
+<h4 id="阶段-B：装配流和-Runtime"><a href="#阶段-B：装配流和-Runtime" class="headerlink" title="阶段 B：装配流和 Runtime"></a>阶段 B：装配流和 Runtime</h4><p>根据 stream mode 安装 handler：</p>
+<table>
+<thead>
+<tr>
+<th>mode</th>
+<th>handler&#x2F;来源</th>
+<th>产生什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>values</code></td>
+<td>loop 的 output emitter</td>
+<td>每步完整输出状态</td>
+</tr>
+<tr>
+<td><code>updates</code></td>
+<td>task&#x2F;output 映射</td>
+<td>节点名和节点局部 writes</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>StreamMessagesHandler</code></td>
+<td>LLM token 与 metadata</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td><code>StreamToolCallHandler</code></td>
+<td>工具调用事件</td>
+</tr>
+<tr>
+<td><code>custom</code></td>
+<td><code>stream_writer</code> 写入 queue</td>
+<td>节点主动发送的数据</td>
+</tr>
+<tr>
+<td><code>tasks</code>&#x2F;<code>debug</code>&#x2F;<code>checkpoints</code></td>
+<td>loop debug emitter</td>
+<td>任务、checkpoint、诊断信息</td>
+</tr>
+</tbody></table>
+<p>随后创建 <code>Runtime</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">Runtime(<br>  context=本次调用的静态上下文,<br>  store=跨 thread 数据存储,<br>  stream_writer=自定义事件写入函数,<br>  server_info=服务元信息,<br>  control=drain/关闭控制,<br>)<br></code></pre></td></tr></table></figure>
+
+<p>它被放进 <code>config[&quot;configurable&quot;]</code>，节点通过参数 <code>runtime</code> 取得，而不是从全局变量读取。</p>
+<h4 id="阶段-C：创建-loop-和-runner"><a href="#阶段-C：创建-loop-和-runner" class="headerlink" title="阶段 C：创建 loop 和 runner"></a>阶段 C：创建 loop 和 runner</h4><p><code>SyncPregelLoop(...)</code> 注入：输入、stream protocol、config、store、cache、checkpointer、nodes、channel specs、输入输出 keys、interrupt、retry&#x2F;cache policy 和 <code>trigger_to_nodes</code>。</p>
+<p>然后创建：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">runner = PregelRunner(<br>    submit=loop.submit,<br>    put_writes=loop.put_writes,<br>    node_error_handler_map=<span class="hljs-variable language_">self</span>.node_error_handler_map,<br>    schedule_error_handler=loop.schedule_error_handler,<br>)<br></code></pre></td></tr></table></figure>
+
+<p><code>PregelRunner</code> 不决定图结构；它只负责把已经选好的任务执行起来，并把任务结果 commit 回 loop。</p>
+<h4 id="阶段-D：主-BSP-loop"><a href="#阶段-D：主-BSP-loop" class="headerlink" title="阶段 D：主 BSP loop"></a>阶段 D：主 BSP loop</h4><p>源码中的核心循环是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">while</span> loop.tick():<br>    <span class="hljs-keyword">for</span> task <span class="hljs-keyword">in</span> loop.match_cached_writes():<br>        loop.output_writes(task.<span class="hljs-built_in">id</span>, task.writes, cached=<span class="hljs-literal">True</span>)<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> runner.tick(tasks, ...):<br>        <span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> _output(...)<br>    loop.after_tick()<br>    <span class="hljs-keyword">if</span> durability == <span class="hljs-string">&quot;sync&quot;</span>:<br>        loop._put_checkpoint_fut.result()<br></code></pre></td></tr></table></figure>
+
+<p>这段代码的每一行对应一个架构保证：</p>
+<ol>
+<li><code>loop.tick()</code>：根据当前 checkpoint、pending writes 和更新过的 channel 准备本轮任务；若无任务则结束。</li>
+<li><code>match_cached_writes()</code>：缓存命中时直接复用任务 writes，不重复执行节点。</li>
+<li><code>runner.tick(...)</code>：执行本轮所有 <code>writes</code> 为空的任务；每个 task 可以同步或并发运行。</li>
+<li><code>_output(...)</code>：把任务完成期间积累的 queue 事件转换成用户可见 chunk。</li>
+<li><code>loop.after_tick()</code>：统一应用本轮 writes、推进 channel version、写 checkpoint、检查 <code>interrupt_after</code>。</li>
+<li><code>sync</code> durability 等待 checkpoint 真正完成；<code>async</code> 允许 checkpoint 写入和下一步重叠；<code>exit</code> 延迟到退出。</li>
+</ol>
+<p><strong>BSP 关键点：第 N 步的 writes 不会被第 N 步其他节点读取，只在 <code>after_tick()</code> 后成为第 N+1 步的 channel 值。</strong> 这保证并行节点读取同一个不可变快照，避免执行顺序影响结果。</p>
+<h4 id="阶段-E：退出和异常"><a href="#阶段-E：退出和异常" class="headerlink" title="阶段 E：退出和异常"></a>阶段 E：退出和异常</h4><p>循环退出后继续吐尽 stream queue，再根据 loop status 处理：</p>
+<ul>
+<li><code>out_of_steps</code>：超过 <code>recursion_limit</code>，抛 <code>GraphRecursionError</code>。</li>
+<li><code>draining</code>：收到 <code>RunControl</code> 的协作式关闭请求，抛 <code>GraphDrained</code>。</li>
+<li><code>interrupt_before</code> &#x2F; <code>interrupt_after</code>：抛 <code>GraphInterrupt</code>，checkpoint 已经留下恢复所需信息。</li>
+<li>正常退出：<code>run_manager.on_chain_end(loop.output)</code>。</li>
+<li>任意异常：<code>run_manager.on_chain_error(e)</code> 后原样抛出。</li>
+</ul>
+<h2 id="5-loop-内部：任务怎样被生成、运行和提交"><a href="#5-loop-内部：任务怎样被生成、运行和提交" class="headerlink" title="5. loop 内部：任务怎样被生成、运行和提交"></a>5. loop 内部：任务怎样被生成、运行和提交</h2><h3 id="5-1-SyncPregelLoop-init"><a href="#5-1-SyncPregelLoop-init" class="headerlink" title="5.1 SyncPregelLoop.__init__"></a>5.1 <code>SyncPregelLoop.__init__</code></h3><p>文件：<code>pregel/_loop.py</code>。</p>
+<p>初始化不是”创建一个 while 状态变量”这么简单，它还处理恢复边界：</p>
+<ol>
+<li>保存输入、nodes、specs、checkpointer、策略和当前 step&#x2F;stop。</li>
+<li>判断是否 nested graph、是否 replaying。</li>
+<li>根据 scratchpad 的 subgraph counter 修正 <code>checkpoint_ns</code>。</li>
+<li>顶层图清理不应继承的 namespace&#x2F;id；子图保留自己的命名空间。</li>
+<li>从 <code>checkpoint_map</code> 选择本次运行实际恢复的 checkpoint。</li>
+<li>把 <code>thread_id</code> 规范化为字符串，计算 <code>checkpoint_ns</code> tuple。</li>
+<li>从 Runtime 取出 <code>control</code>，供 drain 使用。</li>
+</ol>
+<p>这解释了为什么同一个图对象可以安全地被多个 thread 调用：运行状态在 loop 和 checkpoint config 中，不在编译对象的可变业务状态里。</p>
+<h3 id="5-2-tick-：一轮开始前做什么"><a href="#5-2-tick-：一轮开始前做什么" class="headerlink" title="5.2 tick()：一轮开始前做什么"></a>5.2 <code>tick()</code>：一轮开始前做什么</h3><ol>
+<li>如果 <code>step &gt; stop</code>，设置 <code>out_of_steps</code> 并返回 <code>False</code>。</li>
+<li>调用 <code>_algo.prepare_next_tasks(...)</code>，传入 checkpoint、pending writes、nodes、channels、managed、step、触发器、retry&#x2F;cache policy。</li>
+<li>如果上一轮 checkpoint 写入已经完成，发出 checkpoint debug 事件。</li>
+<li>没有 tasks 时设置 <code>done</code> 并返回 <code>False</code>。</li>
+<li>如果 control 要求 drain，设置 <code>draining</code> 并返回 <code>False</code>。</li>
+<li>恢复场景下，把已经成功持久化的 writes 重新挂到对应 task；跳过 ERROR、INTERRUPT、RESUME 等控制写入。</li>
+<li>检查 <code>interrupt_before</code>。</li>
+<li>发出 task debug 事件，并输出缓存命中的 writes。</li>
+<li>返回 <code>True</code>，允许 runner 执行任务。</li>
+</ol>
+<h3 id="5-3-prepare-next-tasks-：从-channel-更新反查节点"><a href="#5-3-prepare-next-tasks-：从-channel-更新反查节点" class="headerlink" title="5.3 prepare_next_tasks()：从 channel 更新反查节点"></a>5.3 <code>prepare_next_tasks()</code>：从 channel 更新反查节点</h3><p>文件：<code>pregel/_algo.py</code>。</p>
+<p>该函数的概念算法是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs text">输入：checkpoint、channels、pending_writes、trigger_to_nodes<br>1. 看哪些 channel version 在上一步被更新<br>2. 通过 trigger_to_nodes 找到被更新 channel 触发的节点<br>3. 为每个节点构造 PregelExecutableTask<br>4. 将节点要读取的 channel 快照、config、path、retry/cache 信息装进 task<br>5. 合并恢复 writes，避免已成功节点重复执行<br>输出：task_id -&gt; PregelExecutableTask<br></code></pre></td></tr></table></figure>
+
+<p>task 中最重要的不是函数本身，而是三组数据：</p>
+<ul>
+<li><code>triggers</code>：为什么该节点本轮应该执行。</li>
+<li><code>writes</code>：已完成或从 checkpoint 恢复的结果；为空才交给 runner 执行。</li>
+<li><code>bound</code>&#x2F;<code>node</code>：真正被 Runnable 调用的对象。</li>
+</ul>
+<h3 id="5-4-PregelRunner-tick-：执行任务并-commit"><a href="#5-4-PregelRunner-tick-：执行任务并-commit" class="headerlink" title="5.4 PregelRunner.tick()：执行任务并 commit"></a>5.4 <code>PregelRunner.tick()</code>：执行任务并 commit</h3><p>文件：<code>pregel/_runner.py</code>。</p>
+<p>执行顺序如下：</p>
+<ol>
+<li>把 tasks 转成 tuple，建立 <code>FuturesDict</code>，每个 future 完成时回调 <code>commit</code>。</li>
+<li>单任务、无 timeout、无 waiter 时走 fast path，直接 <code>run_with_retry()</code>。</li>
+<li>多任务时通过 <code>submit()</code> 并发提交，每个任务都携带 <code>_call</code>，允许节点内部动态 <code>Send</code> 新任务。</li>
+<li>使用 <code>FIRST_COMPLETED</code> 等待；一个任务完成就给上层一次 yield 机会，于是 stream 可以边执行边输出。</li>
+<li>节点错误若有 graph-level error handler，则标记为 handled，并调度 handler task；否则进入 panic&#x2F;reraise。</li>
+<li>所有 future 完成后 <code>_panic_or_proceed()</code> 决定是否抛出未处理异常。</li>
+</ol>
+<p><code>commit()</code> 的关键语义是：节点执行结果不会直接修改共享 channels，而是转换为 task writes，再调用 loop 的 <code>put_writes(task_id, writes)</code>。因此并发任务之间没有”谁先写谁覆盖”的 Python 字典竞争，冲突由 channel reducer 在超步边界处理。</p>
+<h3 id="5-5-after-tick-：超步提交点"><a href="#5-5-after-tick-：超步提交点" class="headerlink" title="5.5 after_tick()：超步提交点"></a>5.5 <code>after_tick()</code>：超步提交点</h3><p>源码顺序非常关键：</p>
+<ol>
+<li>收集所有 task writes。</li>
+<li>调用 <code>apply_writes(...)</code>，将本轮 writes 应用到 channels，并返回下一轮需要关注的 updated channels。</li>
+<li>如果输出 channel 被更新，发出 <code>values</code>。</li>
+<li>保存 exit durability 需要的 delta writes。</li>
+<li>清空 pending writes，关闭 replay 状态。</li>
+<li><code>_put_checkpoint({&quot;source&quot;: &quot;loop&quot;})</code> 保存新的通道版本和 metadata。</li>
+<li>检查 <code>interrupt_after</code>。</li>
+<li>清掉 resuming 标记。</li>
+</ol>
+<p>因此 checkpoint 是”超步提交”的持久化镜像，而不是每个节点函数返回一次就立即替换整个 state。</p>
+<h2 id="6-LLM-调用：prompt-如何拼接、模型如何真正被调用"><a href="#6-LLM-调用：prompt-如何拼接、模型如何真正被调用" class="headerlink" title="6. LLM 调用：prompt 如何拼接、模型如何真正被调用"></a>6. LLM 调用：prompt 如何拼接、模型如何真正被调用</h2><p>以下以 <code>libs/prebuilt/langgraph/prebuilt/chat_agent_executor.py</code> 的 <code>create_react_agent()</code> 为例。</p>
+<h3 id="6-1-Agent-工厂初始化阶段"><a href="#6-1-Agent-工厂初始化阶段" class="headerlink" title="6.1 Agent 工厂初始化阶段"></a>6.1 Agent 工厂初始化阶段</h3><p><code>create_react_agent()</code> 初始化阶段按顺序做：</p>
+<ol>
+<li>处理 deprecated kwargs，校验 <code>version</code> 只能是 <code>v1</code> 或 <code>v2</code>。</li>
+<li>校验自定义 state schema 至少有 <code>messages</code>、<code>remaining_steps</code>；有 structured response 时还要有 <code>structured_response</code>。</li>
+<li>没有 schema 时使用 <code>AgentState</code> 或 <code>AgentStateWithStructuredResponse</code>。</li>
+<li>将传入 tools 分成普通工具和 provider builtin tool schema，构造或复用 <code>ToolNode</code>。</li>
+<li>判断 model 是静态模型、Runnable，还是运行时动态选择模型。</li>
+<li>静态模型若是字符串，调用 <code>langchain.chat_models.init_chat_model()</code> 初始化 provider。</li>
+<li><code>_should_bind_tools()</code> 检查模型是否已有 tools binding；需要时执行 <code>model.bind_tools(tool_classes + llm_builtin_tools)</code>。</li>
+<li>构造 <code>static_model = _get_prompt_runnable(prompt) | model</code>。</li>
+</ol>
+<p>这里的 <code>|</code> 不是普通 Python 管道，而是构造一个 Runnable sequence：第一步把 graph state 转成 LLM input，第二步把 input 交给 ChatModel。</p>
+<h3 id="6-2-get-prompt-runnable-：四种-prompt-形态"><a href="#6-2-get-prompt-runnable-：四种-prompt-形态" class="headerlink" title="6.2 _get_prompt_runnable()：四种 prompt 形态"></a>6.2 <code>_get_prompt_runnable()</code>：四种 prompt 形态</h3><p>源码分支对应的实际输入输出：</p>
+<table>
+<thead>
+<tr>
+<th>prompt 类型</th>
+<th>构造的 Runnable</th>
+<th>LLM 最终收到的内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>None</code></td>
+<td><code>lambda state: state[&quot;messages&quot;]</code></td>
+<td>原始消息列表</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>创建 <code>SystemMessage(content=prompt)</code>，再拼接</td>
+<td><code>[system_message] + state[&quot;messages&quot;]</code></td>
+</tr>
+<tr>
+<td><code>SystemMessage</code></td>
+<td>把该消息放在列表首位</td>
+<td><code>[prompt] + state[&quot;messages&quot;]</code></td>
+</tr>
+<tr>
+<td>callable</td>
+<td><code>RunnableCallable(prompt)</code></td>
+<td>callable(state) 的结果</td>
+</tr>
+<tr>
+<td>coroutine callable</td>
+<td><code>RunnableCallable(None, prompt)</code></td>
+<td>await prompt(state) 的结果</td>
+</tr>
+<tr>
+<td>Runnable</td>
+<td>原样使用</td>
+<td>Runnable 的输出</td>
+</tr>
+</tbody></table>
+<p>注意两点：</p>
+<ol>
+<li>字符串 prompt 不是拼进用户消息的字符串，而是转换成单独的 <code>SystemMessage</code>。</li>
+<li>prompt callable 拿到的是完整 graph state，不只是 messages，因此可以根据用户、租户、检索结果或运行上下文动态生成 LLM input。</li>
+</ol>
+<h3 id="6-3-RunnableSeq-invoke-：prompt-和-model-的真实调用顺序"><a href="#6-3-RunnableSeq-invoke-：prompt-和-model-的真实调用顺序" class="headerlink" title="6.3 RunnableSeq.invoke()：prompt 和 model 的真实调用顺序"></a>6.3 <code>RunnableSeq.invoke()</code>：prompt 和 model 的真实调用顺序</h3><p>内部实现：<code>libs/langgraph/langgraph/_internal/_runnable.py</code>。</p>
+<p><code>RunnableSeq.invoke(input, config)</code>：</p>
+<ol>
+<li>创建 callback manager 和根 run。</li>
+<li>对 <code>steps</code> 逐个循环。</li>
+<li>第一个 step 是 Prompt Runnable，在 config context 中执行。</li>
+<li>第一个 step 的返回值成为第二个 step 的 input。</li>
+<li>第二个 step 是 ChatModel 的 <code>invoke(model_input, config)</code>。</li>
+<li>正常结束调用 <code>on_chain_end</code>；异常调用 <code>on_chain_error</code>。</li>
+</ol>
+<p>于是静态 LLM 的确切调用链是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs text">PregelRunner<br>  -&gt; PregelNode.node.invoke(state, config)<br>  -&gt; call_model(state, runtime, config)<br>  -&gt; static_model.invoke(model_input, config)<br>  -&gt; RunnableSeq.invoke<br>  -&gt; Prompt Runnable.invoke(state)<br>  -&gt; [SystemMessage, HumanMessage, AIMessage, ToolMessage, ...]<br>  -&gt; ChatModel.invoke(messages, config)<br>  -&gt; provider HTTP/API 请求<br>  -&gt; AIMessage<br></code></pre></td></tr></table></figure>
+
+<p>LangGraph 不负责把 token 生成出来；模型 provider 负责生成。LangGraph 通过 callback 和 <code>StreamMessagesHandler</code> 观察模型事件，再把 token&#x2F;metadata 放入 graph stream。</p>
+<h3 id="6-4-call-model-：每轮-agent-节点做什么"><a href="#6-4-call-model-：每轮-agent-节点做什么" class="headerlink" title="6.4 call_model()：每轮 agent 节点做什么"></a>6.4 <code>call_model()</code>：每轮 agent 节点做什么</h3><p>同步路径源码顺序：</p>
+<ol>
+<li>如果传入 async dynamic model 却调用同步 agent，立即报错。</li>
+<li><code>_get_model_input_state(state)</code> 取得本轮 LLM 输入消息。</li>
+<li>有 <code>pre_model_hook</code> 时优先取 <code>llm_input_messages</code>，否则取 state 的 <code>messages</code>。</li>
+<li>没有消息则抛出明确的 <code>ValueError</code>；有消息则 <code>_validate_chat_history()</code> 校验消息序列。</li>
+<li>把选出的 messages 临时放回 <code>state[&quot;messages&quot;]</code>，因为 Prompt Runnable 约定从这个 key 读取。</li>
+<li>静态模型直接 <code>static_model.invoke(model_input, config)</code>；动态模型先 <code>_resolve_model(state, runtime)</code>，再 invoke。</li>
+<li>将返回的 <code>AIMessage.name</code> 设为 agent name。</li>
+<li><code>_are_more_steps_needed()</code> 检查 remaining_steps 和 tool calls。</li>
+<li>如果步骤不足，返回一条内容为 <code>Sorry, need more steps to process this request.</code> 的 AIMessage。</li>
+<li>否则返回 <code>{&quot;messages&quot;: [response]}</code>。返回 list 是为了让 messages channel 的 reducer 追加消息，而不是替换历史。</li>
+</ol>
+<p>异步路径完全对应，只将模型调用替换为 <code>await dynamic_model.ainvoke(...)</code> 或 <code>await static_model.ainvoke(...)</code>。</p>
+<h3 id="6-5-pre-model-hook-如何改变-prompt"><a href="#6-5-pre-model-hook-如何改变-prompt" class="headerlink" title="6.5 pre-model hook 如何改变 prompt"></a>6.5 pre-model hook 如何改变 prompt</h3><p>hook 的输出可以包含：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;<br>    <span class="hljs-string">&quot;messages&quot;</span>: [RemoveMessage(<span class="hljs-built_in">id</span>=REMOVE_ALL_MESSAGES), *trimmed_messages],<br>    <span class="hljs-string">&quot;llm_input_messages&quot;</span>: [...],<br>    <span class="hljs-string">&quot;other_state_key&quot;</span>: value,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>含义不同：</p>
+<ul>
+<li><code>messages</code> 会更新持久状态，适合摘要、裁剪和重写历史。</li>
+<li><code>llm_input_messages</code> 只作为本次模型输入，不写回 messages。</li>
+<li>其他 key 继续进入 graph state。</li>
+</ul>
+<p>因此”prompt 拼接”发生在两个可能位置：先是 pre-model hook 产生模型输入，再是 <code>_get_prompt_runnable()</code> 在输入前插入 system message 或执行自定义 prompt Runnable。</p>
+<h2 id="7-ReAct-Agent-的完整-loop：LLM、工具和回边"><a href="#7-ReAct-Agent-的完整-loop：LLM、工具和回边" class="headerlink" title="7. ReAct Agent 的完整 loop：LLM、工具和回边"></a>7. ReAct Agent 的完整 loop：LLM、工具和回边</h2><h3 id="7-1-图结构"><a href="#7-1-图结构" class="headerlink" title="7.1 图结构"></a>7.1 图结构</h3><p>经典逻辑可表示为：</p>
+<pre><code class=" mermaid">flowchart TD
+    START --&gt; PRE[pre_model_hook 可选]
+    PRE --&gt; AGENT[agent / call_model]
+    START --&gt; AGENT
+    AGENT --&gt; ROUTE&#123;AIMessage.tool_calls?&#125;
+    ROUTE -- 无 --&gt; STRUCT[structured response 可选]
+    ROUTE -- 有 --&gt; TOOLS[ToolNode]
+    TOOLS --&gt; AGENT
+    STRUCT --&gt; END
+</code></pre>
+
+<p>真正的循环不是 <code>call_model()</code> 内部的 while：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs text">第 0 step: START writes -&gt; agent task<br>第 1 step: agent 返回 AIMessage(tool_calls) -&gt; messages channel 更新<br>第 2 step: tool_calls 触发 tools task<br>第 3 step: tools 返回 ToolMessage -&gt; messages channel 更新<br>第 4 step: ToolMessage 触发 agent task<br>...直到 agent 返回没有 tool_calls 的 AIMessage<br></code></pre></td></tr></table></figure>
+
+<p>每次回到 agent 都会重新执行 prompt Runnable 和 ChatModel，因此模型每轮看到的是完整的消息历史（或 hook 指定的裁剪历史）。</p>
+<h3 id="7-2-条件路由如何决定停止或回-tools"><a href="#7-2-条件路由如何决定停止或回-tools" class="headerlink" title="7.2 条件路由如何决定停止或回 tools"></a>7.2 条件路由如何决定停止或回 tools</h3><p><code>tools_condition</code> 检查最后一条消息是否是带 <code>tool_calls</code> 的 <code>AIMessage</code>：</p>
+<ul>
+<li>有 tool calls：目标为 <code>tools</code>。</li>
+<li>没有 tool calls：目标为 <code>END</code> 或 structured response 节点。</li>
+</ul>
+<p><code>return_direct</code> 工具和 <code>remaining_steps</code> 会额外影响是否允许继续。remaining steps 小于 2 且仍有 tool calls 时，不再调工具，而是由 <code>call_model()</code> 返回”步骤不足”的最终 AIMessage，避免直接触发 GraphRecursionError。</p>
+<h3 id="7-3-ToolNode-如何执行一个-tool-call"><a href="#7-3-ToolNode-如何执行一个-tool-call" class="headerlink" title="7.3 ToolNode 如何执行一个 tool call"></a>7.3 ToolNode 如何执行一个 tool call</h3><p>文件：<code>libs/prebuilt/langgraph/prebuilt/tool_node.py</code>。</p>
+<p><code>ToolNode._func()</code> 先解析输入形态：可以是 message list、带 messages 的 state dict，或直接 tool calls。然后对 tool calls 使用 executor 并行执行 <code>_run_one()</code>。</p>
+<p>单个调用的细流程：</p>
+<ol>
+<li>从 call 取 <code>name</code>、<code>args</code>、<code>id</code>，在 <code>tools_by_name</code> 中查找工具。</li>
+<li>找不到工具时 <code>_validate_tool_call()</code> 返回错误 <code>ToolMessage</code>，内容列出可用工具名。</li>
+<li><code>_inject_tool_args()</code> 在真正调用前注入 state、store、runtime 等特殊参数；这些参数不会来自 LLM 的 args。</li>
+<li>调用 <code>tool.invoke(call_args, config)</code>。</li>
+<li><code>ValidationError</code> 被包装为 <code>ToolInvocationError</code>，错误报告使用原始 args，避免把注入参数暴露给模型。</li>
+<li><code>_normalize_tool_response()</code> 把字符串、消息、Command 或列表统一转换为 <code>ToolMessage</code>&#x2F;Command writes。</li>
+<li><code>GraphBubbleUp</code>（包括 interrupt）直接向上抛出，不能被普通 tool error handler 吞掉。</li>
+<li>其他异常按 <code>handle_tool_errors</code> 策略处理；默认转换为 status&#x3D;<code>error</code> 的 <code>ToolMessage</code>。</li>
+<li>多个 tool call 的结果合并成 <code>{&quot;messages&quot;: [ToolMessage, ...]}</code>，由 messages channel 追加到历史。</li>
+</ol>
+<h3 id="7-4-v1-与-v2-的差异"><a href="#7-4-v1-与-v2-的差异" class="headerlink" title="7.4 v1 与 v2 的差异"></a>7.4 v1 与 v2 的差异</h3><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>一个 ToolNode task 处理什么</th>
+<th>并发位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v1</td>
+<td>最后一条 AIMessage 中的全部 tool calls</td>
+<td>ToolNode 内部 executor 并行</td>
+</tr>
+<tr>
+<td>v2</td>
+<td>一个 tool call</td>
+<td>图通过 <code>Send</code> 为每个 call 创建独立 ToolNode task</td>
+</tr>
+</tbody></table>
+<p>两种版本最终都走同一个 Pregel loop、checkpoint、retry、interrupt 和 stream 机制。v2 的优势是每个工具调用有独立 task identity、路径和流事件，更适合细粒度分发和嵌套图。</p>
+<h3 id="7-5-structured-response-是额外-LLM-调用"><a href="#7-5-structured-response-是额外-LLM-调用" class="headerlink" title="7.5 structured response 是额外 LLM 调用"></a>7.5 structured response 是额外 LLM 调用</h3><p>当提供 <code>response_format</code> 时，Agent loop 停止后才执行 <code>generate_structured_response</code>：</p>
+<ol>
+<li>解析 schema 或 <code>(prompt, schema)</code> 二元组。</li>
+<li>对当前模型调用 <code>.with_structured_output(schema)</code>。</li>
+<li>用最终消息历史（以及可选的 structured prompt）再次调用 LLM。</li>
+<li>把结果写入 <code>structured_response</code>。</li>
+</ol>
+<p>它不是同一次 tool-calling response 的自动字段，也不是免费解析；源码文档明确说明这是 Agent loop 结束后的单独模型调用。</p>
+<h2 id="8-状态、消息和-reducer-的真实语义"><a href="#8-状态、消息和-reducer-的真实语义" class="headerlink" title="8. 状态、消息和 reducer 的真实语义"></a>8. 状态、消息和 reducer 的真实语义</h2><h3 id="8-1-messages-为什么能累加"><a href="#8-1-messages-为什么能累加" class="headerlink" title="8.1 messages 为什么能累加"></a>8.1 messages 为什么能累加</h3><p>Agent state 的 <code>messages</code> 通常不是普通 <code>LastValue</code>，而是带消息 reducer 的 channel。节点返回：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">&#123;<span class="hljs-string">&quot;messages&quot;</span>: [response]&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不会把整个历史替换成一条消息，而是由 channel reducer 追加&#x2F;合并；<code>ToolMessage</code>、<code>AIMessage</code>、<code>RemoveMessage</code> 也由该 reducer 处理。若 pre-model hook 要重写历史，必须显式发送 <code>RemoveMessage(id=REMOVE_ALL_MESSAGES)</code>，否则只是追加而不是覆盖。</p>
+<h3 id="8-2-state、context、store、checkpoint-的边界"><a href="#8-2-state、context、store、checkpoint-的边界" class="headerlink" title="8.2 state、context、store、checkpoint 的边界"></a>8.2 <code>state</code>、<code>context</code>、<code>store</code>、<code>checkpoint</code> 的边界</h3><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>生命周期</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>state&#x2F;channels</td>
+<td>图执行期间，按 step 演进</td>
+<td>当前会话和节点间数据</td>
+</tr>
+<tr>
+<td>context</td>
+<td>一次 run</td>
+<td>模型选择、租户、用户配置等只读运行上下文</td>
+</tr>
+<tr>
+<td>checkpoint</td>
+<td>thread + namespace 的时间线</td>
+<td>恢复、中断、回放、时间旅行</td>
+</tr>
+<tr>
+<td>store</td>
+<td>跨 thread</td>
+<td>用户记忆、共享知识、应用数据</td>
+</tr>
+</tbody></table>
+<p>不要用 <code>store</code> 代替 checkpoint：store 保存业务数据，不保存可恢复的 Pregel task&#x2F;channel 时间线。</p>
+<h2 id="9-Checkpoint-与恢复"><a href="#9-Checkpoint-与恢复" class="headerlink" title="9. Checkpoint 与恢复"></a>9. Checkpoint 与恢复</h2><p>基础契约：<code>libs/checkpoint/langgraph/checkpoint/base/__init__.py</code>。</p>
+<p>关键数据：</p>
+<ul>
+<li><code>Checkpoint</code>：channel values、channel versions、versions_seen、id、timestamp 等。</li>
+<li><code>CheckpointTuple</code>：checkpoint、metadata、父 config 和 pending writes。</li>
+<li><code>BaseCheckpointSaver</code>：<code>get_tuple/list/put/put_writes/delete_thread</code> 以及异步对应方法。</li>
+</ul>
+<p>运行身份主要来自：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">config[&quot;configurable&quot;] = &#123;<br>    &quot;thread_id&quot;: ...,<br>    &quot;checkpoint_ns&quot;: ...,<br>    &quot;checkpoint_id&quot;: ...,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>一次可恢复运行包含两类写入：</p>
+<ol>
+<li><code>put_writes</code>：节点完成后立即保存 task 级 pending writes，支持节点执行到一半发生中断&#x2F;失败后恢复。</li>
+<li><code>put</code>：<code>after_tick()</code> 在超步边界保存聚合后的 checkpoint。</li>
+</ol>
+<p>恢复时 <code>tick()</code> 会把已经成功保存的普通 writes 重新挂回 task，并跳过已成功节点；控制类 writes（ERROR、INTERRUPT、RESUME）不能按普通状态写入重放。这样恢复不会简单地从头重跑所有节点，也不会重复追加已经持久化的消息。</p>
+<p>SQLite 的表结构可以作为最直观的后端参照：<code>checkpoints</code> 保存快照和 metadata，<code>writes</code> 保存 task&#x2F;channel&#x2F;value。Postgres 实现遵守同一契约，改变的是存储并发和事务方式，不改变图执行语义。</p>
+<h2 id="10-Stream、LLM-token-和事件从哪里来"><a href="#10-Stream、LLM-token-和事件从哪里来" class="headerlink" title="10. Stream、LLM token 和事件从哪里来"></a>10. Stream、LLM token 和事件从哪里来</h2><p><code>Pregel.stream()</code> 自身不是简单 <code>yield final_state</code>。事件来源有三条：</p>
+<ol>
+<li>loop 在 <code>after_tick()</code> 等位置发出的 values&#x2F;updates&#x2F;checkpoint&#x2F;debug。</li>
+<li>LangChain callback handler 观察 ChatModel 的 token、tool call 和 metadata，写入 <code>SyncQueue</code>。</li>
+<li>节点通过 Runtime 的 <code>stream_writer</code> 写入 custom 数据。</li>
+</ol>
+<p>当 <code>stream_mode=&quot;messages&quot;</code> 时，LLM 调用链中的 callback 事件会被 <code>StreamMessagesHandler</code> 捕获；因此模型 token 可以在一个 Pregel task 尚未结束时被输出。<code>updates</code> 则更接近节点提交结果，通常要等 task 完成后才能看到。</p>
+<p>嵌套图通过 <code>checkpoint_ns</code> 和 namespace tuple 区分事件；<code>subgraphs=True</code> 时事件会带上父节点和子节点的路径，避免不同子图的同名 agent&#x2F;tool 事件混淆。</p>
+<h2 id="11-同步、异步、重试和并发的边界"><a href="#11-同步、异步、重试和并发的边界" class="headerlink" title="11. 同步、异步、重试和并发的边界"></a>11. 同步、异步、重试和并发的边界</h2><ul>
+<li><code>stream/invoke</code> 走 <code>SyncPregelLoop</code>、同步 runner 和 <code>Runnable.invoke</code>。</li>
+<li><code>astream/ainvoke</code> 走异步 loop、<code>PregelRunner.atick</code> 和 <code>Runnable.ainvoke</code>。</li>
+<li>一个超步内无依赖的 tasks 可以并发执行；下一个超步必须等待当前超步的 writes 应用。</li>
+<li>retry policy 包裹的是 task attempt，不是整个 graph；失败重试时不会把成功的其他 task 重新执行。</li>
+<li>节点 error handler 是 graph task，普通错误被路由到 handler；handler 自身失败不能再次捕获自己。</li>
+<li><code>GraphInterrupt</code>&#x2F;<code>GraphBubbleUp</code> 是控制流异常，不应被普通工具错误处理吞掉。</li>
+</ul>
+<h2 id="12-按问题定位的源码路径"><a href="#12-按问题定位的源码路径" class="headerlink" title="12. 按问题定位的源码路径"></a>12. 按问题定位的源码路径</h2><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>第一跳</th>
+<th>第二跳</th>
+<th>重点看什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>节点没有执行</td>
+<td><code>StateGraph.compile</code></td>
+<td><code>_algo.prepare_next_tasks</code></td>
+<td>channel trigger、START、条件边</td>
+</tr>
+<tr>
+<td>节点执行顺序不对</td>
+<td><code>Pregel.stream</code></td>
+<td><code>SyncPregelLoop.tick/after_tick</code></td>
+<td>BSP 边界、updated channels</td>
+</tr>
+<tr>
+<td>state 被覆盖</td>
+<td><code>_add_schema</code></td>
+<td>对应 channel 的 <code>update</code></td>
+<td>LastValue、reducer、messages channel</td>
+</tr>
+<tr>
+<td>LLM 没看到 system prompt</td>
+<td><code>_get_prompt_runnable</code></td>
+<td><code>RunnableSeq.invoke</code></td>
+<td>prompt 类型、model_input</td>
+</tr>
+<tr>
+<td>LLM 被调用多次</td>
+<td><code>create_react_agent.call_model</code></td>
+<td><code>tools_condition</code></td>
+<td>是否有 tool_calls、是否回 agent</td>
+</tr>
+<tr>
+<td>工具没执行</td>
+<td><code>ToolNode._func</code></td>
+<td><code>_validate_tool_call</code>、<code>_run_one</code></td>
+<td>工具名、注入参数、工具错误策略</td>
+</tr>
+<tr>
+<td>Agent 无限循环</td>
+<td><code>call_model</code></td>
+<td><code>_are_more_steps_needed</code>、remaining_steps</td>
+<td>模型持续返回 tool_calls、路由是否到 END</td>
+</tr>
+<tr>
+<td>中断无法恢复</td>
+<td><code>SyncPregelLoop</code></td>
+<td><code>put_writes</code>、checkpoint saver</td>
+<td>thread_id、checkpoint_ns、pending writes</td>
+</tr>
+<tr>
+<td>stream 没 token</td>
+<td><code>Pregel.stream</code></td>
+<td><code>StreamMessagesHandler</code></td>
+<td>stream mode、callback 是否传递</td>
+</tr>
+<tr>
+<td>并行结果不稳定</td>
+<td><code>_runner.PregelRunner.tick</code></td>
+<td><code>_algo.apply_writes</code></td>
+<td>reducer 是否可交换&#x2F;可结合、超步边界</td>
+</tr>
+</tbody></table>
+<h2 id="13-推荐的阅读顺序"><a href="#13-推荐的阅读顺序" class="headerlink" title="13. 推荐的阅读顺序"></a>13. 推荐的阅读顺序</h2><ol>
+<li><code>libs/cli/uv-examples/simple/src/agent/graph.py</code>：看最小业务图如何声明。</li>
+<li><code>libs/langgraph/langgraph/graph/state.py</code>：读 <code>StateGraph.__init__</code>、<code>_add_schema</code>、具体 <code>add_node</code>、<code>add_edge</code>、<code>compile</code>、<code>CompiledStateGraph.attach_*</code>。</li>
+<li><code>libs/langgraph/langgraph/pregel/main.py</code>：读 <code>invoke</code>、<code>stream</code> 的配置、handler、loop、runner 和异常收尾。</li>
+<li><code>libs/langgraph/langgraph/pregel/_loop.py</code>：逐行读 <code>__init__</code>、<code>tick</code>、<code>after_tick</code>、<code>put_writes</code>。</li>
+<li><code>libs/langgraph/langgraph/pregel/_algo.py</code>：读 <code>prepare_next_tasks</code>、<code>apply_writes</code>，理解 channel version 和 trigger。</li>
+<li><code>libs/langgraph/langgraph/pregel/_runner.py</code>：读 <code>PregelRunner.tick</code>、<code>commit</code>、error handler 和 retry 交界。</li>
+<li><code>libs/langgraph/langgraph/_internal/_runnable.py</code>：读 <code>RunnableCallable</code>、<code>RunnableSeq.invoke/ainvoke</code>，确认 prompt&#x2F;model 的实际调用顺序。</li>
+<li><code>libs/prebuilt/langgraph/prebuilt/chat_agent_executor.py</code>：读 <code>_get_prompt_runnable</code>、<code>create_react_agent</code>、<code>call_model</code>、<code>generate_structured_response</code>。</li>
+<li><code>libs/prebuilt/langgraph/prebuilt/tool_node.py</code>：读 <code>_func</code>、<code>_run_one</code>、<code>_execute_tool_sync</code>、<code>_inject_tool_args</code>、<code>_normalize_tool_response</code>。</li>
+<li>最后读 checkpoint base 和一个具体后端，理解 pending writes 如何持久化和恢复。</li>
+</ol>
+<h2 id="14-关键符号索引"><a href="#14-关键符号索引" class="headerlink" title="14. 关键符号索引"></a>14. 关键符号索引</h2><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>StateGraph</code></td>
+<td><code>libs/langgraph/langgraph/graph/state.py</code></td>
+<td>声明层 builder</td>
+</tr>
+<tr>
+<td><code>StateGraph._add_schema</code></td>
+<td>同上</td>
+<td>schema -&gt; channel&#x2F;managed</td>
+</tr>
+<tr>
+<td><code>StateGraph.compile</code></td>
+<td>同上</td>
+<td>builder -&gt; Pregel 图</td>
+</tr>
+<tr>
+<td><code>CompiledStateGraph.attach_node</code></td>
+<td>同上</td>
+<td>用户节点 -&gt; PregelNode</td>
+</tr>
+<tr>
+<td><code>Pregel.invoke</code></td>
+<td><code>libs/langgraph/langgraph/pregel/main.py</code></td>
+<td>收集运行结果</td>
+</tr>
+<tr>
+<td><code>Pregel.stream</code></td>
+<td>同上</td>
+<td>配置、调度、事件输出主入口</td>
+</tr>
+<tr>
+<td><code>SyncPregelLoop.tick</code></td>
+<td><code>libs/langgraph/langgraph/pregel/_loop.py</code></td>
+<td>准备一个超步</td>
+</tr>
+<tr>
+<td><code>SyncPregelLoop.after_tick</code></td>
+<td>同上</td>
+<td>应用 writes、checkpoint、interrupt</td>
+</tr>
+<tr>
+<td><code>prepare_next_tasks</code></td>
+<td><code>libs/langgraph/langgraph/pregel/_algo.py</code></td>
+<td>channel trigger -&gt; tasks</td>
+</tr>
+<tr>
+<td><code>apply_writes</code></td>
+<td>同上</td>
+<td>task writes -&gt; channel values</td>
+</tr>
+<tr>
+<td><code>PregelRunner.tick</code></td>
+<td><code>libs/langgraph/langgraph/pregel/_runner.py</code></td>
+<td>并发执行任务</td>
+</tr>
+<tr>
+<td><code>RunnableSeq.invoke</code></td>
+<td><code>libs/langgraph/langgraph/_internal/_runnable.py</code></td>
+<td>prompt -&gt; model 串联</td>
+</tr>
+<tr>
+<td><code>_get_prompt_runnable</code></td>
+<td><code>libs/prebuilt/langgraph/prebuilt/chat_agent_executor.py</code></td>
+<td>prompt 规范化和消息拼接</td>
+</tr>
+<tr>
+<td><code>call_model</code></td>
+<td>同上</td>
+<td>取 state、调用 LLM、写回 AIMessage</td>
+</tr>
+<tr>
+<td><code>ToolNode._func</code></td>
+<td><code>libs/prebuilt/langgraph/prebuilt/tool_node.py</code></td>
+<td>解析并执行 tool calls</td>
+</tr>
+<tr>
+<td><code>ToolNode._execute_tool_sync</code></td>
+<td>同上</td>
+<td>注入参数、调用工具、转 ToolMessage</td>
+</tr>
+<tr>
+<td><code>BaseCheckpointSaver</code></td>
+<td><code>libs/checkpoint/langgraph/checkpoint/base/__init__.py</code></td>
+<td>checkpoint 后端契约</td>
+</tr>
+</tbody></table>
+<h2 id="15-结语"><a href="#15-结语" class="headerlink" title="15. 结语"></a>15. 结语</h2><p>把全文压缩成一句话：<strong>LangGraph 把业务函数、LLM 和工具都统一成可读写 channel 的 Runnable task；Pregel loop 以超步为边界执行、合并、持久化和路由，Agent loop 只是由 AIMessage 的 tool call 触发的图回边。</strong></p>
+<p>理解了这一点，再回头看 <code>create_react_agent</code>、<code>ToolNode</code>、<code>stream_mode=&quot;messages&quot;</code> 这些 API，它们就不再是黑盒，而是同一套运行时机制在不同层面的投影。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/LangGraph/" class="print-no-link">#LangGraph</a>
+      
+        <a href="/tags/Agent/" class="print-no-link">#Agent</a>
+      
+        <a href="/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="print-no-link">#源码分析</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LangGraph 源码地图与运行机制</div>
+      <div>https://tingfeng347.github.io/2026/08/04/LangGraph 源码地图与运行机制/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程">
+                        <span class="hidden-mobile">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
