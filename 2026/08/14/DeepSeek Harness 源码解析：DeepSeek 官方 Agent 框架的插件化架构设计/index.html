@@ -1,0 +1,2061 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计 深入剖析 DeepSeek 官方开源 Agent 框架——DeepSeek Harness（dsh）的插件化架构设计、核心模块与运行机制  项目简介DeepSeek Harness（dsh）是 DeepSeek AI 开源的 Agent 框架（agent harness）。它的核心理念是 “一切皆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/08/14/DeepSeek%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ADeepSeek%20%E5%AE%98%E6%96%B9%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计 深入剖析 DeepSeek 官方开源 Agent 框架——DeepSeek Harness（dsh）的插件化架构设计、核心模块与运行机制  项目简介DeepSeek Harness（dsh）是 DeepSeek AI 开源的 Agent 框架（agent harness）。它的核心理念是 “一切皆">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-14T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-14T11:32:10.237Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI Agent">
+<meta property="article:tag" content="Cordis">
+<meta property="article:tag" content="DeepSeek Harness">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="插件化架构">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-link-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-08-14 18:00" pubdate>
+          2026年8月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          28k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          235 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="AI"
+        id="heading-0a40e3c91a3a55c9a37428c6d194d0e5" role="tab" data-toggle="collapse" href="#collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+        aria-expanded="true"
+      >
+        AI
+        <span class="list-group-count">(15)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0a40e3c91a3a55c9a37428c6d194d0e5"
+           role="tabpanel" aria-labelledby="heading-0a40e3c91a3a55c9a37428c6d194d0e5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/10/AI%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90/" title="AI大模型推荐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI大模型推荐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/24/Ollama%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" title="Ollama大型语言模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Ollama大型语言模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/DeepSeek-R1/" title="DeepSeek-R1 发布，性能对标 OpenAI o1 正式版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">DeepSeek-R1 发布，性能对标 OpenAI o1 正式版</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/28/Janus%20%E7%B3%BB%E5%88%97%EF%BC%9A%E7%BB%9F%E4%B8%80%E7%9A%84%E5%A4%9A%E6%A8%A1%E6%80%81%E7%90%86%E8%A7%A3%E5%92%8C%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" title="Janus 系列：统一的多模态理解和生成模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Janus 系列：统一的多模态理解和生成模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/01/19/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="大模型学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大模型学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/07/31/%E4%B8%BB%E6%B5%81agent%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90%E6%8C%87%E5%8D%97/" title="主流 Agent 架构分析指南"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">主流 Agent 架构分析指南</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" title="LangGraph 源码地图与运行机制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LangGraph 源码地图与运行机制</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Python"
+        id="heading-a7f5f35426b927411fc9231b56382173" role="tab" data-toggle="collapse" href="#collapse-a7f5f35426b927411fc9231b56382173"
+        aria-expanded="false"
+      >
+        Python
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a7f5f35426b927411fc9231b56382173"
+           role="tabpanel" aria-labelledby="heading-a7f5f35426b927411fc9231b56382173">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/01/11/AI%E6%8E%A8%E7%90%86%E5%A3%B0%E9%9F%B3/" title="AI推理声音"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">AI推理声音</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="教程"
+        id="heading-b7824d5cd41d06de995a661879fefd3d" role="tab" data-toggle="collapse" href="#collapse-b7824d5cd41d06de995a661879fefd3d"
+        aria-expanded="false"
+      >
+        教程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b7824d5cd41d06de995a661879fefd3d"
+           role="tabpanel" aria-labelledby="heading-b7824d5cd41d06de995a661879fefd3d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/04/%E4%BB%8E%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93%E7%B3%BB%E7%BB%9F%EF%BC%9APrompt%E3%80%81Context%E3%80%81Loop%20%E4%B8%8E%20Graph%20Engineering%20%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从提示词到智能体系统：Prompt、Context、Loop、Harness 与 Graph Engineering 完整教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="源码解析"
+        id="heading-7174115d4b139a3fadc3c566500db265" role="tab" data-toggle="collapse" href="#collapse-7174115d4b139a3fadc3c566500db265"
+        aria-expanded="true"
+      >
+        源码解析
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-7174115d4b139a3fadc3c566500db265"
+           role="tabpanel" aria-labelledby="heading-7174115d4b139a3fadc3c566500db265">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/08/02/OpenAI%20Codex%20CLI%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ARust%20%E9%A9%B1%E5%8A%A8%E7%9A%84%E6%9C%AC%E5%9C%B0%E7%BC%96%E7%A8%8B%E4%BB%A3%E7%90%86/" title="OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenAI Codex CLI 源码解析：Rust 驱动的本地编程代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Hermes%20Agent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A%E5%85%A8%E6%A0%88%20AI%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%9E%81%E8%87%B4%E8%AE%BE%E8%AE%A1/" title="Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hermes Agent 源码解析：全栈 AI Agent 框架的极致设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Pi%20Agent%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ATypeScript%20%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%20Coding%20Agent/" title="Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Pi Agent Harness 源码解析：TypeScript 实现的模块化 Coding Agent</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/GenericAgent%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9A3000%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9E%81%E7%AE%80%E8%87%AA%E4%B8%BB%E4%BB%A3%E7%90%86/" title="GenericAgent 源码解析：3000 行代码构建的极简自主代理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GenericAgent 源码解析：3000 行代码构建的极简自主代理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/02/Claude%20Code%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9AAnthropic%20%E5%AE%98%E6%96%B9%20AI%20%E7%BC%96%E7%A8%8B%E5%8A%A9%E6%89%8B%E7%9A%84%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Claude Code 源码解析：Anthropic 官方 AI 编程助手的架构设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2026/08/14/DeepSeek%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ADeepSeek%20%E5%AE%98%E6%96%B9%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="DeepSeek-Harness-源码解析：DeepSeek-官方-Agent-框架的插件化架构设计"><a href="#DeepSeek-Harness-源码解析：DeepSeek-官方-Agent-框架的插件化架构设计" class="headerlink" title="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计"></a>DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计</h1><blockquote>
+<p>深入剖析 DeepSeek 官方开源 Agent 框架——DeepSeek Harness（dsh）的插件化架构设计、核心模块与运行机制</p>
+</blockquote>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>DeepSeek Harness</strong>（<code>dsh</code>）是 <a target="_blank" rel="noopener" href="https://deepseek.com/">DeepSeek AI</a> 开源的 Agent 框架（agent harness）。它的核心理念是 <strong>“一切皆插件”（everything is a plugin）</strong>——模型适配器、工具注册表、会话日志、甚至 Agent 循环本身都是一个可替换的插件。整个框架基于 <a target="_blank" rel="noopener" href="https://github.com/cordiverse/cordis">Cordis</a> 插件框架构建，其设计哲学详见论文 <a target="_blank" rel="noopener" href="https://github.com/cordiverse/paper"><em>A Programming Paradigm for Spatiotemporal Composability</em></a>。</p>
+<p>与传统的”硬编码循环 + 内置工具”的 Agent 实现不同，dsh <strong>没有特权核心</strong>：你通过在其它插件旁挂载一个插件来扩展它，而注册（registration）是可逆的 effect——插件卸载时自动回滚。</p>
+<p><strong>核心特性</strong>：</p>
+<ul>
+<li>🧩 <strong>一切皆插件</strong>：模型适配器、工具、会话日志、Agent 循环均可从配置替换</li>
+<li>🔌 <strong>能力缝（Capability Seam）</strong>：Service Definition &#x2F; Provider &#x2F; Consumer 三角色架构，一个 Provider 切换即可改变整个产品行为</li>
+<li>📜 <strong>追加式会话日志</strong>：模型可见的一切都必须可从日志重建，运行时不变式强制保证</li>
+<li>🔄 <strong>可逆注册</strong>：所有注册通过 <code>ctx.effect()</code> &#x2F; <code>ctx.on()</code> 完成，卸载时自动回滚</li>
+<li>🛡️ <strong>进程沙箱</strong>：Landlock &#x2F; bubblewrap &#x2F; sandbox-exec &#x2F; Windows ACL 多平台原生沙箱</li>
+<li>🌐 <strong>Web UI + Headless</strong>：浏览器应用与一次性命令行运行器双模式</li>
+<li>🔧 <strong>Code Mode</strong>：模型通过 <code>run_code</code> 编写程序调用所有工具，而非逐个调用</li>
+</ul>
+<p><strong>技术栈</strong>：</p>
+<ul>
+<li><strong>语言</strong>：TypeScript（<code>strict: true</code> + <code>noImplicitAny</code>），纯 ESM</li>
+<li><strong>运行时</strong>：Node.js ^22.19 || &gt;&#x3D;24</li>
+<li><strong>框架</strong>：Cordis（vendored 插件框架）</li>
+<li><strong>构建</strong>：tsc + tsdown</li>
+<li><strong>包管理</strong>：pnpm workspaces（54 个包组、219+ 个子包）</li>
+<li><strong>测试</strong>：vitest（单测 100% 覆盖率门控 + 快照测试 + e2e）</li>
+<li><strong>Lint</strong>：oxlint + oxlint-tsgolint</li>
+</ul>
+<hr>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs nix">deepseek-harness<span class="hljs-symbol">/</span><br>├── apps<span class="hljs-symbol">/</span>                        <span class="hljs-comment"># 应用入口</span><br>│   ├── cli<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># dsh CLI 入口 (bin.ts → profile-boot.ts)</span><br>│   └── web<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># Web 前端应用</span><br>│<br>├── packages<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># @deepseek-ai/dsh-&lt;pkg&gt; 工作区（54 个包组）</span><br>│   ├── core<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># 产品 API 脊柱</span><br>│   │   ├── session<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 追加式 SessionEvent 日志 + 内存存储</span><br>│   │   ├── system-prompt<span class="hljs-symbol">/</span>       <span class="hljs-comment"># Prompt 段与工具 schema 组装</span><br>│   │   ├── tools<span class="hljs-symbol">/</span>               <span class="hljs-comment"># 作用域工具注册表 + 守卫执行管线</span><br>│   │   ├── agent<span class="hljs-symbol">/</span>               <span class="hljs-comment"># Agent 接口 + 实时注册表 + agent/* 事件</span><br>│   │   ├── agent-loop<span class="hljs-symbol">/</span>          <span class="hljs-comment"># 默认驱动器（ReactLoopAgent）</span><br>│   │   ├── scope<span class="hljs-symbol">/</span>               <span class="hljs-comment"># 每 Agent 作用域注册原语</span><br>│   │   └── agent-default-model<span class="hljs-symbol">/</span> <span class="hljs-comment"># 默认模型选择</span><br>│   │<br>│   ├── llm<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># LLM 能力</span><br>│   │   ├── llm<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># Service Definition + 流式协议</span><br>│   │   ├── llm-deepseek<span class="hljs-symbol">/</span>        <span class="hljs-comment"># DeepSeek 适配器</span><br>│   │   ├── llm-pi-ai<span class="hljs-symbol">/</span>           <span class="hljs-comment"># Pi-AI 适配器</span><br>│   │   └── token-meter<span class="hljs-symbol">/</span>         <span class="hljs-comment"># Token 计量</span><br>│   │<br>│   ├── shell<span class="hljs-symbol">/</span>                   <span class="hljs-comment"># Shell 能力</span><br>│   │   ├── shell<span class="hljs-symbol">/</span>               <span class="hljs-comment"># Service Definition</span><br>│   │   ├── bash-local<span class="hljs-symbol">/</span>          <span class="hljs-comment"># 本地 bash 执行器</span><br>│   │   ├── bash-sandbox<span class="hljs-symbol">/</span>        <span class="hljs-comment"># 沙箱化 bash</span><br>│   │   ├── pwsh-local<span class="hljs-symbol">/</span>          <span class="hljs-comment"># PowerShell 执行器</span><br>│   │   └── tool-bash<span class="hljs-symbol">/</span>           <span class="hljs-comment"># 模型面向的 bash 工具</span><br>│   │<br>│   ├── fs<span class="hljs-symbol">/</span>                      <span class="hljs-comment"># 文件系统能力</span><br>│   │   ├── fs<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># Service Definition + 策略</span><br>│   │   ├── fs-local<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 本地文件系统</span><br>│   │   ├── fs-sandbox<span class="hljs-symbol">/</span>          <span class="hljs-comment"># 沙箱文件系统</span><br>│   │   └── tool-fs<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 文件操作工具（read/write/edit/grep/glob）</span><br>│   │<br>│   ├── sandbox<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 进程沙箱</span><br>│   │   ├── sandbox<span class="hljs-symbol">/</span>             <span class="hljs-comment"># Service Definition</span><br>│   │   ├── sandbox-local<span class="hljs-symbol">/</span>       <span class="hljs-comment"># 本地多平台沙箱 Provider</span><br>│   │   └── sandbox-policy<span class="hljs-symbol">/</span>      <span class="hljs-comment"># 沙箱策略</span><br>│   │<br>│   ├── compaction<span class="hljs-symbol">/</span>              <span class="hljs-comment"># 上下文压缩</span><br>│   │   ├── compaction<span class="hljs-symbol">/</span>          <span class="hljs-comment"># Service Definition</span><br>│   │   └── compaction-basic<span class="hljs-symbol">/</span>    <span class="hljs-comment"># 基础压缩引擎</span><br>│   │<br>│   ├── subagent<span class="hljs-symbol">/</span>                <span class="hljs-comment"># 子代理能力</span><br>│   ├── web<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># Web 搜索/抓取能力</span><br>│   ├── terminal<span class="hljs-symbol">/</span>                <span class="hljs-comment"># 持久化终端会话</span><br>│   ├── lsp<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># 语言服务器能力</span><br>│   ├── skill<span class="hljs-symbol">/</span>                   <span class="hljs-comment"># 技能注册表</span><br>│   ├── session<span class="hljs-symbol">/</span>                 <span class="hljs-comment"># 持久化、投影、标题、遥测</span><br>│   ├── interaction<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 审批/交互/权限/命令</span><br>│   ├── bundle<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># 可安装的 dsh --profile 补丁层</span><br>│   │   ├── base<span class="hljs-symbol">/</span>                <span class="hljs-comment"># 基础层（模型/工具/持久化/沙箱/审批）</span><br>│   │   ├── web-app<span class="hljs-symbol">/</span>             <span class="hljs-comment"># 浏览器应用层</span><br>│   │   └── headless<span class="hljs-symbol">/</span>            <span class="hljs-comment"># 一次性运行器层</span><br>│   ├── boot<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># 共享启动胶水</span><br>│   ├── sdk<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># JSON-RPC 协议 + 服务端 + TS 客户端</span><br>│   ├── client<span class="hljs-symbol">/</span>                  <span class="hljs-comment"># Web 客户端运行时/UI 组件</span><br>│   ├── host<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># Host API 代理</span><br>│   └── ...                      <span class="hljs-comment"># 更多能力包</span><br>│<br>├── vendor<span class="hljs-symbol">/</span>                      <span class="hljs-comment"># Vendored Cordis 源码</span><br>├── native<span class="hljs-symbol">/</span>                      <span class="hljs-comment"># @deepseek-ai/node-addon-landlock-run（C 源码）</span><br>├── python<span class="hljs-symbol">/</span>                      <span class="hljs-comment"># Python SDK</span><br>├── examples<span class="hljs-symbol">/</span>                    <span class="hljs-comment"># 可运行的 cordis.yml 示例</span><br>├── docs<span class="hljs-symbol">/</span>                        <span class="hljs-comment"># 架构文档、目录、事后分析</span><br>├── scripts<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># 仓库门控与生成器</span><br>└── website<span class="hljs-symbol">/</span>                     <span class="hljs-comment"># VitePress 文档站点</span><br></code></pre></td></tr></table></figure>
+
+<p>这个 monorepo 的规模令人印象深刻——<code>packages/</code> 下有 54 个包组、219+ 个子包，每个包都是一个独立的 <code>@deepseek-ai/dsh-&lt;name&gt;</code> npm 包，通过 Cordis 的 Service&#x2F;Event 机制松耦合组装。</p>
+<hr>
+<h2 id="Cordis：插件框架基石"><a href="#Cordis：插件框架基石" class="headerlink" title="Cordis：插件框架基石"></a>Cordis：插件框架基石</h2><p>理解 dsh 的前提是理解 Cordis。Cordis 是 dsh 底层的 vendored 插件框架，其核心可以归纳为五个理念：</p>
+<h3 id="五大核心理念"><a href="#五大核心理念" class="headerlink" title="五大核心理念"></a>五大核心理念</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs nix">┌─────────────────────────────────────────────────────────────┐<br>│  <span class="hljs-number">1</span>. 插件是实现 Service 的对象                                │<br>│     函数（带 inject<span class="hljs-operator">/</span>apply）或 Service 子类                    │<br>├─────────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">2</span>. 上下文是服务的仓库                                       │<br>│     ctx.tools <span class="hljs-symbol">/</span> ctx.llm <span class="hljs-symbol">/</span> ctx.sessions                       │<br>│     通过 key 查找，而非导入具体实现                           │<br>├─────────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">3</span>. 通过 inject 声明服务依赖                                 │<br>│     加载顺序由服务需求表达，而非手动编排                       │<br>├─────────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">4</span>. 类型化事件通信                                           │<br>│     emit <span class="hljs-symbol">/</span> waterfall <span class="hljs-symbol">/</span> parallel <span class="hljs-symbol">/</span> serial                     │<br>├─────────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">5</span>. 注册是可逆的 effect                                      │<br>│     ctx.effect() <span class="hljs-symbol">/</span> ctx.on() 返回 disposer                    │<br>│     插件卸载时自动回滚                                       │<br>└─────────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="四种事件派发模式"><a href="#四种事件派发模式" class="headerlink" title="四种事件派发模式"></a>四种事件派发模式</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>是否 await</th>
+<th>派发顺序</th>
+<th>有返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>emit</code></td>
+<td>否</td>
+<td>按注册顺序观察</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>waterfall</code></td>
+<td>否</td>
+<td>按注册顺序，around 中间件</td>
+<td>是</td>
+</tr>
+<tr>
+<td><code>parallel</code></td>
+<td>是</td>
+<td>所有监听器并行观察</td>
+<td>否</td>
+</tr>
+<tr>
+<td><code>serial</code></td>
+<td>是</td>
+<td>按注册顺序</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<p><strong>Waterfall 语义</strong>：<code>ctx.waterfall</code> 是 around 中间件。监听器收到 <code>(...args, next)</code>，调用 <code>next()</code> 委托给下一个服务，返回不调用 <code>next()</code> 则短路。策略监听器可以在拥有决策权时短路返回，仅观察的监听器必须委托。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 声明事件（TypeScript declaration merging）</span><br><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;@deepseek-ai/cordis&#x27;</span> &#123;<br>  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Context</span> &#123;<br>    <span class="hljs-attr">llm</span>: <span class="hljs-title class_">LlmRuntime</span><br>  &#125;<br>  <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Events</span> &#123;<br>    <span class="hljs-comment">// @mode waterfall</span><br>    <span class="hljs-string">&#x27;llm/stream&#x27;</span>(<span class="hljs-attr">options</span>: <span class="hljs-title class_">GenerateOptions</span>, <span class="hljs-attr">next</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">AsyncIterable</span>&lt;<span class="hljs-title class_">StreamChunk</span>&gt;): <span class="hljs-title class_">AsyncIterable</span>&lt;<span class="hljs-title class_">StreamChunk</span>&gt;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这种设计让 dsh 的每个部分——模型适配器、工具注册表、会话日志、Agent 循环——都是可替换的插件，不存在需要 patch 的特权核心。</p>
+<hr>
+<h2 id="Profile-与-Bundle：组合系统"><a href="#Profile-与-Bundle：组合系统" class="headerlink" title="Profile 与 Bundle：组合系统"></a>Profile 与 Bundle：组合系统</h2><p>一个运行中的 <code>dsh</code> 是一棵在启动时从有序层组合而成的插件树。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><strong>Profile</strong>（配置文件）：Harness home 中存储的命名组合，列出它堆叠的 bundle，持有树外插件和用户自己的 <code>cordis.patch.yml</code>。<code>web</code> 和 <code>headless</code> 作为模板内置。</li>
+<li><strong>Bundle</strong>（打包层）：Cordis 配置行及其挂载代码的分发格式，使其插入的内容可被上层补丁修改。</li>
+<li><strong>Patch</strong>（补丁）：通过 id 定位行，替换其整个 config 或插入新行。</li>
+</ul>
+<h3 id="层叠顺序"><a href="#层叠顺序" class="headerlink" title="层叠顺序"></a>层叠顺序</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus">┌───────────────────────────────────────────────────┐<br>│  应用顺序（从下到上）                               │<br>├───────────────────────────────────────────────────┤<br>│  <span class="hljs-number">1</span>. 空 root config (cordis<span class="hljs-selector-class">.yml</span> = <span class="hljs-selector-attr">[]</span>)               │<br>│  <span class="hljs-number">2</span>. Bundle 层（dsh<span class="hljs-selector-class">.profile</span><span class="hljs-selector-class">.bundles</span> 顺序）          │<br>│     ├─ @deepseek-ai/dsh-base                       │<br>│     └─ @deepseek-ai/dsh-web-app / dsh-headless     │<br>│  <span class="hljs-number">3</span>. Profile 的 cordis<span class="hljs-selector-class">.patch</span><span class="hljs-selector-class">.yml</span>                    │<br>│  <span class="hljs-number">4</span>. Home 级 cordis<span class="hljs-selector-class">.patch</span><span class="hljs-selector-class">.yml</span> (<span class="hljs-variable">$DSH_HOME</span>)           │<br>│  <span class="hljs-number">5</span>. <span class="hljs-attr">--patch</span> 覆盖层                                 │<br>└───────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<p><code>dsh-base</code> 是每个 profile 的第一层：模型适配器、工具、持久化、沙箱与审批策略、设置、凭证、遥测。<code>dsh-web-app</code> 增加浏览器应用；<code>dsh-headless</code> 增加无服务器的一次性运行器。</p>
+<p>查看实际启动的插件树：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">dsh --profile web --dump-config<br></code></pre></td></tr></table></figure>
+
+<p>输出的任何行都可以被你自己的 patch 替换。</p>
+<hr>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><h3 id="入口点：apps-cli-src-bin-ts"><a href="#入口点：apps-cli-src-bin-ts" class="headerlink" title="入口点：apps/cli/src/bin.ts"></a>入口点：<code>apps/cli/src/bin.ts</code></h3><p>dsh 的启动流程通过<strong>按需动态导入</strong>保持各模式互不干扰：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs awk">┌─────────────────────────────────────────────────────────┐<br>│  <span class="hljs-number">1</span>. CLI 参数解析 (parseDshArgs)                          │<br>│     - 解析命令行参数                                      │<br>│     - --help <span class="hljs-regexp">/ --version /</span> parse error 直接退出          │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">2</span>. 模式分支                                             │<br>│     ├─ profile  → runProfile()                          │<br>│     ├─ plugin   → runPlugin()                           │<br>│     └─ dump-config → runDumpConfig()                    │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">3</span>. Profile 组合 (composeProfile)                        │<br>│     - 加载 bundle 层 (dsh.profile.bundles)               │<br>│     - 加载 profile patch (cordis.patch.yml)              │<br>│     - 加载 home patch (<span class="hljs-variable">$DSH_HOME</span>/cordis.patch.yml)       │<br>│     - 加载 --patch 覆盖层                                │<br>│     - 解析遥测开关                                       │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">4</span>. 启动插件树 (boot)                                    │<br>│     - 挂载空 root config                                 │<br>│     - 提供启动环境快照 (DSH_LAUNCH_ENVIRONMENT_KEY)       │<br>│     - 提供命令行参数 (provideCmdline)                    │<br>│     - 按 inject 依赖顺序激活插件                          │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">5</span>. 信号处理与优雅关闭                                    │<br>│     - SIGTERM → <span class="hljs-keyword">exit</span> <span class="hljs-number">0</span>                                  │<br>│     - SIGINT → <span class="hljs-keyword">exit</span> <span class="hljs-number">130</span>                                 │<br>│     - installFailLoud 失败大声                           │<br>├─────────────────────────────────────────────────────────┤<br>│  <span class="hljs-number">6</span>. 用户补丁热重载 (watchUserPatches)                    │<br>│     - 监听 cordis.patch.yml 变化                         │<br>│     - 实时重组插件树                                      │<br>└─────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="关键设计：补丁热重载"><a href="#关键设计：补丁热重载" class="headerlink" title="关键设计：补丁热重载"></a>关键设计：补丁热重载</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 用户编辑 cordis.patch.yml 时实时重组插件树</span><br><span class="hljs-keyword">const</span> composeLive = (): <span class="hljs-title class_">PatchOptions</span>[] =&gt; <span class="hljs-title function_">structuredClone</span>([<br>  ...composed.<span class="hljs-property">bundlePatches</span>,                                    <span class="hljs-comment">// bundle 层不变</span><br>  ...<span class="hljs-title function_">loadOptionalPatches</span>(<span class="hljs-variable constant_">NAME</span>, composed.<span class="hljs-property">profile</span>.<span class="hljs-property">patchPath</span>) ?? [], <span class="hljs-comment">// 重读 profile patch</span><br>  ...<span class="hljs-title function_">loadOptionalPatches</span>(<span class="hljs-variable constant_">NAME</span>, <span class="hljs-title function_">homePatchPath</span>()) ?? [],          <span class="hljs-comment">// 重读 home patch</span><br>  ...composed.<span class="hljs-property">overlays</span>,                                         <span class="hljs-comment">// 覆盖层不变</span><br>])<br><br><span class="hljs-keyword">await</span> <span class="hljs-title function_">watchUserPatches</span>(ctx, &#123;<br>  <span class="hljs-attr">binName</span>: <span class="hljs-variable constant_">NAME</span>,<br>  <span class="hljs-attr">filename</span>: composed.<span class="hljs-property">profile</span>.<span class="hljs-property">patchPath</span>,<br>  <span class="hljs-attr">compose</span>: composeLive,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>每次 <code>structuredClone</code> 确保补丁对象不别名：include 将 <code>insert</code> 行按引用推入挂载树，后续 id 定向 patch 会原地修改这些对象，复用同一解析对象会把用户覆盖烘焙进 bundle 的内存 insert 行。</p>
+<hr>
+<h2 id="核心架构"><a href="#核心架构" class="headerlink" title="核心架构"></a>核心架构</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs stata">┌──────────────────────────────────────────────────────────────┐<br>│                        用户界面层                             │<br>│  ┌──────────┐  ┌──────────┐  ┌──────────┐                  │<br>│  │  Web UI  │  │ Headless │  │  ACP     │                  │<br>│  │ (React)  │  │ (<span class="hljs-keyword">CLI</span>)    │  │ (Auto)   │                  │<br>│  └────┬─────┘  └────┬─────┘  └────┬─────┘                  │<br>└───────┼──────────────┼──────────────┼────────────────────────┘<br>        └──────────────┴──────────────┘<br>                       │<br>        ┌──────────────┴──────────────┐<br>        │      Agent Loop             │<br>        │  ┌─────────────────────┐    │<br>        │  │  Turn / Step 驱动    │    │<br>        │  │  Inbox 消息队列       │    │<br>        │  │  Phase 状态机         │    │<br>        │  └─────────────────────┘    │<br>        └──────────────┬──────────────┘<br>                       │<br>     ┌─────────────────┼─────────────────┐<br>     │                 │                 │<br>┌────┴────┐     ┌──────┴──────┐    ┌─────┴─────┐<br>│ ctx.llm │     │  ctx.tools  │    │ctx.sessions│<br>│ LLM 适配│     │  工具注册表  │    │ 会话日志   │<br>│ 流式协议 │     │  执行管线    │    │ 追加式事件 │<br>└─────────┘     └──────┬──────┘    └───────────┘<br>                       │<br>        ┌──────────────┼──────────────┐<br>        │              │              │<br>   ┌────┴────┐   ┌────┴────┐   ┌─────┴─────┐<br>   │ctx.<span class="hljs-keyword">shell</span>│   │  ctx.fs │   │ctx.sandbox│<br>   │ <span class="hljs-keyword">Shell</span>   │   │ 文件系统 │   │ 进程沙箱  │<br>   │ 能力缝  │   │ 能力缝   │   │ 能力缝   │<br>   └─────────┘   └─────────┘   └───────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="核心包一览"><a href="#核心包一览" class="headerlink" title="核心包一览"></a>核心包一览</h3><table>
+<thead>
+<tr>
+<th>包</th>
+<th>职责</th>
+<th><code>ctx</code> key</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>core/session</code></td>
+<td>追加式 <code>SessionEvent</code> 日志与内存存储</td>
+<td><code>ctx.sessions</code></td>
+</tr>
+<tr>
+<td><code>core/system-prompt</code></td>
+<td>Prompt 段与工具 schema 组装</td>
+<td><code>ctx.systemPrompt</code></td>
+</tr>
+<tr>
+<td><code>core/tools</code></td>
+<td>作用域工具注册表与守卫执行管线</td>
+<td><code>ctx.tools</code></td>
+</tr>
+<tr>
+<td><code>core/agent</code></td>
+<td><code>Agent</code> 接口、实时注册表、<code>agent/*</code> 事件</td>
+<td><code>ctx.agents</code></td>
+</tr>
+<tr>
+<td><code>core/agent-loop</code></td>
+<td>默认驱动器实现该接口</td>
+<td><code>ctx.agentLoop</code></td>
+</tr>
+<tr>
+<td><code>core/scope</code></td>
+<td>每 Agent 作用域注册原语</td>
+<td>库，无 key</td>
+</tr>
+<tr>
+<td><code>llm/llm</code></td>
+<td>消息与流词汇表 + 适配器缝</td>
+<td><code>ctx.llm</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Agent-Loop：Turn-Step-驱动器"><a href="#Agent-Loop：Turn-Step-驱动器" class="headerlink" title="Agent Loop：Turn &#x2F; Step 驱动器"></a>Agent Loop：Turn &#x2F; Step 驱动器</h2><p><strong>文件</strong>：<code>packages/core/agent-loop/src/agent.ts</code></p>
+<p>Agent Loop 是整个系统的”心脏”，实现了 LLM 调用与工具执行的交替进行。dsh 中的核心概念：</p>
+<ul>
+<li><strong>Step（步骤）</strong>：一次模型请求加上它调用的工具</li>
+<li><strong>Turn（轮次）</strong>：零个或多个步骤，在其第一个输入被认领前打开，在不欠任何东西时关闭</li>
+</ul>
+<h3 id="Phase-状态机"><a href="#Phase-状态机" class="headerlink" title="Phase 状态机"></a>Phase 状态机</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────────────────┐<br>│                    idle                          │<br>│  (空闲，等待唤醒)                                 │<br>└──────────────────┬──────────────────────────────┘<br>                   │ <span class="hljs-built_in">wakeDriver</span>()<br>                   ↓<br>┌─────────────────────────────────────────────────┐<br>│                   running                        │<br>│  turn → step → step → ... → turn → ...           │<br>│  AbortController per running phase               │<br>└──────┬──────────────────────────┬───────────────┘<br>       │ <span class="hljs-built_in">cancel</span>()                  │ <span class="hljs-built_in">runMaintenance</span>()<br>       ↓                           ↓<br>┌──────────────┐          ┌───────────────────────┐<br>│   aborted    │          │     maintenance       │<br>│ (被取消)      │          │ (维护模式：压缩等)     │<br>└──────────────┘          └───────────┬───────────┘<br>       │                             │ done<br>       └─────────────────────────────┘<br>                     ↓<br>                   idle<br></code></pre></td></tr></table></figure>
+
+<h3 id="消息投递：Inbox"><a href="#消息投递：Inbox" class="headerlink" title="消息投递：Inbox"></a>消息投递：Inbox</h3><p>Agent 通过一个 Inbox 接收输入，支持三种投递目标：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">send</span>(<span class="hljs-attr">message</span>: <span class="hljs-title class_">UserMessage</span>, <span class="hljs-attr">target</span>: <span class="hljs-title class_">InboxTarget</span>, <span class="hljs-attr">wakeup</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">void</span><br><br><span class="hljs-title function_">followup</span>(<span class="hljs-attr">input</span>: <span class="hljs-title class_">UserMessage</span>): <span class="hljs-built_in">void</span>  <span class="hljs-comment">// → next-turn, wakeup=true  (用户追问)</span><br><span class="hljs-title function_">steer</span>(<span class="hljs-attr">input</span>: <span class="hljs-title class_">UserMessage</span>): <span class="hljs-built_in">void</span>     <span class="hljs-comment">// → next-step, wakeup=true  (中途引导)</span><br><span class="hljs-title function_">inject</span>(<span class="hljs-attr">input</span>: <span class="hljs-title class_">UserMessage</span>): <span class="hljs-built_in">void</span>    <span class="hljs-comment">// → next-step, wakeup=false (上下文注入)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>next-turn</strong>：消息等到下一个 turn 边界才被认领</li>
+<li><strong>next-step</strong>：消息在当前 turn 的下一个 step 被认领</li>
+<li>唤醒输入不能加入已中止的活动，因此它启动下一个 turn</li>
+</ul>
+<h3 id="Turn-Step-执行流程"><a href="#Turn-Step-执行流程" class="headerlink" title="Turn &#x2F; Step 执行流程"></a>Turn &#x2F; Step 执行流程</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs vim">turn/start<br>  ├─ claim <span class="hljs-keyword">next</span>-step <span class="hljs-built_in">input</span> + one queued message<br>  ├─ assemble prompt sections + tool schemas<br>  └→ agent/<span class="hljs-keyword">pre</span>-step (waterfall) ─── reject | enter(<span class="hljs-keyword">messages</span>)<br>       │  rejected <span class="hljs-built_in">or</span> <span class="hljs-built_in">empty</span> <span class="hljs-keyword">first</span> claim → 关闭 turn（不花费 step）<br>       │<br>     step/start<br>     <span class="hljs-keyword">append</span> entered <span class="hljs-keyword">messages</span> <span class="hljs-keyword">as</span> user/message<br>     derive model <span class="hljs-keyword">history</span> from the <span class="hljs-built_in">log</span><br>       │<br>     agent/request (waterfall) → llm/stream (waterfall)<br>       │<br>     assistant/chunk* → assistant/message<br>       │<br>     ├─ <span class="hljs-keyword">finish</span>.kind === <span class="hljs-string">&#x27;max-tokens&#x27;</span> → step 结束（sticky）<br>     ├─ <span class="hljs-keyword">finish</span>.kind === <span class="hljs-string">&#x27;error&#x27;</span> → agent/request-error (waterfall) → retry?<br>     └─ toolCalls.length &gt; <span class="hljs-number">0</span>:<br>          tool/<span class="hljs-keyword">call</span>* → tools/<span class="hljs-keyword">pre</span>-<span class="hljs-keyword">execute</span> → tools/<span class="hljs-keyword">execute</span> → tools/post-<span class="hljs-keyword">execute</span> → tool/result*<br>     step/end<br>       │<br>     ├─ tools owe another request, <span class="hljs-built_in">or</span> <span class="hljs-keyword">next</span>-step <span class="hljs-built_in">input</span> arrived → claim → <span class="hljs-keyword">next</span> step<br>     └─ agent/turn-stopping (serial) → 自然停止<br>turn/end<br></code></pre></td></tr></table></figure>
+
+<h3 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">private</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">step</span>(<span class="hljs-attr">assembly</span>: <span class="hljs-title class_">PromptAssembly</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">StepEndReason</span> | <span class="hljs-literal">null</span>&gt; &#123;<br>  <span class="hljs-keyword">const</span> &#123; turn, step, <span class="hljs-attr">abort</span>: &#123; signal &#125; &#125; = <span class="hljs-variable language_">this</span>.<span class="hljs-property">phase</span><br>  <span class="hljs-keyword">const</span> system = <span class="hljs-title function_">renderPrompt</span>(assembly)<br><br>  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-comment">// 1. 构建冻结的请求，绑定到解析其默认值的适配器注册</span><br>    <span class="hljs-keyword">const</span> &#123; request, preparedCall &#125; = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">buildRequest</span>(<br>      turn, step, assembly.<span class="hljs-property">tools</span>, system, <span class="hljs-variable language_">this</span>.<span class="hljs-property">session</span>.<span class="hljs-title function_">deriveMessages</span>(), signal,<br>    )<br>    <span class="hljs-keyword">const</span> assembler = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BlockAssembler</span>()<br>    <span class="hljs-keyword">const</span> <span class="hljs-attr">chunkSeqs</span>: <span class="hljs-built_in">number</span>[] = []<br><br>    <span class="hljs-comment">// 2. 流式接收响应</span><br>    <span class="hljs-keyword">const</span> stream = preparedCall?.<span class="hljs-title function_">stream</span>(request) ?? <span class="hljs-variable language_">this</span>.<span class="hljs-property">loopCtx</span>.<span class="hljs-property">llm</span>.<span class="hljs-title function_">stream</span>(request)<br>    <span class="hljs-keyword">for</span> <span class="hljs-title function_">await</span> (<span class="hljs-keyword">const</span> chunk <span class="hljs-keyword">of</span> stream) &#123;<br>      signal.<span class="hljs-title function_">throwIfAborted</span>()<br>      chunkSeqs.<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">session</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;assistant/chunk&#x27;</span>, &#123; turn, step, chunk &#125;).<span class="hljs-property">seq</span>)<br>      assembler.<span class="hljs-title function_">push</span>(chunk)<br>    &#125;<br><br>    <span class="hljs-comment">// 3. 处理结束原因</span><br>    <span class="hljs-keyword">const</span> finish = assembler.<span class="hljs-property">finish</span><br>    <span class="hljs-keyword">if</span> (finish.<span class="hljs-property">kind</span> === <span class="hljs-string">&#x27;error&#x27;</span> || finish.<span class="hljs-property">kind</span> === <span class="hljs-string">&#x27;aborted&#x27;</span>) &#123;<br>      <span class="hljs-comment">// agent/request-error waterfall 决定重试或保留错误</span><br>      <span class="hljs-keyword">const</span> action = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">dispatch</span>.<span class="hljs-title function_">waterfall</span>(<span class="hljs-string">&#x27;agent/request-error&#x27;</span>, &#123; ... &#125;)<br>      <span class="hljs-keyword">if</span> (action?.<span class="hljs-property">kind</span> !== <span class="hljs-string">&#x27;retry&#x27;</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LlmError</span>(...)<br>      <span class="hljs-keyword">continue</span>  <span class="hljs-comment">// 重试</span><br>    &#125;<br><br>    <span class="hljs-comment">// 4. 记录 assistant 消息</span><br>    <span class="hljs-keyword">const</span> message = <span class="hljs-title function_">createAssistantMessage</span>(&#123; <span class="hljs-attr">content</span>: assembler.<span class="hljs-title function_">blocks</span>(), <span class="hljs-attr">source</span>: &#123; ... &#125; &#125;)<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">session</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&#x27;assistant/message&#x27;</span>, &#123; turn, step, message, <span class="hljs-attr">usage</span>: assembler.<span class="hljs-property">usage</span> &#125;,<br>      &#123; <span class="hljs-attr">surfaceOp</span>: <span class="hljs-string">&#x27;append&#x27;</span>, <span class="hljs-attr">sourceEventSeqs</span>: chunkSeqs &#125;)<br><br>    <span class="hljs-keyword">if</span> (finish.<span class="hljs-property">kind</span> === <span class="hljs-string">&#x27;max-tokens&#x27;</span>) <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;max-tokens&#x27;</span> &#125;<br><br>    <span class="hljs-comment">// 5. 执行工具调用</span><br>    <span class="hljs-keyword">const</span> toolCalls = message.<span class="hljs-property">content</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">block</span> =&gt;</span> block.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;tool-call&#x27;</span>)<br>    <span class="hljs-keyword">if</span> (toolCalls.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;completed&#x27;</span> &#125;<br>    <span class="hljs-keyword">const</span> &#123; concluded &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">executeToolCalls</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">loopCtx</span>, turn, step, toolCalls, signal, ...)<br>    <span class="hljs-keyword">return</span> concluded ? &#123; <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;completed&#x27;</span> &#125; : <span class="hljs-literal">null</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键特性</strong>：</p>
+<ul>
+<li><strong>max-tokens 粘性</strong>：一旦某个 step 触达输出上限，后续正常完成的 step 不会降级 turn 结果</li>
+<li><strong>结构化错误</strong>：<code>LlmError</code> 保留 provider 事实，其他错误扁平化为 <code>errorChain</code> 文本</li>
+<li><strong>请求冻结</strong>：Loop 构建的请求携带 <code>markAgentLoopRequest</code> 身份并深冻结（修改会抛错），因为其内容是会话日志的纯函数</li>
+</ul>
+<hr>
+<h2 id="会话日志：唯一事实来源"><a href="#会话日志：唯一事实来源" class="headerlink" title="会话日志：唯一事实来源"></a>会话日志：唯一事实来源</h2><p><strong>文件</strong>：<code>packages/core/session/src/index.ts</code></p>
+<p>会话日志是模型所见上下文的唯一来源。<code>deriveMessages()</code> 从日志投影模型历史，原始 <code>assistant/chunk</code> 事件保留重放与 UI 保真度。Fork、resume、transcript、遥测、持久化全部从这条流派生。</p>
+<h3 id="核心不变式：模型可见即已记录"><a href="#核心不变式：模型可见即已记录" class="headerlink" title="核心不变式：模型可见即已记录"></a>核心不变式：模型可见即已记录</h3><blockquote>
+<p><strong>Anything that reaches a model request must be reconstructable from the session log.</strong></p>
+</blockquote>
+<p>运行时不变式强制保证这一点——新增模型可见的输入需要新增一个 session event。</p>
+<h3 id="Session-类"><a href="#Session-类" class="headerlink" title="Session 类"></a>Session 类</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Session</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-attr">log</span>: <span class="hljs-title class_">SessionEvent</span>[] = []                    <span class="hljs-comment">// 追加式事件日志</span><br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> surfaceManager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SurfaceManager</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">log</span>)  <span class="hljs-comment">// 有序表面</span><br><br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">events</span>(): <span class="hljs-keyword">readonly</span> <span class="hljs-title class_">SessionEvent</span>[] &#123; ... &#125;       <span class="hljs-comment">// 不可变快照</span><br>  <span class="hljs-keyword">get</span> <span class="hljs-title function_">seq</span>(): <span class="hljs-built_in">number</span> &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">log</span>.<span class="hljs-property">length</span> &#125;        <span class="hljs-comment">// seq = log.length 连续性契约</span><br><br>  <span class="hljs-comment">// 追加一个类型化事件，同步通知观察者</span><br>  append&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SessionEventType</span>&gt;(<br>    <span class="hljs-attr">type</span>: T,<br>    <span class="hljs-attr">data</span>: <span class="hljs-title class_">SessionEventMap</span>[T],<br>    ...<span class="hljs-attr">opts</span>: T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SurfaceEventType</span> ? [<span class="hljs-attr">opts</span>: <span class="hljs-title class_">SurfaceIntent</span>] : []<br>  ): <span class="hljs-title class_">SessionEvent</span>&lt;T&gt;<br><br>  <span class="hljs-comment">// 从有序表面投影 LLM 消息历史（缓存）</span><br>  <span class="hljs-title function_">deriveMessages</span>(): <span class="hljs-title class_">Message</span>[]<br><br>  <span class="hljs-comment">// 请求头折叠（增量缓存）</span><br>  <span class="hljs-title function_">requestHeader</span>(): <span class="hljs-title class_">EpochHeader</span> | <span class="hljs-literal">undefined</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>事件</th>
+<th>持久</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Turn 生命周期</td>
+<td><code>turn/start</code>, <code>turn/end</code></td>
+<td>✓</td>
+<td>turn 边界</td>
+</tr>
+<tr>
+<td>Step 生命周期</td>
+<td><code>step/start</code>, <code>step/end</code></td>
+<td>✓</td>
+<td>step 边界</td>
+</tr>
+<tr>
+<td>消息</td>
+<td><code>user/message</code>, <code>assistant/message</code></td>
+<td>✓</td>
+<td>表面事件</td>
+</tr>
+<tr>
+<td>流式</td>
+<td><code>assistant/chunk</code></td>
+<td>✓</td>
+<td>原始 chunk（保真）</td>
+</tr>
+<tr>
+<td>工具</td>
+<td><code>tool/call</code>, <code>tool/result</code></td>
+<td>✓</td>
+<td>表面事件</td>
+</tr>
+<tr>
+<td>请求</td>
+<td><code>request/header</code>, <code>request/context</code></td>
+<td>✓</td>
+<td>模型路由元数据</td>
+</tr>
+<tr>
+<td>压缩</td>
+<td><code>compaction/start</code>, <code>compaction/end</code></td>
+<td>✓</td>
+<td>压缩事务标记</td>
+</tr>
+<tr>
+<td>代码分发</td>
+<td><code>tool/code-dispatch-start</code>, <code>tool/code-dispatch</code></td>
+<td>✓</td>
+<td>Code Mode 子调用</td>
+</tr>
+<tr>
+<td>会话</td>
+<td><code>session/end-seed</code></td>
+<td>✓</td>
+<td>种子边界标记</td>
+</tr>
+</tbody></table>
+<h3 id="Surface-与压缩"><a href="#Surface-与压缩" class="headerlink" title="Surface 与压缩"></a>Surface 与压缩</h3><p>表面（Surface）是有序的消息产生事件序列。每个表面事件通过 <code>surfaceOp</code> 声明它如何加入表面：</p>
+<ul>
+<li><strong>append</strong>：追加到末尾</li>
+<li><strong>replace</strong>：替换一组被遮蔽的节点（压缩用）</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">deriveMessages</span>(): <span class="hljs-title class_">Message</span>[] &#123;<br>  <span class="hljs-keyword">const</span> surface = <span class="hljs-variable language_">this</span>.<span class="hljs-property">surface</span><br>  <span class="hljs-keyword">const</span> nodes = surface.<span class="hljs-property">nodes</span><br>  <span class="hljs-comment">// 缓存：每个表面节点只投影一次，O(new nodes)</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> seq <span class="hljs-keyword">of</span> nodes.<span class="hljs-title function_">slice</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">derivedNodes</span>)) &#123;<br>    <span class="hljs-keyword">const</span> msg = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">deriveEventMessage</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">log</span>[seq]!)<br>    <span class="hljs-keyword">if</span> (msg) <span class="hljs-variable language_">this</span>.<span class="hljs-property">derived</span>.<span class="hljs-title function_">push</span>(msg)<br>  &#125;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">derivedNodes</span> = nodes.<span class="hljs-property">length</span><br>  <span class="hljs-keyword">return</span> [...<span class="hljs-variable language_">this</span>.<span class="hljs-property">derived</span>]  <span class="hljs-comment">// 新鲜数组，共享冻结的 Message</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>压缩时 <code>replaceGeneration</code> 递增，缓存失效重建——这是一个 O(new nodes) 的增量设计。</p>
+<hr>
+<h2 id="工具系统"><a href="#工具系统" class="headerlink" title="工具系统"></a>工具系统</h2><h3 id="工具定义"><a href="#工具定义" class="headerlink" title="工具定义"></a>工具定义</h3><p><strong>文件</strong>：<code>packages/core/tools/src/schema.ts</code></p>
+<p>dsh 使用 <code>defineTool()</code> 创建类型安全的工具定义：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">DefineToolOptions</span>&lt;S, O&gt; &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>                              <span class="hljs-comment">// 工具名（唯一）</span><br>  <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>                       <span class="hljs-comment">// 发送给模型的描述</span><br>  <span class="hljs-attr">parameters</span>: S                             <span class="hljs-comment">// 参数 schema（编译为 JSON Schema）</span><br>  <span class="hljs-attr">output</span>: &#123;<br>    <span class="hljs-attr">schema</span>: O                               <span class="hljs-comment">// 输出 schema</span><br>    <span class="hljs-title function_">render</span>(args, value): <span class="hljs-title class_">ContentBlock</span>[]     <span class="hljs-comment">// 纯 Native 渲染</span><br>    presentationMeta?(args, value): <span class="hljs-title class_">JsonValue</span><br>  &#125;<br>  <span class="hljs-attr">timeoutMs</span>?: <span class="hljs-built_in">number</span>                        <span class="hljs-comment">// 协作式超时</span><br>  isConcurrencySafe?(args): <span class="hljs-built_in">boolean</span>         <span class="hljs-comment">// 并发安全分类器</span><br>  <span class="hljs-title function_">execute</span>(args, exec): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Value</span>&gt;       <span class="hljs-comment">// 执行体</span><br>  finalizeContent?(exec, result): <span class="hljs-title class_">ContentBlock</span>[] | <span class="hljs-literal">undefined</span>  <span class="hljs-comment">// 最后内容变换</span><br>  presentCall?(args): <span class="hljs-title class_">ToolCallView</span> | <span class="hljs-literal">undefined</span>    <span class="hljs-comment">// 纯 pending 渲染意图</span><br>  presentResult?(args, result): <span class="hljs-title class_">ToolResultView</span> | <span class="hljs-literal">undefined</span>  <span class="hljs-comment">// 纯 completed 渲染意图</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键设计</strong>：</p>
+<ul>
+<li><strong>UI 渲染意图是工具设计的一部分</strong>：<code>presentCall</code>&#x2F;<code>presentResult</code> 是纯函数，提前决定 <code>generic</code>&#x2F;<code>terminal</code>&#x2F;<code>diff</code> 等渲染类型</li>
+<li><strong>呈现是仅显示的</strong>：可在任意旧 schema 的 logged args 上重放，软验证 + 回退到 generic UI</li>
+<li><strong>输出 schema 强制</strong>：每次成功的 body 或策略替换值都通过 output schema 验证</li>
+</ul>
+<h3 id="工具执行管线"><a href="#工具执行管线" class="headerlink" title="工具执行管线"></a>工具执行管线</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">┌─────────────────────────────────────────────────────┐<br>│  Assistant 消息包含 tool-<span class="hljs-keyword">call</span> block                   │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  <span class="hljs-keyword">Session</span> 事件: tool/<span class="hljs-keyword">call</span>（执行前记录）                 │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  tools/pre-<span class="hljs-keyword">execute</span> waterfall                          │<br>│  hooks, permission, sandbox                           │<br>│  ├─ allow → 继续                                      │<br>│  ├─ deny → 跳过工具体                                 │<br>│  └─ ask → ctx.approval 一次性提示                     │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  注册的单调守卫（monotonic guards）                    │<br>│  deny 或弃权；身份保护                                 │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  tools/<span class="hljs-keyword">execute</span> waterfall（around dispatch）           │<br>│  timeout, retry, metrics                              │<br>│  → 注册的工具 <span class="hljs-keyword">execute</span>() body                          │<br>│  → fs/<span class="hljs-keyword">write</span>-intent 或 fs/edit-intent（tool-fs 变更）  │<br>│  → 工具拥有的 <span class="hljs-keyword">session</span> 事件                            │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  tools/post-<span class="hljs-keyword">execute</span> waterfall                         │<br>│  accept, block, replace, <span class="hljs-keyword">add</span> context                  │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  Registry 外部规范化                                   │<br>│  pipeline/result <span class="hljs-keyword">snapshot</span> throws → isError           │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  ToolDefinition.finalizeContent                       │<br>│  最后的 content-<span class="hljs-keyword">only</span> 不变式检查                        │<br>└──────────────────────┬──────────────────────────────┘<br>                       ↓<br>┌─────────────────────────────────────────────────────┐<br>│  tools/result 同步通知（冻结的权威结果）               │<br>│  → <span class="hljs-keyword">Session</span> 事件: tool/result                          │<br>│  → UI completed card                                  │<br>└─────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="并发调度"><a href="#并发调度" class="headerlink" title="并发调度"></a>并发调度</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">executeToolCalls</span>(<span class="hljs-params">ctx, turn, step, toolCalls, signal, acceptContext</span>) &#123;<br>  <span class="hljs-keyword">const</span> planned = toolCalls.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">block</span> =&gt;</span> (&#123; block, <span class="hljs-attr">exec</span>: &#123; <span class="hljs-attr">callId</span>: block.<span class="hljs-property">id</span>, ... &#125; &#125;))<br>  <span class="hljs-keyword">let</span> next = <span class="hljs-number">0</span><br>  <span class="hljs-keyword">while</span> (next &lt; planned.<span class="hljs-property">length</span>) &#123;<br>    <span class="hljs-comment">// 按执行模式分类：parallel 可与兄弟重叠，exclusive 独占</span><br>    <span class="hljs-keyword">const</span> mode = ctx.<span class="hljs-property">tools</span>.<span class="hljs-title function_">executionMode</span>(first.<span class="hljs-property">exec</span>).<span class="hljs-property">kind</span><br>    <span class="hljs-keyword">const</span> group = mode === <span class="hljs-string">&#x27;parallel&#x27;</span> ? planned.<span class="hljs-title function_">slice</span>(next) : [first]<br>    <span class="hljs-keyword">const</span> outcome = <span class="hljs-keyword">await</span> <span class="hljs-title function_">runGroup</span>(ctx, turn, step, group, mode, signal, acceptContext)<br>    next += outcome.<span class="hljs-property">consumed</span><br>    <span class="hljs-keyword">if</span> (outcome.<span class="hljs-property">aborted</span>) &#123;<br>      <span class="hljs-comment">// 跳过剩余调用</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> call <span class="hljs-keyword">of</span> planned.<span class="hljs-title function_">slice</span>(next)) <span class="hljs-title function_">appendSkippedToolCall</span>(session, turn, step, call.<span class="hljs-property">block</span>)<br>      <span class="hljs-keyword">return</span> &#123; concluded &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>调度策略</strong>：</p>
+<ul>
+<li>只有精确的 <code>true</code> 才是 parallel；未知、隐藏、未声明、无效或抛异常的分类器都是 exclusive</li>
+<li>提交后重新分类，使注册表变更影响未启动的调用</li>
+<li>被中止时记录跳过的 tool call</li>
+</ul>
+<h3 id="Code-Mode"><a href="#Code-Mode" class="headerlink" title="Code Mode"></a>Code Mode</h3><p>dsh 的一个独特设计是 <strong>Code Mode</strong>：模型通过 <code>run_code</code> 工具编写一段程序（TypeScript&#x2F;Python），程序内部通过 SDK 绑定调用所有其他工具，而非逐个调用原生工具。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// Code Mode 下，模型只能直接调用 run_code</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">CODE_ONLY_INSTRUCTION</span> = <span class="hljs-string">`\`<span class="hljs-subst">$&#123;RUN_CODE_NAME&#125;</span>\` is the only tool you can call directly</span><br><span class="hljs-string">— a tool call naming any other tool fails. Reach every tool the SDK declares below from inside the program.`</span><br></code></pre></td></tr></table></figure>
+
+<p>Code Mode 的子分发（sub-dispatch）也走完整的工具管线，携带 parent token，记录 <code>tool/code-dispatch</code> 事件，拒绝以 binding rejection 返回。</p>
+<hr>
+<h2 id="能力缝（Capability-Seam）"><a href="#能力缝（Capability-Seam）" class="headerlink" title="能力缝（Capability Seam）"></a>能力缝（Capability Seam）</h2><p><strong>能力缝</strong>是 dsh 最核心的架构模式。一个缝是可交换的能力，包含三个角色：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">┌──────────────────────────────────────────────────────────┐<br>│                  Capability Seam                          │<br>│                                                          │<br>│  ┌──────────────────┐  声明接口                          │<br>│  │<span class="hljs-built_in"> Service </span>Definition│◄────────────────────────         │<br>│  └────────┬─────────┘                                   │<br>│           │ implements                                   │<br>│  ┌────────┴─────────┐  ┌──────────────────┐            │<br>│  │<span class="hljs-built_in"> Service </span>Provider  │  │    Consumer       │            │<br>│  │ (实现)             │  │ (使用，通常是工具)  │            │<br>│  └──────────────────┘  └──────────────────┘            │<br>└──────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一个包可以组合角色，但单独一个角色不是缝；添加能力意味着设计全部三个角色。</p>
+</blockquote>
+<h3 id="关键能力缝"><a href="#关键能力缝" class="headerlink" title="关键能力缝"></a>关键能力缝</h3><table>
+<thead>
+<tr>
+<th><code>ctx</code> key</th>
+<th>职责</th>
+<th>Service Provider 实现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ctx.llm</code></td>
+<td>LLM 适配器注册表</td>
+<td><code>llm-deepseek</code>, <code>llm-pi-ai</code>, <code>llm-replay</code></td>
+</tr>
+<tr>
+<td><code>ctx.fs</code></td>
+<td>文件系统提供者</td>
+<td><code>fs-local</code>, <code>fs-sandbox</code>, <code>fs-e2b</code></td>
+</tr>
+<tr>
+<td><code>ctx.shell</code></td>
+<td>Bash 执行器</td>
+<td><code>bash-local</code>, <code>bash-sandbox</code>, <code>pwsh-local</code></td>
+</tr>
+<tr>
+<td><code>ctx.subprocess</code></td>
+<td>子进程</td>
+<td><code>subprocess-local</code>, <code>subprocess-e2b</code></td>
+</tr>
+<tr>
+<td><code>ctx.sandbox</code></td>
+<td>进程沙箱</td>
+<td><code>sandbox-local</code></td>
+</tr>
+<tr>
+<td><code>ctx.compaction</code></td>
+<td>上下文压缩</td>
+<td><code>compaction-basic</code></td>
+</tr>
+<tr>
+<td><code>ctx.subagents</code></td>
+<td>子代理</td>
+<td><code>spawn-in-process</code>, <code>fork-in-process</code>, <code>acp</code>, <code>codex</code>, <code>claude-code</code>, <code>dsh-sdk</code></td>
+</tr>
+<tr>
+<td><code>ctx.web</code></td>
+<td>Web 搜索&#x2F;抓取</td>
+<td><code>web-search-exa</code>, <code>web-search-perplexity</code>, <code>web-search-deepseek</code>, <code>web-fetch-http</code></td>
+</tr>
+<tr>
+<td><code>ctx.approval</code></td>
+<td>审批决策</td>
+<td><code>acp</code></td>
+</tr>
+<tr>
+<td><code>ctx.sessionPersistence</code></td>
+<td>会话持久化</td>
+<td><code>session-persistence-jsonl</code>, <code>session-persistence-sqlite</code></td>
+</tr>
+<tr>
+<td><code>ctx.settings</code></td>
+<td>用户设置</td>
+<td><code>settings-file</code></td>
+</tr>
+<tr>
+<td><code>ctx.credentials</code></td>
+<td>凭证引用</td>
+<td><code>credentials-local</code></td>
+</tr>
+<tr>
+<td><code>ctx.terminals</code></td>
+<td>持久终端</td>
+<td><code>terminal-bash</code></td>
+</tr>
+<tr>
+<td><code>ctx.lsp</code></td>
+<td>语言服务器</td>
+<td><code>lsp-local</code></td>
+</tr>
+<tr>
+<td><code>ctx.skills</code></td>
+<td>技能注册表</td>
+<td><code>skill-badge</code>, <code>skill-filesystem</code></td>
+</tr>
+</tbody></table>
+<h3 id="为什么一个-Provider-切换改变整个产品"><a href="#为什么一个-Provider-切换改变整个产品" class="headerlink" title="为什么一个 Provider 切换改变整个产品"></a>为什么一个 Provider 切换改变整个产品</h3><p>文件系统和子进程提供者共享一个执行世界，所以将它们指向远程沙箱会把 Bash、PTY 和 LSP 一起搬过去，无需 provider 分叉：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">本地模式:                           远程沙箱模式:<br>ctx.fs → fs-local                   ctx.fs → fs-e<span class="hljs-symbol">2b</span>     ──┐<br>ctx.<span class="hljs-keyword">subprocess </span>→ <span class="hljs-keyword">subprocess-local </span>  ctx.<span class="hljs-keyword">subprocess </span>→ <span class="hljs-keyword">subprocess-e2b</span><br><span class="hljs-keyword"></span>ctx.<span class="hljs-keyword">shell </span>→ <span class="hljs-keyword">bash-local </span>             ctx.<span class="hljs-keyword">shell </span>→ <span class="hljs-keyword">bash-local </span>(不变)<br>                                                         │<br>                              工具 (tool-<span class="hljs-keyword">bash, </span>tool-fs) 不变 ┘<br></code></pre></td></tr></table></figure>
+
+<p>子代理提供者同样多样：从全新的子 Agent 到在另一个产品中的委托 turn。</p>
+<hr>
+<h2 id="LLM-流式协议"><a href="#LLM-流式协议" class="headerlink" title="LLM 流式协议"></a>LLM 流式协议</h2><p><strong>文件</strong>：<code>packages/llm/llm/src/types.ts</code> + <code>packages/llm/llm/src/index.ts</code></p>
+<h3 id="StreamChunk-协议"><a href="#StreamChunk-协议" class="headerlink" title="StreamChunk 协议"></a>StreamChunk 协议</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StreamChunk</span> =<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;block-start&#x27;</span>; <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">blockType</span>: <span class="hljs-title class_">ContentBlockType</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;text-delta&#x27;</span>; <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">text</span>: <span class="hljs-built_in">string</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;reasoning-delta&#x27;</span>; <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">text</span>: <span class="hljs-built_in">string</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;tool-call-delta&#x27;</span>; <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">id</span>: <span class="hljs-title class_">CallId</span>; <span class="hljs-attr">name</span>?: <span class="hljs-built_in">string</span>; <span class="hljs-attr">argumentsDelta</span>: <span class="hljs-built_in">string</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;block-end&#x27;</span>; <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>; <span class="hljs-attr">block</span>: <span class="hljs-title class_">ContentBlock</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;usage&#x27;</span>; <span class="hljs-attr">usage</span>: <span class="hljs-title class_">TokenUsage</span> &#125;<br>  | &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;finish&#x27;</span>; <span class="hljs-attr">reason</span>: <span class="hljs-title class_">FinishReason</span>; <span class="hljs-attr">replayState</span>?: <span class="hljs-built_in">unknown</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="LlmRuntime-服务"><a href="#LlmRuntime-服务" class="headerlink" title="LlmRuntime 服务"></a>LlmRuntime 服务</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LlmRuntime</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Service</span> &#123;<br>  <span class="hljs-comment">// 流式调用，可能被 llm/stream 监听器包装</span><br>  <span class="hljs-title function_">stream</span>(<span class="hljs-attr">options</span>: <span class="hljs-title class_">GenerateOptions</span>): <span class="hljs-title class_">AsyncIterable</span>&lt;<span class="hljs-title class_">StreamChunk</span>&gt; &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">streamWithRegistration</span>(options)<br>  &#125;<br><br>  <span class="hljs-keyword">private</span> <span class="hljs-title function_">streamWithRegistration</span>(options, prepared?): <span class="hljs-title class_">AsyncIterable</span>&lt;<span class="hljs-title class_">StreamChunk</span>&gt; &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">ctx</span>.<span class="hljs-title function_">waterfall</span>(<br>      <span class="hljs-variable language_">this</span>, <span class="hljs-string">&#x27;llm/stream&#x27;</span>, options,<br>      <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">adapterStream</span>(options, prepared),  <span class="hljs-comment">// 委托给解析的适配器</span><br>    )<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键设计</strong>：</p>
+<ul>
+<li><strong><code>llm/stream</code> 是 waterfall</strong>：监听器可以重试、重放、路由，或 yield 自己的 chunk 来短路</li>
+<li><strong>Loop 构建的请求是深冻结的</strong>：其内容是会话日志的纯函数，监听器只读不写</li>
+<li><strong>prepareCall()</strong>：为精确模型解析默认值，绑定适配器注册</li>
+<li><strong>结构化错误</strong>：<code>LlmError</code> 携带 provider 中性码（<code>AUTH</code>, <code>RATE_LIMIT</code>, <code>NO_ADAPTER</code>, <code>ABORTED</code> 等）</li>
+<li><strong>replayState</strong>：适配器私有的无损 JSON 状态，用于重放成功响应</li>
+</ul>
+<h3 id="Token-计量"><a href="#Token-计量" class="headerlink" title="Token 计量"></a>Token 计量</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">TokenUsage</span> &#123;<br>  <span class="hljs-attr">inputTokens</span>: <span class="hljs-built_in">number</span>        <span class="hljs-comment">// 未缓存输入（DISJOINT）</span><br>  <span class="hljs-attr">outputTokens</span>: <span class="hljs-built_in">number</span><br>  <span class="hljs-attr">cacheReadTokens</span>?: <span class="hljs-built_in">number</span>   <span class="hljs-comment">// 缓存读取（单独计费）</span><br>  <span class="hljs-attr">cacheWriteTokens</span>?: <span class="hljs-built_in">number</span>  <span class="hljs-comment">// 缓存写入</span><br>  <span class="hljs-attr">reasoningTokens</span>?: <span class="hljs-built_in">number</span>   <span class="hljs-comment">// 推理 token</span><br>&#125;<br><span class="hljs-comment">// 计费输入 = inputTokens + cacheReadTokens + cacheWriteTokens</span><br></code></pre></td></tr></table></figure>
+
+<p>适配器若 provider 将缓存命中折叠进总 prompt 计数（如 DeepSeek 的 <code>prompt_tokens</code>），需减去缓存部分。</p>
+<hr>
+<h2 id="沙箱与安全机制"><a href="#沙箱与安全机制" class="headerlink" title="沙箱与安全机制"></a>沙箱与安全机制</h2><p><strong>文件</strong>：<code>packages/sandbox/sandbox/src/index.ts</code> + <code>packages/sandbox/sandbox-local/src/index.ts</code></p>
+<h3 id="沙箱模式"><a href="#沙箱模式" class="headerlink" title="沙箱模式"></a>沙箱模式</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">SandboxMode</span> =<br>  | <span class="hljs-string">&#x27;read-only&#x27;</span>           <span class="hljs-comment">// 仅允许 /dev/null 等必需 sink</span><br>  | <span class="hljs-string">&#x27;workspace-write&#x27;</span>     <span class="hljs-comment">// 允许工作区 + 后端定义的 temp 区</span><br>  | <span class="hljs-string">&#x27;danger-full-access&#x27;</span>  <span class="hljs-comment">// 绕过限制</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Service-Definition"><a href="#Service-Definition" class="headerlink" title="Service Definition"></a>Service Definition</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SandboxProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Service</span> &#123;<br>  <span class="hljs-comment">// 包装 argv 使其在策略下受限执行；必须返回强制 argv 或 fail-closed</span><br>  <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">confine</span>(<span class="hljs-attr">argv</span>: <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">string</span>[], <span class="hljs-attr">policy</span>: <span class="hljs-title class_">SandboxPolicy</span>): <span class="hljs-title class_">ConfinedArgv</span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ConfinedArgv</span> &#123;<br>  <span class="hljs-attr">argv</span>: <span class="hljs-built_in">string</span>[]                    <span class="hljs-comment">// 包装后的 argv（runner + profile + -- + 原 argv）</span><br>  <span class="hljs-attr">enforcement</span>: <span class="hljs-title class_">SandboxEnforcement</span>   <span class="hljs-comment">// &#x27;full&#x27; | &#x27;partial&#x27;</span><br>  <span class="hljs-attr">denialSignatures</span>: <span class="hljs-keyword">readonly</span> <span class="hljs-built_in">string</span>[]  <span class="hljs-comment">// 该后端的拒绝方言（EROFS/EACCES/EPERM）</span><br>  <span class="hljs-attr">runnerFailureRules</span>: <span class="hljs-keyword">readonly</span> <span class="hljs-title class_">RunnerFailureRule</span>[]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="多平台-Runner"><a href="#多平台-Runner" class="headerlink" title="多平台 Runner"></a>多平台 Runner</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────────────────────────┐<br>│  LocalSandboxProvider<span class="hljs-selector-class">.confine</span>(argv, policy)             │<br>├─────────────────────────────────────────────────────────┤<br>│  Linux:                                                 │<br>│  ├─ Landlock (原生 C addon, static musl)                │<br>│  │  → <span class="hljs-built_in">landlockLauncher</span>() + <span class="hljs-built_in">landlockProfileArgs</span>(policy)  │<br>│  └─ bubblewrap (bwrap)                                  │<br>│     → [<span class="hljs-string">&#x27;bwrap&#x27;</span>, ...<span class="hljs-built_in">bwrapProfileArgs</span>(policy)]            │<br>│                                                         │<br>│  macOS:                                                 │<br>│  └─ sandbox-exec (seatbelt)                             │<br>│     → <span class="hljs-built_in">seatbeltExec</span>() + <span class="hljs-built_in">seatbeltProfileArgs</span>(policy)      │<br>│                                                         │<br>│  Windows:                                               │<br>│  └─ ACL restricted-token runner                         │<br>│     → windows-acl runner + workspace/temp SID           │<br>└─────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="关键安全原则"><a href="#关键安全原则" class="headerlink" title="关键安全原则"></a>关键安全原则</h3><ol>
+<li><strong>Fail-closed</strong>：无可用后端时拒绝未受限运行，抛出 <code>SANDBOX_UNAVAILABLE</code></li>
+<li><strong>策略按调用携带</strong>：两个消费者可同时在不同策略下受限（bash 在 read-only，子 Agent 在 workspace-write）</li>
+<li><strong>原生 Landlock addon</strong>：<code>native/landlock-run</code> 是 C 源码，静态 musl 编译（<code>-static -s</code>），无 loader&#x2F;libc 依赖，每架构原生编译</li>
+<li><strong>拒绝方言</strong>：每个后端报告自己的拒绝 stderr 子串（bwrap 的 EROFS、Landlock 的 EACCES、Seatbelt 的 EPERM），消费者匹配精确方言而非跨后端并集</li>
+</ol>
+<h3 id="审批能力缝"><a href="#审批能力缝" class="headerlink" title="审批能力缝"></a>审批能力缝</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// ctx.approval 是一次性审批决策</span><br><span class="hljs-comment">// 通过 approval/request waterfall 派发</span><br><span class="hljs-comment">// 无应答者 → fail-closed 为 &#x27;unavailable&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>权限预设（<code>ctx.permissionPresets</code>）打包沙箱模式和审批策略两个旋钮：<code>workspace-write</code> &#x2F; <code>danger-full-access</code>。</p>
+<hr>
+<h2 id="上下文压缩"><a href="#上下文压缩" class="headerlink" title="上下文压缩"></a>上下文压缩</h2><p><strong>文件</strong>：<code>packages/compaction/compaction/src/index.ts</code> + <code>packages/compaction/compaction-basic/src/region.ts</code></p>
+<h3 id="CompactionEngine-服务"><a href="#CompactionEngine-服务" class="headerlink" title="CompactionEngine 服务"></a>CompactionEngine 服务</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CompactionEngine</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Service</span> &#123;<br>  <span class="hljs-comment">// 自动压缩：压力策略或上下文溢出</span><br>  <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">compactIfNeeded</span>(agent, <span class="hljs-attr">trigger</span>: <span class="hljs-title class_">CompactionTrigger</span>, signal): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">CompactionResult</span> | <span class="hljs-literal">null</span>&gt;<br><br>  <span class="hljs-comment">// 手动压缩：即使低于自动阈值</span><br>  <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">compactNow</span>(agent, signal, sourceCommandId?): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">CompactionResult</span> | <span class="hljs-literal">null</span>&gt;<br><br>  <span class="hljs-comment">// 强制压缩指定范围</span><br>  <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">compactRegion</span>(start, end, agent, signal?): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">CompactionResult</span>&gt;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h3><table>
+<thead>
+<tr>
+<th>触发器</th>
+<th>来源</th>
+<th>时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pressure</code></td>
+<td><code>agent/pre-step</code></td>
+<td>请求派生前检测压力</td>
+</tr>
+<tr>
+<td><code>context-overflow</code></td>
+<td><code>agent/request-error</code></td>
+<td>provider 确认上下文溢出</td>
+</tr>
+</tbody></table>
+<h3 id="压缩流程"><a href="#压缩流程" class="headerlink" title="压缩流程"></a>压缩流程</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs nix">┌─────────────────────────────────────────────────┐<br>│  <span class="hljs-number">1</span>. 检测触发 (pressure <span class="hljs-symbol">/</span> context-overflow)       │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">2</span>. 可选 tool-result 修剪                        │<br>│     ctx.toolResultPruner 重写超大 tool result    │<br>│     (replayable 单节点表面替换)                   │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">3</span>. 选择压缩范围                                 │<br>│     <span class="hljs-operator">-</span> 边缘必须平衡（assistant tool call 配对）    │<br>│     <span class="hljs-operator">-</span> toolPairingBalancedBefore <span class="hljs-symbol">/</span> After          │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">4</span>. compaction<span class="hljs-symbol">/start</span> (持久标记 <span class="hljs-operator">=</span> 压缩锁)          │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">5</span>. 构建摘要输入                                 │<br>│     <span class="hljs-params">buildSummarizationInput:</span> 从 shadowedSeqs     │<br>│     派生 region messages                         │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">6</span>. 模型摘要 (frameSummary)                      │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">7</span>. 表面替换 (<span class="hljs-params">surfaceOp:</span> &#x27;replace&#x27;)              │<br>│     <span class="hljs-operator">-</span> 替换选中的表面 span 为一个 summary 节点     │<br>│     <span class="hljs-operator">-</span> replaceGeneration<span class="hljs-operator">++</span> → 缓存失效重建         │<br>│     <span class="hljs-operator">-</span> checkpointMessage 携带 CompactionId        │<br>├─────────────────────────────────────────────────┤<br>│  <span class="hljs-number">8</span>. compaction<span class="hljs-symbol">/end</span>                               │<br>└─────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<p><strong>关键设计</strong>：</p>
+<ul>
+<li><strong>维护模式</strong>：压缩在 <code>runMaintenance()</code> 中运行，仅在 Agent 空闲时执行</li>
+<li><strong>并发锁</strong>：<code>compaction/start</code> 标记是持久锁，直到 <code>compaction/end</code></li>
+<li><strong>稳定性检查</strong>：摘要后验证 span 是否仍可替换（未被并发修改）</li>
+<li><strong>恢复语义</strong>：在失败的 step 和失败的 turn 关闭之间恢复，只有修剪或摘要推进了表面替换代时才打开新的重试 turn</li>
+</ul>
+<hr>
+<h2 id="事件系统"><a href="#事件系统" class="headerlink" title="事件系统"></a>事件系统</h2><p>事件是 dsh 的扩展点，选择正确的域是大多数变更的第一个决策。</p>
+<h3 id="三大事件域"><a href="#三大事件域" class="headerlink" title="三大事件域"></a>三大事件域</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──────────────────────────────────────────────────────────┐<br>│  Session Events (持久事实)                                │<br>│  追加到日志，通过 session/event 广播                       │<br>│  事实必须在重载后存活时使用                                │<br>│  turn/*, step/*, user/message, assistant/*, tool/*       │<br>├──────────────────────────────────────────────────────────┤<br>│  Agent Events (实时协调)                                  │<br>│  携带 live Agent: inbox, step, status, request           │<br>│  观察/拦截进行中的工作时使用                               │<br>│  agent/pre-step, agent/request, agent/turn-stopping...   │<br>├──────────────────────────────────────────────────────────┤<br>│  Capability Events (策略与适配器)                         │<br>│  将策略和适配器附加到缝，不导入循环                         │<br>│  fs/*, tools/*, telemetry/*, llm/stream                  │<br>└──────────────────────────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="Waterfall-事件"><a href="#Waterfall-事件" class="headerlink" title="Waterfall 事件"></a>Waterfall 事件</h3><p><code>agent/pre-step</code>、<code>agent/request</code>、<code>llm/stream</code> 和三个 <code>tools/*</code> 事件是 waterfall——监听器必须调用 <code>next()</code> 委托；<code>agent/turn-stopping</code> 是 serial，没有 <code>next()</code>。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// agent/pre-step 决定模型看到什么</span><br><span class="hljs-keyword">const</span> decision = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">dispatch</span>.<span class="hljs-title function_">waterfall</span>(<br>  <span class="hljs-string">&#x27;agent/pre-step&#x27;</span>, &#123; <span class="hljs-attr">messages</span>: claimed, ...position, signal &#125;,<br>  (): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">PreStepDecision</span>&gt; =&gt; <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(&#123;<br>    <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;enter&#x27;</span>,<br>    <span class="hljs-attr">messages</span>: context === <span class="hljs-literal">undefined</span> ? claimed : [...claimed, context],<br>  &#125;),<br>)<br><span class="hljs-comment">// 监听器可以：rewrite claimed messages / reject（拒绝或空首次 claim 关闭 turn）</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="扩展点地图"><a href="#扩展点地图" class="headerlink" title="扩展点地图"></a>扩展点地图</h2><p>新行为挂载到文档化的扩展点，而非修改循环本身：</p>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加模型 provider</td>
+<td>在 <code>ctx.llm</code> 上注册适配器</td>
+</tr>
+<tr>
+<td>添加模型面向的能力</td>
+<td>在 <code>ctx.tools</code> 上注册；其 schema 加入 prompt 组装</td>
+</tr>
+<tr>
+<td>给一个 session 不同的能力集</td>
+<td>组合 agent preset；服务行需要 <code>isolate</code> realm</td>
+</tr>
+<tr>
+<td>添加 shell 执行</td>
+<td>注册 <code>ctx.shell</code> 后端；本地版通过 <code>ctx.subprocess</code> 派生</td>
+</tr>
+<tr>
+<td>添加人类命令</td>
+<td>在 <code>ctx.commands</code> 上注册；无需模型 turn 即分发</td>
+</tr>
+<tr>
+<td>添加后台工作</td>
+<td>在 <code>ctx.jobs</code> 上注册；<code>job_*</code> 工具收集或停止</td>
+</tr>
+<tr>
+<td>添加文件系统访问或策略</td>
+<td>注册 <code>ctx.fs</code> provider 或监听 <code>fs/*</code> 事件</td>
+</tr>
+<tr>
+<td>限制派生进程</td>
+<td>使用 <code>ctx.sandbox</code> 后端；消费者在派生前包装 argv</td>
+</tr>
+<tr>
+<td>拦截请求&#x2F;工具&#x2F;turn</td>
+<td>使用其 <code>agent/*</code> 或 <code>tools/*</code> 事件</td>
+</tr>
+<tr>
+<td>添加模型面向的上下文</td>
+<td>调用 <code>agent.inject()</code>；落地到下一个 admitted 请求</td>
+</tr>
+<tr>
+<td>添加持久 session 状态</td>
+<td>扩展 <code>SessionEventMap</code>；从日志渲染和重放</td>
+</tr>
+<tr>
+<td>Fork 一个 live session</td>
+<td><code>ctx.sessions.fork(source, boundary?, childSessionId?)</code></td>
+</tr>
+<tr>
+<td>将注册限定到一个 agent</td>
+<td>使用该 agent 的 <code>agent.ctx</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="关键文件索引"><a href="#关键文件索引" class="headerlink" title="关键文件索引"></a>关键文件索引</h2><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>apps/cli/src/bin.ts</code></td>
+<td>CLI 入口，模式分发</td>
+</tr>
+<tr>
+<td><code>apps/cli/src/profile-boot.ts</code></td>
+<td>Profile 组合、启动、热重载</td>
+</tr>
+<tr>
+<td><code>packages/core/agent-loop/src/agent.ts</code></td>
+<td>ReactLoopAgent：Turn&#x2F;Step 驱动器</td>
+</tr>
+<tr>
+<td><code>packages/core/agent-loop/src/tool-calls.ts</code></td>
+<td>executeToolCalls：并发工具调度</td>
+</tr>
+<tr>
+<td><code>packages/core/session/src/index.ts</code></td>
+<td>Session：追加式事件日志、deriveMessages</td>
+</tr>
+<tr>
+<td><code>packages/core/tools/src/index.ts</code></td>
+<td>ToolRuntime：注册表与执行管线</td>
+</tr>
+<tr>
+<td><code>packages/core/tools/src/schema.ts</code></td>
+<td>defineTool：工具定义</td>
+</tr>
+<tr>
+<td><code>packages/core/tools/src/invariant.ts</code></td>
+<td>工具管线不变式</td>
+</tr>
+<tr>
+<td><code>packages/core/system-prompt/src/index.ts</code></td>
+<td>Prompt 组装</td>
+</tr>
+<tr>
+<td><code>packages/llm/llm/src/index.ts</code></td>
+<td>LlmRuntime：流式协议</td>
+</tr>
+<tr>
+<td><code>packages/llm/llm/src/types.ts</code></td>
+<td>StreamChunk、GenerateOptions</td>
+</tr>
+<tr>
+<td><code>packages/sandbox/sandbox/src/index.ts</code></td>
+<td>SandboxProvider：沙箱 Service Definition</td>
+</tr>
+<tr>
+<td><code>packages/sandbox/sandbox-local/src/index.ts</code></td>
+<td>LocalSandboxProvider：多平台实现</td>
+</tr>
+<tr>
+<td><code>packages/compaction/compaction/src/index.ts</code></td>
+<td>CompactionEngine：压缩 Service Definition</td>
+</tr>
+<tr>
+<td><code>packages/compaction/compaction-basic/src/region.ts</code></td>
+<td>基础压缩引擎实现</td>
+</tr>
+<tr>
+<td><code>packages/boot/app-boot/src/profile.ts</code></td>
+<td>Profile&#x2F;Bundle 解析与组合</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="架构设计亮点"><a href="#架构设计亮点" class="headerlink" title="架构设计亮点"></a>架构设计亮点</h2><h3 id="1-一切皆插件"><a href="#1-一切皆插件" class="headerlink" title="1. 一切皆插件"></a>1. 一切皆插件</h3><p>没有特权核心，包括 Agent 循环本身都是可替换的插件。扩展通过挂载插件实现，注册是可逆 effect，卸载自动回滚。这使得 dsh 的每个部分都能从配置替换。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs scss">┌─────────────────────────────────────┐<br>│  UI 层 (React Web / Headless / ACP) │<br>├─────────────────────────────────────┤<br>│  驱动层 (Agent Loop: Turn/Step)     │<br>├─────────────────────────────────────┤<br>│  核心服务 (Session, Tools, Prompt)  │<br>├─────────────────────────────────────┤<br>│  能力缝 (LLM, FS, Shell, Sandbox)   │<br>├─────────────────────────────────────┤<br>│  Cordis 框架 (插件/事件/effect)      │<br>└─────────────────────────────────────┘<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-能力缝三角色"><a href="#2-能力缝三角色" class="headerlink" title="2. 能力缝三角色"></a>2. 能力缝三角色</h3><p>Service Definition &#x2F; Provider &#x2F; Consumer 三角色完整设计，一个 Provider 切换改变整个产品。文件系统和子进程共享执行世界，指向远程沙箱即搬运 Bash、PTY、LSP，无 provider 分叉。</p>
+<h3 id="3-模型可见即已记录"><a href="#3-模型可见即已记录" class="headerlink" title="3. 模型可见即已记录"></a>3. 模型可见即已记录</h3><p>会话日志是唯一事实来源，运行时不变式强制保证模型请求的一切可从日志重建。Fork、resume、transcript、遥测、持久化全部从这条流派生。新增模型可见输入需新增 session event。</p>
+<h3 id="4-追加式日志-表面替换"><a href="#4-追加式日志-表面替换" class="headerlink" title="4. 追加式日志 + 表面替换"></a>4. 追加式日志 + 表面替换</h3><p>追加式事件日志保证历史不可变，表面替换（<code>surfaceOp: &#39;replace&#39;</code>）实现压缩的非破坏性修改。增量缓存（header fold、context fold、derived messages）使每步成本为 O(new events&#x2F;nodes)。</p>
+<h3 id="5-多平台原生沙箱"><a href="#5-多平台原生沙箱" class="headerlink" title="5. 多平台原生沙箱"></a>5. 多平台原生沙箱</h3><p>Landlock（Linux 原生 C addon，静态 musl 编译）、bubblewrap、sandbox-exec、Windows ACL 四平台原生沙箱。Fail-closed 原则：无可用后端时拒绝未受限运行。策略按调用携带，两个消费者可同时在不同策略下受限。</p>
+<h3 id="6-Code-Mode"><a href="#6-Code-Mode" class="headerlink" title="6. Code Mode"></a>6. Code Mode</h3><p>模型通过 <code>run_code</code> 编写程序调用所有工具，而非逐个调用。子分发走完整工具管线，携带 parent token，记录 <code>tool/code-dispatch</code> 事件。这给了模型更强的组合能力。</p>
+<h3 id="7-类型安全与工程化"><a href="#7-类型安全与工程化" class="headerlink" title="7. 类型安全与工程化"></a>7. 类型安全与工程化</h3><ul>
+<li><code>strict: true</code> + <code>noImplicitAny</code>，每个 <code>any</code> 解释为何不可窄化</li>
+<li>每个模块和导出有简洁 JSDoc</li>
+<li>不透明跨边界 ID 使用 branded type（<code>Branded&lt;B&gt;</code>），非裸 <code>string</code></li>
+<li>运行时不变式断言拥有的关系，检查权威事件流而非服务&#x2F;方法存在</li>
+<li>100% 单测覆盖率门控 + 快照测试 + e2e</li>
+</ul>
+<h3 id="8-组合优于硬编码"><a href="#8-组合优于硬编码" class="headerlink" title="8. 组合优于硬编码"></a>8. 组合优于硬编码</h3><ul>
+<li>Profile + Bundle + Patch 层叠组合，用户 <code>cordis.patch.yml</code> 可替换任何行</li>
+<li>用户补丁热重载，实时重组插件树</li>
+<li>部署可变选择是验证过的 <code>Config</code> 字段，可从 cordis.yml 修改</li>
+</ul>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>DeepSeek Harness 是一个<strong>架构理念极致、工程化严谨</strong>的 Agent 框架，几个亮点：</p>
+<ol>
+<li><strong>一切皆插件</strong>：没有特权核心，Agent 循环本身都可替换，注册是可逆 effect</li>
+<li><strong>能力缝架构</strong>：Service Definition &#x2F; Provider &#x2F; Consumer 三角色，一个 Provider 切换改变整个产品</li>
+<li><strong>追加式会话日志</strong>：模型可见即已记录，运行时不变式强制，表面替换实现非破坏压缩</li>
+<li><strong>多平台原生沙箱</strong>：Landlock &#x2F; bubblewrap &#x2F; sandbox-exec &#x2F; Windows ACL，fail-closed</li>
+<li><strong>Code Mode</strong>：模型编写程序调用工具，更强的组合能力</li>
+<li><strong>Cordis 事件系统</strong>：emit &#x2F; waterfall &#x2F; parallel &#x2F; serial 四种派发模式，扩展点清晰</li>
+<li><strong>组合系统</strong>：Profile + Bundle + Patch 层叠，用户补丁热重载</li>
+<li><strong>极致类型安全</strong>：strict + branded type + 运行时不变式 + 100% 覆盖率门控</li>
+</ol>
+<p>dsh 的 monorepo 规模令人印象深刻——54 个包组、219+ 个子包，每个包都是独立 npm 包，通过 Cordis 的 Service&#x2F;Event 机制松耦合组装。”一切皆插件”不是口号，而是从代码到配置的一致实践：<code>dsh --dump-config</code> 输出的任何行都可以被你的 patch 替换。</p>
+<p>对于想要构建<strong>可扩展、可组合的 Agent 框架</strong>的开发者来说，DeepSeek Harness 的源码是一个极好的学习素材——尤其是它的能力缝设计、会话日志不变式、工具执行管线和插件化组合系统。</p>
+<hr>
+<blockquote>
+<p><strong>项目地址</strong>：<a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness">https://github.com/deepseek-ai/deepseek-harness</a><br><strong>版本</strong>：0.1.0-rc.5（developer preview）<br><strong>文档</strong>：<a target="_blank" rel="noopener" href="https://github.com/deepseek-ai/deepseek-harness/tree/main/docs">https://github.com/deepseek-ai/deepseek-harness/tree/main/docs</a><br><strong>框架</strong>：<a target="_blank" rel="noopener" href="https://github.com/cordiverse/cordis">Cordis</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/AI/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" class="category-chain-item">源码解析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/TypeScript/" class="print-no-link">#TypeScript</a>
+      
+        <a href="/tags/AI-Agent/" class="print-no-link">#AI Agent</a>
+      
+        <a href="/tags/DeepSeek-Harness/" class="print-no-link">#DeepSeek Harness</a>
+      
+        <a href="/tags/Cordis/" class="print-no-link">#Cordis</a>
+      
+        <a href="/tags/%E6%8F%92%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84/" class="print-no-link">#插件化架构</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计</div>
+      <div>https://tingfeng347.github.io/2026/08/14/DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年8月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/04/LangGraph%20%E6%BA%90%E7%A0%81%E5%9C%B0%E5%9B%BE%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/" title="LangGraph 源码地图与运行机制">
+                        <span class="hidden-mobile">LangGraph 源码地图与运行机制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
