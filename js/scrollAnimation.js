@@ -41,31 +41,38 @@
       }
     }
 
-    // Scroll animation for cards
-    document.querySelector('.row').setAttribute('style', 'overflow: hidden;');
-    var coefficient = document.documentElement.clientWidth > 768 ? 0.5 : 0.3;
-    var origin = document.documentElement.clientHeight - cards[0].getBoundingClientRect().height * coefficient;
-
-    function throttle(fn, wait) {
-      var timer = null;
-      return function () {
-        var context = this;
-        var args = arguments;
-        if (!timer) {
-          timer = setTimeout(function () {
-            fn.apply(context, args);
-            timer = null;
-          }, wait);
-        }
-      };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
     }
 
-    function handle() {
+    cards.forEach(function (card, index) {
+      card.style.setProperty('--card-delay', Math.min(index * 70, 420) + 'ms');
+      card.classList.add('index-card--pending');
+    });
+
+    var revealCard = function (entry) {
+      entry.target.classList.remove('index-card--pending');
+      entry.target.classList.add('index-card--visible');
+    };
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          revealCard(entry);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
       cards.forEach(function (card) {
-        card.setAttribute('style', '--state: ' + ((card.getBoundingClientRect().top - origin) < 0 ? 1 : 0) + ';');
+        observer.observe(card);
+      });
+    } else {
+      cards.forEach(function (card) {
+        revealCard({ target: card });
       });
     }
-
-    document.addEventListener('scroll', throttle(handle, 100));
   }
 })();
