@@ -1,0 +1,1462 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Tingfeng">
+  <meta name="keywords" content="听风347">
+  
+    <meta name="description" content="WindVim：基于 LazyVim 的中文 Neovim 配置WindVim 是基于 LazyVim 的个人定制 Neovim 配置，面向习惯终端开发、希望使用中文界面并结合 AI 编程工具的用户。它沿用 LazyVim 的插件生态、语言支持与快捷键，再加入一套开箱可用的界面与工作区配置。 默认以独立应用 windvim 运行，可以和已有的 Neovim &#x2F; LazyVim 配置并存，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WindVim：基于 LazyVim 的中文 Neovim 配置">
+<meta property="og:url" content="https://tingfeng347.github.io/2026/10/23/WindVim%EF%BC%9A%E5%9F%BA%E4%BA%8E%20LazyVim%20%E7%9A%84%E4%B8%AD%E6%96%87%20Neovim%20%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="听风347">
+<meta property="og:description" content="WindVim：基于 LazyVim 的中文 Neovim 配置WindVim 是基于 LazyVim 的个人定制 Neovim 配置，面向习惯终端开发、希望使用中文界面并结合 AI 编程工具的用户。它沿用 LazyVim 的插件生态、语言支持与快捷键，再加入一套开箱可用的界面与工作区配置。 默认以独立应用 windvim 运行，可以和已有的 Neovim &#x2F; LazyVim 配置并存，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/dashboard-animation.gif">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/ai-workspace-zh.png">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/project-code.png">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/which-key-zh.png">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/lazy-zh.png">
+<meta property="og:image" content="https://tingfeng347.github.io/images/windvim/picker-zh.png">
+<meta property="article:published_time" content="2026-10-23T02:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-23T00:43:36.457Z">
+<meta property="article:author" content="Tingfeng">
+<meta property="article:tag" content="AI 编程">
+<meta property="article:tag" content="LazyVim">
+<meta property="article:tag" content="Neovim">
+<meta property="article:tag" content="配置">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tingfeng347.github.io/images/windvim/dashboard-animation.gif">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>WindVim：基于 LazyVim 的中文 Neovim 配置 - 听风347</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="/css/selection.css">
+<link rel="stylesheet" href="/css/scrollAnimation.css">
+<link rel="stylesheet" href="/css/about-language.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"tingfeng347.github.io","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":" ","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1,"expand_all":true},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"GkY2x4ae58lAD0OBkJHcUJ1P-gzGzoHsz","app_key":"xm4CRyD3XgXRCAPjCnvvIJe4","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+
+
+  
+<meta name="generator" content="Hexo 8.1.2"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/roadmap/" target="_self">
+                <i class="iconfont icon-map"></i>
+                <span>路线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-link-fill"></i>
+                <span>其他网站</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://tingfeng347.github.io/windplay/" target="_blank">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>WindPlay</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://tingfeng347.github.io/windwiki" target="_blank">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>Wiki仓库</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://github.com/tingfeng347" target="_blank">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                    <i class="iconfont icon-pencil"></i>
+                    <span>CSDN</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>1Panel</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                    <i class="iconfont icon-switch-fill"></i>
+                    <span>宝塔</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/roadmap/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-map"></i>
+                  <span>路线</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            
+            <div class="col-12 mobile-grid-group-header">
+              <i class="iconfont icon-link-fill"></i>
+              <span>其他网站</span>
+            </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://tingfeng347.github.io/windplay/" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>WindPlay</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://tingfeng347.github.io/windwiki" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>Wiki仓库</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://github.com/tingfeng347" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-github-fill"></i>
+                    <span>GitHub</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://blog.csdn.net/weixin_72700161?spm=1000.2115.3001.5343" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-pencil"></i>
+                    <span>CSDN</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="http://81.70.76.97:8090/tencentcloud" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-th-large"></i>
+                    <span>1Panel</span>
+                  </div>
+                </a>
+              </div>
+            
+              
+              
+              
+              <div class="col-4 mobile-grid-cell">
+                <a href="https://81.70.76.97:37208/1d81f0de" target="_blank">
+                  <div class="mobile-grid-item">
+                    <i class="iconfont icon-switch-fill"></i>
+                    <span>宝塔</span>
+                  </div>
+                </a>
+              </div>
+            
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E4%B8%BB%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="WindVim：基于 LazyVim 的中文 Neovim 配置"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-10-23 10:00" pubdate>
+          2026年10月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          31 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="工具"
+        id="heading-20dce2c6fa909a5cd62526615fe2788a" role="tab" data-toggle="collapse" href="#collapse-20dce2c6fa909a5cd62526615fe2788a"
+        aria-expanded="true"
+      >
+        工具
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-20dce2c6fa909a5cd62526615fe2788a"
+           role="tabpanel" aria-labelledby="heading-20dce2c6fa909a5cd62526615fe2788a">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="编辑器"
+        id="heading-53733cd6e368336f07f46755e971cab3" role="tab" data-toggle="collapse" href="#collapse-53733cd6e368336f07f46755e971cab3"
+        aria-expanded="true"
+      >
+        编辑器
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-53733cd6e368336f07f46755e971cab3"
+           role="tabpanel" aria-labelledby="heading-53733cd6e368336f07f46755e971cab3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2026/10/23/WindVim%EF%BC%9A%E5%9F%BA%E4%BA%8E%20LazyVim%20%E7%9A%84%E4%B8%AD%E6%96%87%20Neovim%20%E9%85%8D%E7%BD%AE/" title="WindVim：基于 LazyVim 的中文 Neovim 配置"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">WindVim：基于 LazyVim 的中文 Neovim 配置</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">WindVim：基于 LazyVim 的中文 Neovim 配置</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="WindVim：基于-LazyVim-的中文-Neovim-配置"><a href="#WindVim：基于-LazyVim-的中文-Neovim-配置" class="headerlink" title="WindVim：基于 LazyVim 的中文 Neovim 配置"></a>WindVim：基于 LazyVim 的中文 Neovim 配置</h1><p>WindVim 是基于 <a target="_blank" rel="noopener" href="https://github.com/LazyVim/LazyVim">LazyVim</a> 的个人定制 Neovim 配置，面向习惯终端开发、希望使用中文界面并结合 AI 编程工具的用户。它沿用 LazyVim 的插件生态、语言支持与快捷键，再加入一套开箱可用的界面与工作区配置。</p>
+<p>默认以独立应用 <code>windvim</code> 运行，可以和已有的 Neovim &#x2F; LazyVim 配置并存，互不覆盖。支持 Linux、macOS，Windows 可通过 WSL 使用。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim">https://github.com/tingfeng347/windvim</a></p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E7%89%B9%E6%80%A7">特性</a></li>
+<li><a href="#%E7%95%8C%E9%9D%A2%E9%A2%84%E8%A7%88">界面预览</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0">更新</a></li>
+<li><a href="#%E5%BF%AB%E6%8D%B7%E9%94%AE">快捷键</a></li>
+<li><a href="#%E8%AF%AD%E8%A8%80%E5%88%87%E6%8D%A2%E4%B8%8E%E5%AE%9A%E5%88%B6">语言切换与定制</a></li>
+<li><a href="#%E4%B8%8E%E5%B7%B2%E6%9C%89-Neovim-%E9%85%8D%E7%BD%AE%E5%B9%B6%E5%AD%98">与已有 Neovim 配置并存</a></li>
+<li><a href="#%E5%8D%B8%E8%BD%BD">卸载</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E4%B8%8E%E8%AE%B8%E5%8F%AF">文档与许可</a></li>
+</ol>
+<hr>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><strong>中文 &#x2F; English 随时切换</strong>：覆盖快捷键菜单、插件管理、常用选择器和启动页，切换后记住选择；文件内容、路径与命令保留原文。</li>
+<li><strong>AI CLI 侧栏</strong>：通过 Sidekick 接入已安装的 Codex、Claude 等 CLI，支持同一列堆叠多个面板，方便边看代码边协作。</li>
+<li><strong>浮动终端与导航</strong>：居中圆角终端、文件浏览器、项目搜索、Bufferline 与 Dropbar，沿用熟悉的 LazyVim 操作方式。</li>
+<li><strong>完整的视觉定制</strong>：Catppuccin 透明主题、Markdown 渲染与专属动态启动页，彩色 W 标识搭配有深度的风环与流动粒子。</li>
+<li><strong>配置独立、方便修改</strong>：安装时保护已有目录，显式覆盖会先备份；主题、快捷键与本地汉化层都可单独调整。</li>
+</ul>
+<p><img src="/images/windvim/dashboard-animation.gif" srcset="/img/loading.gif" lazyload alt="WindVim 动态启动页"></p>
+<h2 id="界面预览"><a href="#界面预览" class="headerlink" title="界面预览"></a>界面预览</h2><h3 id="AI-侧栏工作区"><a href="#AI-侧栏工作区" class="headerlink" title="AI 侧栏工作区"></a>AI 侧栏工作区</h3><p>右侧可同时打开 Claude Code 和 Codex，左侧保留文件树与主工作区：</p>
+<p><img src="/images/windvim/ai-workspace-zh.png" srcset="/img/loading.gif" lazyload alt="WindVim 右侧堆叠 Claude Code 与 Codex 面板"></p>
+<h3 id="项目代码编辑"><a href="#项目代码编辑" class="headerlink" title="项目代码编辑"></a>项目代码编辑</h3><p>左侧浏览项目目录，右侧编辑动态标识的 Lua 源码，顶部显示已打开的文件：</p>
+<p><img src="/images/windvim/project-code.png" srcset="/img/loading.gif" lazyload alt="项目代码编辑"></p>
+<h3 id="中文快捷键菜单"><a href="#中文快捷键菜单" class="headerlink" title="中文快捷键菜单"></a>中文快捷键菜单</h3><p>在编辑界面中按 <code>&lt;Space&gt;</code> 停留，即可看到中文快捷键菜单；插件管理面板同样是中文：</p>
+<p><img src="/images/windvim/which-key-zh.png" srcset="/img/loading.gif" lazyload alt="项目中的中文快捷键菜单"></p>
+<p><img src="/images/windvim/lazy-zh.png" srcset="/img/loading.gif" lazyload alt="中文插件管理"></p>
+<h3 id="文件搜索与代码预览"><a href="#文件搜索与代码预览" class="headerlink" title="文件搜索与代码预览"></a>文件搜索与代码预览</h3><p>在项目中查找 Lua 文件，并直接预览对应源码：</p>
+<p><img src="/images/windvim/picker-zh.png" srcset="/img/loading.gif" lazyload alt="项目文件搜索与代码预览"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p><strong>前置要求</strong>：Neovim ≥ 0.11.2（LuaJIT）、Git、<code>rsync</code>。完整依赖见<a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/docs/USAGE.md">使用说明</a>。</p>
+</blockquote>
+<p>用包管理器补依赖（任选其一）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># macOS（已安装 Homebrew）</span><br>brew install neovim git rsync ripgrep fd curl tree-sitter-cli<br><span class="hljs-comment"># C 编译器由 Xcode Command Line Tools 提供：xcode-select --install</span><br><br><span class="hljs-comment"># Arch Linux</span><br><span class="hljs-built_in">sudo</span> pacman -S neovim git rsync ripgrep fd curl tree-sitter-cli base-devel<br></code></pre></td></tr></table></figure>
+
+<p>从 GitHub 安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/tingfeng347/windvim.git<br><span class="hljs-built_in">cd</span> windvim<br>./install.sh<br>~/.local/bin/windvim<br></code></pre></td></tr></table></figure>
+
+<p>默认使用独立配置 <code>~/.config/windvim</code>，安装器不使用 sudo。首次启动会自动下载插件，需要能稳定访问 GitHub；把 <code>~/.local/bin</code> 加入 <code>PATH</code> 后可直接运行 <code>windvim</code>。</p>
+<p>不想用 Git 也可以直接下载源码包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -fL https://github.com/tingfeng347/windvim/archive/refs/heads/main.tar.gz -o windvim.tar.gz<br>tar -xzf windvim.tar.gz<br><span class="hljs-built_in">cd</span> windvim-main<br>./install.sh<br></code></pre></td></tr></table></figure>
+
+<p>安装器只复制配置和创建启动器，不自动安装系统依赖；<strong>目标目录已存在时会直接停止</strong>，只有显式加 <code>--force</code> 才会先备份再替换：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 指定独立配置名，不创建启动器</span><br>./install.sh --appname my-windvim --no-launcher<br>NVIM_APPNAME=my-windvim nvim<br><br><span class="hljs-comment"># 沿用旧的 lazyvim 名称（已有配置时需要 --force，并生成备份）</span><br>./install.sh --appname lazyvim --force --no-launcher<br>NVIM_APPNAME=lazyvim nvim<br></code></pre></td></tr></table></figure>
+
+<p>安装器支持 <code>XDG_CONFIG_HOME</code>、<code>WINDVIM_BIN_DIR</code>（默认 <code>~/.local/bin</code>）和 <code>NVIM_BIN</code> 环境变量。配置目录默认 <code>~/.config/windvim</code>；数据、缓存和状态使用 Neovim 对应的 XDG 目录下的 <code>windvim</code> 子目录。</p>
+<p>启动后建议先跑一遍环境检查：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">:LazyHealth<br>:checkhealth<br></code></pre></td></tr></table></figure>
+
+<p>Copilot 需要单独 <code>:Copilot auth</code> 登录；Sidekick 的 Codex、Claude 等 CLI 需各自安装并登录，可用 <code>:checkhealth sidekick</code> 查看状态。<strong>未配置 AI 账号时，文件编辑、导航和汉化功能仍然可用</strong>，AI 服务与其订阅不包含在项目中。</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>在最初克隆的项目目录执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull --ff-only<br>./install.sh --force<br></code></pre></td></tr></table></figure>
+
+<p>更新前会备份旧配置；插件可在编辑器中通过 <code>:Lazy</code> 管理，或显式同步锁文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">./scripts/sync.sh<br><span class="hljs-comment"># 自定义配置名：NVIM_APPNAME=my-windvim ./scripts/sync.sh</span><br></code></pre></td></tr></table></figure>
+
+<p><code>--force</code> 会把旧配置保存为配置目录旁的 <code>windvim.backup.&lt;时间戳&gt;.&lt;进程号&gt;</code>，旧启动器也单独备份；数据目录保留，回滚时移走新配置、把备份目录改回原名即可。</p>
+<blockquote>
+<p>用源码压缩包安装的目录没有 Git 元数据，后续更新请重新下载源码包再跑 <code>./install.sh --force</code>。</p>
+</blockquote>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>Leader 键是<strong>空格</strong>，其余操作沿用 <a target="_blank" rel="noopener" href="https://www.lazyvim.org/keymaps">LazyVim 默认快捷键</a>。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切换中文 &#x2F; English</td>
+<td><code>&lt;Space&gt;uH</code></td>
+</tr>
+<tr>
+<td>查找文件 &#x2F; 搜索文本</td>
+<td><code>&lt;Space&gt;ff</code> &#x2F; <code>&lt;Space&gt;sg</code></td>
+</tr>
+<tr>
+<td>文件浏览器</td>
+<td><code>&lt;Space&gt;e</code></td>
+</tr>
+<tr>
+<td>居中浮动终端</td>
+<td><code>&lt;Space&gt;tp</code></td>
+</tr>
+<tr>
+<td>切换 &#x2F; 选择 AI CLI</td>
+<td><code>&lt;Space&gt;aa</code> &#x2F; <code>&lt;Space&gt;as</code></td>
+</tr>
+<tr>
+<td>Sidekick 提示词</td>
+<td><code>&lt;Space&gt;ap</code></td>
+</tr>
+<tr>
+<td>插件管理 &#x2F; LazyVim Extras</td>
+<td><code>:Lazy</code> &#x2F; <code>:LazyExtras</code></td>
+</tr>
+</tbody></table>
+<h2 id="语言切换与定制"><a href="#语言切换与定制" class="headerlink" title="语言切换与定制"></a>语言切换与定制</h2><p>汉化覆盖快捷键菜单、插件管理、常用选择器和启动页，切换后会记住选择：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-comment">&quot; 显式设置界面语言</span><br>:LazyVimLanguage zh_CN<br>:LazyVimLanguage <span class="hljs-keyword">en</span><br></code></pre></td></tr></table></figure>
+
+<p>临时以英文启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">LAZYVIM_LANGUAGE=en windvim<br></code></pre></td></tr></table></figure>
+
+<p>完全禁用汉化，把 <code>lua/plugins/i18n.lua</code> 里的 <code>enabled</code> 设为 <code>false</code>，重新安装配置并重启即可。翻译范围、语言切换细节与自定义词典见<a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/local-plugins/lazyvim-i18n.nvim/README.md">汉化插件说明</a>。</p>
+<p>启动页动画只更新标识区域，不改动菜单、光标或文件内容；打开其他面板、离开启动页或终端失焦时暂停，小窗口使用静态文字标识。想用静态启动页：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">WINDVIM_ANIMATION=0 windvim<br></code></pre></td></tr></table></figure>
+
+<p>设置 <code>NO_COLOR</code> 时也会停止动画。动画用原生终端字符实现，不需要终端图像协议，也不需要额外插件。</p>
+<p>定制时建议改<strong>项目目录</strong>里的 <code>lua/config/</code>、<code>lua/plugins/</code> 或本地汉化插件，再 <code>./install.sh --force</code> 部署；直接改安装目录下的副本，改动会随下次备份一起被搁置。</p>
+<h2 id="与已有-Neovim-配置并存"><a href="#与已有-Neovim-配置并存" class="headerlink" title="与已有 Neovim 配置并存"></a>与已有 Neovim 配置并存</h2><p>WindVim 靠 <code>NVIM_APPNAME</code> 隔离，不走 <code>~/.config/nvim</code>，所以不会碰你现有的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 等价于 NVIM_APPNAME=windvim nvim</span><br>windvim<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>配置</td>
+<td><code>${XDG_CONFIG_HOME:-~/.config}/windvim</code></td>
+</tr>
+<tr>
+<td>数据</td>
+<td><code>${XDG_DATA_HOME:-~/.local/share}/windvim</code></td>
+</tr>
+<tr>
+<td>缓存</td>
+<td><code>${XDG_CACHE_HOME:-~/.cache}/windvim</code></td>
+</tr>
+<tr>
+<td>状态</td>
+<td><code>${XDG_STATE_HOME:-~/.local/state}/windvim</code></td>
+</tr>
+<tr>
+<td>启动器</td>
+<td><code>~/.local/bin/windvim</code>（可用 <code>WINDVIM_BIN_DIR</code> 改）</td>
+</tr>
+</tbody></table>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;XDG_CONFIG_HOME:-<span class="hljs-variable">$HOME</span>/.config&#125;</span>/windvim&quot;</span><br><span class="hljs-built_in">rm</span> -f ~/.local/bin/windvim<br></code></pre></td></tr></table></figure>
+
+<p>插件、缓存与语言状态可按需单独删除：<code>~/.local/share/windvim</code>、<code>~/.cache/windvim</code>、<code>~/.local/state/windvim</code>。旧的 <code>nvim</code> &#x2F; <code>lazyvim</code> 配置和备份都会保留。</p>
+<h2 id="文档与许可"><a href="#文档与许可" class="headerlink" title="文档与许可"></a>文档与许可</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/docs/USAGE.md">使用说明</a>：依赖、安装选项、AI 登录、定制、更新与卸载</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/docs/GALLERY.md">界面预览</a>：中文菜单、文件选择器、插件管理与英文界面</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/local-plugins/lazyvim-i18n.nvim/README.md">汉化插件</a>：翻译范围、语言切换与自定义词典</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/docs/DEVELOPMENT.md">开发与分发</a>：测试、截图复现与源码打包</li>
+</ul>
+<p>项目以 <a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/LICENSE">Apache-2.0</a> 许可开源，基于 <a target="_blank" rel="noopener" href="https://github.com/LazyVim/LazyVim">LazyVim</a> 与 <a target="_blank" rel="noopener" href="https://github.com/LazyVim/starter">LazyVim Starter</a>，感谢 <a target="_blank" rel="noopener" href="https://github.com/folke">folke</a> 及各插件作者，来源与修改说明见 <a target="_blank" rel="noopener" href="https://github.com/tingfeng347/windvim/blob/main/NOTICE">NOTICE</a>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B7%A5%E5%85%B7/" class="category-chain-item">工具</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%B7%A5%E5%85%B7/%E7%BC%96%E8%BE%91%E5%99%A8/" class="category-chain-item">编辑器</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/LazyVim/" class="print-no-link">#LazyVim</a>
+      
+        <a href="/tags/Neovim/" class="print-no-link">#Neovim</a>
+      
+        <a href="/tags/%E9%85%8D%E7%BD%AE/" class="print-no-link">#配置</a>
+      
+        <a href="/tags/AI-%E7%BC%96%E7%A8%8B/" class="print-no-link">#AI 编程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>WindVim：基于 LazyVim 的中文 Neovim 配置</div>
+      <div>https://tingfeng347.github.io/2026/10/23/WindVim：基于 LazyVim 的中文 Neovim 配置/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Tingfeng</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年10月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/08/14/DeepSeek%20Harness%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%EF%BC%9ADeepSeek%20%E5%AE%98%E6%96%B9%20Agent%20%E6%A1%86%E6%9E%B6%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" title="DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计">
+                        <span class="hidden-mobile">DeepSeek Harness 源码解析：DeepSeek 官方 Agent 框架的插件化架构设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"SoI1dWbW2477fTnIsxaEGPdK-gzGzoHsz","appKey":"QW2VXyiVg7h8JOttaYRvJNQT","path":"window.location.pathname","placeholder":"留下你的足迹o(*￣▽￣*)ブ","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":15,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <div class="site-footer">
+  <div class="site-footer-details">
+    <div class="site-footer-meta">
+      © <span id="site-footer-year">2023</span><span class="site-footer-separator">•</span>博客<span class="site-footer-separator">•</span>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow noopener">Hexo</a> &amp; <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">Fluid</a>
+    </div>
+    <div class="site-footer-runtime">建站 <span id="site-runtime">计算中…</span><span id="site-footer-statistics"></span></div>
+  </div>
+</div>
+
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/love.min.js"></script>
+<script src="/js/scrollAnimation.js"></script>
+<script src="/js/site-runtime.js"></script>
+<script src="/js/about-language.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
